@@ -22,18 +22,12 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 # Copiar código de la aplicación
-COPY main_whatsapp.py .
+COPY main.py .
 COPY whatsapp_client.py .
 
-# Copiar script de ingesta y documentos (NUEVO)
-COPY ingest.py .
-COPY documents/ ./documents/
-
-# Ejecutar ingesta para crear knowledge base (NUEVO)
-RUN python ingest.py
-
-# Los archivos knowledge_base.index y knowledge_base.json
-# se crearán durante el build
+# Copiar base de conocimiento ya generada
+COPY knowledge_base.index .
+COPY knowledge_base.json .
 
 # Crear usuario no-root para seguridad
 RUN useradd -m -u 1001 chatbot && \

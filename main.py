@@ -275,11 +275,13 @@ REGLAS FUNDAMENTALES:
 - NO mezcles información de diferentes facultades
 - Siempre cierra ofreciendo más ayuda
 - Sé específico: menciona números, ubicaciones completas, horarios exactos'''
+# Preparar la parte del historial primero (fuera del f-string)
+    history_section = f"CONVERSACIÓN PREVIA:\n{history}\n\n" if history else ""
 
     if context:
-        full_prompt = f"{system_prompt}\n\nINFORMACIÓN DISPONIBLE:\n{context}\n\n{('CONVERSACIÓN PREVIA:\n' + history) if history else ''}\nPREGUNTA DEL USUARIO: {user_message}\n\nRESPUESTA (máximo 150 palabras):"
+        full_prompt = f"{system_prompt}\n\nINFORMACIÓN DISPONIBLE:\n{context}\n\n{history_section}PREGUNTA DEL USUARIO: {user_message}\n\nRESPUESTA (máximo 150 palabras):"
     else:
-        full_prompt = f"{system_prompt}\n\n{('CONVERSACIÓN PREVIA:\n' + history) if history else ''}\nPREGUNTA DEL USUARIO: {user_message}\n\nRESPUESTA (máximo 150 palabras):"
+        full_prompt = f"{system_prompt}\n\n{history_section}PREGUNTA DEL USUARIO: {user_message}\n\nRESPUESTA (máximo 150 palabras):"
 
     logger.info(f"Intentando con {OLLAMA_MODEL}...")
     response = call_ollama(full_prompt, OLLAMA_MODEL, stream=True, timeout=OLLAMA_TIMEOUT)

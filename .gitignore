@@ -1,0 +1,36 @@
+# Variables de entorno
+.env
+
+# Base de conocimiento generada
+knowledge_base.index
+knowledge_base.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Dashboard stats
+dashboard_stats.json

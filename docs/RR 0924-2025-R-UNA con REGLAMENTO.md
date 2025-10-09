@@ -1,0 +1,299 @@
+# Universidad Nacional del Altiplano - Puno
+## Resolución Rectoral N°: 0924-2025-R-UNA
+
+**Puno, 26 de marzo del 2025**
+
+### VISTOS:
+
+El OFICIO N° 727-2024-VRI-UNA-PUNO (30-12-2024) del señor Vicerrector de Investigación; y, MEMORANDUM N° 399-2025-SG-UNA-PUNO (24-03-2025) emitido por Secretaría General de esta Casa Superior de Estudios, que contiene el acuerdo de Consejo Universitario Extraordinario del 31 de diciembre del 2024, referidos a aprobar el REGLAMENTO DEL REGISTRO, PRESENTACIÓN Y DICTAMEN DE LOS PROYECTOS DE TESIS DE PREGRADO de la Universidad Nacional del Altiplano - Puno, que consta de IX Títulos, 37 artículos, Disposiciones Complementarias, Disposiciones Transitorias, 2 formatos y 1 anexo;
+
+### CONSIDERANDO:
+
+Que, de conformidad al Artículo 18° de la Constitución Política del Perú, en concordancia con el Artículo 8° de la Ley N° 30220, cada universidad es autónoma, en su régimen normativo, de gobierno, académico, administrativo y económico; por lo que, las universidades se rigen por su propios estatutos en el marco de la Constitución y de las leyes;
+
+Que, respecto a la autonomía normativa en esta Casa Superior de Estudios, según el Estatuto aprobado con la R.A.U. N° 008-2023-AU-UNA, implica la potestad autodeterminativa para la creación de normas internas (estatuto y reglamentos) destinadas a regular la institución universitaria; consiguientemente, el numeral 932 del Artículo 93° del cuerpo normativo mencionado, establece como atribución del Consejo Universitario, aprobar el Reglamento de Organización y Funciones, el Reglamento de Elecciones y otros reglamentos de la universidad, así como vigilar su cumplimiento;
+
+Que, el Artículo 74° del Estatuto Universitario vigente, establece que el Instituto de Investigación es el órgano dependiente del Vicerrectorado de Investigación. Es la unidad orgánica responsable de gestionar, administrar, supervisar y evaluar la investigación institucional, en coordinación con las unidades de investigación de las facultades. Está dirigido por un docente investigador ordinario asociado o principal que tenga un nivel REMACT alto, propuesto por el Vicerrector de Investigación, ratificado por el Consejo Universitario, por un período de dos (02) años. Puede ser ratificado. Es un cargo a dedicación exclusiva y de confianza;
+
+Que, en uso de sus atribuciones, el director del Instituto de Investigación de esta Universidad, mediante OFICIO N° 071-2024-II-VRI-UNA-PUNO, remite a la distancia superior a fin de ser aprobada. La propuesta del REGLAMENTO DEL REGISTRO, PRESENTACIÓN Y DICTAMEN DE LOS PROYECTOS DE TESIS DE PREGRADO; que consta de IX Títulos, 37 artículos, Disposiciones Complementarias, Disposiciones Transitorias, 2 formatos y 1 anexo, y forma parte integrante de la presente Resolución. Asimismo, de dicha documental se desprende que el presente reglamento norma la presentación de proyectos de tesis de pregrado conducentes a la obtención del título profesional, vía plataforma de investigación integrada a la labor académica con responsabilidad (PILAR) del Vicerrectorado de Investigación (VRI) de la Universidad Nacional del Altiplano de Puno (UNA-PUNO) para los estudiantes matriculados y egresados de esta Universidad;
+
+Que, consiguientemente y en el marco de la normativa vigente, conforme a la transcripción contenida en el MEMORANDUM N° 399-2025-SG-UNA-PUNO (24-03-2025), el Pleno del Honorable Consejo Universitario Extraordinario del 31 de diciembre del 2024, ha aprobado el REGLAMENTO DEL REGISTRO, PRESENTACIÓN Y DICTAMEN DE LOS PROYECTOS DE TESIS DE PREGRADO; que consta de IX Títulos, 37 artículos, Disposiciones Complementarias, Disposiciones Transitorias, 2 formatos y 1 anexo;
+
+Estando a la documentación sustentatoria adjunta al presente expediente, contando con la opinión técnica favorable de la Unidad de Planeamiento y Modernización contenida en el INFORME N° 2730-2024-SM-UPM-OPP-UNA-P, y opinión procedente de la Oficina de Asesoría Jurídica signada con el INFORME LEGAL N° 3299-2024-OAJ-UNA-PUNO, resulta necesario emitir el respectivo acto administrativo. En el marco de las atribuciones conferidas por la Ley N° 30220 – Ley Universitaria, el Estatuto Universitario y la Resolución de Asamblea Universitaria N° 009-2021-AU-UNA;
+
+### SE RESUELVE:
+
+**Artículo Primero.**- APROBAR, el "REGLAMENTO DEL REGISTRO, PRESENTACIÓN Y DICTAMEN DE LOS PROYECTOS DE TESIS DE PREGRADO" de esta Casa Superior de Estudios; que consta de IX Títulos, 37 artículos, Disposiciones Complementarias, Disposiciones Transitorias, 2 formatos y 1 anexo, el cual forma parte integrante de la presente Resolución.
+
+**Artículo Segundo.**- DISPONER, la estricta aplicación del reglamento aprobado precedentemente, así como, su publicación en el Portal de Transparencia y Acceso a la Información Pública de esta Universidad.
+
+**Artículo Tercero.**- NOTIFICAR, el presente acto administrativo a los Vicerrectorados Académico y de Investigación, a la Dirección General de Administración, Oficina de Planeamiento y Presupuesto, Dirección de Gestión Académica, Facultades, Escuelas Profesionales, y demás dependencias correspondientes de la entidad para que queden encargados de su cumplimiento.
+
+**Regístrese, comuníquese y cúmplase**
+
+---
+
+# REGLAMENTO DEL REGISTRO, PRESENTACIÓN Y DICTAMEN DE LOS PROYECTOS DE TESIS DE PREGRADO
+
+## I. INTRODUCCIÓN
+
+El presente reglamento norma la presentación de proyectos de tesis de pregrado conducentes a la obtención del título profesional, vía Plataforma de Investigación Integrada a la Labor Académica con Responsabilidad (PILAR) del Vicerrectorado de Investigación (VRI) de la Universidad Nacional del Altipiano de Puno (UNA-PUNO), para los estudiantes matriculados y egresados de la Universidad Nacional del Altipiano.
+
+## II. BASE LEGAL
+
+- Constitución Política del Perú.
+- Ley N° 30220, Ley Universitaria.
+- Gobierno electrónico Presidencia del Consejo de Ministros.
+- Ley de Colegios profesionales del Perú.
+- Ley de la transparencia de acceso a la información.
+- Ley N° 27444, Ley de procedimiento general administrativo.
+- Estatuto Universitario 2023 (Aprobado por Resolución de Asamblea Universitaria N° 008-2023-AU-UNA).
+- Resolución del Consejo Directivo N° 101-2017-SUNEDU/CD.
+- Resolución Rectoral N° 1783-2024-R-UNA (Reglamento del Comité de Integridad Científica).
+- Resolución Rectoral N° 0065-2023-R-UNA (Reglamento de ética en Investigación Comité Institucional de ética en Investigación).
+
+## III. REGISTRO DE LOS ESTUDIANTES Y EGRESADOS USUARIOS DE LA PLATAFORMA PILAR
+
+**Art. 1º** El estudiante o egresado se registrará en la Plataforma PILAR con su código de Matrícula y Documento Nacional de Identidad (DNI), para la respectiva validación de la información consignada y ser considerado usuario de PILAR.
+
+**Art. 2º** Los estudiantes matriculados en los tres (03) últimos semestres de estudios en la UNA-PUNO y los egresados, quienes opten por la titulación en la modalidad de Tesis, deberán presentar sus proyectos de investigación, considerando los formatos de cada escuela profesional debidamente aprobados con resolución Decanal, utilizando la Plataforma PILAR con la siguiente dirección de página web.
+
+## IV. PRESENTACIÓN DEL PROYECTO DE INVESTIGACIÓN
+
+**Art. 3º** El alumno tiene el derecho de gratuidad para el asesoramiento, la elaboración y la sustentación de su tesis, en virtud al artículo 100 inciso 100.13 de la Ley Universitaria 30220 y el artículo 257 inciso 257.12 del Estatuto Universitario 2023 de la UNA-Puno.
+
+La Escuela Profesional tiene la responsabilidad y obligación de hacer cumplir estos artículos.
+
+**Art. 4º** Etapa de inicio: el estudiante o egresado, con autorización, conocimiento y aprobación del director de tesis, quien debe ser necesariamente un docente ordinario que este adscrito en la sub línea principal de investigación de la Escuela Profesional del interesado; subirá su proyecto de tesis usando un gestor de referencias bibliográficas y el reporte de similitud realizado y firmado por el director de la tesis respectiva y los anexos que componen el proyecto de tesis en formato digital PDF (Portable Document File), con un máximo de 15 páginas cumpliendo el formato indicado en el Artículo 1º del presente Reglamento, a través de la Plataforma pilar, seleccionando al director de tesis en la Plataforma PILAR.
+
+**Art. 5º** Los proyectos de investigación que involucren muestras biológicas de personas, investigaciones epidemiológicas, genética, social y de comportamiento, deberán ser revisados y autorizados a través de una constancia emitida por el Comité Institucional de Ética en Investigación (CIEI) de la UNA-PUNO, cuyo plazo de revisión estará comprendido hasta los 40 días, según la complejidad.
+
+**Art. 6º** Los proyectos de investigación referidos a ensayos clínico (uso de productos farmacológicos, y/o productos biológicos, y/o uso de dispositivos médicos) deben ser revisados y autorizados por el Instituto Nacional de Salud del Perú (INS) a través de una constancia.
+
+**Art. 7º** Subido el proyecto de tesis, el personal administrativo de la unidad de investigación de la Facultad, a través de la Plataforma PILAR, revisarán el estricto cumplimiento del formato de presentación además del porcentaje de similitud del reporte de similitud, de acuerdo con lo establecido en el presente Reglamento (Artículo 3º), en un plazo máximo de tres (03) días hábiles, bajo responsabilidad. En caso de que el personal administrativo encuentre incumplimiento, el proyecto será devuelto al interesado para su corrección. En caso de no cumplirse con el plazo de 3 días, la Plataforma PILAR, deberá retornar el documento al interesado y se informará del incumplimiento de funciones al Decano de la respectiva Facultad.
+
+**Art. 8º** Si el proyecto no cumple con los formatos establecidos o presenta un reporte de similitud con un porcentaje superior al 20% o indicios de evasión a la integridad del texto presentado como texto oculto o caracteres reemplazados o no adjunta la declaración jurada sobre autoría autenticidad y uso ético de herramientas de Inteligencia Artificial (anexo 1), el personal administrativo devolverá el proyecto al interesado para su corrección.
+
+**Art. 9º** Los proyectos de tesis que cumplan los formatos de presentación establecidos por el presente Reglamento, se enviarán al director de tesis a través de la Plataforma PILAR notificándoselas a través de la Unidad de Investigación mediante un memorándum físico y correo electrónico institucional para que pueda aceptar y autorizar la continuación del trámite de proyecto de tesis subido a la Plataforma. El plazo máximo de respuesta del Director es de tres (03) días hábiles.
+
+En caso de no haber respuesta del director de tesis elegido por el interesado y transcurrido el tiempo establecido, el proyecto se considerará como no presentado. Si es aceptado, el proyecto de tesis proseguirá con su trámite, si es observado, se notificará al interesado a través de la Plataforma PILAR y correo electrónico, para que subsane la observación conjuntamente con su director de tesis en un plazo máximo de dos (02) días hábiles.
+
+**Art. 10°** Si las normas internas de cada Facultad lo permiten, el número máximo de co-asesores será de uno (01) profesional, los cuales deberán estar registrados en la Plataforma PILAR mediante el enlace.
+
+## V. DEL SORTEO DE LOS MIEMBROS DEL JURADO REVISOR Y DICTAMINADOR DE TESIS
+
+**Art. 11°** El sorteo de los miembros integrantes del jurado revisor y dictaminador del proyecto de tesis se realizará, mediante la Plataforma PILAR, en las unidades de investigación de las Facultades de la UNA-Puno y estará a cargo del respectivo director de la unidad de investigación o subdirector de investigación de la Facultad o Escuela Profesional (en caso la Facultad tuviera varias escuelas).
+
+**Art. 12°** El proyecto de tesis autorizado a trámite por el director de tesis, será revisado y validado por el director de investigación (o subdirector de investigación) de la respectiva Facultad (o Escuela Profesional), para proceder al sorteo, en un plazo máximo de tres (03) días hábiles, con un máximo de cinco (5) intentos, bajo responsabilidad, informándose la conformación obtenida al tesista y al director de tesis a través de la plataforma PILAR.
+
+**Art. 13°** En caso de que el director de la unidad de investigación (o subdirector de investigación) considere, que el proyecto de tesis no se encuentra apto para efectuar el sorteo de los jurados, debido a razones y motivos debidamente justificados, (principalmente éticos o de integridad científica), estos motivos, bajo responsabilidad, serán comunicados al interesado y a su director de tesis a través de PILAR, para la respectiva corrección, absolución y subsanación, en un plazo máximo de tres (03) días hábiles.
+
+**Art. 14°** Efectuada las correcciones y aprobadas por el director de tesis el interesado subirá el documento a la plataforma PILAR para su envío al director de Investigación o subdirector de investigación para su validación y proceder al respectivo sorteo, en un plazo máximo de 3 días hábiles.
+
+**Art. 15°** Si el director de la unidad de investigación (o subdirector de investigación) considera que las subsanaciones son insuficientes, comunicará al director de tesis y al interesado, a través de la Plataforma PILAR los motivos y justificaciones de tal decisión y el proyecto de tesis será considerado como no presentado. Si el interesado decide continuar con el proyecto de tesis, este tendrá que ser reformulado y volver a la Etapa de Inicio. Si el interesado considera que sus subsanaciones son suficientes podrá presentar su caso al Instituto de Investigación para su determinación.
+
+**Art. 16°** Si transcurridos cuatro (04) días hábiles desde que el proyecto de tesis ingresó a la bandeja de la Plataforma PILAR (teniendo en cuenta el Art. 9) del director de la unidad de investigación o subdirector y no haya realizado el sorteo, la Plataforma PILAR sorteará automáticamente a los miembros integrantes del jurado revisor, e informará de este hecho al Instituto de Investigación del VRI para las acciones correspondientes.
+
+## VI. DE LA COMPOSICIÓN DEL JURADO DE PROYECTO DE TESIS
+
+**Art. 17°** El jurado revisor/dictaminador de los proyectos de tesis estará conformado por tres (03) docentes de la UNA-PUNO sorteados aleatoriamente a través de la Plataforma PILAR. Teniendo mayor prioridad los docentes que tengan menor cantidad de designación de jurado. Los docentes sorteados deberán pertenecer a la sub línea de investigación del proyecto de tesis presentado.
+
+**Art. 18°** Los docentes contratados de la UNA-PUNO podrán integrar el jurado revisor de los proyectos de tesis hasta un número de uno (01) por proyecto.
+
+**Art. 19°** De los tres (03) docentes miembros, del jurado revisor/dictaminador del proyecto de tesis, al menos uno (01) debe ser docente ordinario, del mismo programa profesional del tesista.
+
+**Art. 20°** Los docentes de la UNA-PUNO sorteados para ser miembros del jurado revisor/dictaminador del proyecto de tesis, que no pertenezcan a la Escuela Profesional del solicitante, no podrán ocupar la presidencia del jurado, independiente de su categoría docente.
+
+**Art. 21°** El presidente del Jurado del proyecto de tesis, el primer miembro y el segundo miembro serán asignados por la Plataforma PILAR considerando los siguientes criterios en orden de prioridad:
+
+a) Grado académico  
+b) Categoría y dedicación  
+c) Antigüedad en la categoría  
+
+**Art. 22°** Para ser considerados miembros del jurado revisor/dictaminador del proyecto de tesis y directores de tesis, los docentes de la UNA-Puno deben estar habilitados por su respectivo Colegio Profesional, registrados en el CTI Vitae del CONCYTEC, registro ORCID, estar registrado en el Sistema de Información de Investigación de la Universidad Nacional Del Altiplano - SIGIU. En caso de no existir Colegios Profesionales se validará con el registro del CTI VITAE, este proceso estará a cargo de las Unidades o Sub Unidades de Investigación en cada escuela profesional.
+
+**Art. 23°** Las unidades de investigación de las Facultades a través de la Plataforma PILAR y memorándum notificarán a los docentes sorteados, integrantes del jurado revisor/dictaminador del proyecto de tesis a través de la bandeja de mensajes de la Plataforma, correo electrónico institucional y memorándum para su aceptación, revisión y dictamen adjuntando el proyecto de tesis en formato digital, considerando que es de carácter obligatorio que los nombres del tesista, director(a), asesor(a) y los miembros del jurado sean de dominio público.
+
+**Art. 24°** Los docentes sorteados tienen la opción de aceptar ser jurado revisor/dictaminador del proyecto de tesis, en caso de no aceptar se deberá indicar los motivos por los cuales no se acepta (incompatibilidad, exceso de proyectos, falta de tiempo por responsabilidad en la universidad) y el proyecto volverá a la etapa de sorteo para sustituir a este jurado. En caso de que los motivos considerados no sean debidamente sustentados se aplicaran las sanciones conforme a lo estipulado en el Estatuto Universitario y de acuerdo a la Ley Universitaria 30220, teniendo en consideración que el artículo 79 de la misma ley estipula que los docentes universitarios tienen como funciones la investigación, el mejoramiento continuo y permanente de la enseñanza, la proyección social y la gestión universitaria, en los ámbitos que les corresponde.
+
+**Art. 25°** En caso no existan docentes en la plataforma para realizar el sorteo, el proyecto será retirado de la plataforma y la sub línea será suspendida de nuevos proyectos, pasando a ser evaluada su continuidad por el Instituto de Investigación.
+
+## VII. DE LA REVISIÓN DEL PROYECTO DE TESIS
+
+**Art. 26°** Los miembros sorteados del jurado revisor/dictaminador del proyecto de tesis que acepten su participación deberán revisar el documento en un plazo máximo de siete (07) días hábiles. La(s) respectiva(s) observación(es) o sugerencia(s) deberán estar hechas con objetividad, claridad y precisión científica, indicando el número de línea(s) del proyecto de tesis en la(s) cual(es) se realiza la observación(es) o sugerencia(s).
+
+Las correcciones de cada jurado serán registradas en la Plataforma PILAR obligatoriamente para la continuidad del trámite. El no cumplimiento en la revisión de proyectos es considerado falta grave y será comunicado a su facultad para la sanción correspondiente. Para continuar con la revisión del proyecto de tesis, por lo menos 02 jurados deberán haber revisado el proyecto.
+
+**Art. 27°** Pasado el tiempo establecido en el Art.° 22 del presente Reglamento y recibidas las observaciones y sugerencias realizadas por el jurado revisor/dictaminador, la plataforma PILAR enviará al interesado y al director de tesis, dichas observaciones, para su correspondiente subsanación, corrección, argumentación y/o fundamentación en un plazo máximo de diez (10) días calendario.
+
+**Art. 28°** Si transcurrido este tiempo máximo estipulado en el Art.° 23 y no existiese respuesta alguna del interesado, el proyecto de tesis será automáticamente retirado de la plataforma PILAR y se considerará como no presentado, sancionando al usuario limitando su acceso a la plataforma por un (01) mes, salvo justificación comprobada y admitida con evidencias.
+
+En este plazo el interesado, con el visto bueno del director de tesis subirá a la Plataforma PILAR el proyecto de tesis corregido adjuntando el informe de las correcciones (formato 2) señalando el número de línea de cada una de las observaciones realizadas por el jurado revisor/dictaminador y el respectivo número de línea en la que se realizó la corrección.
+
+## VIII. DEL DICTAMEN Y APROBACIÓN DEL PROYECTO DE TESIS
+
+**Art. 29°** La Plataforma PILAR remitirá a los jurados el proyecto de tesis corregido para su dictamen y conformidad final. Este documento deberá ser revisado en un plazo máximo de tres (03) días hábiles. Si transcurrido este tiempo, no existiera respuesta alguna de (los) jurado(s), se notificará por segunda vez por la Plataforma PILAR y las unidades de investigación otorgándoles un plazo máximo de 03 días hábiles adicionales.
+
+**Art. 30°** Las opciones del dictamen del proyecto de tesis por parte de los miembros del jurado revisor/dictaminador son:
+
+a) Apto para su ejecución sin observaciones  
+b) Apto para su ejecución con observaciones menores  
+c) No apto para ejecución (criterios de fondo)  
+
+El proyecto de tesis podrá ser declarado apto para su ejecución (alternativas a y b) por mayoría, por al menos 2 dictámenes favorables o por unanimidad de los miembros integrantes del jurado revisor/dictaminador.
+
+*Las observaciones menores consideradas en el punto b del dictamen del proyecto de tesis, deberán ser subsanadas, corregidas, argumentadas, fundamentadas o justificadas en el proceso de ejecución del mismo o durante la redacción y defensa del borrador de tesis.*
+
+**Art. 31°** Los miembros del jurado revisor/dictaminador que hayan revisado y declaren apto el proyecto de tesis serán considerados posteriormente para el proceso de revisión de los borradores de tesis y defensa del trabajo. Los que no hayan revisado el proyecto o no declaren apto el proyecto, serán retirados del proceso de revisión de borrador de tesis.
+
+**Art. 32°** En caso de que se retire a un jurado, PILAR repondrá al jurado considerando los artículos 17 y 21 del presente reglamento. Si el docente no acepta deberá indicar sus motivos (incompatibilidad, exceso de proyectos, falta de tiempo por responsabilidad en la universidad) y se procederá a una nueva designación, considerando los artículos 24º y 25º.
+
+## IX. DE LA EJECUCIÓN DEL PROYECTO DE TESIS
+
+**Art. 33º** El plazo para desarrollar el proyecto de tesis declarado apto para su ejecución (Artículo 25º del presente Reglamento) y sustentación, será de tres (03) meses como mínimo y dos (02) años como máximo. El interesado, podrá solicitar a la Unidad de Investigación de su Facultad, una ampliación de plazo para la culminación y defensa de su trabajo de tesis hasta por seis (06) meses como máximo, la misma que deberá ser presentada antes del vencimiento de la ejecución (02 años) y estando el trámite en la etapa de borrador de tesis.
+
+Esta solicitud de ampliación deberá ser autorizada con la respectiva Resolución de Decanato. Transcurrido los tiempos máximos y/o ampliaciones solicitadas, el proyecto de tesis será retirado de la Plataforma PILAR y se considerará como no presentado.
+
+**Art. 34º** Las Unidades de Investigación a través de PILAR enviará a los integrantes del jurado del proyecto de tesis vía la Plataforma PILAR la constancia digital de aprobación o retiro del proyecto de tesis.
+
+**Art. 35º** El proyecto de tesis aprobado se remitirá a través de la Plataforma PILAR a las direcciones, subdirecciones y personal administrativo de las unidades de investigación de la respectiva Facultad para su seguimiento y control.
+
+**Art. 36º** El personal administrativo de las unidades de investigación de las Facultades deberá promover un sistema de custodia de todos los trabajos de investigación (proyecto y borrador de tesis) a fin de salvaguardar los derechos de autor y establecer una prueba inoponible y probatoria que combine la fecha de registro, la identidad del depositante y contenido de los mismos.
+
+**Art. 37º** Las Direcciones, subdirecciones y personal administrativo de las unidades de investigación de cada facultad se encargarán de la administración de la plataforma Pilar y los procesos que conlleve, asimismo orientarán al tesista en todo el proceso del proyecto de tesis durante su ejecución hasta su aprobación.
+
+## DISPOSICIONES COMPLEMENTARIAS
+
+**Primera** - Se consideran usuarios de la Plataforma PILAR, al estudiante, egresado o tesista, el director, co-asesor, los jurados revisores/dictaminadores del proyecto de tesis, los directores de las unidades de investigación de las respectivas facultades, los sub directores de las escuelas profesionales y el personal administrativo de las unidades de investigación de las Facultades.
+
+**Segunda** - Los Decanos de Facultad, directores de las unidades de investigación, sub directores y co-assesores no podrán ser jurados revisores de los proyectos de tesis en sus respectivas Escuelas Profesionales.
+
+**Tercera** - El docente que es director de tesis solicite licencia que implique su alejamiento de la universidad por más de tres (03) meses sin goce de haber, será reemplazado a solicitud del tesista a través de un documento a la Unidad de Investigación, indicando el nuevo nombre y con el visto bueno del nuevo director.
+
+**Cuarta** - El docente que es miembro del jurado revisor del proyecto de tesis y solicite licencia que implique su alejamiento de la Universidad por un periodo mayor a tres (03) meses sin goce de haber, será reemplazado por la Plataforma PILAR a través de sorteo a solicitud del tesista considerando lo establecido en el capítulo VI del presente Reglamento.
+
+**Quinta** - La Dirección de la Unidad de Investigación informará a las instancias pertinentes de la UNA-PUNO sobre el incumplimiento y cumplimiento de la labor como director y jurado revisor/dictaminador de proyecto de tesis de los docentes de su Facultad, para los correspondientes procesos que haya a lugar.
+
+**Sexta** - Las respectivas Direcciones y Subdirecciones de las Unidades de investigación en coordinación con el VRI registrarán, determinarán y validarán las sub líneas de investigación registradas por cada docente de la UNA-PUNO, de acuerdo a la Directiva de Líneas de Investigación.
+
+**Séptima** - Dependiendo de lo establecido en los planes de estudio y directivas de cada Escuela Profesional de la UNA-Puno, el número máximo de estudiantes o egresados considerados para presentar un proyecto de tesis de pregrado será de dos (02) personas, desde el registro inicial en PILAR.
+
+**Octava** - El número máximo de proyectos de tesis en revisión simultanea por cada docente de la UNA-Puno, ya sea como director o jurado, será de cinco (5) a siete (7) proyectos por semestre como máximo. Dependiendo del número de docentes nombrados y contratados, este número deberá ser aprobado por resolución decanal.
+
+**Novena** - Encárguese a las direcciones y subdirecciones de las unidades de investigación de las respectivas facultades la coordinación de los formatos de presentación de los ejemplares de tesis de acuerdo a la normatividad legal vigente.
+
+**Décima** - Las Direcciones, Subdirecciones y personal administrativo de las unidades de investigación de cada facultad orientarán al tesista en todo el proceso del proyecto de tesis.
+
+**Décimo primera** - El Consejo consultivo de Investigación resolverá los casos no previstos en el presente Reglamento e informará al Consejo Universitario de los resultados.
+
+**Décimo segunda** - Se permitirá el registro de nuevos proyectos de tesis a través de la Plataforma PILAR hasta un mes antes de la finalización del semestre académico, con excepción de los estudiantes de salud que estén realizando su internado.
+
+**Décimo tercera** - Los docentes que no cumplan con lo establecido en los artículos de los capítulos VII y VIII del presente reglamento podrán ser sancionados siendo retirados de la Plataforma Pilar durante un (01) semestre académico (esta acción se llevará a cabo en el semestre siguiente al que se impuso la sanción.), implicando esto que las Direcciones de Investigación podrán realizar procedimientos para que el proyecto continue con su ejecución, de acuerdo al capítulo VI.
+
+**Décimo cuarta** - El personal administrativo de las unidades de investigación de las Facultades son las dependencias encargadas de actualizar permanentemente el padrón de docentes hábiles a efectos del proceso para los proyectos de tesis.
+
+**Décimo Quinta** - Los docentes y personal administrativo no están obligados a realizar acciones relativas al presente reglamento durante su periodo vacacional; sin embargo, estas podrán ser realizadas previa aceptación por parte del jurado y personal administrativo correspondiente.
+
+## DISPOSICIONES TRANSITORIAS
+
+**Primera** - El vicerrectorado de investigación implementará una nueva plataforma acorde a este reglamento. La actual plataforma seguirá en funcionamiento durante la implementación de la nueva plataforma, considerando las restricciones que tiene respecto al nuevo reglamento.
+
+**Segunda** - Las Direcciones, subdirecciones y personal administrativo de las unidades de investigación de cada facultad o escuelas profesionales generarán los documentos necesarios para la implementación del nuevo reglamento mientras se concluye la nueva plataforma.
+
+---
+
+## FORMATO 1 - PROYECTO DE INVESTIGACIÓN
+
+(EL PROYECTO DEBE CONTENER UN MÁXIMO DE 15 HOJAS)
+
+**I. Título**  
+(El proyecto de tesis debe llevar un título que exprese en forma sucinta su contenido, haciendo referencia en lo posible, al resultado final que se pretende lograr. Máx. palabras 25)
+
+**II. Resumen del Proyecto de Tesis**  
+(Debe ser suficientemente informativo, presentando -igual que un trabajo científico- una descripción de los principales puntos que se abordarán, objetivos, metodología y resultados que se esperan)
+
+**III. Palabras claves (Kazwordta)**  
+(Colocadas en orden de importancia. Máx. palabras: cinco)
+
+**IV. Justificación del proyecto**  
+(Describa el problema y su relevancia como objeto de investigación. Es relevante una clara definición y delimitación del problema que abordará la investigación, ya que temas cuya definición es difusa o amplísima son difíciles de evaluar y desarrollar)
+
+**V. Antecedentes del proyecto**  
+(Incluya el estado actual del conocimiento en el ámbito nacional e internacional. La revisión bibliográfica debe incluir en lo posible artículos científicos actuales, para dejar en claro el conocimiento existente y lo que agregará la Tesis propuesta. Esto es importante para el futuro artículo que resultará como producto de este trabajo)
+
+**VI. Hipótesis del trabajo**  
+(Es el aporte proyectado de la investigación en la solución del problema)
+
+**VII. Objetivo general**
+
+**VIII. Objetivos específicos**
+
+**IX. Metodología de investigación**  
+(Describir el(los) método(s) científico(s) que se empleará(n) para alcanzar los objetivos específicos, en forma coherente a la hipótesis de la investigación. Sustentar, con base bibliográfica, la pertinencia del(los) método(s) en términos de la representatividad de la muestra y de los resultados que se esperan alcanzar. Incluir los análisis estadísticos a utilizar)
+
+**X. Referencias**  
+(Listar las citas bibliográficas con el estilo adecuado a su especialidad)
+
+**XI. Uso de los resultados y contribuciones del proyecto**  
+(Señalar el posible uso de los resultados y la contribución de los mismos)
+
+**XII. Impactos esperados**  
+- i. Impactos en Ciencia y Tecnología
+- ii. Impactos económicos
+- iii. Impactos sociales
+- iv. Impactos ambientales
+
+**XIII. Recursos necesarios**  
+(Infraestructura, equipos y principales tecnologías en uso relacionadas con la temática del proyecto, señale medios y recursos para realizar el proyecto)
+
+**XIV. Localización del proyecto**  
+(indicar donde se llevará a cabo el proyecto)
+
+**XV. Cronograma de actividades**
+
+| Actividad | Trimestres |
+|-----------|------------|
+|           |            |
+|           |            |
+|           |            |
+|           |            |
+
+**XVI. Presupuesto**
+
+| Descripción | Unidad de medida | Costo ($/.) | Unitario | Cantidad | Costo total ($/.) |
+|-------------|------------------|-------------|----------|----------|-------------------|
+|             |                  |             |          |          |                   |
+|             |                  |             |          |          |                   |
+|             |                  |             |          |          |                   |
+
+---
+
+## FORMATO 2 - Informe de Correcciones
+
+**Nombre del Interesado:** ______
+
+**Título del Proyecto de Tesis:** ______
+
+**Código del proyecto de tesis** ______
+
+| N° de Línea de la Observación | Observación del Jurado | N° de Línea de la Corrección | Descripción de la Corrección |
+|-------------------------------|------------------------|------------------------------|-----------------------------|
+|                               |                        |                              |                             |
+|                               |                        |                              |                             |
+|                               |                        |                              |                             |
+
+**Firma del Asesor Principal de Tesis:**
+
+**Fecha:** ______
+
+---
+
+## ANEXO 01 - DECLARACIÓN JURADA SOBRE AUTORÍA, AUTENTICIDAD Y USO ÉTICO DE HERRAMIENTAS DE INTELIGENCIA ARTIFICIAL
+
+Yo, _____, identificado con código de matrícula _____, declaro de manera responsable que el presente proyecto de tesis titulado: _____, es producto de mi trabajo intelectual y creativo, habiendo realizado este trabajo de investigación en cumplimiento del "Reglamento del registro, presentación y dictamen de los proyectos de tesis de pregrado" siguiendo los principios éticos y normas de integridad establecidos por la comunidad académica y los de la Universidad Nacional del Altiplano de Puno.
+
+Afirmo ser el autor del contenido aquí incluido y, en los casos en que haya utilizado material de otras fuentes, he citado adecuadamente su procedencia, incluyendo el uso ético de herramientas de inteligencia artificial cuando correspondía. Las ideas y aportaciones clave de este trabajo son de mi autoría y no provienen de fuentes externas, ni han sido reescritas a partir de material de terceros.
+
+Además, garantizo que los datos y recursos empleados en la elaboración del documento son legítimos y verificables, obtenidos de fuentes confiables y autorizadas.
+
+**Firma**

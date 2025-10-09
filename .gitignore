@@ -2,8 +2,8 @@
 .env
 
 # Base de conocimiento generada
-knowledge_base.index
-knowledge_base.json
+#knowledge_base.index
+#knowledge_base.json
 
 # Python
 __pycache__/

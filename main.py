@@ -373,43 +373,80 @@ def add_to_history(phone_number, user_msg, bot_msg, model_used="unknown", respon
 # ---------------------------
 # Message processing (combina lo mejor de ambos códigos)
 # ---------------------------
-
 def process_message(user_message, phone_number):
-    start_time = time.time()
+    start_time = time.time()  # Trackear tiempo de respuesta
     user_message = user_message.strip()
 
-    # ... (tu código existente de comandos y filtros)
+    # Comandos especiales
+    if user_message.lower() == '/reset':
+        # Ya no necesitamos locks, PostgreSQL maneja la concurrencia
+        return "✓ Conversación reiniciada. ¿En qué puedo ayudarte?"
 
-    # Búsqueda en base de conocimiento
+    if user_message.lower() in ['/ayuda', '/help']:
+        return ("Comandos disponibles:\n"
+                "/reset - Reiniciar conversación\n"
+                "/ayuda - Mostrar esta ayuda\n\n"
+                "Puedo ayudarte con información sobre:\n"
+                "- Coordinadores de facultades\n"
+                "- Correos y teléfonos\n"
+                "- Horarios de atención\n"
+                "- Ubicaciones\n\n"
+                "¿Qué necesitas saber?")
+
+    # Filtro de preguntas triviales
+    trivial_keywords = [
+        'hora', 'fecha', 'día', 'clima', 'tiempo', 'chiste', 
+        'partido', 'fútbol', 'matemática', 'calcula'
+    ]
+
+    user_lower = user_message.lower()
+    if any(keyword in user_lower for keyword in trivial_keywords):
+        uni_keywords = ['universidad', 'facultad', 'coordinador', 'email', 'correo']
+        if not any(uni_word in user_lower for uni_word in uni_keywords):
+            return "Lo siento, solo puedo ayudarte con información del Vicerrectorado de Investigación."
+
+    # Saludo
+    if user_message.lower() in ['hola', 'hi', 'hello', 'buenos días', 'buenas tardes']:
+        return "¡Hola! Soy el asistente virtual del Vicerrectorado de Investigación de la UNA Puno. ¿En qué puedo ayudarte?"
+
+    # Búsqueda en base de conocimiento (usar cache cuando aplique)
     logger.info(f"Procesando: '{user_message}' de {phone_number}")
     try:
         relevant_docs = search_knowledge_base_cached(user_message[:200], top_k=10)
-        # Registrar búsqueda
+        
+        # Registrar búsqueda en PostgreSQL
         log_knowledge_search(
             phone_number, 
             user_message, 
             len(relevant_docs),
             relevant_docs[0]['distance'] if relevant_docs else None
         )
-    except Exception:
+    except Exception as e:
+        logger.error(f"Error en búsqueda: {e}")
         relevant_docs = []
 
     context = ""
     if relevant_docs:
         context = "\n\n".join([doc['content'][:1000] for doc in relevant_docs[:3]])
+        logger.info(f"Contexto encontrado: {len(context)} caracteres")
 
+    # Obtener historial desde PostgreSQL
     history = get_conversation_history(phone_number)
+    
+    # Generar respuesta con Groq
     response, model_used = generate_response_dual(user_message, context, history)
 
+    # Limitar a 1600 caracteres (límite WhatsApp)
     if len(response) > 1600:
         response = response[:1597] + "..."
 
     # Calcular tiempo de respuesta
     response_time_ms = int((time.time() - start_time) * 1000)
     
+    # Guardar conversación en PostgreSQL
     add_to_history(phone_number, user_message, response, model_used, response_time_ms)
 
-    logger.info(f"Respuesta enviada (modelo: {model_used}, tiempo: {response_time_ms}ms)")
+    logger.info(f"Respuesta enviada (modelo: {model_used}, tiempo: {response_time_ms}ms): {len(response)} caracteres")
     return response
 
 

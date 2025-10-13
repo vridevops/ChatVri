@@ -1,7 +1,3 @@
-"""
-database.py
-Módulo para manejar conexiones y operaciones con PostgreSQL
-"""
 
 import os
 import logging
@@ -15,7 +11,6 @@ from dotenv import load_dotenv
 load_dotenv()
 logger = logging.getLogger(__name__)
 
-# Pool de conexiones
 connection_pool = None
 
 def init_db_pool():
@@ -23,7 +18,7 @@ def init_db_pool():
     global connection_pool
     try:
         connection_pool = psycopg2.pool.SimpleConnectionPool(
-            1, 20,  # min y max conexiones
+            1, 20,
             host=os.getenv('POSTGRES_HOST', 'localhost'),
             port=os.getenv('POSTGRES_PORT', '5432'),
             database=os.getenv('POSTGRES_DB', 'postgres'),
@@ -54,10 +49,6 @@ def get_db_connection():
         if conn:
             connection_pool.putconn(conn)
 
-# ==========================================
-# FUNCIONES PARA USUARIOS
-# ==========================================
-
 def create_or_get_user(phone_number):
     """Crear o obtener usuario por número de teléfono"""
     try:
@@ -74,10 +65,6 @@ def create_or_get_user(phone_number):
     except Exception as e:
         logger.error(f"Error creando/obteniendo usuario: {e}")
         return None
-
-# ==========================================
-# FUNCIONES PARA CONVERSACIONES
-# ==========================================
 
 def save_conversation(phone_number, user_message, bot_response, 
                      model_used="unknown", response_time_ms=0, 
@@ -121,10 +108,6 @@ def get_user_conversation_history(phone_number, limit=5):
         logger.error(f"Error obteniendo historial: {e}")
         return []
 
-# ==========================================
-# FUNCIONES PARA ESTADÍSTICAS
-# ==========================================
-
 def update_daily_stats():
     """Actualizar estadísticas diarias"""
     try:
@@ -156,7 +139,6 @@ def get_dashboard_stats(days=7):
     try:
         with get_db_connection() as conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
-                # Stats generales
                 cur.execute("""
                     SELECT 
                         COUNT(*) as total_messages,
@@ -167,7 +149,6 @@ def get_dashboard_stats(days=7):
                 """)
                 general_stats = dict(cur.fetchone())
                 
-                # Mensajes por hora (últimas 24h)
                 cur.execute("""
                     SELECT 
                         EXTRACT(HOUR FROM created_at)::INT as hour,
@@ -179,7 +160,6 @@ def get_dashboard_stats(days=7):
                 """)
                 messages_by_hour = [dict(row) for row in cur.fetchall()]
                 
-                # Top usuarios
                 cur.execute("""
                     SELECT 
                         phone_number,
@@ -192,7 +172,6 @@ def get_dashboard_stats(days=7):
                 """)
                 top_users = [dict(row) for row in cur.fetchall()]
                 
-                # Conversaciones recientes
                 cur.execute("""
                     SELECT 
                         phone_number,
@@ -217,10 +196,6 @@ def get_dashboard_stats(days=7):
         logger.error(f"Error obteniendo estadísticas del dashboard: {e}")
         return None
 
-# ==========================================
-# FUNCIONES PARA BÚSQUEDAS
-# ==========================================
-
 def log_knowledge_search(phone_number, query, results_found, top_distance=None):
     """Registrar búsqueda en base de conocimiento"""
     try:
@@ -240,10 +215,6 @@ def log_knowledge_search(phone_number, query, results_found, top_distance=None):
         logger.error(f"Error registrando búsqueda: {e}")
         return False
 
-# ==========================================
-# FUNCIONES PARA LOGS DE ERRORES
-# ==========================================
-
 def log_error(error_type, error_message, phone_number=None, context=None):
     """Registrar errores en la base de datos"""
     try:
@@ -259,12 +230,8 @@ def log_error(error_type, error_message, phone_number=None, context=None):
         logger.error(f"Error registrando log: {e}")
         return False
 
-# ==========================================
-# FUNCIONES PARA ADMIN
-# ==========================================
-
 def verify_admin_user(username, password):
-    """Verificar credenciales de admin (simplificado)"""
+    """Verificar credenciales de admin"""
     try:
         with get_db_connection() as conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
@@ -275,8 +242,7 @@ def verify_admin_user(username, password):
                 """, (username,))
                 user = cur.fetchone()
                 
-                if user and password == 'unap2025':  # Simplificado para demo
-                    # Actualizar last_login
+                if user and password == 'unap2025':
                     cur.execute("""
                         UPDATE admin_users 
                         SET last_login = CURRENT_TIMESTAMP

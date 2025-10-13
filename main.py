@@ -1,4 +1,3 @@
-
 import os
 import json
 import logging
@@ -328,7 +327,7 @@ def save_stats_to_file(path='dashboard_stats.json'):
             'total_users': len(user_conversations),
             'total_messages': sum(len(convs) for convs in user_conversations.values()),
             'kb_documents': len(documents),
-            'model_used': OLLAMA_MODEL.split(':')[0] if ':' in OLLAMA_MODEL else OLLAMA_MODEL,
+            'model_used': DEEPSEEK_MODEL if DEEPSEEK_MODEL else 'deepseek-chat',
             'conversations': []
         }
 

@@ -24,6 +24,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Copiar código de la aplicación
 COPY main.py .
 COPY whatsapp_client.py .
+COPY *.py /app/
 
 # Copiar base de conocimiento ya generada
 COPY knowledge_base.index .

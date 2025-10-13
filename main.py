@@ -1,11 +1,3 @@
-"""
-main.py
-Chatbot WhatsApp - UNA Puno
-Versión unificada: mantiene el estilo y prompts del primer código (tono, estructura y reglas)
-pero incorpora las mejoras de producción del segundo (concurrencia, caché, locks, timeouts, logs).
-
-Archivo listo para desplegar en Coolify (GitHub).
-"""
 
 import os
 import json
@@ -37,10 +29,10 @@ logger = logging.getLogger(__name__)
 # ---------------------------
 # Environment / Defaults
 # ---------------------------
-OLLAMA_URL = os.getenv('OLLAMA_URL', 'http://localhost:11434')
-OLLAMA_MODEL = os.getenv('OLLAMA_MODEL', 'deepseek-v3.1:671b-cloud')  # mantener modelo principal tipo deepseek por defecto
-OLLAMA_MODEL_BACKUP = os.getenv('OLLAMA_MODEL_BACKUP', 'gemma3:1b')
-OLLAMA_TIMEOUT = int(os.getenv('OLLAMA_TIMEOUT', '30'))
+# ✅ NUEVAS VARIABLES PARA DEEPSEEK
+DEEPSEEK_API_KEY = os.getenv('DEEPSEEK_API_KEY')
+DEEPSEEK_MODEL = os.getenv('DEEPSEEK_MODEL', 'deepseek-chat')
+OLLAMA_TIMEOUT = int(os.getenv('DEEPSEEK_TIMEOUT', '30'))  # Renombrar internamente o mantener compatible
 
 WHATSAPP_API_URL = os.getenv('WHATSAPP_API_URL', 'http://localhost:3000')
 WHATSAPP_API_KEY = os.getenv('WHATSAPP_API_KEY', '@12345lin')
@@ -162,60 +154,62 @@ def search_knowledge_base(query, top_k=5, threshold=9.0):
         return []
 
 
-# ---------------------------
-# Ollama: llamada al modelo
-# ---------------------------
-
-def call_ollama(prompt, model_name, stream=True, timeout=OLLAMA_TIMEOUT):
+def call_deepseek(prompt, timeout=OLLAMA_TIMEOUT):
+    """
+    Llama a la API de DeepSeek.
+    Compatible con la interfaz anterior de call_ollama.
+    """
     try:
-        url = f"{OLLAMA_URL}/api/generate"
+        url = "https://api.deepseek.com/v1/chat/completions"
+        
+        headers = {
+            "Authorization": f"Bearer {os.getenv('DEEPSEEK_API_KEY')}",
+            "Content-Type": "application/json"
+        }
+        
         payload = {
-            "model": model_name,
-            "prompt": prompt,
-            "stream": stream,
-            "options": {
-                "temperature": 0.7,
-                "num_predict": 450,
-                "top_p": 0.85,
-                "top_k": 5,
-                "num_ctx": 3072,
-                "repeat_penalty": 1.2
-            }
+            "model": os.getenv('DEEPSEEK_MODEL', 'deepseek-chat'),
+            "messages": [
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            "temperature": 0.7,
+            "max_tokens": 450,
+            "top_p": 0.85,
+            "frequency_penalty": 0.2,
+            "stream": False
         }
 
-        response = requests.post(url, json=payload, stream=stream, timeout=timeout)
+        response = requests.post(url, json=payload, headers=headers, timeout=timeout)
         response.raise_for_status()
-
-        if stream:
-            full_response = ""
-            for line in response.iter_lines():
-                if line:
-                    try:
-                        data = json.loads(line)
-                    except Exception:
-                        continue
-                    if 'response' in data:
-                        full_response += data['response']
-                    if data.get('done', False):
-                        break
-            return full_response.strip()
-        else:
-            return response.json().get('response', '').strip()
+        
+        data = response.json()
+        content = data['choices'][0]['message']['content'].strip()
+        
+        logger.info(f"✓ Respuesta de DeepSeek ({data.get('usage', {}).get('total_tokens', 0)} tokens)")
+        return content
 
     except requests.exceptions.Timeout:
-        logger.error(f"Timeout llamando a {model_name} ({timeout}s)")
+        logger.error(f"Timeout llamando a DeepSeek API ({timeout}s)")
+        return None
+    except requests.exceptions.HTTPError as e:
+        logger.error(f"Error HTTP de DeepSeek: {e.response.status_code} - {e.response.text}")
         return None
     except Exception as e:
-        logger.error(f"Error llamando a {model_name}: {e}")
+        logger.error(f"Error llamando a DeepSeek API: {e}")
         return None
 
-
 # ---------------------------
-# Prompt y generación de respuesta (mantener estilo del primer código)
+# Promp
 # ---------------------------
 
 def generate_response_dual(user_message, context="", history=""):
-    """Sistema dual: intenta con modelo principal y luego con respaldo."""
+    """
+    Llama a DeepSeek API (sin sistema dual de respaldo).
+    Mantiene la misma interfaz para compatibilidad.
+    """
     system_prompt = r'''Eres el asistente virtual del Vicerrectorado de Investigación de la Universidad Nacional del Altiplano (UNA Puno). Combinas profesionalismo con calidez humana.
 
 TU PROPÓSITO:
@@ -275,7 +269,7 @@ REGLAS FUNDAMENTALES:
 - NO mezcles información de diferentes facultades
 - Siempre cierra ofreciendo más ayuda
 - Sé específico: menciona números, ubicaciones completas, horarios exactos'''
-# Preparar la parte del historial primero (fuera del f-string)
+
     history_section = f"CONVERSACIÓN PREVIA:\n{history}\n\n" if history else ""
 
     if context:
@@ -283,22 +277,13 @@ REGLAS FUNDAMENTALES:
     else:
         full_prompt = f"{system_prompt}\n\n{history_section}PREGUNTA DEL USUARIO: {user_message}\n\nRESPUESTA (máximo 150 palabras):"
 
-    logger.info(f"Intentando con {OLLAMA_MODEL}...")
-    response = call_ollama(full_prompt, OLLAMA_MODEL, stream=True, timeout=OLLAMA_TIMEOUT)
+    logger.info("Llamando a DeepSeek API...")
+    response = call_deepseek(full_prompt, timeout=OLLAMA_TIMEOUT)
 
     if response:
-        logger.info(f"✓ Respuesta de {OLLAMA_MODEL}")
-        return response, OLLAMA_MODEL
-
-    logger.warning(f"{OLLAMA_MODEL} falló, usando {OLLAMA_MODEL_BACKUP}...")
-    response = call_ollama(full_prompt, OLLAMA_MODEL_BACKUP, stream=True, timeout=max(5, OLLAMA_TIMEOUT // 2))
-
-    if response:
-        logger.info(f"✓ Respuesta de {OLLAMA_MODEL_BACKUP}")
-        return response, OLLAMA_MODEL_BACKUP
-
+        return response, "deepseek-chat"
+    
     return "Lo siento, tengo problemas técnicos. Por favor, intenta de nuevo.", "error"
-
 
 # ---------------------------
 # Conversation history helpers (thread-safe)
@@ -488,8 +473,9 @@ if __name__ == '__main__':
         exit(1)
 
     logger.info("✅ Conectado a API de WhatsApp")
-    logger.info(f"\nModelo principal: {OLLAMA_MODEL}")
-    logger.info(f"Modelo respaldo: {OLLAMA_MODEL_BACKUP}")
+    # ✅ NUEVO:
+    logger.info(f"\n🤖 Modelo: DeepSeek API ({DEEPSEEK_MODEL})")
+    logger.info(f"🔑 API Key configurada: {'✓' if DEEPSEEK_API_KEY else '✗ FALTA'}")
     logger.info(f"Workers: {MAX_WORKERS}")
     logger.info(f"Polling interval: {POLLING_INTERVAL}s")
     logger.info("=" * 60)

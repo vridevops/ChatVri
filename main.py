@@ -14,6 +14,17 @@ from functools import lru_cache
 
 # Cliente local para la API de WhatsApp (interfaz mínima esperada)
 from whatsapp_client import WhatsAppAPIClient, extract_phone_number
+# Al inicio del archivo, después de los otros imports
+from database import (
+    init_db_pool, 
+    save_conversation, 
+    get_user_conversation_history,
+    update_daily_stats,
+    log_knowledge_search,
+    log_error
+)
+import time
+
 
 # ---------------------------
 # Config & Logging
@@ -29,9 +40,12 @@ logger = logging.getLogger(__name__)
 # Environment / Defaults
 # ---------------------------
 # ✅ NUEVAS VARIABLES PARA DEEPSEEK
-DEEPSEEK_API_KEY = os.getenv('DEEPSEEK_API_KEY')
-DEEPSEEK_MODEL = os.getenv('DEEPSEEK_MODEL', 'deepseek-chat')
-OLLAMA_TIMEOUT = int(os.getenv('DEEPSEEK_TIMEOUT', '30'))  # Renombrar internamente o mantener compatible
+#DEEPSEEK_API_KEY = os.getenv('DEEPSEEK_API_KEY')
+#DEEPSEEK_MODEL = os.getenv('DEEPSEEK_MODEL', 'deepseek-chat')
+#OLLAMA_TIMEOUT = int(os.getenv('DEEPSEEK_TIMEOUT', '30'))  # Renombrar internamente o mantener compatible
+GROQ_API_KEY = os.getenv('GROQ_API_KEY')
+GROQ_MODEL = os.getenv('GROQ_MODEL', 'llama-3.1-70b-versatile')
+GROQ_TIMEOUT = int(os.getenv('GROQ_TIMEOUT', '30'))
 
 WHATSAPP_API_URL = os.getenv('WHATSAPP_API_URL', 'http://localhost:3000')
 WHATSAPP_API_KEY = os.getenv('WHATSAPP_API_KEY', '@12345lin')
@@ -43,8 +57,6 @@ MAX_HISTORY = int(os.getenv('MAX_HISTORY', '5'))
 # ---------------------------
 # Shared state
 # ---------------------------
-user_conversations = defaultdict(list)        # phone -> list of exchanges
-user_locks = defaultdict(threading.Lock)      # phone -> lock
 
 embedding_model = None
 faiss_index = None
@@ -153,7 +165,7 @@ def search_knowledge_base(query, top_k=5, threshold=9.0):
         return []
 
 
-def call_deepseek(prompt, timeout=OLLAMA_TIMEOUT):
+#def call_deepseek(prompt, timeout=OLLAMA_TIMEOUT):
     """
     Llama a la API de DeepSeek.
     Compatible con la interfaz anterior de call_ollama.
@@ -200,15 +212,58 @@ def call_deepseek(prompt, timeout=OLLAMA_TIMEOUT):
         logger.error(f"Error llamando a DeepSeek API: {e}")
         return None
 
+def call_groq(prompt, timeout=GROQ_TIMEOUT):
+    """Llama a Groq API (reemplazo de Ollama)"""
+    try:
+        api_key = os.getenv('GROQ_API_KEY')
+        if not api_key:
+            logger.error("❌ GROQ_API_KEY no está configurada")
+            return None
+        
+        url = "https://api.groq.com/openai/v1/chat/completions"
+        
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
+        }
+        
+        payload = {
+            "model": GROQ_MODEL,
+            "messages": [
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            "temperature": 0.7,
+            "max_tokens": 450,
+            "top_p": 0.85
+        }
+
+        response = requests.post(url, json=payload, headers=headers, timeout=timeout)
+        response.raise_for_status()
+        
+        data = response.json()
+        content = data['choices'][0]['message']['content'].strip()
+        
+        logger.info(f"✓ Respuesta de Groq ({data.get('usage', {}).get('total_tokens', 0)} tokens)")
+        return content
+
+    except requests.exceptions.Timeout:
+        logger.error(f"Timeout llamando a Groq API ({timeout}s)")
+        return None
+    except requests.exceptions.HTTPError as e:
+        logger.error(f"Error HTTP de Groq: {e.response.status_code} - {e.response.text}")
+        return None
+    except Exception as e:
+        logger.error(f"Error llamando a Groq API: {e}")
+        return None
+
 # ---------------------------
 # Promp
 # ---------------------------
-
 def generate_response_dual(user_message, context="", history=""):
-    """
-    Llama a DeepSeek API (sin sistema dual de respaldo).
-    Mantiene la misma interfaz para compatibilidad.
-    """
+    """Llama a Groq API (sin sistema dual de respaldo)"""
     system_prompt = r'''Eres el asistente virtual del Vicerrectorado de Investigación de la Universidad Nacional del Altiplano (UNA Puno). Combinas profesionalismo con calidez humana.
 
 TU PROPÓSITO:
@@ -250,17 +305,6 @@ ESTRUCTURA DE RESPUESTA IDEAL:
 2. Información solicitada (específica y completa)
 3. Ofrecimiento de ayuda adicional
 
-EJEMPLOS MODELO:
-
-Usuario: "correo de ingeniería civil"
-Tú: "¡Por supuesto! 📧 El correo de la Facultad de Ingeniería Civil y Arquitectura es hyanarico@unap.edu.pe. También te comparto que atienden de 8:00 a 14:30 h. ¿Necesitas el teléfono o la ubicación? 😊"
-
-Usuario: "teléfono de veterinaria"  
-Tú: "Con gusto 📞 El teléfono de Medicina Veterinaria y Zootecnia es 951644391. Atienden de lunes a viernes de 8:00 a 13:00 h. ¿Te ayudo con algo más?"
-
-Usuario: "donde esta agrarias"
-Tú: "¡Claro! 📍 La Facultad de Ciencias Agrarias está en el pabellón antiguo de Ing. Agronómica, segundo piso, oficina 206, Ciudad Universitaria. Si necesitas contactarlos: 📧 fca.ui@unap.edu.pe o 📞 962382228 😊"
-
 REGLAS FUNDAMENTALES:
 - Máximo 120 palabras por respuesta
 - Usa información del contexto proporcionado directamente
@@ -276,11 +320,11 @@ REGLAS FUNDAMENTALES:
     else:
         full_prompt = f"{system_prompt}\n\n{history_section}PREGUNTA DEL USUARIO: {user_message}\n\nRESPUESTA (máximo 150 palabras):"
 
-    logger.info("Llamando a DeepSeek API...")
-    response = call_deepseek(full_prompt, timeout=OLLAMA_TIMEOUT)
+    logger.info("Llamando a Groq API...")
+    response = call_groq(full_prompt, timeout=GROQ_TIMEOUT)
 
     if response:
-        return response, "deepseek-chat"
+        return response, GROQ_MODEL
     
     return "Lo siento, tengo problemas técnicos. Por favor, intenta de nuevo.", "error"
 
@@ -289,62 +333,41 @@ REGLAS FUNDAMENTALES:
 # ---------------------------
 
 def get_conversation_history(phone_number):
-    with user_locks[phone_number]:
-        history = user_conversations[phone_number]
+    """Obtener historial desde PostgreSQL"""
+    try:
+        history = get_user_conversation_history(phone_number, limit=MAX_HISTORY)
         if not history:
             return ""
-
+        
         formatted = []
-        for entry in history[-MAX_HISTORY:]:
-            formatted.append(f"Usuario: {entry['user']}")
-            formatted.append(f"Asistente: {entry['bot']}")
-
+        for entry in reversed(history):  # Más antiguos primero
+            formatted.append(f"Usuario: {entry['user_message']}")
+            formatted.append(f"Asistente: {entry['bot_response']}")
+        
         return "\n".join(formatted)
-
-
-def add_to_history(phone_number, user_msg, bot_msg):
-    with user_locks[phone_number]:
-        user_conversations[phone_number].append({
-            'user': user_msg,
-            'bot': bot_msg,
-            'timestamp': datetime.now().isoformat()
-        })
-
-        if len(user_conversations[phone_number]) > MAX_HISTORY:
-            user_conversations[phone_number] = user_conversations[phone_number][-MAX_HISTORY:]
-
-    save_stats_to_file()
-
-
-# ---------------------------
-# Stats & persistence
-# ---------------------------
-
-def save_stats_to_file(path='dashboard_stats.json'):
-    try:
-        stats = {
-            'timestamp': datetime.now().isoformat(),
-            'total_users': len(user_conversations),
-            'total_messages': sum(len(convs) for convs in user_conversations.values()),
-            'kb_documents': len(documents),
-            'model_used': DEEPSEEK_MODEL if DEEPSEEK_MODEL else 'deepseek-chat',
-            'conversations': []
-        }
-
-        for phone, convs in user_conversations.items():
-            for conv in convs:
-                stats['conversations'].append({
-                    'phone': phone,
-                    'timestamp': conv['timestamp'],
-                    'user': conv['user'],
-                    'bot': conv['bot']
-                })
-
-        with open(path, 'w', encoding='utf-8') as f:
-            json.dump(stats, f, ensure_ascii=False, indent=2)
-
     except Exception as e:
-        logger.error(f"Error guardando estadísticas: {e}")
+        logger.error(f"Error obteniendo historial: {e}")
+        return ""
+
+
+def add_to_history(phone_number, user_msg, bot_msg, model_used="unknown", response_time_ms=0):
+    """Guardar en PostgreSQL en lugar de memoria"""
+    try:
+        save_conversation(
+            phone_number=phone_number,
+            user_message=user_msg,
+            bot_response=bot_msg,
+            model_used=model_used,
+            response_time_ms=response_time_ms,
+            tokens_used=0,
+            context_length=len(user_msg)
+        )
+        # Actualizar estadísticas diarias cada 10 mensajes
+        if hash(phone_number) % 10 == 0:
+            update_daily_stats()
+    except Exception as e:
+        logger.error(f"Error guardando conversación: {e}")
+
 
 
 # ---------------------------
@@ -352,63 +375,41 @@ def save_stats_to_file(path='dashboard_stats.json'):
 # ---------------------------
 
 def process_message(user_message, phone_number):
+    start_time = time.time()
     user_message = user_message.strip()
 
-    # Comandos especiales
-    if user_message.lower() == '/reset':
-        with user_locks[phone_number]:
-            user_conversations[phone_number] = []
-        return "✓ Conversación reiniciada. ¿En qué puedo ayudarte?"
+    # ... (tu código existente de comandos y filtros)
 
-    if user_message.lower() in ['/ayuda', '/help']:
-        return ("Comandos disponibles:\n"
-                "/reset - Reiniciar conversación\n"
-                "/ayuda - Mostrar esta ayuda\n\n"
-                "Puedo ayudarte con información sobre:\n"
-                "- Coordinadores de facultades\n"
-                "- Correos y teléfonos\n"
-                "- Horarios de atención\n"
-                "- Ubicaciones\n\n"
-                "¿Qué necesitas saber?")
-
-    # Filtro de preguntas triviales
-    trivial_keywords = [
-        'hora', 'fecha', 'día', 'clima', 'tiempo', 'chiste', 
-        'partido', 'fútbol', 'matemática', 'calcula'
-    ]
-
-    user_lower = user_message.lower()
-    if any(keyword in user_lower for keyword in trivial_keywords):
-        uni_keywords = ['universidad', 'facultad', 'coordinador', 'email', 'correo']
-        if not any(uni_word in user_lower for uni_word in uni_keywords):
-            return "Lo siento, solo puedo ayudarte con información del Vicerrectorado de Investigación."
-
-    # Saludo
-    if user_message.lower() in ['hola', 'hi', 'hello', 'buenos días', 'buenas tardes']:
-        return "¡Hola! Soy el asistente virtual del Vicerrectorado de Investigación de la UNA Puno. ¿En qué puedo ayudarte?"
-
-    # Búsqueda en base de conocimiento (usar cache cuando aplique)
+    # Búsqueda en base de conocimiento
     logger.info(f"Procesando: '{user_message}' de {phone_number}")
     try:
         relevant_docs = search_knowledge_base_cached(user_message[:200], top_k=10)
+        # Registrar búsqueda
+        log_knowledge_search(
+            phone_number, 
+            user_message, 
+            len(relevant_docs),
+            relevant_docs[0]['distance'] if relevant_docs else None
+        )
     except Exception:
         relevant_docs = []
 
     context = ""
     if relevant_docs:
         context = "\n\n".join([doc['content'][:1000] for doc in relevant_docs[:3]])
-        logger.info(f"Contexto encontrado: {len(context)} caracteres")
 
     history = get_conversation_history(phone_number)
     response, model_used = generate_response_dual(user_message, context, history)
 
-    # Limitar a 1600 caracteres (límite WhatsApp)
     if len(response) > 1600:
         response = response[:1597] + "..."
 
-    add_to_history(phone_number, user_message, response)
+    # Calcular tiempo de respuesta
+    response_time_ms = int((time.time() - start_time) * 1000)
+    
+    add_to_history(phone_number, user_message, response, model_used, response_time_ms)
 
-    logger.info(f"Respuesta enviada (modelo: {model_used}): {len(response)} caracteres")
+    logger.info(f"Respuesta enviada (modelo: {model_used}, tiempo: {response_time_ms}ms)")
     return response
 
 
@@ -449,18 +450,23 @@ def handle_incoming_message(message):
 if __name__ == '__main__':
     logger.info("=" * 60)
     logger.info("CHATBOT WHATSAPP - VICERRECTORADO DE INVESTIGACIÓN UNA PUNO")
-    logger.info("Versión: Unificada (estable + optimizada)")
     logger.info("=" * 60)
+
+    # ← AGREGAR: Inicializar PostgreSQL
+    logger.info("📊 Inicializando conexión a PostgreSQL...")
+    if not init_db_pool():
+        logger.error("❌ ERROR: No se pudo conectar a PostgreSQL")
+        logger.error("   Verifica las variables de entorno POSTGRES_*")
+        exit(1)
+    
+    logger.info("✅ PostgreSQL conectado")
 
     # Cargar base de conocimiento
     if not load_knowledge_base():
         logger.error("¡ERROR! No se pudo cargar la base de conocimiento")
-        logger.error("Ejecuta primero: python ingest.py")
         exit(1)
 
-    # Inicializar estadísticas
-    logger.info("Inicializando archivo de estadísticas...")
-    save_stats_to_file()
+    # ← ELIMINAR: save_stats_to_file()
 
     # Inicializar cliente WhatsApp
     logger.info(f"\n📱 Conectando a API de WhatsApp...\n   URL: {WHATSAPP_API_URL}")
@@ -468,13 +474,12 @@ if __name__ == '__main__':
 
     if not whatsapp_client.check_connection():
         logger.error("\n❌ ERROR: No se puede conectar a la API de WhatsApp")
-        logger.error("   Asegúrate de que la API esté corriendo y que WHATSAPP_API_KEY sea correcta")
         exit(1)
 
     logger.info("✅ Conectado a API de WhatsApp")
-    # ✅ NUEVO:
-    logger.info(f"\n🤖 Modelo: DeepSeek API ({DEEPSEEK_MODEL})")
-    logger.info(f"🔑 API Key configurada: {'✓' if DEEPSEEK_API_KEY else '✗ FALTA'}")
+    # ← MODIFICAR estas líneas:
+    logger.info(f"\n🤖 Modelo: Groq API ({GROQ_MODEL})")
+    logger.info(f"🔑 API Key configurada: {'✓' if GROQ_API_KEY else '✗ FALTA'}")
     logger.info(f"Workers: {MAX_WORKERS}")
     logger.info(f"Polling interval: {POLLING_INTERVAL}s")
     logger.info("=" * 60)

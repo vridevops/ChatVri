@@ -1,7 +1,7 @@
 FROM nginx:alpine
 
-# Copiar HTML al directorio de nginx
-COPY index.html /usr/share/nginx/html/
+# Copiar el HTML desde la carpeta dashboard
+COPY dashboard/index.html /usr/share/nginx/html/index.html
 
 # Exponer puerto 80
 EXPOSE 80

@@ -1,10 +1,3 @@
-"""
-main.py
-Chatbot WhatsApp - UNA Puno
-Versión con DeepSeek API + PostgreSQL
-
-Archivo listo para desplegar en Coolify (GitHub).
-"""
 
 import os
 import json
@@ -231,10 +224,7 @@ def call_deepseek(prompt, timeout=DEEPSEEK_TIMEOUT):
 # ---------------------------
 
 def generate_response_dual(user_message, context="", history=""):
-    """
-    Llama a DeepSeek API (sin sistema dual de respaldo).
-    Mantiene la misma interfaz para compatibilidad.
-    """
+    
     system_prompt = r'''Eres el asistente virtual del Vicerrectorado de Investigación de la Universidad Nacional del Altiplano (UNA Puno). Combinas profesionalismo con calidez humana.
 
 TU PROPÓSITO:
@@ -289,6 +279,7 @@ Tú: "¡Claro! 📍 La Facultad de Ciencias Agrarias está en el pabellón antig
 
 REGLAS FUNDAMENTALES:
 - Máximo 120 palabras por respuesta
+- No respondas "plataforma PILAR", usa "plataforma de gestión de investigación"
 - Usa información del contexto proporcionado directamente
 - NO inventes datos que no estén en el contexto
 - NO mezcles información de diferentes facultades

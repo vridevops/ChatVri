@@ -35,10 +35,11 @@
                     loadDashboardData();
                     startAutoRefresh();
                 } else {
-                    alert(data.error || 'Error en login');
+                    document.getElementById('errorMsg').textContent = data.error;
+                    document.getElementById('errorMsg').classList.remove('hidden');
                 }
             } catch (error) {
-                alert('Error conectando con el servidor');
+                alert('Error conectando con el servidor: ' + error.message);
             }
         }
 
@@ -81,8 +82,11 @@
 
         async function loadUserConversation(phone) {
             selectedPhone = phone;
+            document.getElementById('filterBadge').classList.remove('hidden');
+            document.getElementById('filterPhone').textContent = phone;
+            
             try {
-                const response = await fetch(`${API_URL}/conversations?phone=${phone}&limit=100`);
+                const response = await fetch(`${API_URL}/conversations?phone=${encodeURIComponent(phone)}&limit=200`);
                 const conversations = await response.json();
                 renderUserConversation(conversations, phone);
             } catch (error) {
@@ -92,6 +96,7 @@
 
         function clearPhoneFilter() {
             selectedPhone = null;
+            document.getElementById('filterBadge').classList.add('hidden');
             loadDashboardData();
         }
 
@@ -128,7 +133,14 @@
                         tension: 0.4
                     }]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
             });
 
             const topUsers = data.top_users || [];
@@ -145,13 +157,26 @@
                 options: { 
                     responsive: true, 
                     maintainAspectRatio: false, 
-                    plugins: { legend: { display: false } },
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: (items) => {
+                                    const idx = items[0].dataIndex;
+                                    return topUsers[idx].phone_number;
+                                }
+                            }
+                        }
+                    },
                     onClick: (e, items) => {
                         if (items.length > 0) {
                             const idx = items[0].index;
                             const phone = topUsers[idx].phone_number;
                             loadUserConversation(phone);
                         }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
                     }
                 }
             });
@@ -163,9 +188,9 @@
             if (!conversations || conversations.length === 0) {
                 container.innerHTML = `
                     <div class="p-8 text-center">
-                        <p class="text-gray-500">No hay conversaciones para ${phone}</p>
-                        <button onclick="clearPhoneFilter()" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
-                            Ver todas
+                        <p class="text-gray-500 mb-4">No hay conversaciones para ${phone}</p>
+                        <button onclick="clearPhoneFilter()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                            Ver todas las conversaciones
                         </button>
                     </div>
                 `;
@@ -176,61 +201,92 @@
                 <div class="sticky top-0 bg-indigo-50 border-b p-4 z-10">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h3 class="text-lg font-bold text-indigo-900">📱 ${phone}</h3>
-                            <p class="text-sm text-indigo-600">${conversations.length} mensajes</p>
+                            <h3 class="text-lg font-bold text-indigo-900">📱 Conversación con ${phone}</h3>
+                            <p class="text-sm text-indigo-600">${conversations.length} mensajes en orden cronológico</p>
                         </div>
-                        <button onclick="clearPhoneFilter()" class="px-4 py-2 bg-white text-indigo-600 rounded-lg hover:bg-indigo-100 border">
-                            ← Volver
+                        <button onclick="clearPhoneFilter()" class="px-4 py-2 bg-white text-indigo-600 rounded-lg hover:bg-indigo-100 border border-indigo-200 transition-colors">
+                            ← Volver a todas
                         </button>
                     </div>
                 </div>
-                ${conversations.map(conv => `
-                    <div class="p-6 border-b hover:bg-gray-50">
-                        <div class="text-xs text-gray-500 mb-3">${new Date(conv.created_at).toLocaleString('es-PE')}</div>
-                        <div class="space-y-3">
-                            <div class="bg-gray-100 p-3 rounded-lg">
-                                <p class="text-sm text-gray-600 font-medium">Usuario:</p>
-                                <p class="text-gray-800">${conv.user_message}</p>
+                ${conversations.map((conv, idx) => {
+                    const date = new Date(conv.created_at);
+                    const time = date.toLocaleTimeString('es-PE', {hour: '2-digit', minute: '2-digit'});
+                    const dateStr = date.toLocaleDateString('es-PE');
+                    
+                    return `
+                        <div class="p-6 border-b hover:bg-gray-50 transition-colors">
+                            <div class="flex justify-between items-center mb-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs font-medium text-gray-700">#${idx + 1}</span>
+                                    <span class="text-xs text-gray-500">${dateStr} ${time}</span>
+                                </div>
+                                ${conv.response_time_ms ? 
+                                    `<span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded">${(conv.response_time_ms / 1000).toFixed(2)}s</span>` 
+                                    : ''}
                             </div>
-                            <div class="bg-indigo-50 p-3 rounded-lg">
-                                <p class="text-sm text-indigo-600 font-medium">Bot:</p>
-                                <p class="text-gray-800">${conv.bot_response}</p>
+                            
+                            <div class="space-y-3">
+                                <div class="flex">
+                                    <div class="flex-1 max-w-4xl">
+                                        <div class="bg-gray-100 p-4 rounded-lg rounded-tl-none shadow-sm">
+                                            <p class="text-xs text-gray-500 font-medium mb-1">👤 Usuario</p>
+                                            <p class="text-gray-800 whitespace-pre-wrap">${escapeHtml(conv.user_message)}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex justify-end">
+                                    <div class="flex-1 max-w-4xl">
+                                        <div class="bg-indigo-50 p-4 rounded-lg rounded-tr-none shadow-sm border border-indigo-100">
+                                            <p class="text-xs text-indigo-600 font-medium mb-1">🤖 Asistente ${conv.model_used ? `(${conv.model_used})` : ''}</p>
+                                            <p class="text-gray-800 whitespace-pre-wrap">${escapeHtml(conv.bot_response)}</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `).join('')}
+                    `;
+                }).join('')}
             `;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
 
         function renderConversations(conversations) {
             const container = document.getElementById('conversationsList');
             
             if (!conversations || conversations.length === 0) {
-                container.innerHTML = '<p class="text-gray-500 text-center py-8">No hay conversaciones</p>';
+                container.innerHTML = '<p class="text-gray-500 text-center py-8">No hay conversaciones recientes</p>';
                 return;
             }
 
             container.innerHTML = conversations.map(conv => {
                 const date = new Date(conv.created_at);
                 return `
-                    <div class="p-6 hover:bg-gray-50 border-b cursor-pointer" onclick="loadUserConversation('${conv.phone_number}')">
+                    <div class="p-6 hover:bg-gray-50 border-b cursor-pointer transition-colors" onclick="loadUserConversation('${conv.phone_number}')">
                         <div class="flex justify-between items-start mb-3">
                             <div class="flex items-center gap-3">
-                                <div class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium cursor-pointer hover:bg-indigo-200">
+                                <div class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium hover:bg-indigo-200 transition-colors">
                                     ${conv.phone_number}
                                 </div>
                                 <span class="text-xs text-gray-500">${date.toLocaleString('es-PE')}</span>
+                                ${conv.model_used ? `<span class="text-xs px-2 py-1 bg-blue-50 text-blue-600 rounded">${conv.model_used}</span>` : ''}
                             </div>
                             ${conv.response_time_ms ? `<span class="text-xs text-gray-500">${(conv.response_time_ms / 1000).toFixed(2)}s</span>` : ''}
                         </div>
                         <div class="space-y-2">
                             <div class="bg-gray-100 p-3 rounded-lg">
                                 <p class="text-sm text-gray-600 font-medium">Usuario:</p>
-                                <p class="text-gray-800">${conv.user_message}</p>
+                                <p class="text-gray-800 line-clamp-2">${escapeHtml(conv.user_message)}</p>
                             </div>
                             <div class="bg-indigo-50 p-3 rounded-lg">
                                 <p class="text-sm text-indigo-600 font-medium">Bot:</p>
-                                <p class="text-gray-800">${conv.bot_response}</p>
+                                <p class="text-gray-800 line-clamp-2">${escapeHtml(conv.bot_response)}</p>
                             </div>
                         </div>
                     </div>
@@ -251,20 +307,21 @@
                             <h1 class="text-2xl font-bold text-gray-800">Dashboard Chatbot</h1>
                             <p class="text-gray-600 mt-2">Universidad Nacional del Altiplano</p>
                         </div>
-                        <form id="loginForm" class="space-y-4" onsubmit="event.preventDefault(); login(document.getElementById('username').value, document.getElementById('password').value);">
+                        <form id="loginForm" onsubmit="event.preventDefault(); login(document.getElementById('username').value, document.getElementById('password').value);" class="space-y-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Usuario</label>
-                                <input type="text" id="username" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="admin">
+                                <input type="text" id="username" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="admin">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
-                                <input type="password" id="password" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="••••••••">
+                                <input type="password" id="password" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="••••••••">
                             </div>
-                            <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-lg font-semibold hover:bg-indigo-700">
+                            <div id="errorMsg" class="hidden bg-red-50 text-red-600 px-4 py-2 rounded-lg text-sm"></div>
+                            <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-lg font-semibold hover:bg-indigo-700 transition-colors">
                                 Iniciar Sesión
                             </button>
                         </form>
-                        <p class="text-center text-xs text-gray-500 mt-6">admin / unap2025</p>
+                        <p class="text-center text-xs text-gray-500 mt-6">Demo: admin / unap2025</p>
                     </div>
                 </div>
             `;
@@ -273,7 +330,7 @@
         function renderDashboard() {
             document.getElementById('app').innerHTML = `
                 <div class="min-h-screen">
-                    <header class="bg-white shadow-sm border-b">
+                    <header class="bg-white shadow-sm border-b sticky top-0 z-50">
                         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
                             <div class="flex items-center gap-3">
                                 <div class="bg-indigo-600 w-10 h-10 rounded-lg flex items-center justify-center">
@@ -287,9 +344,17 @@
                                 </div>
                             </div>
                             <div class="flex items-center gap-4">
+                                <div id="filterBadge" class="hidden px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium">
+                                    Filtrando: <span id="filterPhone"></span>
+                                    <button onclick="clearPhoneFilter()" class="ml-2 hover:text-indigo-900">✕</button>
+                                </div>
                                 <span class="text-sm">👤 ${currentUser?.username || 'Admin'}</span>
-                                <button onclick="loadDashboardData()" class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">🔄</button>
-                                <button onclick="logout()" class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">Salir</button>
+                                <button onclick="loadDashboardData()" class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors" title="Actualizar">
+                                    🔄
+                                </button>
+                                <button onclick="logout()" class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors">
+                                    Salir
+                                </button>
                             </div>
                         </div>
                     </header>
@@ -320,14 +385,19 @@
                                 <div style="height: 250px"><canvas id="hourlyChart"></canvas></div>
                             </div>
                             <div class="bg-white p-6 rounded-xl shadow-sm border">
-                                <h3 class="text-lg font-semibold mb-4">Top Usuarios (click para ver conversación)</h3>
+                                <h3 class="text-lg font-semibold mb-4">Top Usuarios 
+                                    <span class="text-sm font-normal text-gray-500">(click para ver conversación)</span>
+                                </h3>
                                 <div style="height: 250px"><canvas id="usersChart"></canvas></div>
                             </div>
                         </div>
 
                         <div class="bg-white rounded-xl shadow-sm border overflow-hidden">
                             <div class="px-6 py-4 bg-gray-50 border-b">
-                                <h3 class="text-lg font-semibold">Conversaciones Recientes (click en número para filtrar)</h3>
+                                <h3 class="text-lg font-semibold">
+                                    Conversaciones Recientes 
+                                    <span class="text-sm font-normal text-gray-500">(click en número para ver conversación completa)</span>
+                                </h3>
                             </div>
                             <div id="conversationsList" class="max-h-[600px] overflow-y-auto">
                                 <p class="text-gray-500 text-center py-8">Cargando...</p>

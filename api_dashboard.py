@@ -1,23 +1,25 @@
 """
 api_dashboard.py
-API REST para el dashboard del chatbot
-Ejecutar con: python api_dashboard.py
+API REST para el dashboard del chatbot con filtros
 """
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import os
+from datetime import datetime
 from dotenv import load_dotenv
 from database import (
     init_db_pool,
     get_dashboard_stats,
-    verify_admin_user
+    verify_admin_user,
+    get_db_connection
 )
+from psycopg2.extras import RealDictCursor
 
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)  # Permitir CORS para el frontend
+CORS(app)
 
 # Inicializar DB
 init_db_pool()
@@ -65,10 +67,7 @@ def get_stats():
 
 @app.route('/api/conversations', methods=['GET'])
 def get_conversations():
-    """Obtener conversaciones con filtros"""
-    from database import get_db_connection
-    from psycopg2.extras import RealDictCursor
-    
+    """Obtener conversaciones con filtros - ENDPOINT MEJORADO"""
     phone = request.args.get('phone')
     limit = request.args.get('limit', 50, type=int)
     offset = request.args.get('offset', 0, type=int)
@@ -76,62 +75,105 @@ def get_conversations():
     try:
         with get_db_connection() as conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
-                query = """
-                    SELECT 
-                        phone_number,
-                        user_message,
-                        bot_response,
-                        model_used,
-                        response_time_ms,
-                        created_at
-                    FROM conversations
-                """
-                params = []
-                
                 if phone:
-                    query += " WHERE phone_number = %s"
-                    params.append(phone)
+                    # Filtrar por número específico
+                    query = """
+                        SELECT 
+                            phone_number,
+                            user_message,
+                            bot_response,
+                            model_used,
+                            response_time_ms,
+                            created_at
+                        FROM conversations
+                        WHERE phone_number = %s
+                        ORDER BY created_at ASC
+                        LIMIT %s OFFSET %s
+                    """
+                    cur.execute(query, (phone, limit, offset))
+                else:
+                    # Todas las conversaciones (más recientes primero)
+                    query = """
+                        SELECT 
+                            phone_number,
+                            user_message,
+                            bot_response,
+                            model_used,
+                            response_time_ms,
+                            created_at
+                        FROM conversations
+                        ORDER BY created_at DESC
+                        LIMIT %s OFFSET %s
+                    """
+                    cur.execute(query, (limit, offset))
                 
-                query += " ORDER BY created_at DESC LIMIT %s OFFSET %s"
-                params.extend([limit, offset])
-                
-                cur.execute(query, params)
                 conversations = [dict(row) for row in cur.fetchall()]
                 
-                # Convertir datetime a string para JSON
+                # Convertir datetime a string
                 for conv in conversations:
-                    conv['created_at'] = conv['created_at'].isoformat()
+                    if isinstance(conv['created_at'], datetime):
+                        conv['created_at'] = conv['created_at'].isoformat()
                 
                 return jsonify(conversations), 200
+                
+    except Exception as e:
+        app.logger.error(f"Error obteniendo conversaciones: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/conversations/count', methods=['GET'])
+def get_conversations_count():
+    """Obtener conteo de conversaciones por usuario"""
+    phone = request.args.get('phone')
+    
+    try:
+        with get_db_connection() as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                if phone:
+                    cur.execute("""
+                        SELECT COUNT(*) as total
+                        FROM conversations
+                        WHERE phone_number = %s
+                    """, (phone,))
+                else:
+                    cur.execute("""
+                        SELECT COUNT(*) as total
+                        FROM conversations
+                    """)
+                
+                result = cur.fetchone()
+                return jsonify({'total': result['total']}), 200
+                
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
 @app.route('/api/users', methods=['GET'])
 def get_users():
-    """Obtener lista de usuarios"""
-    from database import get_db_connection
-    from psycopg2.extras import RealDictCursor
-    
+    """Obtener lista de usuarios únicos con sus estadísticas"""
     try:
         with get_db_connection() as conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
                 cur.execute("""
                     SELECT 
-                        phone_number,
-                        total_messages,
-                        first_seen,
-                        last_seen,
-                        is_active
-                    FROM users
-                    ORDER BY total_messages DESC
+                        u.phone_number,
+                        u.total_messages,
+                        u.first_seen,
+                        u.last_seen,
+                        u.is_active,
+                        COUNT(c.id) as conversation_count
+                    FROM users u
+                    LEFT JOIN conversations c ON u.phone_number = c.phone_number
+                    GROUP BY u.id, u.phone_number, u.total_messages, u.first_seen, u.last_seen, u.is_active
+                    ORDER BY u.last_seen DESC
                     LIMIT 100
                 """)
                 users = [dict(row) for row in cur.fetchall()]
                 
                 # Convertir datetime a string
                 for user in users:
-                    user['first_seen'] = user['first_seen'].isoformat()
-                    user['last_seen'] = user['last_seen'].isoformat()
+                    if isinstance(user.get('first_seen'), datetime):
+                        user['first_seen'] = user['first_seen'].isoformat()
+                    if isinstance(user.get('last_seen'), datetime):
+                        user['last_seen'] = user['last_seen'].isoformat()
                 
                 return jsonify(users), 200
     except Exception as e:

@@ -1,10 +1,7 @@
 """
 main_async.py
 Chatbot WhatsApp - UNA Puno
-Versión ASYNC optimizada con:
-- Cierre automático por inactividad (30 min)
-- Guardado NO bloqueante (respuesta inmediata)
-- Alta concurrencia (150+ usuarios)
+Versión ASYNC optimizada - Compatible con WhatsAppAPIClient existente
 """
 
 import os
@@ -20,6 +17,7 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from functools import lru_cache
 import time
+import threading
 
 from whatsapp_client import WhatsAppAPIClient, extract_phone_number
 
@@ -43,7 +41,7 @@ WHATSAPP_API_KEY = os.getenv('WHATSAPP_API_KEY')
 MAX_CONCURRENT = int(os.getenv('MAX_CONCURRENT', '100'))
 POLLING_INTERVAL = int(os.getenv('POLLING_INTERVAL', '2'))
 MAX_HISTORY = int(os.getenv('MAX_HISTORY', '5'))
-INACTIVITY_TIMEOUT = int(os.getenv('INACTIVITY_TIMEOUT', '1800'))  # 30 minutos
+INACTIVITY_TIMEOUT = int(os.getenv('INACTIVITY_TIMEOUT', '1800'))
 
 # State
 db_pool = None
@@ -53,10 +51,11 @@ embedding_model = None
 faiss_index = None
 documents = []
 whatsapp_client = None
+event_loop = None
 
-# Tracking de última actividad por usuario
+# Tracking
 user_last_activity = {}
-user_closed_sessions = set()  # Sesiones ya cerradas
+user_closed_sessions = set()
 
 # ---------------------------
 # Term expansion
@@ -68,8 +67,6 @@ TERM_EXPANSION = {
     'celular': ['teléfono', 'telefono', 'número'],
     'horario': ['hora', 'horarios', 'atención'],
     'ubicación': ['ubicacion', 'lugar', 'donde', 'dirección'],
-    'estadística': ['estadistica', 'FIEI', 'informática'],
-    'informática': ['informatica', 'estadística', 'sistemas'],
 }
 
 # ---------------------------
@@ -240,7 +237,6 @@ async def generate_response_async(user_message, context="", history="", is_first
     """Generar respuesta async"""
     
     if is_first_message:
-        # Mensaje de bienvenida mejorado
         return (
             "¡Hola! 👋 Soy tu asistente virtual del **Vicerrectorado de Investigación** de la UNA Puno.\n\n"
             "📌 **Puedo ayudarte con:**\n"
@@ -275,7 +271,7 @@ PERSONALIDAD:
 - Empático y servicial
 - Información completa pero concisa
 
-REGLAS IMPORTANTES:
+REGLAS:
 - Máximo 120 palabras
 - Usa información del contexto directamente
 - NO inventes datos
@@ -303,10 +299,10 @@ REGLAS IMPORTANTES:
 # ---------------------------
 
 async def check_inactive_users():
-    """Verificar usuarios inactivos y enviar mensaje de cierre"""
+    """Verificar usuarios inactivos"""
     while True:
         try:
-            await asyncio.sleep(60)  # Verificar cada minuto
+            await asyncio.sleep(60)
             
             current_time = datetime.now()
             inactive_users = []
@@ -314,11 +310,9 @@ async def check_inactive_users():
             for phone, last_time in list(user_last_activity.items()):
                 time_diff = (current_time - last_time).total_seconds()
                 
-                # Si pasaron 30 minutos y no se ha cerrado la sesión
                 if time_diff >= INACTIVITY_TIMEOUT and phone not in user_closed_sessions:
                     inactive_users.append(phone)
             
-            # Enviar mensajes de cierre
             for phone in inactive_users:
                 try:
                     closure_message = (
@@ -331,13 +325,8 @@ async def check_inactive_users():
                     whatsapp_client.send_text(phone, closure_message)
                     user_closed_sessions.add(phone)
                     
-                    # Guardar mensaje de cierre en DB
                     asyncio.create_task(save_conversation_async(
-                        phone, 
-                        "[CIERRE_AUTOMATICO]", 
-                        closure_message, 
-                        "system", 
-                        0
+                        phone, "[CIERRE_AUTOMATICO]", closure_message, "system", 0
                     ))
                     
                     logger.info(f"🔒 Sesión cerrada por inactividad: {phone}")
@@ -358,15 +347,12 @@ async def process_message_async(user_message, phone_number):
         start_time = time.time()
         user_message = user_message.strip()
         
-        # Actualizar última actividad
         user_last_activity[phone_number] = datetime.now()
         
-        # Si la sesión estaba cerrada, es un nuevo inicio
         is_new_session = phone_number in user_closed_sessions
         if is_new_session:
             user_closed_sessions.remove(phone_number)
 
-        # Comandos especiales
         if user_message.lower() == '/reset':
             user_closed_sessions.discard(phone_number)
             return "✓ Conversación reiniciada. ¿En qué puedo ayudarte?"
@@ -375,43 +361,30 @@ async def process_message_async(user_message, phone_number):
             response, _ = await generate_response_async("", "", "", is_first_message=True)
             return response
 
-        # Filtros
         trivial = ['hora', 'fecha', 'clima', 'chiste', 'fútbol', 'matemática']
         if any(k in user_message.lower() for k in trivial):
             if not any(w in user_message.lower() for w in ['universidad', 'facultad', 'correo']):
                 return "Disculpa 😊, mi especialidad es información del Vicerrectorado de Investigación. ¿Puedo ayudarte con algún contacto, horario o ubicación?"
 
-        # Saludo - mensaje de bienvenida
         if user_message.lower() in ['hola', 'hi', 'hello', 'buenos días', 'buenas tardes', 'buenas noches']:
             response, model = await generate_response_async("", "", "", is_first_message=True)
-            
-            # Guardar DESPUÉS de responder (no bloqueante)
             asyncio.create_task(save_conversation_async(
                 phone_number, user_message, response, model, int((time.time() - start_time) * 1000)
             ))
-            
             return response
 
-        # Búsqueda KB (ejecutar en thread pool para no bloquear)
         loop = asyncio.get_event_loop()
         relevant_docs = await loop.run_in_executor(
-            None, 
-            search_knowledge_base_cached, 
-            user_message[:200], 
-            10
+            None, search_knowledge_base_cached, user_message[:200], 10
         )
 
         context = ""
         if relevant_docs:
             context = "\n\n".join([doc['content'][:1000] for doc in relevant_docs[:3]])
 
-        # Historial async (paralelo con DeepSeek)
         history_task = asyncio.create_task(get_conversation_history_async(phone_number))
-        
-        # Mientras se obtiene historial, preparamos la respuesta
         history = await history_task
         
-        # Generar respuesta
         response, model_used = await generate_response_async(user_message, context, history)
 
         if len(response) > 1600:
@@ -419,8 +392,7 @@ async def process_message_async(user_message, phone_number):
 
         response_time_ms = int((time.time() - start_time) * 1000)
         
-        # ⚡ CLAVE: Guardar en DB de forma NO BLOQUEANTE (fire and forget)
-        # La respuesta se envía INMEDIATAMENTE sin esperar a que se guarde
+        # Guardar NO bloqueante
         asyncio.create_task(save_conversation_async(
             phone_number, user_message, response, model_used, response_time_ms
         ))
@@ -429,20 +401,30 @@ async def process_message_async(user_message, phone_number):
         return response
 
 # ---------------------------
-# WhatsApp handler async
+# WhatsApp handler - CALLBACK para start_polling
 # ---------------------------
 
-async def handle_message_async(message):
-    """Handler async de mensajes"""
+def handle_incoming_message_sync(message):
+    """Handler SYNC que WhatsAppAPIClient.start_polling() llama"""
     try:
         phone_number = extract_phone_number(message)
         user_message = message.get('body', '').strip()
 
         logger.info(f"📨 {phone_number}: {user_message[:50]}")
 
-        bot_response = await process_message_async(user_message, phone_number)
+        # Ejecutar tarea async en el event loop
+        future = asyncio.run_coroutine_threadsafe(
+            process_and_send(phone_number, user_message),
+            event_loop
+        )
         
-        # Enviar respuesta
+    except Exception as e:
+        logger.error(f"Error handler: {e}", exc_info=True)
+
+async def process_and_send(phone_number, user_message):
+    """Procesar y enviar respuesta"""
+    try:
+        bot_response = await process_message_async(user_message, phone_number)
         success = whatsapp_client.send_text(phone_number, bot_response)
         
         if success:
@@ -451,36 +433,14 @@ async def handle_message_async(message):
             logger.error(f"❌ Error enviando a {phone_number}")
             
     except Exception as e:
-        logger.error(f"Error handler: {e}", exc_info=True)
-
-# ---------------------------
-# Polling loop async
-# ---------------------------
-
-async def polling_loop():
-    """Loop de polling async"""
-    logger.info("🔄 Iniciando polling async...")
-    
-    while True:
-        try:
-            messages = whatsapp_client.get_messages()
-            
-            if messages:
-                tasks = [handle_message_async(msg) for msg in messages]
-                await asyncio.gather(*tasks, return_exceptions=True)
-            
-            await asyncio.sleep(POLLING_INTERVAL)
-            
-        except Exception as e:
-            logger.error(f"Error polling: {e}")
-            await asyncio.sleep(5)
+        logger.error(f"Error en process_and_send: {e}", exc_info=True)
 
 # ---------------------------
 # Main async
 # ---------------------------
 
 async def main():
-    global http_session, whatsapp_client
+    global http_session, whatsapp_client, event_loop
     
     logger.info("=" * 60)
     logger.info("CHATBOT ASYNC - UNA PUNO")
@@ -488,6 +448,9 @@ async def main():
     logger.info("✓ Cierre automático (30 min inactividad)")
     logger.info("✓ Guardado no bloqueante")
     logger.info("=" * 60)
+
+    # Guardar referencia al event loop
+    event_loop = asyncio.get_running_loop()
 
     http_session = aiohttp.ClientSession()
 
@@ -516,8 +479,19 @@ async def main():
     # Iniciar task de verificación de inactividad
     asyncio.create_task(check_inactive_users())
 
+    # Usar start_polling en un thread separado
+    def run_polling():
+        whatsapp_client.start_polling(handle_incoming_message_sync, interval=POLLING_INTERVAL)
+    
+    polling_thread = threading.Thread(target=run_polling, daemon=True)
+    polling_thread.start()
+    
+    logger.info("🔄 Polling iniciado en thread separado")
+
     try:
-        await polling_loop()
+        # Mantener el loop corriendo
+        while True:
+            await asyncio.sleep(1)
     except KeyboardInterrupt:
         logger.info("\n👋 Deteniendo...")
     finally:

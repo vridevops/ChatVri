@@ -238,14 +238,14 @@ async def generate_response_async(user_message, context="", history="", is_first
     
     if is_first_message:
         return (
-            "¡Hola! 👋 Soy tu asistente virtual del **Vicerrectorado de Investigación** de la UNA Puno.\n\n"
-            "📌 **Puedo ayudarte con:**\n"
-            "• Contactos y correos de facultades\n"
+            "¡Hola! 👋 Soy tu asistente virtual del *Vicerrectorado de Investigación* de la UNA Puno.\n\n"
+            "📌 *Puedo ayudarte :*\n"
+            "información general sobre los procesos de proyecto y borrador de tesis de pregrado"
+            "• Información de contacto de las coordinaciones de Investigación de \n"
             "• Horarios de atención\n"
             "• Ubicaciones de oficinas\n"
-            "• Información sobre coordinadores\n"
-            "• Resoluciones directorales\n\n"
-            "💡 **Comandos útiles:**\n"
+
+            "💡 *Comandos útiles:*\n"
             "/ayuda - Ver esta información\n"
             "/reset - Reiniciar conversación\n\n"
             "⏱️ Tu conversación estará activa por 30 minutos.\n"

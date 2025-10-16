@@ -1,6 +1,7 @@
 """
 Procesador de archivos Markdown a base de conocimiento FAISS
 Limpia formato Markdown y crea índice vectorial
+MEJORADO: Soporta HTML, frontmatter, mejor chunking
 """
 
 import os
@@ -20,13 +21,16 @@ logger = logging.getLogger(__name__)
 
 
 def clean_markdown(text):
-    """Limpiar formato Markdown"""
+    """Limpiar formato Markdown Y HTML"""
+    # ⭐ NUEVO: Eliminar tags HTML
+    text = re.sub(r'<ul>|</ul>|<li>|</li>|<br/?>|</br>', ' ', text)
+    text = re.sub(r'<[^>]+>', '', text)
+    
     # Eliminar enlaces [texto](url)
     text = re.sub(r'\[([^\]]+)\]\([^\)]+\)', r'\1', text)
     
     # Eliminar mailto: y tel:
-    text = re.sub(r'mailto:', '', text)
-    text = re.sub(r'tel:', '', text)
+    text = re.sub(r'mailto:|tel:', '', text)
     
     # Eliminar negritas **texto**
     text = re.sub(r'\*\*([^\*]+)\*\*', r'\1', text)
@@ -34,10 +38,32 @@ def clean_markdown(text):
     # Eliminar cursivas *texto*
     text = re.sub(r'\*([^\*]+)\*', r'\1', text)
     
+    # ⭐ NUEVO: Eliminar código `texto`
+    text = re.sub(r'`([^`]+)`', r'\1', text)
+    
     # Eliminar múltiples espacios
     text = re.sub(r'\s+', ' ', text)
     
     return text.strip()
+
+
+def extract_frontmatter(content):
+    """⭐ NUEVO: Extraer metadata YAML si existe"""
+    metadata = {}
+    pattern = r'^---\s*\n(.*?)\n---\s*\n'
+    match = re.search(pattern, content, re.DOTALL)
+    
+    if match:
+        frontmatter = match.group(1)
+        content = content[match.end():]
+        
+        # Parsear campos simples
+        for line in frontmatter.split('\n'):
+            if ':' in line:
+                key, value = line.split(':', 1)
+                metadata[key.strip().lower()] = value.strip()
+    
+    return metadata, content
 
 
 def parse_markdown_file(filepath):
@@ -45,6 +71,9 @@ def parse_markdown_file(filepath):
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
             content = f.read()
+        
+        # ⭐ NUEVO: Extraer frontmatter
+        metadata_base, content = extract_frontmatter(content)
         
         # Dividir por secciones ##
         sections = re.split(r'\n##\s+', content)
@@ -60,17 +89,23 @@ def parse_markdown_file(filepath):
                 continue
             
             title = lines[0].strip()
-            content = lines[1].strip() if len(lines) > 1 else ""
+            content_text = lines[1].strip() if len(lines) > 1 else ""
             
             # Limpiar formato
-            cleaned_content = clean_markdown(content)
+            cleaned_content = clean_markdown(content_text)
             
             if cleaned_content:
-                documents.append({
+                doc = {
                     'title': title,
                     'content': cleaned_content,
                     'source': filepath.name
-                })
+                }
+                
+                # ⭐ NUEVO: Agregar metadata del frontmatter si existe
+                if metadata_base:
+                    doc['metadata'] = metadata_base
+                
+                documents.append(doc)
         
         return documents
         
@@ -166,6 +201,8 @@ def main():
         logger.info(f"\n  [{i+1}] {doc['title']}")
         logger.info(f"      Contenido: {doc['content'][:100]}...")
         logger.info(f"      Fuente: {doc['source']}")
+        if 'metadata' in doc:
+            logger.info(f"      Metadata: {doc['metadata']}")
     
     # Crear índice FAISS
     logger.info("\n2. Creando índice FAISS...")

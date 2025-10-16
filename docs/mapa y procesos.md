@@ -1,3 +1,7 @@
+---
+TIPO: proceso_tesis
+PALABRAS_CLAVE: proceso, etapas, proyecto, borrador, sustentación, director, jurados, coordinador
+---
 # 🎓 MAPA DE FUNCIONES - PROCESO DE TESIS UNA PUNO
 
 ## 👥 ACTORES DEL PROCESO

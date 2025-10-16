@@ -1,26 +1,231 @@
-🎓 Líneas y SubLíneas de Investigación - UNA Puno
-#	Línea de Investigación	SubLíneas de Investigación
-1	🏢 Administración y Marketing	<ul><li>Administración de Finanzas</li><li>Procesos Organizacionales</li><li>Emprendimientos</li><li>Administración General</li><li>Recursos Humanos</li><li>Marketing y Negocios Internacionales</li><li>Administración Pública</li><li>Empresas Turísticas</li></ul>
-2	🍎 Alimentación y Nutrición Humana	<ul><li>Atención Nutricional en Todas las Etapas de la Vida</li><li>Promoción de la Salud</li><li>Proyectos y Empresas en Alimentación y Salud</li><li>Innovación y Control de Alimentos</li><li>Procesamiento de Alimentos</li></ul>
-3	🏛️ Arquitectura y Urbanismo	<ul><li>Diseño Arquitectónico Sostenible</li><li>Planificación Urbana y Territorial</li><li>Tecnología e Innovación en Edificación</li><li>Patrimonio y Arquitectura Social</li></ul>
-4	🎭 Arte y Música	<ul><li>Danza: Revalorización de Danzas Étnicas</li><li>Música: Análisis e Interpretación</li><li>Música: Innovación y Tecnología</li><li>Artes Plásticas: Técnicas Tradicionales y Digitales</li><li>Gestión de la Labor Artística</li></ul>
-5	📊 Auditoría, Costos y Finanzas	<ul><li>Contabilidad y Auditoría</li><li>Finanzas y Gestión</li><li>Tributación</li><li>Gestión Pública</li></ul>
-6	🏥 Ciencias de la Salud	<ul><li>Ciencias Médicas Básicas y Clínicas</li><li>Medicina de Altura</li><li>Salud Pública y Ocupacional</li><li>Biología y Desarrollo Craneofacial</li><li>Diagnóstico y Rehabilitación Estomatognática</li><li>Microbiología y Biotecnología</li></ul>
-7	🐄 Ciencia y Producción Animal	<ul><li>Salud Animal</li><li>Producción Animal</li><li>Salud Pública</li><li>Acuicultura</li></ul>
-8	⚽ Ciencias del Deporte y Educación Física	<ul><li>Psicomotricidad</li><li>Educación Física</li><li>Deporte y Recreación</li><li>Ciencias del Deporte</li><li>Promoción de la Salud</li></ul>
-9	⚖️ Derecho	<ul><li>Derecho Penal</li><li>Derecho Administrativo</li><li>Derecho Laboral</li><li>Derecho Constitucional</li><li>Derecho Civil</li><li>Teoría del Derecho</li><li>Derechos Humanos y Fortalecimiento Democrático</li></ul>
-10	📈 Economía y Desarrollo	<ul><li>Economía Empresarial y Mercados</li><li>Economía Regional y Políticas Públicas</li><li>Gobernabilidad y Desarrollo Social</li><li>Desarrollo Turístico Regional</li></ul>
-11	👩‍🏫 Educación y Dinámica Educativa	<ul><li>Proceso Pedagógico</li><li>Docencia en Lengua, Literatura, Psicología y Filosofía</li><li>Gestión y Acreditación Educativa</li><li>Difusión de Lengua y Literatura</li><li>Innovación Educativa</li><li>Interdisciplinariedad en Ciencia y Tecnología</li><li>Perspectivas Teóricas de la Educación</li></ul>
-12	📐 Estadística e Investigación	<ul><li>Ingeniería de Software e Inteligencia Artificial</li><li>Modelos Predictivos</li><li>Bases de Datos y Sistemas de Información</li><li>Big Data y Minería de Datos</li></ul>
-13	🔬 Física y Matemática	<ul><li>Álgebra</li><li>Análisis Funcional y Complejo</li><li>Geometría y Topología</li><li>Ecuaciones Diferenciales</li><li>Optimización</li><li>Análisis Numérico</li><li>Física Ambiental</li><li>Energías Renovables</li><li>Óptica Cuántica</li></ul>
-14	⛏️ Geología, Minas y Metalurgia	<ul><li>Extracción de Recursos Minerales</li><li>Geotecnia y Estabilidad de Minas</li><li>Minería Sostenible</li><li>Tecnologías de Información en Minería</li><li>Seguridad y Medio Ambiente</li><li>Metalurgia Extractiva y Transformativa</li></ul>
-15	🌍 Gestión y Responsabilidad Social	<ul><li>Política y Gestión Pública</li><li>Conflictos y Gestión Ambiental</li><li>Cultura Andina y Sociedad</li><li>Antropología Jurídica y Forense</li><li>Gestión Turística</li><li>Gestión Curricular</li><li>Responsabilidad Social Educativa</li></ul>
-16	🏗️ Infraestructura y Construcciones	<ul><li>Construcción y Gerencia</li><li>Geotecnia</li><li>Hidráulica y Medio Ambiente</li><li>Diseño Estructural</li><li>Transportes y Vial</li><li>Infraestructura Rural</li></ul>
-17	⚙️ Ingeniería de Procesos	<ul><li>Automatización e Instrumentación</li><li>Gestión Agronindustrial</li><li>Seguridad Industrial y Ambiental</li><li>Procesos Industriales</li></ul>
-18	🌱 Manejo Agronómico de Cultivos	<ul><li>Gestión Sostenible y Mejoramiento Genético</li><li>Conservación de Recursos Naturales</li><li>Sistemas Agropecuarios</li><li>Innovación y Extensión Agraria</li></ul>
-19	🔌 Mecánica - Eléctrica	<ul><li>Control de Procesos</li><li>Energías Renovables</li><li>Ingeniería Eléctrica y Mecánica</li><li>Microelectrónica</li><li>Robótica</li></ul>
-20	🌿 Recursos Naturales y Medio Ambiente	<ul><li>Tecnologías Ambientales</li><li>Conservación de Recursos</li><li>Calidad Ambiental</li><li>Recursos Hídricos</li><li>Aplicaciones Energéticas</li></ul>
-21	👩‍⚕️ Salud Pública	<ul><li>Salud Infantil y Adolescente</li><li>Salud del Adulto y de la Mujer</li><li>Gestión en Salud Familiar y Comunitaria</li></ul>
-22	🗺️ Sistemas de Información Geográfica	<ul><li>Topografía y Cartografía</li><li>Teledetección y SIG</li><li>Gestión de Riesgos y Cambio Climático</li><li>Ordenamiento Territorial</li><li>Infraestructura Vial e Hidráulica</li></ul>
-23	💻 Sistemas, Computación e Informática	<ul><li>Ingeniería de Software y Bases de Datos</li><li>Inteligencia Artificial y Sistemas Bioinspirados</li><li>Seguridad y Auditoría de Sistemas</li><li>Nuevas Tecnologías y Sociedad</li><li>Redes y Telecomunicaciones</li></ul>
-24	🧠 Sociedad, Cultura y Comunicación	<ul><li>Desarrollo Humano y Calidad de Vida</li><li>Familias y Dinámicas Sociales</li><li>Procesos Sociales</li><li>Liderazgo y Gestión Organizacional</li><li>Sociolingüística e Interculturalidad</li><li>Comunicación Sociocultural y Organizacional</li><li>Medios y Periodismo</li></ul>
+---
+TIPO: lineas_investigacion
+PALABRAS_CLAVE: líneas, sublíneas, investigación, áreas, temas, proyecto
+---
+
+# 🎓 Líneas y SubLíneas de Investigación - UNA Puno
+
+## 1. Administración y Marketing
+
+**Sublíneas:**
+- Administración de Finanzas
+- Procesos Organizacionales
+- Emprendimientos
+- Administración General
+- Recursos Humanos
+- Marketing y Negocios Internacionales
+- Administración Pública
+- Empresas Turísticas
+
+## 2. Alimentación y Nutrición Humana
+
+**Sublíneas:**
+- Atención Nutricional en Todas las Etapas de la Vida
+- Promoción de la Salud
+- Proyectos y Empresas en Alimentación y Salud
+- Innovación y Control de Alimentos
+- Procesamiento de Alimentos
+
+## 3. Arquitectura y Urbanismo
+
+**Sublíneas:**
+- Diseño Arquitectónico Sostenible
+- Planificación Urbana y Territorial
+- Tecnología e Innovación en Edificación
+- Patrimonio y Arquitectura Social
+
+## 4. Arte y Música
+
+**Sublíneas:**
+- Danza: Revalorización de Danzas Étnicas
+- Música: Análisis e Interpretación
+- Música: Innovación y Tecnología
+- Artes Plásticas: Técnicas Tradicionales y Digitales
+- Gestión de la Labor Artística
+
+## 5. Auditoría, Costos y Finanzas
+
+**Sublíneas:**
+- Contabilidad y Auditoría
+- Finanzas y Gestión
+- Tributación
+- Gestión Pública
+
+## 6. Ciencias de la Salud
+
+**Sublíneas:**
+- Ciencias Médicas Básicas y Clínicas
+- Medicina de Altura
+- Salud Pública y Ocupacional
+- Biología y Desarrollo Craneofacial
+- Diagnóstico y Rehabilitación Estomatognática
+- Microbiología y Biotecnología
+
+## 7. Ciencia y Producción Animal
+
+**Sublíneas:**
+- Salud Animal
+- Producción Animal
+- Salud Pública
+- Acuicultura
+
+## 8. Ciencias del Deporte y Educación Física
+
+**Sublíneas:**
+- Psicomotricidad
+- Educación Física
+- Deporte y Recreación
+- Ciencias del Deporte
+- Promoción de la Salud
+
+## 9. Derecho
+
+**Sublíneas:**
+- Derecho Penal
+- Derecho Administrativo
+- Derecho Laboral
+- Derecho Constitucional
+- Derecho Civil
+- Teoría del Derecho
+- Derechos Humanos y Fortalecimiento Democrático
+
+## 10. Economía y Desarrollo
+
+**Sublíneas:**
+- Economía Empresarial y Mercados
+- Economía Regional y Políticas Públicas
+- Gobernabilidad y Desarrollo Social
+- Desarrollo Turístico Regional
+
+## 11. Educación y Dinámica Educativa
+
+**Sublíneas:**
+- Proceso Pedagógico
+- Docencia en Lengua, Literatura, Psicología y Filosofía
+- Gestión y Acreditación Educativa
+- Difusión de Lengua y Literatura
+- Innovación Educativa
+- Interdisciplinariedad en Ciencia y Tecnología
+- Perspectivas Teóricas de la Educación
+
+## 12. Estadística e Investigación
+
+**Sublíneas:**
+- Ingeniería de Software e Inteligencia Artificial
+- Modelos Predictivos
+- Bases de Datos y Sistemas de Información
+- Big Data y Minería de Datos
+
+## 13. Física y Matemática
+
+**Sublíneas:**
+- Álgebra
+- Análisis Funcional y Complejo
+- Geometría y Topología
+- Ecuaciones Diferenciales
+- Optimización
+- Análisis Numérico
+- Física Ambiental
+- Energías Renovables
+- Óptica Cuántica
+
+## 14. Geología, Minas y Metalurgia
+
+**Sublíneas:**
+- Extracción de Recursos Minerales
+- Geotecnia y Estabilidad de Minas
+- Minería Sostenible
+- Tecnologías de Información en Minería
+- Seguridad y Medio Ambiente
+- Metalurgia Extractiva y Transformativa
+
+## 15. Gestión y Responsabilidad Social
+
+**Sublíneas:**
+- Política y Gestión Pública
+- Conflictos y Gestión Ambiental
+- Cultura Andina y Sociedad
+- Antropología Jurídica y Forense
+- Gestión Turística
+- Gestión Curricular
+- Responsabilidad Social Educativa
+
+## 16. Infraestructura y Construcciones
+
+**Sublíneas:**
+- Construcción y Gerencia
+- Geotecnia
+- Hidráulica y Medio Ambiente
+- Diseño Estructural
+- Transportes y Vial
+- Infraestructura Rural
+
+## 17. Ingeniería de Procesos
+
+**Sublíneas:**
+- Automatización e Instrumentación
+- Gestión Agronindustrial
+- Seguridad Industrial y Ambiental
+- Procesos Industriales
+
+## 18. Manejo Agronómico de Cultivos
+
+**Sublíneas:**
+- Gestión Sostenible y Mejoramiento Genético
+- Conservación de Recursos Naturales
+- Sistemas Agropecuarios
+- Innovación y Extensión Agraria
+
+## 19. Mecánica - Eléctrica
+
+**Sublíneas:**
+- Control de Procesos
+- Energías Renovables
+- Ingeniería Eléctrica y Mecánica
+- Microelectrónica
+- Robótica
+
+## 20. Recursos Naturales y Medio Ambiente
+
+**Sublíneas:**
+- Tecnologías Ambientales
+- Conservación de Recursos
+- Calidad Ambiental
+- Recursos Hídricos
+- Aplicaciones Energéticas
+
+## 21. Salud Pública
+
+**Sublíneas:**
+- Salud Infantil y Adolescente
+- Salud del Adulto y de la Mujer
+- Gestión en Salud Familiar y Comunitaria
+
+## 22. Sistemas de Información Geográfica
+
+**Sublíneas:**
+- Topografía y Cartografía
+- Teledetección y SIG
+- Gestión de Riesgos y Cambio Climático
+- Ordenamiento Territorial
+- Infraestructura Vial e Hidráulica
+
+## 23. Sistemas, Computación e Informática
+
+**Sublíneas:**
+- Ingeniería de Software y Bases de Datos
+- Inteligencia Artificial y Sistemas Bioinspirados
+- Seguridad y Auditoría de Sistemas
+- Nuevas Tecnologías y Sociedad
+- Redes y Telecomunicaciones
+
+## 24. Sociedad, Cultura y Comunicación
+
+**Sublíneas:**
+- Desarrollo Humano y Calidad de Vida
+- Familias y Dinámicas Sociales
+- Procesos Sociales
+- Liderazgo y Gestión Organizacional
+- Sociolingüística e Interculturalidad
+- Comunicación Sociocultural y Organizacional
+- Medios y Periodismo

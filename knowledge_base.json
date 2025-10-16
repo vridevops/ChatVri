@@ -100,59 +100,310 @@
     "source": "coordinadores.md"
   },
   {
-    "title": "🎓 Líneas y SubLíneas de Investigación - UNA Puno",
-    "content": "# Línea de Investigación SubLíneas de Investigación 1 🏢 Administración y Marketing <ul><li>Administración de Finanzas</li><li>Procesos Organizacionales</li><li>Emprendimientos</li><li>Administración General</li><li>Recursos Humanos</li><li>Marketing y Negocios Internacionales</li><li>Administración Pública</li><li>Empresas Turísticas</li></ul> 2 🍎 Alimentación y Nutrición Humana <ul><li>Atención Nutricional en Todas las Etapas de la Vida</li><li>Promoción de la Salud</li><li>Proyectos y Empresas en Alimentación y Salud</li><li>Innovación y Control de Alimentos</li><li>Procesamiento de Alimentos</li></ul> 3 🏛️ Arquitectura y Urbanismo <ul><li>Diseño Arquitectónico Sostenible</li><li>Planificación Urbana y Territorial</li><li>Tecnología e Innovación en Edificación</li><li>Patrimonio y Arquitectura Social</li></ul> 4 🎭 Arte y Música <ul><li>Danza: Revalorización de Danzas Étnicas</li><li>Música: Análisis e Interpretación</li><li>Música: Innovación y Tecnología</li><li>Artes Plásticas: Técnicas Tradicionales y Digitales</li><li>Gestión de la Labor Artística</li></ul> 5 📊 Auditoría, Costos y Finanzas <ul><li>Contabilidad y Auditoría</li><li>Finanzas y Gestión</li><li>Tributación</li><li>Gestión Pública</li></ul> 6 🏥 Ciencias de la Salud <ul><li>Ciencias Médicas Básicas y Clínicas</li><li>Medicina de Altura</li><li>Salud Pública y Ocupacional</li><li>Biología y Desarrollo Craneofacial</li><li>Diagnóstico y Rehabilitación Estomatognática</li><li>Microbiología y Biotecnología</li></ul> 7 🐄 Ciencia y Producción Animal <ul><li>Salud Animal</li><li>Producción Animal</li><li>Salud Pública</li><li>Acuicultura</li></ul> 8 ⚽ Ciencias del Deporte y Educación Física <ul><li>Psicomotricidad</li><li>Educación Física</li><li>Deporte y Recreación</li><li>Ciencias del Deporte</li><li>Promoción de la Salud</li></ul> 9 ⚖️ Derecho <ul><li>Derecho Penal</li><li>Derecho Administrativo</li><li>Derecho Laboral</li><li>Derecho Constitucional</li><li>Derecho Civil</li><li>Teoría del Derecho</li><li>Derechos Humanos y Fortalecimiento Democrático</li></ul> 10 📈 Economía y Desarrollo <ul><li>Economía Empresarial y Mercados</li><li>Economía Regional y Políticas Públicas</li><li>Gobernabilidad y Desarrollo Social</li><li>Desarrollo Turístico Regional</li></ul> 11 👩‍🏫 Educación y Dinámica Educativa <ul><li>Proceso Pedagógico</li><li>Docencia en Lengua, Literatura, Psicología y Filosofía</li><li>Gestión y Acreditación Educativa</li><li>Difusión de Lengua y Literatura</li><li>Innovación Educativa</li><li>Interdisciplinariedad en Ciencia y Tecnología</li><li>Perspectivas Teóricas de la Educación</li></ul> 12 📐 Estadística e Investigación <ul><li>Ingeniería de Software e Inteligencia Artificial</li><li>Modelos Predictivos</li><li>Bases de Datos y Sistemas de Información</li><li>Big Data y Minería de Datos</li></ul> 13 🔬 Física y Matemática <ul><li>Álgebra</li><li>Análisis Funcional y Complejo</li><li>Geometría y Topología</li><li>Ecuaciones Diferenciales</li><li>Optimización</li><li>Análisis Numérico</li><li>Física Ambiental</li><li>Energías Renovables</li><li>Óptica Cuántica</li></ul> 14 ⛏️ Geología, Minas y Metalurgia <ul><li>Extracción de Recursos Minerales</li><li>Geotecnia y Estabilidad de Minas</li><li>Minería Sostenible</li><li>Tecnologías de Información en Minería</li><li>Seguridad y Medio Ambiente</li><li>Metalurgia Extractiva y Transformativa</li></ul> 15 🌍 Gestión y Responsabilidad Social <ul><li>Política y Gestión Pública</li><li>Conflictos y Gestión Ambiental</li><li>Cultura Andina y Sociedad</li><li>Antropología Jurídica y Forense</li><li>Gestión Turística</li><li>Gestión Curricular</li><li>Responsabilidad Social Educativa</li></ul> 16 🏗️ Infraestructura y Construcciones <ul><li>Construcción y Gerencia</li><li>Geotecnia</li><li>Hidráulica y Medio Ambiente</li><li>Diseño Estructural</li><li>Transportes y Vial</li><li>Infraestructura Rural</li></ul> 17 ⚙️ Ingeniería de Procesos <ul><li>Automatización e Instrumentación</li><li>Gestión Agronindustrial</li><li>Seguridad Industrial y Ambiental</li><li>Procesos Industriales</li></ul> 18 🌱 Manejo Agronómico de Cultivos <ul><li>Gestión Sostenible y Mejoramiento Genético</li><li>Conservación de Recursos Naturales</li><li>Sistemas Agropecuarios</li><li>Innovación y Extensión Agraria</li></ul> 19 🔌 Mecánica - Eléctrica <ul><li>Control de Procesos</li><li>Energías Renovables</li><li>Ingeniería Eléctrica y Mecánica</li><li>Microelectrónica</li><li>Robótica</li></ul> 20 🌿 Recursos Naturales y Medio Ambiente <ul><li>Tecnologías Ambientales</li><li>Conservación de Recursos</li><li>Calidad Ambiental</li><li>Recursos Hídricos</li><li>Aplicaciones Energéticas</li></ul> 21 👩‍⚕️ Salud Pública <ul><li>Salud Infantil y Adolescente</li><li>Salud del Adulto y de la Mujer</li><li>Gestión en Salud Familiar y Comunitaria</li></ul> 22 🗺️ Sistemas de Información Geográfica <ul><li>Topografía y Cartografía</li><li>Teledetección y SIG</li><li>Gestión de Riesgos y Cambio Climático</li><li>Ordenamiento Territorial</li><li>Infraestructura Vial e Hidráulica</li></ul> 23 💻 Sistemas, Computación e Informática <ul><li>Ingeniería de Software y Bases de Datos</li><li>Inteligencia Artificial y Sistemas Bioinspirados</li><li>Seguridad y Auditoría de Sistemas</li><li>Nuevas Tecnologías y Sociedad</li><li>Redes y Telecomunicaciones</li></ul> 24 🧠 Sociedad, Cultura y Comunicación <ul><li>Desarrollo Humano y Calidad de Vida</li><li>Familias y Dinámicas Sociales</li><li>Procesos Sociales</li><li>Liderazgo y Gestión Organizacional</li><li>Sociolingüística e Interculturalidad</li><li>Comunicación Sociocultural y Organizacional</li><li>Medios y Periodismo</li></ul>",
-    "source": "lineas de investigacion.md"
+    "title": "1. Administración y Marketing",
+    "content": "Sublíneas: - Administración de Finanzas - Procesos Organizacionales - Emprendimientos - Administración General - Recursos Humanos - Marketing y Negocios Internacionales - Administración Pública - Empresas Turísticas",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "2. Alimentación y Nutrición Humana",
+    "content": "Sublíneas: - Atención Nutricional en Todas las Etapas de la Vida - Promoción de la Salud - Proyectos y Empresas en Alimentación y Salud - Innovación y Control de Alimentos - Procesamiento de Alimentos",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "3. Arquitectura y Urbanismo",
+    "content": "Sublíneas: - Diseño Arquitectónico Sostenible - Planificación Urbana y Territorial - Tecnología e Innovación en Edificación - Patrimonio y Arquitectura Social",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "4. Arte y Música",
+    "content": "Sublíneas: - Danza: Revalorización de Danzas Étnicas - Música: Análisis e Interpretación - Música: Innovación y Tecnología - Artes Plásticas: Técnicas Tradicionales y Digitales - Gestión de la Labor Artística",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "5. Auditoría, Costos y Finanzas",
+    "content": "Sublíneas: - Contabilidad y Auditoría - Finanzas y Gestión - Tributación - Gestión Pública",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "6. Ciencias de la Salud",
+    "content": "Sublíneas: - Ciencias Médicas Básicas y Clínicas - Medicina de Altura - Salud Pública y Ocupacional - Biología y Desarrollo Craneofacial - Diagnóstico y Rehabilitación Estomatognática - Microbiología y Biotecnología",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "7. Ciencia y Producción Animal",
+    "content": "Sublíneas: - Salud Animal - Producción Animal - Salud Pública - Acuicultura",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "8. Ciencias del Deporte y Educación Física",
+    "content": "Sublíneas: - Psicomotricidad - Educación Física - Deporte y Recreación - Ciencias del Deporte - Promoción de la Salud",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "9. Derecho",
+    "content": "Sublíneas: - Derecho Penal - Derecho Administrativo - Derecho Laboral - Derecho Constitucional - Derecho Civil - Teoría del Derecho - Derechos Humanos y Fortalecimiento Democrático",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "10. Economía y Desarrollo",
+    "content": "Sublíneas: - Economía Empresarial y Mercados - Economía Regional y Políticas Públicas - Gobernabilidad y Desarrollo Social - Desarrollo Turístico Regional",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "11. Educación y Dinámica Educativa",
+    "content": "Sublíneas: - Proceso Pedagógico - Docencia en Lengua, Literatura, Psicología y Filosofía - Gestión y Acreditación Educativa - Difusión de Lengua y Literatura - Innovación Educativa - Interdisciplinariedad en Ciencia y Tecnología - Perspectivas Teóricas de la Educación",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "12. Estadística e Investigación",
+    "content": "Sublíneas: - Ingeniería de Software e Inteligencia Artificial - Modelos Predictivos - Bases de Datos y Sistemas de Información - Big Data y Minería de Datos",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "13. Física y Matemática",
+    "content": "Sublíneas: - Álgebra - Análisis Funcional y Complejo - Geometría y Topología - Ecuaciones Diferenciales - Optimización - Análisis Numérico - Física Ambiental - Energías Renovables - Óptica Cuántica",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "14. Geología, Minas y Metalurgia",
+    "content": "Sublíneas: - Extracción de Recursos Minerales - Geotecnia y Estabilidad de Minas - Minería Sostenible - Tecnologías de Información en Minería - Seguridad y Medio Ambiente - Metalurgia Extractiva y Transformativa",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "15. Gestión y Responsabilidad Social",
+    "content": "Sublíneas: - Política y Gestión Pública - Conflictos y Gestión Ambiental - Cultura Andina y Sociedad - Antropología Jurídica y Forense - Gestión Turística - Gestión Curricular - Responsabilidad Social Educativa",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "16. Infraestructura y Construcciones",
+    "content": "Sublíneas: - Construcción y Gerencia - Geotecnia - Hidráulica y Medio Ambiente - Diseño Estructural - Transportes y Vial - Infraestructura Rural",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "17. Ingeniería de Procesos",
+    "content": "Sublíneas: - Automatización e Instrumentación - Gestión Agronindustrial - Seguridad Industrial y Ambiental - Procesos Industriales",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "18. Manejo Agronómico de Cultivos",
+    "content": "Sublíneas: - Gestión Sostenible y Mejoramiento Genético - Conservación de Recursos Naturales - Sistemas Agropecuarios - Innovación y Extensión Agraria",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "19. Mecánica - Eléctrica",
+    "content": "Sublíneas: - Control de Procesos - Energías Renovables - Ingeniería Eléctrica y Mecánica - Microelectrónica - Robótica",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "20. Recursos Naturales y Medio Ambiente",
+    "content": "Sublíneas: - Tecnologías Ambientales - Conservación de Recursos - Calidad Ambiental - Recursos Hídricos - Aplicaciones Energéticas",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "21. Salud Pública",
+    "content": "Sublíneas: - Salud Infantil y Adolescente - Salud del Adulto y de la Mujer - Gestión en Salud Familiar y Comunitaria",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "22. Sistemas de Información Geográfica",
+    "content": "Sublíneas: - Topografía y Cartografía - Teledetección y SIG - Gestión de Riesgos y Cambio Climático - Ordenamiento Territorial - Infraestructura Vial e Hidráulica",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "23. Sistemas, Computación e Informática",
+    "content": "Sublíneas: - Ingeniería de Software y Bases de Datos - Inteligencia Artificial y Sistemas Bioinspirados - Seguridad y Auditoría de Sistemas - Nuevas Tecnologías y Sociedad - Redes y Telecomunicaciones",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
+  },
+  {
+    "title": "24. Sociedad, Cultura y Comunicación",
+    "content": "Sublíneas: - Desarrollo Humano y Calidad de Vida - Familias y Dinámicas Sociales - Procesos Sociales - Liderazgo y Gestión Organizacional - Sociolingüística e Interculturalidad - Comunicación Sociocultural y Organizacional - Medios y Periodismo",
+    "source": "lineas de investigacion.md",
+    "metadata": {
+      "tipo": "lineas_investigacion",
+      "palabras_clave": "líneas, sublíneas, investigación, áreas, temas, proyecto"
+    }
   },
   {
     "title": "👥 ACTORES DEL PROCESO",
     "content": "| Rol | Descripción | | :--- | :--- | | 👨‍🎓 Tesista | Estudiante de 7mo a 10mo semestre, egresado de la UNA Puno | | 👨‍🏫 Director de Tesis | - Tambien conocido como Asesor de Tesis es un docente ordinario de la misma escuela profesional | | 👩‍⚖️ Jurados | Docentes ordinarios y contratados de la UNA Puno | | 🏫 Sub Director Unidad de Investigación | Docente ordinario de la escuela profesional | | 🏢 Director de Investigación de Facultad | Resuelve conflictos a nivel facultad | | 🏛️ Dirección de Instituto de Investigación | Instancia superior para mediación | | 💻 Sub Unidad de Plataforma | Administra y desarrolla la plataforma | | 📋 Coordinador de Investigación | Guía y supervisa todo el proceso | ---",
-    "source": "mapa y procesos.md"
+    "source": "mapa y procesos.md",
+    "metadata": {
+      "tipo": "proceso_tesis",
+      "palabras_clave": "proceso, etapas, proyecto, borrador, sustentación, director, jurados, coordinador"
+    }
   },
   {
     "title": "📊 ETAPAS DEL PROCESO DE TESIS",
     "content": "# 🎓 Tu Camino hacia el Título: Proceso de Tesis Simplificado Este es el recorrido que seguirás desde tu primera idea hasta convertirte en profesional titulado. ¡Acompáñanos paso a paso! ---",
-    "source": "mapa y procesos.md"
+    "source": "mapa y procesos.md",
+    "metadata": {
+      "tipo": "proceso_tesis",
+      "palabras_clave": "proceso, etapas, proyecto, borrador, sustentación, director, jurados, coordinador"
+    }
   },
   {
     "title": "🚀 ETAPA 1: Proyecto de Tesis",
     "content": "### 👨‍🏫 Primera Revisión: Tu Director de Tesis Tu Director será tu primer lector crítico. Después de revisar tu proyecto, tomará una decisión: ✅ Si lo APRUEBA: - Firmará digitalmente en la plataforma - ¡Tu investigación recibe luz verde para despegar! - Pasarás automáticamente a la siguiente fase ❌ Si lo RECHAZA: - No te desanimes, es parte del proceso - Recibirás observaciones específicas para mejorar - Tendrás la oportunidad de corregir y reenviar - Tip: Programa una reunión con tu Director para aclarar dudas antes de reenviar ### 📋 Segunda Revisión: El Coordinador de Investigación Una vez que tu Director da el visto bueno, tu proyecto llega al escritorio del Coordinador de Investigación. Aquí se pone la lupa en los aspectos formales. ¿Qué revisa exactamente? - Formato según normativa universitaria - Estructura del documento - Márgenes, espaciado y presentación - Numeración y orden de secciones - Referencias bibliográficas ✅ Si es APROBADO: - ¡Felicidades! Has superado la primera gran barrera - Tu proyecto queda oficialmente registrado - Puedes comenzar la ejecución de tu investigación ❌ Si es RECHAZADO: - El proceso se pausa temporalmente - Recibirás una lista detallada de correcciones - Deberás ajustar el formato y reenviar - Recuerda: Son detalles técnicos, tu idea sigue siendo valiosa ---",
-    "source": "mapa y procesos.md"
+    "source": "mapa y procesos.md",
+    "metadata": {
+      "tipo": "proceso_tesis",
+      "palabras_clave": "proceso, etapas, proyecto, borrador, sustentación, director, jurados, coordinador"
+    }
   },
   {
     "title": "📝 ETAPA 2: Borrador de Tesis",
     "content": "### 🔍 Entrega y Revisión del Borrador Cuando entregas tu borrador al Coordinador de Investigación, comienza una revisión minuciosa que incluye: Aspectos formales verificados: - ✓ Paginación correcta y consecutiva - ✓ Sistema de citas (APA, ISO, según tu facultad) - ✓ Tablas y figuras correctamente numeradas - ✓ Índices actualizados - ✓ Redacción y ortografía - ✓ Consistencia en el formato de títulos y subtítulos - ✓ Anexos completos y ordenados ✅ Si CUMPLE todos los requisitos: El Coordinador pone en marcha la maquinaria administrativa: 1. Recepción de ejemplares corregidos (versión impresa si aplica) 2. Generación de documentación oficial: - 📄 Memorándum para convocar la Reunión de Dictamen - 📄 Oficios de notificación a los jurados designados 3. Designación formal del jurado evaluador El Presidente del Jurado recibe toda la documentación y asume el liderazgo del proceso hacia tu sustentación. Desde este momento, tu tesis está oficialmente en evaluación. ❌ Si NO CUMPLE: - Tu borrador regresa con observaciones puntuales - Tienes tiempo para realizar las correcciones - No podrás avanzar hasta subsanar todos los detalles - Consejo: Solicita una revisión previa con tu Director antes de la entrega oficial ### 💡 Tips para esta etapa: - Revisa 3 veces antes de entregar - Usa el formato oficial de tu facultad desde el inicio - Consulta trabajos ya aprobados como referencia - Pide a un compañero que revise tu ortografía ---",
-    "source": "mapa y procesos.md"
+    "source": "mapa y procesos.md",
+    "metadata": {
+      "tipo": "proceso_tesis",
+      "palabras_clave": "proceso, etapas, proyecto, borrador, sustentación, director, jurados, coordinador"
+    }
   },
   {
     "title": "🎤 ETAPA 3: Sustentación",
     "content": "### 📊 Registro de Información Final Antes del gran día, debes ingresar al sistema toda la información definitiva de tu trabajo: - Título final de la tesis - Resumen ejecutivo - Palabras clave - Datos de los miembros del jurado - Fecha y hora propuestas para la sustentación - Lugar donde se realizará el acto académico ### ✔️ Validación del Coordinador El Coordinador de Investigación verifica que todo esté en orden: ✅ Si la información es CORRECTA: - Se procede a publicar el Comunicado Oficial de Sustentación - Este comunicado se difunde por: - Portal web de tu facultad - Correos institucionales - Redes sociales universitarias - Vitrinas informativas - La comunidad universitaria queda formalmente invitada - Tu sustentación es ahora un acto público oficial ❌ Si hay errores o información incompleta: - Recibirás notificación inmediata de los errores - Deberás corregir antes de que se emita el comunicado - El proceso se retrasa hasta que todo esté perfecto - No te arriesgues: verifica dos veces antes de enviar ### 🎯 El Día de la Sustentación Antes del evento: - Llega 30 minutos antes - Prueba tu presentación y equipo - Respira profundo, confía en tu preparación Durante la sustentación: - Exposición de tu trabajo (20-30 minutos) - Ronda de preguntas del jurado - Deliberación del jurado (en privado) - Veredicto y calificación Después de una defensa exitosa: - 🎉 ¡Felicidades! Has completado tu tesis - Recibirás tu calificación oficial - Iniciarás el trámite de titulación - Te conviertes oficialmente en profesional ---",
-    "source": "mapa y procesos.md"
+    "source": "mapa y procesos.md",
+    "metadata": {
+      "tipo": "proceso_tesis",
+      "palabras_clave": "proceso, etapas, proyecto, borrador, sustentación, director, jurados, coordinador"
+    }
   },
   {
     "title": "📌 Consejos Finales para Todo el Proceso",
     "content": "1. Mantén comunicación constante con tu Director 2. Guarda todas las versiones de tu trabajo 3. Cumple los plazos establecidos por tu facultad 4. No dejes para último momento las correcciones de formato 5. Practica tu sustentación al menos 5 veces antes del día D 6. Anticipa preguntas difíciles y prepara respuestas 7. Mantén la calma - cientos lo han logrado antes que tú ---",
-    "source": "mapa y procesos.md"
+    "source": "mapa y procesos.md",
+    "metadata": {
+      "tipo": "proceso_tesis",
+      "palabras_clave": "proceso, etapas, proyecto, borrador, sustentación, director, jurados, coordinador"
+    }
   },
   {
     "title": "⏱️ Tiempo Estimado del Proceso",
     "content": "| Etapa | Tiempo Aproximado | |-------|-------------------| | Aprobación del Proyecto | 2-4 semanas | | Desarrollo de la Investigación | 6-12 meses | | Revisión del Borrador | 2-3 semanas | | Preparación para Sustentación | 2-4 semanas | | TOTAL | 8-15 meses | Nota: Los tiempos varían según la facultad y la complejidad de la investigación --- \"Cada tesis es una contribución única al conocimiento. Tu esfuerzo no solo te convierte en profesional, sino que aporta valor a tu comunidad y disciplina.\" ¡Mucho éxito en tu proceso! 🎓✨",
-    "source": "mapa y procesos.md"
+    "source": "mapa y procesos.md",
+    "metadata": {
+      "tipo": "proceso_tesis",
+      "palabras_clave": "proceso, etapas, proyecto, borrador, sustentación, director, jurados, coordinador"
+    }
   },
   {
     "title": "GESTIÓN DE CUENTA Y ACCESO A LA PLATAFORMA",
-    "content": "| Pregunta | Respuesta | | :--- | :--- | | Si tengo dos carreras, ¿necesito 2 cuentas de correo? | NO. Solo necesitas 1 cuenta de correo para administrar todos los servicios de la Plataforma de Gestión de Investigación. | | Yo tenía una cuenta en la plataforma anterior, ¿es necesario actualizar mi contraseña para ingresar a la nueva plataforma? | SÍ. Es necesario que usted actualice su contraseña para acceder a todos los servicios de la Plataforma de Gestión de Investigación. |",
-    "source": "preguntas frecuentes.md"
+    "content": "### ¿Si tengo dos carreras, necesito 2 cuentas de correo? NO. Solo necesitas 1 cuenta de correo para administrar todos los servicios de la Plataforma de Gestión de Investigación. ### ¿Yo tenía una cuenta en la plataforma anterior, es necesario actualizar mi contraseña para ingresar a la nueva plataforma? SÍ. Es necesario que usted actualice su contraseña para acceder a todos los servicios de la Plataforma de Gestión de Investigación.",
+    "source": "preguntas frecuentes.md",
+    "metadata": {
+      "tipo": "preguntas_frecuentes",
+      "palabras_clave": "FAQ, dudas, cuenta, jurados, formato, borrador, bachiller, requisitos"
+    }
   },
   {
     "title": "PROYECTO DE TESIS",
-    "content": "| Pregunta | Respuesta | | :--- | :--- | | ¿Es posible conocer quiénes son los miembros del jurado? | SÍ. Los miembros del jurado son de conocimiento público desde que el Sub Director de la Unidad de Investigación de la Escuela Profesional realiza el sorteo. | | En la etapa de proyecto, ¿es necesario que los 3 jurados realicen las correcciones para subir el archivo corregido? | SÍ, si es posible siempre y cuando 2 jurados hayan finalizado el proceso de corrección y el otro jurado haya excedido el tiempo de corrección establecido. Solo en ese caso podrá cargar su archivo corregido y pasar a la etapa de dictamen. | | ¿Es necesario contar con el bachiller para iniciar con la etapa de borrador de tesis? | SÍ. Es un requisito indispensable contar con el grado de Bachiller para iniciar con la etapa de borrador de tesis. | | ¿Puedo iniciar la etapa del borrador de tesis antes de los 90 días de ejecución del proyecto? | NO. El reglamento estipula claramente que el tiempo mínimo de ejecución del proyecto de tesis es de 90 días. |",
-    "source": "preguntas frecuentes.md"
+    "content": "### ¿Es posible conocer quiénes son los miembros del jurado? SÍ. Los miembros del jurado son de conocimiento público desde que el Sub Director de la Unidad de Investigación de la Escuela Profesional realiza el sorteo. ### ¿En la etapa de proyecto, es necesario que los 3 jurados realicen las correcciones para subir el archivo corregido? SÍ, si es posible siempre y cuando 2 jurados hayan finalizado el proceso de corrección y el otro jurado haya excedido el tiempo de corrección establecido. Solo en ese caso podrá cargar su archivo corregido y pasar a la etapa de dictamen. ### ¿Es necesario contar con el bachiller para iniciar con la etapa de borrador de tesis? SÍ. Es un requisito indispensable contar con el grado de Bachiller para iniciar con la etapa de borrador de tesis. ### ¿Puedo iniciar la etapa del borrador de tesis antes de los 90 días de ejecución del proyecto? NO. El reglamento estipula claramente que el tiempo mínimo de ejecución del proyecto de tesis es de 90 días.",
+    "source": "preguntas frecuentes.md",
+    "metadata": {
+      "tipo": "preguntas_frecuentes",
+      "palabras_clave": "FAQ, dudas, cuenta, jurados, formato, borrador, bachiller, requisitos"
+    }
   },
   {
     "title": "FORMATOS Y REQUISITOS TÉCNICOS",
-    "content": "| Pregunta | Respuesta | | :--- | :--- | | ¿Cuáles son las causales técnicas del rechazo de mi proyecto, luego de haberlo subido a la Plataforma? | Si el proyecto no cumple con el formato establecido en el reglamento (disponible para descarga en la plataforma), será devuelto al tesista hasta que cumpla con dicho formato. | | ¿Qué incluye el formato que debo respetar en el proyecto de tesis? | Debe cumplir con la numeración continua, la estructura de los capítulos, el formato general, la indentación y el espaciado del texto, todo aquello que permita una fluidez adecuada en la estructura del proyecto. | | ¿El archivo de borrador de tesis también debe contener la numeración continua? | SÍ. Es necesario que este archivo también contenga la numeración continua para que sirvan de guía a los jurados al momento de hacer las correcciones. |",
-    "source": "preguntas frecuentes.md"
+    "content": "### ¿Cuáles son las causales técnicas del rechazo de mi proyecto, luego de haberlo subido a la Plataforma? Si el proyecto no cumple con el formato establecido en el reglamento (disponible para descarga en la plataforma), será devuelto al tesista hasta que cumpla con dicho formato. ### ¿Qué incluye el formato que debo respetar en el proyecto de tesis? Debe cumplir con la numeración continua, la estructura de los capítulos, el formato general, la indentación y el espaciado del texto, todo aquello que permita una fluidez adecuada en la estructura del proyecto. ### ¿El archivo de borrador de tesis también debe contener la numeración continua? SÍ. Es necesario que este archivo también contenga la numeración continua para que sirvan de guía a los jurados al momento de hacer las correcciones.",
+    "source": "preguntas frecuentes.md",
+    "metadata": {
+      "tipo": "preguntas_frecuentes",
+      "palabras_clave": "FAQ, dudas, cuenta, jurados, formato, borrador, bachiller, requisitos"
+    }
   },
   {
     "title": "Resolución Rectoral N°: 0924-2025-R-UNA",

@@ -19,6 +19,9 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
+        .performance-good { color: #10b981; }
+        .performance-warning { color: #f59e0b; }
+        .performance-critical { color: #ef4444; }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
@@ -84,15 +87,26 @@
             </div>
         </header>
 
+        <!-- Performance Warning -->
+        <div id="performanceWarning" class="hidden"></div>
+
         <!-- Main Content -->
         <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <!-- Stats Cards -->
-            <div id="statsCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div id="statsCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-8">
                 <!-- Cards will be populated by JavaScript -->
             </div>
 
-            <!-- Charts Section -->
+            <!-- Performance Metrics -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <!-- Response Time Chart -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Tiempo de Respuesta (Últimas 24h)</h2>
+                    <div class="h-64">
+                        <canvas id="responseTimeChart"></canvas>
+                    </div>
+                </div>
+
                 <!-- Messages by Hour Chart -->
                 <div class="bg-white p-6 rounded-lg shadow-sm border">
                     <h2 class="text-lg font-semibold text-gray-800 mb-4">Mensajes por Hora (Últimas 24h)</h2>
@@ -100,7 +114,10 @@
                         <canvas id="messagesChart"></canvas>
                     </div>
                 </div>
+            </div>
 
+            <!-- Bottom Charts -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
                 <!-- Top Users Chart -->
                 <div class="bg-white p-6 rounded-lg shadow-sm border">
                     <h2 class="text-lg font-semibold text-gray-800 mb-4">Top Usuarios</h2>
@@ -108,12 +125,26 @@
                         <canvas id="usersChart"></canvas>
                     </div>
                 </div>
+
+                <!-- Performance Distribution -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Distribución de Tiempos de Respuesta</h2>
+                    <div class="h-64">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
             </div>
 
             <!-- Recent Conversations -->
             <div class="bg-white rounded-lg shadow-sm border">
-                <div class="px-6 py-4 border-b">
+                <div class="px-6 py-4 border-b flex justify-between items-center">
                     <h2 class="text-lg font-semibold text-gray-800">Conversaciones Recientes</h2>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-600" id="conversationsCount">0 conversaciones</span>
+                        <button id="refreshConversations" class="text-blue-500 hover:text-blue-700">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
                 </div>
                 <div id="conversationsList" class="divide-y">
                     <!-- Conversations will be populated by JavaScript -->
@@ -137,6 +168,21 @@
         </div>
     </div>
 
+    <!-- Performance Detail Modal -->
+    <div id="performanceModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[80vh] overflow-hidden">
+            <div class="px-6 py-4 border-b flex justify-between items-center">
+                <h3 class="text-lg font-semibold text-gray-800">Detalles de Performance</h3>
+                <button id="closePerformanceModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto max-h-[60vh]" id="performanceContent">
+                <!-- Performance details will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
     <script>
         // Configuration
         const CONFIG = {
@@ -145,13 +191,21 @@
             SESSION_KEY: 'chatvri_auth'
         };
 
+        // Performance thresholds (in milliseconds)
+        const PERFORMANCE_THRESHOLDS = {
+            EXCELLENT: 2000,    // < 2s - Verde
+            GOOD: 5000,         // < 5s - Amarillo  
+            CRITICAL: 10000     // > 10s - Rojo
+        };
+
         // State
         let state = {
             authenticated: false,
             stats: null,
             charts: {},
             currentConversation: null,
-            autoRefreshInterval: null
+            autoRefreshInterval: null,
+            performanceHistory: []
         };
 
         // DOM Elements
@@ -169,7 +223,13 @@
             closeModal: document.getElementById('closeModal'),
             modalTitle: document.getElementById('modalTitle'),
             modalPhone: document.getElementById('modalPhone'),
-            modalContent: document.getElementById('modalContent')
+            modalContent: document.getElementById('modalContent'),
+            performanceWarning: document.getElementById('performanceWarning'),
+            refreshConversations: document.getElementById('refreshConversations'),
+            conversationsCount: document.getElementById('conversationsCount'),
+            performanceModal: document.getElementById('performanceModal'),
+            closePerformanceModal: document.getElementById('closePerformanceModal'),
+            performanceContent: document.getElementById('performanceContent')
         };
 
         // Initialize the application
@@ -199,11 +259,19 @@
             elements.refreshBtn.addEventListener('click', handleManualRefresh);
             elements.logoutBtn.addEventListener('click', handleLogout);
             elements.closeModal.addEventListener('click', closeConversationModal);
+            elements.refreshConversations.addEventListener('click', handleManualRefresh);
+            elements.closePerformanceModal.addEventListener('click', closePerformanceModal);
             
-            // Close modal when clicking outside
+            // Close modals when clicking outside
             elements.conversationModal.addEventListener('click', function(e) {
                 if (e.target === elements.conversationModal) {
                     closeConversationModal();
+                }
+            });
+            
+            elements.performanceModal.addEventListener('click', function(e) {
+                if (e.target === elements.performanceModal) {
+                    closePerformanceModal();
                 }
             });
         }
@@ -248,13 +316,14 @@
             localStorage.removeItem(CONFIG.SESSION_KEY);
             stopAutoRefresh();
             
-            if (state.charts.messagesChart) {
-                state.charts.messagesChart.destroy();
-            }
-            if (state.charts.usersChart) {
-                state.charts.usersChart.destroy();
-            }
+            // Destroy all charts
+            Object.values(state.charts).forEach(chart => {
+                if (chart && typeof chart.destroy === 'function') {
+                    chart.destroy();
+                }
+            });
             
+            state.charts = {};
             showLogin();
         }
 
@@ -299,6 +368,7 @@
                 renderStatsCards();
                 renderCharts();
                 renderConversationsList();
+                checkPerformance();
                 
                 elements.dashboard.classList.remove('loading');
             } catch (error) {
@@ -319,19 +389,22 @@
 
         function renderStatsCards() {
             const stats = state.stats?.general || {};
+            const performance = state.stats?.performance || {};
             
             const cards = [
                 {
                     title: 'Total Mensajes',
                     value: stats.total_messages || 0,
                     icon: 'fa-comments',
-                    color: 'blue'
+                    color: 'blue',
+                    trend: stats.message_trend
                 },
                 {
                     title: 'Total Usuarios',
                     value: stats.total_users || 0,
                     icon: 'fa-users',
-                    color: 'green'
+                    color: 'green',
+                    trend: stats.user_trend
                 },
                 {
                     title: 'Mensajes Hoy',
@@ -341,41 +414,60 @@
                 },
                 {
                     title: 'Tiempo Respuesta Promedio',
-                    value: stats.avg_response_time ? `${stats.avg_response_time}s` : '0s',
+                    value: stats.avg_response_time ? `${stats.avg_response_time}ms` : '0ms',
                     icon: 'fa-clock',
-                    color: 'orange'
+                    color: getPerformanceColor(stats.avg_response_time),
+                    description: getPerformanceDescription(stats.avg_response_time)
                 },
                 {
-                    title: 'Tiempo Respuesta Actual',
-                    value: stats.current_response_time ? `${stats.current_response_time}ms` : 'N/A',
-                    icon: 'fa-gauge-high',
-                    color: 'red',
-                    description: 'Última respuesta'
+                    title: 'Usuarios Activos',
+                    value: performance.active_users || 0,
+                    icon: 'fa-user-check',
+                    color: 'indigo',
+                    description: 'En los últimos 30 min'
                 }
             ];
             
             elements.statsCards.innerHTML = cards.map(card => `
-        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-            <div class="flex items-center">
-                <div class="p-3 rounded-lg bg-${card.color}-100 mr-4">
-                    <i class="fas ${card.icon} text-${card.color}-500 text-xl"></i>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer" 
+                     onclick="${card.title.includes('Tiempo') ? 'showPerformanceDetails()' : ''}">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-lg bg-${card.color}-100 mr-4">
+                            <i class="fas ${card.icon} text-${card.color}-500 text-xl"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-gray-600">${card.title}</p>
+                            <p class="text-2xl font-bold text-gray-800">${card.value}</p>
+                            ${card.description ? `<p class="text-xs text-gray-500 mt-1">${card.description}</p>` : ''}
+                            ${card.trend ? `<p class="text-xs ${card.trend > 0 ? 'text-green-500' : 'text-red-500'} mt-1">
+                                ${card.trend > 0 ? '↗' : '↘'} ${Math.abs(card.trend)}%
+                            </p>` : ''}
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-600">${card.title}</p>
-                    <p class="text-2xl font-bold text-gray-800">${card.value}</p>
-                    ${card.description ? `<p class="text-xs text-gray-500 mt-1">${card.description}</p>` : ''}
-                </div>
-            </div>
-        </div>
-    `).join('');
-    
-    // Actualizar grid para 5 cards
-    elements.statsCards.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-8";
-}  
+            `).join('');
+        }
+
+        function getPerformanceColor(responseTime) {
+            if (!responseTime) return 'gray';
+            if (responseTime <= PERFORMANCE_THRESHOLDS.EXCELLENT) return 'green';
+            if (responseTime <= PERFORMANCE_THRESHOLDS.GOOD) return 'yellow';
+            return 'red';
+        }
+
+        function getPerformanceDescription(responseTime) {
+            if (!responseTime) return 'Sin datos';
+            if (responseTime <= PERFORMANCE_THRESHOLDS.EXCELLENT) return 'Excelente';
+            if (responseTime <= PERFORMANCE_THRESHOLDS.GOOD) return 'Bueno';
+            if (responseTime <= PERFORMANCE_THRESHOLDS.CRITICAL) return 'Regular';
+            return 'Crítico - Revisar';
+        }
 
         function renderCharts() {
             renderMessagesChart();
             renderUsersChart();
+            renderResponseTimeChart();
+            renderPerformanceChart();
         }
 
         function renderMessagesChart() {
@@ -395,12 +487,13 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Mensajes',
+                        label: 'Mensajes por Hora',
                         data: data,
-                        borderColor: 'rgb(59, 130, 246)',
-                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderColor: 'rgb(139, 92, 246)',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
                         tension: 0.4,
-                        fill: true
+                        fill: true,
+                        borderWidth: 2
                     }]
                 },
                 options: {
@@ -409,6 +502,13 @@
                     plugins: {
                         legend: {
                             display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Mensajes: ${context.parsed.y}`;
+                                }
+                            }
                         }
                     },
                     scales: {
@@ -416,6 +516,85 @@
                             beginAtZero: true,
                             ticks: {
                                 precision: 0
+                            },
+                            title: {
+                                display: true,
+                                text: 'Cantidad de Mensajes'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Hora del Día'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderResponseTimeChart() {
+            const ctx = document.getElementById('responseTimeChart').getContext('2d');
+            
+            if (state.charts.responseTimeChart) {
+                state.charts.responseTimeChart.destroy();
+            }
+            
+            const responseData = state.stats?.response_times || [];
+            const labels = responseData.map(item => `${item.hour}:00`);
+            const data = responseData.map(item => item.avg_response_time);
+            
+            // Create gradient for the chart
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(59, 130, 246, 0.3)');
+            gradient.addColorStop(1, 'rgba(59, 130, 246, 0.1)');
+            
+            state.charts.responseTimeChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Tiempo de Respuesta (ms)',
+                        data: data,
+                        borderColor: 'rgb(59, 130, 246)',
+                        backgroundColor: gradient,
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Tiempo: ${context.parsed.y}ms`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Milisegundos (ms)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value + 'ms';
+                                }
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Hora del Día'
                             }
                         }
                     }
@@ -426,7 +605,6 @@
         function renderUsersChart() {
             const ctx = document.getElementById('usersChart').getContext('2d');
             
-            // Destroy existing chart if it exists
             if (state.charts.usersChart) {
                 state.charts.usersChart.destroy();
             }
@@ -436,13 +614,6 @@
                 user.phone_number ? `+${user.phone_number}` : 'Usuario'
             );
             const data = usersData.map(user => user.message_count);
-            const backgroundColors = [
-                'rgba(59, 130, 246, 0.7)',
-                'rgba(16, 185, 129, 0.7)',
-                'rgba(245, 158, 11, 0.7)',
-                'rgba(139, 92, 246, 0.7)',
-                'rgba(239, 68, 68, 0.7)'
-            ];
             
             state.charts.usersChart = new Chart(ctx, {
                 type: 'bar',
@@ -451,8 +622,20 @@
                     datasets: [{
                         label: 'Mensajes',
                         data: data,
-                        backgroundColor: backgroundColors,
-                        borderColor: backgroundColors.map(color => color.replace('0.7', '1')),
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.7)',
+                            'rgba(16, 185, 129, 0.7)',
+                            'rgba(245, 158, 11, 0.7)',
+                            'rgba(139, 92, 246, 0.7)',
+                            'rgba(239, 68, 68, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgb(59, 130, 246)',
+                            'rgb(16, 185, 129)',
+                            'rgb(245, 158, 11)',
+                            'rgb(139, 92, 246)',
+                            'rgb(239, 68, 68)'
+                        ],
                         borderWidth: 1
                     }]
                 },
@@ -476,6 +659,10 @@
                             beginAtZero: true,
                             ticks: {
                                 precision: 0
+                            },
+                            title: {
+                                display: true,
+                                text: 'Cantidad de Mensajes'
                             }
                         }
                     },
@@ -492,8 +679,79 @@
             });
         }
 
+        function renderPerformanceChart() {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            
+            if (state.charts.performanceChart) {
+                state.charts.performanceChart.destroy();
+            }
+            
+            // Simulate performance distribution data
+            const performanceData = state.stats?.performance_distribution || {
+                excellent: 45,
+                good: 35,
+                regular: 15,
+                critical: 5
+            };
+            
+            state.charts.performanceChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Excelente (<2s)', 'Bueno (2-5s)', 'Regular (5-10s)', 'Crítico (>10s)'],
+                    datasets: [{
+                        data: [
+                            performanceData.excellent || 0,
+                            performanceData.good || 0,
+                            performanceData.regular || 0,
+                            performanceData.critical || 0
+                        ],
+                        backgroundColor: [
+                            'rgba(16, 185, 129, 0.8)',
+                            'rgba(245, 158, 11, 0.8)',
+                            'rgba(249, 115, 22, 0.8)',
+                            'rgba(239, 68, 68, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgb(16, 185, 129)',
+                            'rgb(245, 158, 11)',
+                            'rgb(249, 115, 22)',
+                            'rgb(239, 68, 68)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.parsed;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = Math.round((value / total) * 100);
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+        }
+
         function renderConversationsList() {
             const conversations = state.stats?.recent_conversations || [];
+            
+            elements.conversationsCount.textContent = `${conversations.length} conversaciones`;
             
             if (conversations.length === 0) {
                 elements.conversationsList.innerHTML = `
@@ -513,6 +771,11 @@
                                 <i class="fas fa-user-circle text-gray-400 mr-2"></i>
                                 <span class="font-medium text-gray-800">+${conv.phone_number}</span>
                                 <span class="ml-2 text-xs text-gray-500">${formatTime(conv.created_at)}</span>
+                                ${conv.response_time ? `
+                                    <span class="ml-2 text-xs ${getPerformanceTextColor(conv.response_time)}">
+                                        ${conv.response_time}ms
+                                    </span>
+                                ` : ''}
                             </div>
                             <div class="text-sm text-gray-600 mb-1">
                                 <span class="font-medium">Usuario:</span> ${truncateText(conv.user_message, 80)}
@@ -533,6 +796,129 @@
                     loadUserConversations(phone);
                 });
             });
+        }
+
+        function getPerformanceTextColor(responseTime) {
+            if (!responseTime) return 'text-gray-500';
+            if (responseTime <= PERFORMANCE_THRESHOLDS.EXCELLENT) return 'text-green-500';
+            if (responseTime <= PERFORMANCE_THRESHOLDS.GOOD) return 'text-yellow-500';
+            if (responseTime <= PERFORMANCE_THRESHOLDS.CRITICAL) return 'text-orange-500';
+            return 'text-red-500';
+        }
+
+        function checkPerformance() {
+            const stats = state.stats?.general || {};
+            const performance = state.stats?.performance || {};
+            
+            elements.performanceWarning.classList.add('hidden');
+            
+            if (stats.avg_response_time > PERFORMANCE_THRESHOLDS.CRITICAL) {
+                showPerformanceWarning({
+                    avg_response_time: stats.avg_response_time,
+                    active_users: performance.active_users,
+                    message: 'Tiempo de respuesta crítico detectado'
+                });
+            } else if (stats.avg_response_time > PERFORMANCE_THRESHOLDS.GOOD) {
+                showPerformanceWarning({
+                    avg_response_time: stats.avg_response_time,
+                    active_users: performance.active_users,
+                    message: 'Tiempo de respuesta elevado',
+                    level: 'warning'
+                });
+            }
+        }
+
+        function showPerformanceWarning(performance) {
+            const level = performance.level || 'critical';
+            const bgColor = level === 'critical' ? 'red' : 'yellow';
+            
+            const warningHtml = `
+                <div class="bg-${bgColor}-50 border border-${bgColor}-200 rounded-lg p-4 m-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fas fa-exclamation-triangle text-${bgColor}-500 mr-3 text-lg"></i>
+                            <div>
+                                <h4 class="font-medium text-${bgColor}-800">${performance.message}</h4>
+                                <p class="text-${bgColor}-700 text-sm">
+                                    Tiempo promedio: ${performance.avg_response_time}ms
+                                    ${performance.active_users ? `• Usuarios activos: ${performance.active_users}` : ''}
+                                </p>
+                            </div>
+                        </div>
+                        <button onclick="showPerformanceDetails()" class="text-${bgColor}-600 hover:text-${bgColor}-800 text-sm font-medium">
+                            Ver detalles
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            elements.performanceWarning.innerHTML = warningHtml;
+            elements.performanceWarning.classList.remove('hidden');
+        }
+
+        function showPerformanceDetails() {
+            const stats = state.stats?.general || {};
+            const performance = state.stats?.performance || {};
+            
+            const detailsHtml = `
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-600">Tiempo Respuesta Actual</p>
+                            <p class="text-2xl font-bold ${getPerformanceTextColor(stats.avg_response_time)}">
+                                ${stats.avg_response_time || 0}ms
+                            </p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-600">Usuarios Activos</p>
+                            <p class="text-2xl font-bold text-gray-800">
+                                ${performance.active_users || 0}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-600 mb-2">Umbrales de Performance</p>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-green-600">✓ Excelente</span>
+                                <span>&lt; ${PERFORMANCE_THRESHOLDS.EXCELLENT}ms</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-yellow-600">⚠ Bueno</span>
+                                <span>&lt; ${PERFORMANCE_THRESHOLDS.GOOD}ms</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-orange-600">⚠ Regular</span>
+                                <span>&lt; ${PERFORMANCE_THRESHOLDS.CRITICAL}ms</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-red-600">✗ Crítico</span>
+                                <span>&gt; ${PERFORMANCE_THRESHOLDS.CRITICAL}ms</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    ${stats.avg_response_time > PERFORMANCE_THRESHOLDS.GOOD ? `
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                        <p class="text-sm text-yellow-800 font-medium">Recomendaciones:</p>
+                        <ul class="text-sm text-yellow-700 mt-2 list-disc list-inside space-y-1">
+                            <li>Verificar conexión con APIs externas</li>
+                            <li>Revisar logs de errores</li>
+                            <li>Optimizar consultas a la base de datos</li>
+                            <li>Considerar escalar recursos del servidor</li>
+                        </ul>
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+            
+            elements.performanceContent.innerHTML = detailsHtml;
+            elements.performanceModal.classList.remove('hidden');
+        }
+
+        function closePerformanceModal() {
+            elements.performanceModal.classList.add('hidden');
         }
 
         async function loadUserConversations(phoneNumber) {
@@ -587,7 +973,14 @@
             
             elements.modalContent.innerHTML = sortedConversations.map(conv => `
                 <div class="mb-6">
-                    <div class="text-xs text-gray-500 mb-2 text-center">${formatDateTime(conv.created_at)}</div>
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="text-xs text-gray-500">${formatDateTime(conv.created_at)}</div>
+                        ${conv.response_time ? `
+                            <div class="text-xs ${getPerformanceTextColor(conv.response_time)} font-medium">
+                                ${conv.response_time}ms
+                            </div>
+                        ` : ''}
+                    </div>
                     
                     <div class="flex justify-start mb-4">
                         <div class="bg-blue-100 rounded-lg p-4 max-w-xs lg:max-w-md">

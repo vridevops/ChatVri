@@ -1,7 +1,4 @@
-"""
-api_dashboard.py
-API REST para el dashboard del chatbot con filtros
-"""
+
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS

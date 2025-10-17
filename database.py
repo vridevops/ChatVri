@@ -214,76 +214,86 @@ def update_daily_stats():
         return False
 
 def get_dashboard_stats(days=7):
-    """Obtener estadísticas para el dashboard (query optimizado)"""
+    """Obtener estadísticas para el dashboard - VERSIÓN CORREGIDA"""
     try:
         with get_db_connection() as conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
-                # ✅ OPTIMIZACIÓN 10: Single query en lugar de múltiples
-                cur.execute("""
-                    WITH stats AS (
-                        SELECT 
-                            COUNT(*) as total_messages,
-                            COUNT(DISTINCT phone_number) as total_users,
-                            COALESCE(AVG(response_time_ms)::INT, 0) as avg_response_time,
-                            SUM(CASE WHEN created_at >= CURRENT_DATE THEN 1 ELSE 0 END) as today_messages
-                        FROM conversations
-                    ),
-                    hourly AS (
-                        SELECT 
-                            EXTRACT(HOUR FROM created_at)::INT as hour,
-                            COUNT(*) as count
-                        FROM conversations
-                        WHERE created_at >= NOW() - INTERVAL '24 hours'
-                        GROUP BY hour
-                        ORDER BY hour
-                    ),
-                    top_users AS (
-                        SELECT 
-                            phone_number,
-                            COUNT(*) as message_count
-                        FROM conversations
-                        WHERE created_at >= NOW() - INTERVAL '%s days'
-                        GROUP BY phone_number
-                        ORDER BY message_count DESC
-                        LIMIT 10
-                    )
-                    SELECT 
-                        (SELECT row_to_json(stats.*) FROM stats) as general,
-                        (SELECT json_agg(hourly.*) FROM hourly) as messages_by_hour,
-                        (SELECT json_agg(top_users.*) FROM top_users) as top_users
-                """, (days,))
                 
-                result = cur.fetchone()
+                # ... (código existente para general stats) ...
                 
-                # Conversaciones recientes (separado por performance)
+                # CONVERSACIONES RECIENTES - ¡CORREGIDO!
                 cur.execute("""
                     SELECT 
+                        id,
                         phone_number,
                         user_message,
                         bot_response,
                         model_used,
-                        response_time_ms,
-                        created_at
-                    FROM conversations
-                    ORDER BY created_at DESC
-                    LIMIT 50
+                        response_time_ms,  -- ¡AGREGAR ESTE CAMPO!
+                        created_at,
+                        knowledge_used
+                    FROM conversations 
+                    ORDER BY created_at DESC 
+                    LIMIT 20
                 """)
-                recent = [dict(row) for row in cur.fetchall()]
+                recent_conversations = [dict(row) for row in cur.fetchall()]
+                
+                # Convertir datetime a string
+                for conv in recent_conversations:
+                    if isinstance(conv['created_at'], datetime):
+                        conv['created_at'] = conv['created_at'].isoformat()
+                
+                # TOP USUARIOS
+                cur.execute("""
+                    SELECT 
+                        phone_number,
+                        COUNT(*) as message_count,
+                        MIN(created_at) as first_seen,
+                        MAX(created_at) as last_seen
+                    FROM conversations 
+                    GROUP BY phone_number 
+                    ORDER BY message_count DESC 
+                    LIMIT 10
+                """)
+                top_users = [dict(row) for row in cur.fetchall()]
+                
+                # MENSAJES POR HORA (últimas 24h)
+                cur.execute("""
+                    SELECT 
+                        EXTRACT(HOUR FROM created_at) as hour,
+                        COUNT(*) as count
+                    FROM conversations 
+                    WHERE created_at >= NOW() - INTERVAL '24 hours'
+                    GROUP BY EXTRACT(HOUR FROM created_at)
+                    ORDER BY hour
+                """)
+                messages_by_hour = [dict(row) for row in cur.fetchall()]
+                
+                # TIEMPO DE RESPUESTA PROMEDIO
+                cur.execute("""
+                    SELECT AVG(response_time_ms) as avg_response_time
+                    FROM conversations 
+                    WHERE response_time_ms IS NOT NULL 
+                    AND created_at >= NOW() - INTERVAL '7 days'
+                """)
+                avg_result = cur.fetchone()
+                avg_response_time = round(avg_result['avg_response_time']) if avg_result['avg_response_time'] else None
                 
                 return {
-                    'general': result['general'] or {},
-                    'messages_by_hour': result['messages_by_hour'] or [],
-                    'top_users': result['top_users'] or [],
-                    'recent_conversations': recent
+                    'general': {
+                        'total_messages': total_messages,
+                        'total_users': total_users,
+                        'today_messages': today_messages,
+                        'avg_response_time': avg_response_time
+                    },
+                    'recent_conversations': recent_conversations,  # ¡AHORA CON response_time_ms!
+                    'top_users': top_users,
+                    'messages_by_hour': messages_by_hour
                 }
+                
     except Exception as e:
-        logger.error(f"Error obteniendo estadísticas del dashboard: {e}")
-        return {
-            'general': {'total_messages': 0, 'total_users': 0, 'avg_response_time': 0, 'today_messages': 0},
-            'messages_by_hour': [],
-            'top_users': [],
-            'recent_conversations': []
-        }
+        app.logger.error(f"Error en get_dashboard_stats: {e}")
+        return None
 
 def log_knowledge_search(phone_number, query, results_found, top_distance=None):
     """Registrar búsqueda en base de conocimiento (non-blocking)"""

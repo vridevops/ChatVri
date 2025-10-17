@@ -7,845 +7,238 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .loading {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .performance-good { color: #10b981; }
-        .performance-warning { color: #f59e0b; }
-        .performance-critical { color: #ef4444; }
-        .response-time-badge {
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-weight: 600;
-        }
-    </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
-    <!-- Login Screen -->
+    <!-- Login -->
     <div id="loginScreen" class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600">
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
             <div class="text-center mb-8">
                 <i class="fas fa-robot text-5xl text-blue-500 mb-4"></i>
                 <h1 class="text-3xl font-bold text-gray-800">ChatVRI Dashboard</h1>
-                <p class="text-gray-600 mt-2">Sistema de Monitoreo de Chatbot</p>
             </div>
-            
             <form id="loginForm" class="space-y-6">
-                <div>
-                    <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Usuario</label>
-                    <input type="text" id="username" name="username" 
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                           placeholder="Ingresa tu usuario" required>
-                </div>
-                
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
-                    <input type="password" id="password" name="password" 
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                           placeholder="Ingresa tu contraseña" required>
-                </div>
-                
-                <button type="submit" 
-                        class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition font-medium">
-                    Iniciar Sesión
-                </button>
+                <div><input type="text" id="username" class="w-full px-4 py-2 border rounded-lg" placeholder="admin" required></div>
+                <div><input type="password" id="password" class="w-full px-4 py-2 border rounded-lg" placeholder="unap2025" required></div>
+                <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Iniciar Sesión</button>
             </form>
-            
-            <div id="loginError" class="mt-4 p-3 bg-red-100 text-red-700 rounded-lg hidden">
-                Error de autenticación. Verifica tus credenciales.
-            </div>
         </div>
     </div>
 
-    <!-- Main Dashboard -->
+    <!-- Dashboard -->
     <div id="dashboard" class="hidden">
-        <!-- Header -->
         <header class="bg-white shadow-sm border-b">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center py-4">
-                    <div class="flex items-center">
-                        <i class="fas fa-robot text-2xl text-blue-500 mr-3"></i>
-                        <h1 class="text-xl font-semibold text-gray-800">ChatVRI Dashboard</h1>
-                    </div>
-                    
-                    <div class="flex items-center space-x-4">
-                        <div class="text-sm text-gray-600">
-                            <span id="lastUpdate">Última actualización: --:--:--</span>
-                        </div>
-                        <button id="refreshBtn" class="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition">
-                            <i class="fas fa-sync-alt"></i>
-                        </button>
-                        <button id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
-                            Cerrar Sesión
-                        </button>
-                    </div>
+            <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="flex items-center">
+                    <i class="fas fa-robot text-2xl text-blue-500 mr-3"></i>
+                    <h1 class="text-xl font-semibold text-gray-800">ChatVRI Dashboard</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="lastUpdate" class="text-sm text-gray-600"></span>
+                    <button id="refreshBtn" class="bg-blue-500 text-white p-2 rounded-lg">🔄</button>
                 </div>
             </div>
         </header>
 
-        <!-- Performance Warning -->
-        <div id="performanceWarning" class="hidden"></div>
+        <main class="max-w-7xl mx-auto px-4 py-6">
+            <!-- Stats -->
+            <div id="statsCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"></div>
 
-        <!-- Main Content -->
-        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <!-- Stats Cards -->
-            <div id="statsCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <!-- Cards will be populated by JavaScript -->
-            </div>
-
-            <!-- Performance Charts -->
+            <!-- Charts -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                <!-- Response Time Distribution -->
                 <div class="bg-white p-6 rounded-lg shadow-sm border">
-                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Distribución de Tiempos de Respuesta</h2>
-                    <div class="h-64">
-                        <canvas id="responseTimeDistributionChart"></canvas>
-                    </div>
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Mensajes por Hora</h2>
+                    <div class="h-64"><canvas id="messagesChart"></canvas></div>
                 </div>
-
-                <!-- Messages by Hour -->
                 <div class="bg-white p-6 rounded-lg shadow-sm border">
-                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Mensajes por Hora (Últimas 24h)</h2>
-                    <div class="h-64">
-                        <canvas id="messagesChart"></canvas>
-                    </div>
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Top Usuarios</h2>
+                    <div class="h-64"><canvas id="usersChart"></canvas></div>
                 </div>
             </div>
 
-            <!-- Recent Conversations with Response Times -->
+            <!-- Conversations -->
             <div class="bg-white rounded-lg shadow-sm border">
-                <div class="px-6 py-4 border-b flex justify-between items-center">
+                <div class="px-6 py-4 border-b">
                     <h2 class="text-lg font-semibold text-gray-800">Conversaciones Recientes</h2>
-                    <div class="flex items-center space-x-4">
-                        <span class="text-sm text-gray-600" id="conversationsCount">0 conversaciones</span>
-                        <button id="refreshConversations" class="text-blue-500 hover:text-blue-700">
-                            <i class="fas fa-sync-alt"></i>
-                        </button>
-                    </div>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Usuario</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mensaje Usuario</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Respuesta Bot</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tiempo Respuesta</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Modelo</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha/Hora</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500">Usuario</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500">Mensaje</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500">Respuesta</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500">Tiempo (ms)</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500">Modelo</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500">Fecha</th>
                             </tr>
                         </thead>
-                        <tbody id="conversationsList" class="bg-white divide-y divide-gray-200">
-                            <!-- Conversations will be populated by JavaScript -->
-                        </tbody>
+                        <tbody id="conversationsList"></tbody>
                     </table>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- Conversation Detail Modal -->
-    <div id="conversationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
-            <div class="px-6 py-4 border-b flex justify-between items-center">
-                <h3 class="text-lg font-semibold text-gray-800" id="modalTitle">Conversación con <span id="modalPhone"></span></h3>
-                <button id="closeModal" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-            <div class="p-6 overflow-y-auto max-h-[70vh]" id="modalContent">
-                <!-- Conversation details will be populated by JavaScript -->
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Configuration
         const CONFIG = {
             API_URL: 'https://dashboard.services.vridevops.space',
-            REFRESH_INTERVAL: 10000, // 10 seconds
             SESSION_KEY: 'chatvri_auth'
         };
 
-        // Performance thresholds (in milliseconds)
-        const PERFORMANCE_THRESHOLDS = {
-            EXCELLENT: 2000,    // < 2s - Verde
-            GOOD: 5000,         // < 5s - Amarillo  
-            CRITICAL: 10000     // > 10s - Rojo
-        };
-
-        // State
-        let state = {
-            authenticated: false,
-            stats: null,
-            charts: {},
-            currentConversation: null,
-            autoRefreshInterval: null
-        };
-
-        // DOM Elements
         const elements = {
             loginScreen: document.getElementById('loginScreen'),
             dashboard: document.getElementById('dashboard'),
             loginForm: document.getElementById('loginForm'),
-            loginError: document.getElementById('loginError'),
             statsCards: document.getElementById('statsCards'),
             conversationsList: document.getElementById('conversationsList'),
             refreshBtn: document.getElementById('refreshBtn'),
-            logoutBtn: document.getElementById('logoutBtn'),
-            lastUpdate: document.getElementById('lastUpdate'),
-            conversationModal: document.getElementById('conversationModal'),
-            closeModal: document.getElementById('closeModal'),
-            modalTitle: document.getElementById('modalTitle'),
-            modalPhone: document.getElementById('modalPhone'),
-            modalContent: document.getElementById('modalContent'),
-            performanceWarning: document.getElementById('performanceWarning'),
-            refreshConversations: document.getElementById('refreshConversations'),
-            conversationsCount: document.getElementById('conversationsCount')
+            lastUpdate: document.getElementById('lastUpdate')
         };
 
-        // Initialize the application
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            initializeApp();
-        });
-
-        function initializeApp() {
-            // Check if user is already logged in
             const savedAuth = localStorage.getItem(CONFIG.SESSION_KEY);
-            if (savedAuth) {
-                try {
-                    const authData = JSON.parse(savedAuth);
-                    if (authData && authData.username === 'admin') {
-                        state.authenticated = true;
-                        showDashboard();
-                        loadDashboardData();
-                        startAutoRefresh();
-                    }
-                } catch (e) {
-                    localStorage.removeItem(CONFIG.SESSION_KEY);
-                }
+            if (savedAuth && JSON.parse(savedAuth).username === 'admin') {
+                showDashboard();
+                loadDashboardData();
             }
-
-            // Event listeners
             elements.loginForm.addEventListener('submit', handleLogin);
-            elements.refreshBtn.addEventListener('click', handleManualRefresh);
-            elements.logoutBtn.addEventListener('click', handleLogout);
-            elements.closeModal.addEventListener('click', closeConversationModal);
-            elements.refreshConversations.addEventListener('click', handleManualRefresh);
-            
-            // Close modal when clicking outside
-            elements.conversationModal.addEventListener('click', function(e) {
-                if (e.target === elements.conversationModal) {
-                    closeConversationModal();
-                }
-            });
-        }
+            elements.refreshBtn.addEventListener('click', loadDashboardData);
+        });
 
         async function handleLogin(e) {
             e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
             try {
                 const response = await fetch(`${CONFIG.API_URL}/api/login`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ username, password })
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        username: document.getElementById('username').value,
+                        password: document.getElementById('password').value
+                    })
                 });
-                
                 const data = await response.json();
-                
                 if (data.success) {
-                    // Save authentication
                     localStorage.setItem(CONFIG.SESSION_KEY, JSON.stringify(data.user));
-                    state.authenticated = true;
-                    elements.loginError.classList.add('hidden');
-                    
                     showDashboard();
                     loadDashboardData();
-                    startAutoRefresh();
-                } else {
-                    throw new Error('Invalid credentials');
                 }
             } catch (error) {
                 console.error('Login error:', error);
-                elements.loginError.classList.remove('hidden');
             }
-        }
-
-        function handleLogout() {
-            state.authenticated = false;
-            localStorage.removeItem(CONFIG.SESSION_KEY);
-            stopAutoRefresh();
-            
-            // Destroy all charts
-            Object.values(state.charts).forEach(chart => {
-                if (chart && typeof chart.destroy === 'function') {
-                    chart.destroy();
-                }
-            });
-            
-            state.charts = {};
-            showLogin();
-        }
-
-        function handleManualRefresh() {
-            loadDashboardData();
-        }
-
-        function startAutoRefresh() {
-            stopAutoRefresh();
-            state.autoRefreshInterval = setInterval(loadDashboardData, CONFIG.REFRESH_INTERVAL);
-        }
-
-        function stopAutoRefresh() {
-            if (state.autoRefreshInterval) {
-                clearInterval(state.autoRefreshInterval);
-                state.autoRefreshInterval = null;
-            }
-        }
-
-        function showLogin() {
-            elements.dashboard.classList.add('hidden');
-            elements.loginScreen.classList.remove('hidden');
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
-        }
-
-        function showDashboard() {
-            elements.loginScreen.classList.add('hidden');
-            elements.dashboard.classList.remove('hidden');
-            elements.dashboard.classList.add('fade-in');
         }
 
         async function loadDashboardData() {
             try {
-                elements.dashboard.classList.add('loading');
-                
                 const response = await fetch(`${CONFIG.API_URL}/api/stats`);
                 const data = await response.json();
                 
-                state.stats = data;
                 updateLastUpdateTime();
-                renderStatsCards();
-                renderCharts();
-                renderConversationsList();
-                checkPerformance();
-                
-                elements.dashboard.classList.remove('loading');
+                renderStatsCards(data);
+                renderCharts(data);
+                renderConversationsList(data);
             } catch (error) {
-                console.error('Error loading dashboard data:', error);
-                elements.dashboard.classList.remove('loading');
+                console.error('Error:', error);
             }
         }
 
         function updateLastUpdateTime() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('es-ES', { 
-                hour: '2-digit', 
-                minute: '2-digit', 
-                second: '2-digit' 
-            });
-            elements.lastUpdate.textContent = `Última actualización: ${timeString}`;
+            elements.lastUpdate.textContent = `Última actualización: ${new Date().toLocaleTimeString()}`;
         }
 
-        function renderStatsCards() {
-            const stats = state.stats?.general || {};
-            
-            const cards = [
-                {
-                    title: 'Total Mensajes',
-                    value: stats.total_messages || 0,
-                    icon: 'fa-comments',
-                    color: 'blue'
-                },
-                {
-                    title: 'Total Usuarios',
-                    value: stats.total_users || 0,
-                    icon: 'fa-users',
-                    color: 'green'
-                },
-                {
-                    title: 'Mensajes Hoy',
-                    value: stats.today_messages || 0,
-                    icon: 'fa-calendar-day',
-                    color: 'purple'
-                },
-                {
-                    title: 'Tiempo Respuesta Promedio',
-                    value: stats.avg_response_time ? `${stats.avg_response_time}ms` : '0ms',
-                    icon: 'fa-clock',
-                    color: getPerformanceColor(stats.avg_response_time),
-                    description: getPerformanceDescription(stats.avg_response_time)
-                }
-            ];
-            
-            elements.statsCards.innerHTML = cards.map(card => `
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+        function renderStatsCards(data) {
+            const stats = data.general || {};
+            elements.statsCards.innerHTML = `
+                <div class="bg-white p-6 rounded-lg shadow-sm border">
                     <div class="flex items-center">
-                        <div class="p-3 rounded-lg bg-${card.color}-100 mr-4">
-                            <i class="fas ${card.icon} text-${card.color}-500 text-xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm font-medium text-gray-600">${card.title}</p>
-                            <p class="text-2xl font-bold text-gray-800">${card.value}</p>
-                            ${card.description ? `<p class="text-xs text-gray-500 mt-1">${card.description}</p>` : ''}
-                        </div>
+                        <div class="p-3 rounded-lg bg-blue-100 mr-4"><i class="fas fa-comments text-blue-500"></i></div>
+                        <div><p class="text-sm text-gray-600">Total Mensajes</p><p class="text-2xl font-bold">${stats.total_messages || 0}</p></div>
                     </div>
                 </div>
-            `).join('');
+                <div class="bg-white p-6 rounded-lg shadow-sm border">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-lg bg-green-100 mr-4"><i class="fas fa-users text-green-500"></i></div>
+                        <div><p class="text-sm text-gray-600">Total Usuarios</p><p class="text-2xl font-bold">${stats.total_users || 0}</p></div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-lg bg-purple-100 mr-4"><i class="fas fa-calendar-day text-purple-500"></i></div>
+                        <div><p class="text-sm text-gray-600">Mensajes Hoy</p><p class="text-2xl font-bold">${stats.today_messages || 0}</p></div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-lg bg-orange-100 mr-4"><i class="fas fa-clock text-orange-500"></i></div>
+                        <div><p class="text-sm text-gray-600">Tiempo Promedio</p><p class="text-2xl font-bold">${stats.avg_response_time ? stats.avg_response_time + 'ms' : 'N/A'}</p></div>
+                    </div>
+                </div>
+            `;
         }
 
-        function getPerformanceColor(responseTime) {
-            if (!responseTime) return 'gray';
-            if (responseTime <= PERFORMANCE_THRESHOLDS.EXCELLENT) return 'green';
-            if (responseTime <= PERFORMANCE_THRESHOLDS.GOOD) return 'yellow';
-            return 'red';
-        }
-
-        function getPerformanceDescription(responseTime) {
-            if (!responseTime) return 'Sin datos';
-            if (responseTime <= PERFORMANCE_THRESHOLDS.EXCELLENT) return 'Excelente';
-            if (responseTime <= PERFORMANCE_THRESHOLDS.GOOD) return 'Bueno';
-            if (responseTime <= PERFORMANCE_THRESHOLDS.CRITICAL) return 'Regular';
-            return 'Crítico - Revisar';
-        }
-
-        function renderCharts() {
-            renderMessagesChart();
-            renderResponseTimeDistributionChart();
-        }
-
-        function renderMessagesChart() {
-            const ctx = document.getElementById('messagesChart').getContext('2d');
-            
-            // Destroy existing chart if it exists
-            if (state.charts.messagesChart) {
-                state.charts.messagesChart.destroy();
-            }
-            
-            const messagesData = state.stats?.messages_by_hour || [];
-            const labels = messagesData.map(item => `${item.hour}:00`);
-            const data = messagesData.map(item => item.count);
-            
-            state.charts.messagesChart = new Chart(ctx, {
+        function renderCharts(data) {
+            // Messages Chart
+            const messagesCtx = document.getElementById('messagesChart').getContext('2d');
+            const messagesData = data.messages_by_hour || [];
+            new Chart(messagesCtx, {
                 type: 'line',
                 data: {
-                    labels: labels,
+                    labels: messagesData.map(item => `${item.hour}:00`),
                     datasets: [{
-                        label: 'Mensajes por Hora',
-                        data: data,
+                        label: 'Mensajes',
+                        data: messagesData.map(item => item.count),
                         borderColor: 'rgb(139, 92, 246)',
                         backgroundColor: 'rgba(139, 92, 246, 0.1)',
-                        tension: 0.4,
-                        fill: true,
-                        borderWidth: 2
+                        fill: true
                     }]
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return `Mensajes: ${context.parsed.y}`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                precision: 0
-                            },
-                            title: {
-                                display: true,
-                                text: 'Cantidad de Mensajes'
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Hora del Día'
-                            }
-                        }
-                    }
-                }
+                options: { responsive: true, maintainAspectRatio: false }
             });
-        }
 
-        function renderResponseTimeDistributionChart() {
-            const ctx = document.getElementById('responseTimeDistributionChart').getContext('2d');
-            
-            if (state.charts.responseTimeDistributionChart) {
-                state.charts.responseTimeDistributionChart.destroy();
-            }
-            
-            // Calculate distribution from recent conversations
-            const conversations = state.stats?.recent_conversations || [];
-            const responseTimes = conversations
-                .filter(conv => conv.response_time_ms) // ¡CORREGIDO! Usa response_time_ms
-                .map(conv => conv.response_time_ms);
-            
-            const distribution = {
-                excellent: responseTimes.filter(rt => rt <= PERFORMANCE_THRESHOLDS.EXCELLENT).length,
-                good: responseTimes.filter(rt => rt > PERFORMANCE_THRESHOLDS.EXCELLENT && rt <= PERFORMANCE_THRESHOLDS.GOOD).length,
-                regular: responseTimes.filter(rt => rt > PERFORMANCE_THRESHOLDS.GOOD && rt <= PERFORMANCE_THRESHOLDS.CRITICAL).length,
-                critical: responseTimes.filter(rt => rt > PERFORMANCE_THRESHOLDS.CRITICAL).length
-            };
-            
-            state.charts.responseTimeDistributionChart = new Chart(ctx, {
-                type: 'doughnut',
+            // Users Chart
+            const usersCtx = document.getElementById('usersChart').getContext('2d');
+            const usersData = data.top_users || [];
+            new Chart(usersCtx, {
+                type: 'bar',
                 data: {
-                    labels: ['Excelente (<2s)', 'Bueno (2-5s)', 'Regular (5-10s)', 'Crítico (>10s)'],
+                    labels: usersData.map(user => `+${user.phone_number}`),
                     datasets: [{
-                        data: [
-                            distribution.excellent,
-                            distribution.good,
-                            distribution.regular,
-                            distribution.critical
-                        ],
-                        backgroundColor: [
-                            'rgba(16, 185, 129, 0.8)',
-                            'rgba(245, 158, 11, 0.8)',
-                            'rgba(249, 115, 22, 0.8)',
-                            'rgba(239, 68, 68, 0.8)'
-                        ],
-                        borderColor: [
-                            'rgb(16, 185, 129)',
-                            'rgb(245, 158, 11)',
-                            'rgb(249, 115, 22)',
-                            'rgb(239, 68, 68)'
-                        ],
-                        borderWidth: 2
+                        label: 'Mensajes',
+                        data: usersData.map(user => user.message_count),
+                        backgroundColor: 'rgba(59, 130, 246, 0.7)'
                     }]
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                padding: 20,
-                                usePointStyle: true
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const label = context.label || '';
-                                    const value = context.parsed;
-                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                    const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
-                                    return `${label}: ${value} mensaje${value !== 1 ? 's' : ''} (${percentage}%)`;
-                                }
-                            }
-                        }
-                    },
-                    cutout: '60%'
-                }
+                options: { responsive: true, maintainAspectRatio: false }
             });
         }
 
-        function renderConversationsList() {
-            const conversations = state.stats?.recent_conversations || [];
-            
-            elements.conversationsCount.textContent = `${conversations.length} conversaciones`;
-            
-            if (conversations.length === 0) {
-                elements.conversationsList.innerHTML = `
-                    <tr>
-                        <td colspan="7" class="px-6 py-8 text-center text-gray-500">
-                            <i class="fas fa-comments text-4xl mb-4"></i>
-                            <p>No hay conversaciones recientes</p>
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
+        function renderConversationsList(data) {
+            const conversations = data.recent_conversations || [];
             
             elements.conversationsList.innerHTML = conversations.map(conv => {
-                // ¡CORREGIDO! Usa response_time_ms en lugar de response_time
                 const responseTime = conv.response_time_ms;
+                const timeColor = !responseTime ? 'text-gray-400' : 
+                                responseTime < 2000 ? 'text-green-600' :
+                                responseTime < 5000 ? 'text-yellow-600' : 'text-red-600';
                 
                 return `
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="flex items-center">
-                                <i class="fas fa-user-circle text-gray-400 mr-2"></i>
-                                <span class="font-medium text-gray-900">+${conv.phone_number}</span>
-                            </div>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-2 text-sm font-medium">+${conv.phone_number}</td>
+                        <td class="px-4 py-2 text-sm max-w-xs truncate">${conv.user_message || ''}</td>
+                        <td class="px-4 py-2 text-sm max-w-xs truncate">${conv.bot_response || ''}</td>
+                        <td class="px-4 py-2 text-sm font-medium ${timeColor}">
+                            ${responseTime ? responseTime + 'ms' : 'N/A'}
                         </td>
-                        <td class="px-6 py-4">
-                            <div class="text-sm text-gray-900 max-w-xs truncate" title="${conv.user_message || ''}">
-                                ${conv.user_message || 'Sin mensaje'}
-                            </div>
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="text-sm text-gray-900 max-w-xs truncate" title="${conv.bot_response || ''}">
-                                ${conv.bot_response || 'Sin respuesta'}
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            ${responseTime ? `
-                                <span class="response-time-badge ${getResponseTimeBadgeColor(responseTime)}">
-                                    ${responseTime}ms
-                                </span>
-                                <div class="text-xs text-gray-500 mt-1">${getPerformanceDescription(responseTime)}</div>
-                            ` : `
-                                <span class="text-gray-400 text-sm">N/A</span>
-                            `}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                ${conv.model_used || 'N/A'}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            ${formatDateTime(conv.created_at)}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <button onclick="loadUserConversations('${conv.phone_number}')" 
-                                    class="text-blue-600 hover:text-blue-900 mr-3" title="Ver conversación completa">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button onclick="showMessageDetails(${JSON.stringify(conv).replace(/"/g, '&quot;')})" 
-                                    class="text-green-600 hover:text-green-900" title="Ver detalles">
-                                <i class="fas fa-chart-line"></i>
-                            </button>
-                        </td>
+                        <td class="px-4 py-2 text-sm text-gray-500">${conv.model_used || 'N/A'}</td>
+                        <td class="px-4 py-2 text-sm text-gray-500">${new Date(conv.created_at).toLocaleString()}</td>
                     </tr>
                 `;
             }).join('');
         }
 
-        function getResponseTimeBadgeColor(responseTime) {
-            if (!responseTime) return 'bg-gray-100 text-gray-800';
-            if (responseTime <= PERFORMANCE_THRESHOLDS.EXCELLENT) return 'bg-green-100 text-green-800';
-            if (responseTime <= PERFORMANCE_THRESHOLDS.GOOD) return 'bg-yellow-100 text-yellow-800';
-            if (responseTime <= PERFORMANCE_THRESHOLDS.CRITICAL) return 'bg-orange-100 text-orange-800';
-            return 'bg-red-100 text-red-800';
-        }
-
-        function checkPerformance() {
-            const stats = state.stats?.general || {};
-            
-            elements.performanceWarning.classList.add('hidden');
-            
-            if (stats.avg_response_time > PERFORMANCE_THRESHOLDS.CRITICAL) {
-                showPerformanceWarning({
-                    avg_response_time: stats.avg_response_time,
-                    message: 'Tiempo de respuesta crítico detectado'
-                });
-            }
-        }
-
-        function showPerformanceWarning(performance) {
-            const warningHtml = `
-                <div class="bg-red-50 border border-red-200 rounded-lg p-4 m-4">
-                    <div class="flex items-center">
-                        <i class="fas fa-exclamation-triangle text-red-500 mr-3 text-lg"></i>
-                        <div>
-                            <h4 class="font-medium text-red-800">${performance.message}</h4>
-                            <p class="text-red-700 text-sm">
-                                Tiempo promedio: ${performance.avg_response_time}ms
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            elements.performanceWarning.innerHTML = warningHtml;
-            elements.performanceWarning.classList.remove('hidden');
-        }
-
-        function showMessageDetails(message) {
-            const detailsHtml = `
-                <div class="space-y-4">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <p class="text-sm text-gray-600">Tiempo de Respuesta</p>
-                            <p class="text-2xl font-bold ${getPerformanceTextColor(message.response_time_ms)}">
-                                ${message.response_time_ms || 0}ms
-                            </p>
-                            <p class="text-xs text-gray-500 mt-1">${getPerformanceDescription(message.response_time_ms)}</p>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <p class="text-sm text-gray-600">Usuario</p>
-                            <p class="text-lg font-bold text-gray-800">+${message.phone_number}</p>
-                            <p class="text-xs text-gray-500 mt-1">Modelo: ${message.model_used || 'N/A'}</p>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <p class="text-sm font-medium text-blue-800 mb-2">Mensaje del Usuario:</p>
-                        <p class="text-blue-900 whitespace-pre-wrap">${message.user_message || 'Sin mensaje'}</p>
-                    </div>
-                    
-                    <div class="bg-green-50 p-4 rounded-lg">
-                        <p class="text-sm font-medium text-green-800 mb-2">Respuesta del Bot:</p>
-                        <p class="text-green-900 whitespace-pre-wrap">${message.bot_response || 'Sin respuesta'}</p>
-                    </div>
-                    
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <p class="text-sm text-gray-600">Fecha y Hora</p>
-                        <p class="text-gray-800">${formatDateTime(message.created_at)}</p>
-                    </div>
-                </div>
-            `;
-            
-            elements.modalContent.innerHTML = detailsHtml;
-            elements.modalTitle.innerHTML = `Detalles del Mensaje - <span class="text-blue-600">+${message.phone_number}</span>`;
-            elements.conversationModal.classList.remove('hidden');
-        }
-
-        function getPerformanceTextColor(responseTime) {
-            if (!responseTime) return 'text-gray-500';
-            if (responseTime <= PERFORMANCE_THRESHOLDS.EXCELLENT) return 'text-green-500';
-            if (responseTime <= PERFORMANCE_THRESHOLDS.GOOD) return 'text-yellow-500';
-            if (responseTime <= PERFORMANCE_THRESHOLDS.CRITICAL) return 'text-orange-500';
-            return 'text-red-500';
-        }
-
-        async function loadUserConversations(phoneNumber) {
-            try {
-                elements.conversationModal.classList.remove('hidden');
-                elements.modalContent.innerHTML = `
-                    <div class="flex justify-center items-center h-32">
-                        <i class="fas fa-spinner fa-spin text-2xl text-blue-500"></i>
-                        <span class="ml-2 text-gray-600">Cargando conversación...</span>
-                    </div>
-                `;
-                
-                const response = await fetch(`${CONFIG.API_URL}/api/conversations?phone=${phoneNumber}&limit=200`);
-                const data = await response.json();
-                
-                state.currentConversation = {
-                    phone: phoneNumber,
-                    conversations: data.conversations || []
-                };
-                
-                renderConversationModal();
-            } catch (error) {
-                console.error('Error loading conversation:', error);
-                elements.modalContent.innerHTML = `
-                    <div class="text-center text-red-500 py-8">
-                        <i class="fas fa-exclamation-triangle text-3xl mb-4"></i>
-                        <p>Error al cargar la conversación</p>
-                    </div>
-                `;
-            }
-        }
-
-        function renderConversationModal() {
-            const { phone, conversations } = state.currentConversation;
-            
-            elements.modalPhone.textContent = `+${phone}`;
-            
-            if (conversations.length === 0) {
-                elements.modalContent.innerHTML = `
-                    <div class="text-center text-gray-500 py-8">
-                        <i class="fas fa-comments text-3xl mb-4"></i>
-                        <p>No hay mensajes en esta conversación</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            // Sort conversations by date (newest first)
-            const sortedConversations = [...conversations].sort((a, b) => 
-                new Date(b.created_at) - new Date(a.created_at)
-            );
-            
-            elements.modalContent.innerHTML = sortedConversations.map(conv => `
-                <div class="mb-6 border-l-4 ${getPerformanceBorderColor(conv.response_time_ms)} pl-4">
-                    <div class="flex justify-between items-center mb-2">
-                        <div class="text-xs text-gray-500">${formatDateTime(conv.created_at)}</div>
-                        ${conv.response_time_ms ? `
-                            <div class="flex items-center space-x-2">
-                                <span class="text-xs ${getPerformanceTextColor(conv.response_time_ms)} font-medium">
-                                    ${conv.response_time_ms}ms
-                                </span>
-                                <span class="text-xs text-gray-500">•</span>
-                                <span class="text-xs text-gray-500">${conv.model_used || 'N/A'}</span>
-                            </div>
-                        ` : ''}
-                    </div>
-                    
-                    <div class="flex justify-start mb-4">
-                        <div class="bg-blue-100 rounded-lg p-4 max-w-xs lg:max-w-md">
-                            <div class="flex items-center mb-1">
-                                <i class="fas fa-user text-blue-500 mr-2"></i>
-                                <span class="font-medium text-blue-700">Usuario</span>
-                            </div>
-                            <p class="text-gray-800 whitespace-pre-wrap">${conv.user_message}</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex justify-end mb-4">
-                        <div class="bg-green-100 rounded-lg p-4 max-w-xs lg:max-w-md">
-                            <div class="flex items-center mb-1">
-                                <i class="fas fa-robot text-green-500 mr-2"></i>
-                                <span class="font-medium text-green-700">ChatVRI</span>
-                            </div>
-                            <p class="text-gray-800 whitespace-pre-wrap">${conv.bot_response}</p>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function getPerformanceBorderColor(responseTime) {
-            if (!responseTime) return 'border-gray-300';
-            if (responseTime <= PERFORMANCE_THRESHOLDS.EXCELLENT) return 'border-green-500';
-            if (responseTime <= PERFORMANCE_THRESHOLDS.GOOD) return 'border-yellow-500';
-            if (responseTime <= PERFORMANCE_THRESHOLDS.CRITICAL) return 'border-orange-500';
-            return 'border-red-500';
-        }
-
-        function closeConversationModal() {
-            elements.conversationModal.classList.add('hidden');
-            state.currentConversation = null;
-        }
-
-        // Utility functions
-        function formatTime(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleTimeString('es-ES', { 
-                hour: '2-digit', 
-                minute: '2-digit' 
-            });
-        }
-
-        function formatDateTime(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleString('es-ES', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
+        function showDashboard() {
+            elements.loginScreen.classList.add('hidden');
+            elements.dashboard.classList.remove('hidden');
         }
     </script>
 </body>

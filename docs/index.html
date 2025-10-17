@@ -387,10 +387,10 @@
                 },
                 {
                     title: 'Tiempo Respuesta Promedio',
-                    value: stats.avg_response_time ? `${stats.avg_response_time}ms` : '0ms',
+                    value: stats.avg_response_time_ms ? `${stats.avg_response_time_ms}ms` : '0ms',
                     icon: 'fa-clock',
-                    color: getPerformanceColor(stats.avg_response_time),
-                    description: getPerformanceDescription(stats.avg_response_time)
+                    color: getPerformanceColor(stats.avg_response_time_ms),
+                    description: getPerformanceDescription(stats.avg_response_time_ms)
                 }
             ];
             
@@ -503,8 +503,8 @@
             // Calculate distribution from recent conversations
             const conversations = state.stats?.recent_conversations || [];
             const responseTimes = conversations
-                .filter(conv => conv.response_time)
-                .map(conv => conv.response_time);
+                .filter(conv => conv.response_time_ms)
+                .map(conv => conv.response_time_ms);
             
             const distribution = {
                 excellent: responseTimes.filter(rt => rt <= PERFORMANCE_THRESHOLDS.EXCELLENT).length,
@@ -599,11 +599,11 @@
                         <div class="text-sm text-gray-900 max-w-xs truncate">${conv.bot_response || 'Sin respuesta'}</div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        ${conv.response_time ? `
-                            <span class="response-time-badge ${getResponseTimeBadgeColor(conv.response_time)}">
-                                ${conv.response_time}ms
+                        ${conv.response_time_ms ? `
+                            <span class="response-time-badge ${getResponseTimeBadgeColor(conv.response_time_ms)}">
+                                ${conv.response_time_ms}ms
                             </span>
-                            <div class="text-xs text-gray-500 mt-1">${getPerformanceDescription(conv.response_time)}</div>
+                            <div class="text-xs text-gray-500 mt-1">${getPerformanceDescription(conv.response_time_ms)}</div>
                         ` : `
                             <span class="text-gray-400 text-sm">N/A</span>
                         `}
@@ -638,9 +638,9 @@
             
             elements.performanceWarning.classList.add('hidden');
             
-            if (stats.avg_response_time > PERFORMANCE_THRESHOLDS.CRITICAL) {
+            if (stats.avg_response_time_ms > PERFORMANCE_THRESHOLDS.CRITICAL) {
                 showPerformanceWarning({
-                    avg_response_time: stats.avg_response_time,
+                    avg_response_time_ms: stats.avg_response_time_ms,
                     message: 'Tiempo de respuesta crítico detectado'
                 });
             }
@@ -654,7 +654,7 @@
                         <div>
                             <h4 class="font-medium text-red-800">${performance.message}</h4>
                             <p class="text-red-700 text-sm">
-                                Tiempo promedio: ${performance.avg_response_time}ms
+                                Tiempo promedio: ${performance.avg_response_time_ms}ms
                             </p>
                         </div>
                     </div>
@@ -671,10 +671,10 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div class="bg-gray-50 p-4 rounded-lg">
                             <p class="text-sm text-gray-600">Tiempo de Respuesta</p>
-                            <p class="text-2xl font-bold ${getPerformanceTextColor(message.response_time)}">
-                                ${message.response_time || 0}ms
+                            <p class="text-2xl font-bold ${getPerformanceTextColor(message.response_time_ms)}">
+                                ${message.response_time_ms || 0}ms
                             </p>
-                            <p class="text-xs text-gray-500 mt-1">${getPerformanceDescription(message.response_time)}</p>
+                            <p class="text-xs text-gray-500 mt-1">${getPerformanceDescription(message.response_time_ms)}</p>
                         </div>
                         <div class="bg-gray-50 p-4 rounded-lg">
                             <p class="text-sm text-gray-600">Usuario</p>
@@ -763,12 +763,12 @@
             );
             
             elements.modalContent.innerHTML = sortedConversations.map(conv => `
-                <div class="mb-6 border-l-4 ${getPerformanceBorderColor(conv.response_time)} pl-4">
+                <div class="mb-6 border-l-4 ${getPerformanceBorderColor(conv.response_time_ms)} pl-4">
                     <div class="flex justify-between items-center mb-2">
                         <div class="text-xs text-gray-500">${formatDateTime(conv.created_at)}</div>
-                        ${conv.response_time ? `
-                            <div class="text-xs ${getPerformanceTextColor(conv.response_time)} font-medium">
-                                ${conv.response_time}ms - ${getPerformanceDescription(conv.response_time)}
+                        ${conv.response_time_ms ? `
+                            <div class="text-xs ${getPerformanceTextColor(conv.response_time_ms)} font-medium">
+                                ${conv.response_time_ms}ms - ${getPerformanceDescription(conv.response_time_ms)}
                             </div>
                         ` : ''}
                     </div>

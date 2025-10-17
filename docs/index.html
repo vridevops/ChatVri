@@ -3,417 +3,633 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Chatbot UNA Puno</title>
+    <title>ChatVRI Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
 </head>
-<body class="bg-gray-50">
-    <div id="app"></div>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Login Screen -->
+    <div id="loginScreen" class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+            <div class="text-center mb-8">
+                <i class="fas fa-robot text-5xl text-blue-500 mb-4"></i>
+                <h1 class="text-3xl font-bold text-gray-800">ChatVRI Dashboard</h1>
+                <p class="text-gray-600 mt-2">Sistema de Monitoreo de Chatbot</p>
+            </div>
+            
+            <form id="loginForm" class="space-y-6">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Usuario</label>
+                    <input type="text" id="username" name="username" 
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                           placeholder="Ingresa tu usuario" required>
+                </div>
+                
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+                    <input type="password" id="password" name="password" 
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                           placeholder="Ingresa tu contraseña" required>
+                </div>
+                
+                <button type="submit" 
+                        class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition font-medium">
+                    Iniciar Sesión
+                </button>
+            </form>
+            
+            <div id="loginError" class="mt-4 p-3 bg-red-100 text-red-700 rounded-lg hidden">
+                Error de autenticación. Verifica tus credenciales.
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="hidden">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center py-4">
+                    <div class="flex items-center">
+                        <i class="fas fa-robot text-2xl text-blue-500 mr-3"></i>
+                        <h1 class="text-xl font-semibold text-gray-800">ChatVRI Dashboard</h1>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="text-sm text-gray-600">
+                            <span id="lastUpdate">Última actualización: --:--:--</span>
+                        </div>
+                        <button id="refreshBtn" class="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <button id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+                            Cerrar Sesión
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <!-- Stats Cards -->
+            <div id="statsCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Cards will be populated by JavaScript -->
+            </div>
+
+            <!-- Charts Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <!-- Messages by Hour Chart -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Mensajes por Hora (Últimas 24h)</h2>
+                    <div class="h-64">
+                        <canvas id="messagesChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Top Users Chart -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Top Usuarios</h2>
+                    <div class="h-64">
+                        <canvas id="usersChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Conversations -->
+            <div class="bg-white rounded-lg shadow-sm border">
+                <div class="px-6 py-4 border-b">
+                    <h2 class="text-lg font-semibold text-gray-800">Conversaciones Recientes</h2>
+                </div>
+                <div id="conversationsList" class="divide-y">
+                    <!-- Conversations will be populated by JavaScript -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Conversation Detail Modal -->
+    <div id="conversationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
+            <div class="px-6 py-4 border-b flex justify-between items-center">
+                <h3 class="text-lg font-semibold text-gray-800" id="modalTitle">Conversación con <span id="modalPhone"></span></h3>
+                <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto max-h-[70vh]" id="modalContent">
+                <!-- Conversation details will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
 
     <script>
-        const API_URL = 'https://dashboard.services.vridevops.space/api';
-        
-        let authToken = localStorage.getItem('authToken');
-        let currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
-        let autoRefreshInterval = null;
-        let selectedPhone = null;
+        // Configuration
+        const CONFIG = {
+            API_URL: 'https://dashboard.services.vridevops.space',
+            REFRESH_INTERVAL: 10000, // 10 seconds
+            SESSION_KEY: 'chatvri_auth'
+        };
 
-        async function login(username, password) {
+        // State
+        let state = {
+            authenticated: false,
+            stats: null,
+            charts: {},
+            currentConversation: null,
+            autoRefreshInterval: null
+        };
+
+        // DOM Elements
+        const elements = {
+            loginScreen: document.getElementById('loginScreen'),
+            dashboard: document.getElementById('dashboard'),
+            loginForm: document.getElementById('loginForm'),
+            loginError: document.getElementById('loginError'),
+            statsCards: document.getElementById('statsCards'),
+            conversationsList: document.getElementById('conversationsList'),
+            refreshBtn: document.getElementById('refreshBtn'),
+            logoutBtn: document.getElementById('logoutBtn'),
+            lastUpdate: document.getElementById('lastUpdate'),
+            conversationModal: document.getElementById('conversationModal'),
+            closeModal: document.getElementById('closeModal'),
+            modalTitle: document.getElementById('modalTitle'),
+            modalPhone: document.getElementById('modalPhone'),
+            modalContent: document.getElementById('modalContent')
+        };
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+
+        function initializeApp() {
+            // Check if user is already logged in
+            const savedAuth = localStorage.getItem(CONFIG.SESSION_KEY);
+            if (savedAuth) {
+                try {
+                    const authData = JSON.parse(savedAuth);
+                    if (authData && authData.username === 'admin') {
+                        state.authenticated = true;
+                        showDashboard();
+                        loadDashboardData();
+                        startAutoRefresh();
+                    }
+                } catch (e) {
+                    localStorage.removeItem(CONFIG.SESSION_KEY);
+                }
+            }
+
+            // Event listeners
+            elements.loginForm.addEventListener('submit', handleLogin);
+            elements.refreshBtn.addEventListener('click', handleManualRefresh);
+            elements.logoutBtn.addEventListener('click', handleLogout);
+            elements.closeModal.addEventListener('click', closeConversationModal);
+            
+            // Close modal when clicking outside
+            elements.conversationModal.addEventListener('click', function(e) {
+                if (e.target === elements.conversationModal) {
+                    closeConversationModal();
+                }
+            });
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
             try {
-                const response = await fetch(`${API_URL}/login`, {
+                const response = await fetch(`${CONFIG.API_URL}/api/login`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                     body: JSON.stringify({ username, password })
                 });
+                
                 const data = await response.json();
-                if (response.ok) {
-                    currentUser = data.user;
-                    authToken = 'authenticated';
-                    localStorage.setItem('authToken', authToken);
-                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                    renderDashboard();
+                
+                if (data.success) {
+                    // Save authentication
+                    localStorage.setItem(CONFIG.SESSION_KEY, JSON.stringify(data.user));
+                    state.authenticated = true;
+                    elements.loginError.classList.add('hidden');
+                    
+                    showDashboard();
                     loadDashboardData();
                     startAutoRefresh();
                 } else {
-                    document.getElementById('errorMsg').textContent = data.error;
-                    document.getElementById('errorMsg').classList.remove('hidden');
+                    throw new Error('Invalid credentials');
                 }
             } catch (error) {
-                alert('Error conectando con el servidor: ' + error.message);
+                console.error('Login error:', error);
+                elements.loginError.classList.remove('hidden');
             }
         }
 
-        function logout() {
+        function handleLogout() {
+            state.authenticated = false;
+            localStorage.removeItem(CONFIG.SESSION_KEY);
             stopAutoRefresh();
-            localStorage.clear();
-            authToken = null;
-            currentUser = null;
-            selectedPhone = null;
-            renderLogin();
+            
+            if (state.charts.messagesChart) {
+                state.charts.messagesChart.destroy();
+            }
+            if (state.charts.usersChart) {
+                state.charts.usersChart.destroy();
+            }
+            
+            showLogin();
+        }
+
+        function handleManualRefresh() {
+            loadDashboardData();
         }
 
         function startAutoRefresh() {
-            autoRefreshInterval = setInterval(() => {
-                if (selectedPhone) {
-                    loadUserConversation(selectedPhone);
-                } else {
-                    loadDashboardData();
-                }
-            }, 10000);
+            stopAutoRefresh();
+            state.autoRefreshInterval = setInterval(loadDashboardData, CONFIG.REFRESH_INTERVAL);
         }
 
         function stopAutoRefresh() {
-            if (autoRefreshInterval) {
-                clearInterval(autoRefreshInterval);
+            if (state.autoRefreshInterval) {
+                clearInterval(state.autoRefreshInterval);
+                state.autoRefreshInterval = null;
             }
+        }
+
+        function showLogin() {
+            elements.dashboard.classList.add('hidden');
+            elements.loginScreen.classList.remove('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        function showDashboard() {
+            elements.loginScreen.classList.add('hidden');
+            elements.dashboard.classList.remove('hidden');
+            elements.dashboard.classList.add('fade-in');
         }
 
         async function loadDashboardData() {
             try {
-                const response = await fetch(`${API_URL}/stats`);
+                elements.dashboard.classList.add('loading');
+                
+                const response = await fetch(`${CONFIG.API_URL}/api/stats`);
                 const data = await response.json();
-                updateStats(data.general);
-                renderCharts(data);
-                renderConversations(data.recent_conversations);
+                
+                state.stats = data;
+                updateLastUpdateTime();
+                renderStatsCards();
+                renderCharts();
+                renderConversationsList();
+                
+                elements.dashboard.classList.remove('loading');
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Error loading dashboard data:', error);
+                elements.dashboard.classList.remove('loading');
             }
         }
 
-        async function loadUserConversation(phone) {
-            selectedPhone = phone;
-            document.getElementById('filterBadge').classList.remove('hidden');
-            document.getElementById('filterPhone').textContent = phone;
-            
-            try {
-                const response = await fetch(`${API_URL}/conversations?phone=${encodeURIComponent(phone)}&limit=200`);
-                const conversations = await response.json();
-                renderUserConversation(conversations, phone);
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-
-        function clearPhoneFilter() {
-            selectedPhone = null;
-            document.getElementById('filterBadge').classList.add('hidden');
-            loadDashboardData();
-        }
-
-        function updateStats(stats) {
-            document.getElementById('totalMessages').textContent = stats.total_messages || 0;
-            document.getElementById('totalUsers').textContent = stats.total_users || 0;
-            document.getElementById('todayMessages').textContent = stats.today_messages || 0;
-            document.getElementById('avgResponseTime').textContent = stats.avg_response_time ? 
-                (stats.avg_response_time / 1000).toFixed(1) + 's' : 'N/A';
-        }
-
-        function renderCharts(data) {
-            const hourlyCanvas = document.getElementById('hourlyChart');
-            const usersCanvas = document.getElementById('usersChart');
-            
-            if (window.hourlyChartInstance) window.hourlyChartInstance.destroy();
-            if (window.usersChartInstance) window.usersChartInstance.destroy();
-
-            const hours = Array.from({length: 24}, (_, i) => i);
-            const hourlyData = hours.map(hour => {
-                const found = data.messages_by_hour?.find(d => d.hour === hour);
-                return found ? found.count : 0;
+        function updateLastUpdateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('es-ES', { 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit' 
             });
+            elements.lastUpdate.textContent = `Última actualización: ${timeString}`;
+        }
+
+        function renderStatsCards() {
+            const stats = state.stats?.general || {};
             
-            window.hourlyChartInstance = new Chart(hourlyCanvas, {
+            const cards = [
+                {
+                    title: 'Total Mensajes',
+                    value: stats.total_messages || 0,
+                    icon: 'fa-comments',
+                    color: 'blue'
+                },
+                {
+                    title: 'Total Usuarios',
+                    value: stats.total_users || 0,
+                    icon: 'fa-users',
+                    color: 'green'
+                },
+                {
+                    title: 'Mensajes Hoy',
+                    value: stats.today_messages || 0,
+                    icon: 'fa-calendar-day',
+                    color: 'purple'
+                },
+                {
+                    title: 'Tiempo Respuesta Promedio',
+                    value: stats.avg_response_time ? `${stats.avg_response_time}s` : '0s',
+                    icon: 'fa-clock',
+                    color: 'orange'
+                }
+            ];
+            
+            elements.statsCards.innerHTML = cards.map(card => `
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-lg bg-${card.color}-100 mr-4">
+                            <i class="fas ${card.icon} text-${card.color}-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">${card.title}</p>
+                            <p class="text-2xl font-bold text-gray-800">${card.value}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderCharts() {
+            renderMessagesChart();
+            renderUsersChart();
+        }
+
+        function renderMessagesChart() {
+            const ctx = document.getElementById('messagesChart').getContext('2d');
+            
+            // Destroy existing chart if it exists
+            if (state.charts.messagesChart) {
+                state.charts.messagesChart.destroy();
+            }
+            
+            const messagesData = state.stats?.messages_by_hour || [];
+            const labels = messagesData.map(item => `${item.hour}:00`);
+            const data = messagesData.map(item => item.count);
+            
+            state.charts.messagesChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: hours.map(h => `${h}:00`),
+                    labels: labels,
                     datasets: [{
                         label: 'Mensajes',
-                        data: hourlyData,
-                        borderColor: 'rgb(79, 70, 229)',
-                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
-                        tension: 0.4
+                        data: data,
+                        borderColor: 'rgb(59, 130, 246)',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true
                     }]
                 },
-                options: { 
-                    responsive: true, 
-                    maintainAspectRatio: false, 
-                    plugins: { legend: { display: false } },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
                     scales: {
-                        y: { beginAtZero: true }
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
                     }
                 }
             });
+        }
 
-            const topUsers = data.top_users || [];
-            window.usersChartInstance = new Chart(usersCanvas, {
+        function renderUsersChart() {
+            const ctx = document.getElementById('usersChart').getContext('2d');
+            
+            // Destroy existing chart if it exists
+            if (state.charts.usersChart) {
+                state.charts.usersChart.destroy();
+            }
+            
+            const usersData = state.stats?.top_users || [];
+            const labels = usersData.map(user => 
+                user.phone_number ? `+${user.phone_number}` : 'Usuario'
+            );
+            const data = usersData.map(user => user.message_count);
+            const backgroundColors = [
+                'rgba(59, 130, 246, 0.7)',
+                'rgba(16, 185, 129, 0.7)',
+                'rgba(245, 158, 11, 0.7)',
+                'rgba(139, 92, 246, 0.7)',
+                'rgba(239, 68, 68, 0.7)'
+            ];
+            
+            state.charts.usersChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: topUsers.map(u => u.phone_number.slice(-4)),
+                    labels: labels,
                     datasets: [{
                         label: 'Mensajes',
-                        data: topUsers.map(u => u.message_count),
-                        backgroundColor: 'rgb(16, 185, 129)'
+                        data: data,
+                        backgroundColor: backgroundColors,
+                        borderColor: backgroundColors.map(color => color.replace('0.7', '1')),
+                        borderWidth: 1
                     }]
                 },
-                options: { 
-                    responsive: true, 
-                    maintainAspectRatio: false, 
-                    plugins: { 
-                        legend: { display: false },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
                         tooltip: {
                             callbacks: {
-                                title: (items) => {
-                                    const idx = items[0].dataIndex;
-                                    return topUsers[idx].phone_number;
+                                label: function(context) {
+                                    return `Mensajes: ${context.parsed.y}`;
                                 }
                             }
                         }
                     },
-                    onClick: (e, items) => {
-                        if (items.length > 0) {
-                            const idx = items[0].index;
-                            const phone = topUsers[idx].phone_number;
-                            loadUserConversation(phone);
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
                         }
                     },
-                    scales: {
-                        y: { beginAtZero: true }
+                    onClick: (evt, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const user = usersData[index];
+                            if (user && user.phone_number) {
+                                loadUserConversations(user.phone_number);
+                            }
+                        }
                     }
                 }
             });
         }
 
-        function renderUserConversation(conversations, phone) {
-            const container = document.getElementById('conversationsList');
+        function renderConversationsList() {
+            const conversations = state.stats?.recent_conversations || [];
             
-            if (!conversations || conversations.length === 0) {
-                container.innerHTML = `
-                    <div class="p-8 text-center">
-                        <p class="text-gray-500 mb-4">No hay conversaciones para ${phone}</p>
-                        <button onclick="clearPhoneFilter()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
-                            Ver todas las conversaciones
-                        </button>
+            if (conversations.length === 0) {
+                elements.conversationsList.innerHTML = `
+                    <div class="p-8 text-center text-gray-500">
+                        <i class="fas fa-comments text-4xl mb-4"></i>
+                        <p>No hay conversaciones recientes</p>
                     </div>
                 `;
                 return;
             }
-
-            container.innerHTML = `
-                <div class="sticky top-0 bg-indigo-50 border-b p-4 z-10">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h3 class="text-lg font-bold text-indigo-900">📱 Conversación con ${phone}</h3>
-                            <p class="text-sm text-indigo-600">${conversations.length} mensajes en orden cronológico</p>
+            
+            elements.conversationsList.innerHTML = conversations.map(conv => `
+                <div class="p-4 hover:bg-gray-50 cursor-pointer transition conversation-item" data-phone="${conv.phone_number}">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-user-circle text-gray-400 mr-2"></i>
+                                <span class="font-medium text-gray-800">+${conv.phone_number}</span>
+                                <span class="ml-2 text-xs text-gray-500">${formatTime(conv.created_at)}</span>
+                            </div>
+                            <div class="text-sm text-gray-600 mb-1">
+                                <span class="font-medium">Usuario:</span> ${truncateText(conv.user_message, 80)}
+                            </div>
+                            <div class="text-sm text-gray-600">
+                                <span class="font-medium">Bot:</span> ${truncateText(conv.bot_response, 80)}
+                            </div>
                         </div>
-                        <button onclick="clearPhoneFilter()" class="px-4 py-2 bg-white text-indigo-600 rounded-lg hover:bg-indigo-100 border border-indigo-200 transition-colors">
-                            ← Volver a todas
-                        </button>
+                        <i class="fas fa-chevron-right text-gray-400 ml-4 mt-2"></i>
                     </div>
                 </div>
-                ${conversations.map((conv, idx) => {
-                    const date = new Date(conv.created_at);
-                    const time = date.toLocaleTimeString('es-PE', {hour: '2-digit', minute: '2-digit'});
-                    const dateStr = date.toLocaleDateString('es-PE');
+            `).join('');
+            
+            // Add event listeners to conversation items
+            document.querySelectorAll('.conversation-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const phone = this.getAttribute('data-phone');
+                    loadUserConversations(phone);
+                });
+            });
+        }
+
+        async function loadUserConversations(phoneNumber) {
+            try {
+                elements.conversationModal.classList.remove('hidden');
+                elements.modalContent.innerHTML = `
+                    <div class="flex justify-center items-center h-32">
+                        <i class="fas fa-spinner fa-spin text-2xl text-blue-500"></i>
+                        <span class="ml-2 text-gray-600">Cargando conversación...</span>
+                    </div>
+                `;
+                
+                const response = await fetch(`${CONFIG.API_URL}/api/conversations?phone=${phoneNumber}&limit=200`);
+                const data = await response.json();
+                
+                state.currentConversation = {
+                    phone: phoneNumber,
+                    conversations: data.conversations || []
+                };
+                
+                renderConversationModal();
+            } catch (error) {
+                console.error('Error loading conversation:', error);
+                elements.modalContent.innerHTML = `
+                    <div class="text-center text-red-500 py-8">
+                        <i class="fas fa-exclamation-triangle text-3xl mb-4"></i>
+                        <p>Error al cargar la conversación</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderConversationModal() {
+            const { phone, conversations } = state.currentConversation;
+            
+            elements.modalPhone.textContent = `+${phone}`;
+            
+            if (conversations.length === 0) {
+                elements.modalContent.innerHTML = `
+                    <div class="text-center text-gray-500 py-8">
+                        <i class="fas fa-comments text-3xl mb-4"></i>
+                        <p>No hay mensajes en esta conversación</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Sort conversations by date (newest first)
+            const sortedConversations = [...conversations].sort((a, b) => 
+                new Date(b.created_at) - new Date(a.created_at)
+            );
+            
+            elements.modalContent.innerHTML = sortedConversations.map(conv => `
+                <div class="mb-6">
+                    <div class="text-xs text-gray-500 mb-2 text-center">${formatDateTime(conv.created_at)}</div>
                     
-                    return `
-                        <div class="p-6 border-b hover:bg-gray-50 transition-colors">
-                            <div class="flex justify-between items-center mb-3">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs font-medium text-gray-700">#${idx + 1}</span>
-                                    <span class="text-xs text-gray-500">${dateStr} ${time}</span>
-                                </div>
-                                ${conv.response_time_ms ? 
-                                    `<span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded">${(conv.response_time_ms / 1000).toFixed(2)}s</span>` 
-                                    : ''}
+                    <div class="flex justify-start mb-4">
+                        <div class="bg-blue-100 rounded-lg p-4 max-w-xs lg:max-w-md">
+                            <div class="flex items-center mb-1">
+                                <i class="fas fa-user text-blue-500 mr-2"></i>
+                                <span class="font-medium text-blue-700">Usuario</span>
                             </div>
-                            
-                            <div class="space-y-3">
-                                <div class="flex">
-                                    <div class="flex-1 max-w-4xl">
-                                        <div class="bg-gray-100 p-4 rounded-lg rounded-tl-none shadow-sm">
-                                            <p class="text-xs text-gray-500 font-medium mb-1">👤 Usuario</p>
-                                            <p class="text-gray-800 whitespace-pre-wrap">${escapeHtml(conv.user_message)}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex justify-end">
-                                    <div class="flex-1 max-w-4xl">
-                                        <div class="bg-indigo-50 p-4 rounded-lg rounded-tr-none shadow-sm border border-indigo-100">
-                                            <p class="text-xs text-indigo-600 font-medium mb-1">🤖 Asistente ${conv.model_used ? `(${conv.model_used})` : ''}</p>
-                                            <p class="text-gray-800 whitespace-pre-wrap">${escapeHtml(conv.bot_response)}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }).join('')}
-            `;
-        }
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        function renderConversations(conversations) {
-            const container = document.getElementById('conversationsList');
-            
-            if (!conversations || conversations.length === 0) {
-                container.innerHTML = '<p class="text-gray-500 text-center py-8">No hay conversaciones recientes</p>';
-                return;
-            }
-
-            container.innerHTML = conversations.map(conv => {
-                const date = new Date(conv.created_at);
-                return `
-                    <div class="p-6 hover:bg-gray-50 border-b cursor-pointer transition-colors" onclick="loadUserConversation('${conv.phone_number}')">
-                        <div class="flex justify-between items-start mb-3">
-                            <div class="flex items-center gap-3">
-                                <div class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium hover:bg-indigo-200 transition-colors">
-                                    ${conv.phone_number}
-                                </div>
-                                <span class="text-xs text-gray-500">${date.toLocaleString('es-PE')}</span>
-                                ${conv.model_used ? `<span class="text-xs px-2 py-1 bg-blue-50 text-blue-600 rounded">${conv.model_used}</span>` : ''}
-                            </div>
-                            ${conv.response_time_ms ? `<span class="text-xs text-gray-500">${(conv.response_time_ms / 1000).toFixed(2)}s</span>` : ''}
-                        </div>
-                        <div class="space-y-2">
-                            <div class="bg-gray-100 p-3 rounded-lg">
-                                <p class="text-sm text-gray-600 font-medium">Usuario:</p>
-                                <p class="text-gray-800 line-clamp-2">${escapeHtml(conv.user_message)}</p>
-                            </div>
-                            <div class="bg-indigo-50 p-3 rounded-lg">
-                                <p class="text-sm text-indigo-600 font-medium">Bot:</p>
-                                <p class="text-gray-800 line-clamp-2">${escapeHtml(conv.bot_response)}</p>
-                            </div>
+                            <p class="text-gray-800">${conv.user_message}</p>
                         </div>
                     </div>
-                `;
-            }).join('');
-        }
-
-        function renderLogin() {
-            document.getElementById('app').innerHTML = `
-                <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-                    <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
-                        <div class="text-center mb-8">
-                            <div class="bg-indigo-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                                </svg>
+                    
+                    <div class="flex justify-end mb-4">
+                        <div class="bg-green-100 rounded-lg p-4 max-w-xs lg:max-w-md">
+                            <div class="flex items-center mb-1">
+                                <i class="fas fa-robot text-green-500 mr-2"></i>
+                                <span class="font-medium text-green-700">ChatVRI</span>
                             </div>
-                            <h1 class="text-2xl font-bold text-gray-800">Dashboard Chatbot</h1>
-                            <p class="text-gray-600 mt-2">Universidad Nacional del Altiplano</p>
-                        </div>
-                        <form id="loginForm" onsubmit="event.preventDefault(); login(document.getElementById('username').value, document.getElementById('password').value);" class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Usuario</label>
-                                <input type="text" id="username" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="admin">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
-                                <input type="password" id="password" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="••••••••">
-                            </div>
-                            <div id="errorMsg" class="hidden bg-red-50 text-red-600 px-4 py-2 rounded-lg text-sm"></div>
-                            <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-lg font-semibold hover:bg-indigo-700 transition-colors">
-                                Iniciar Sesión
-                            </button>
-                        </form>
-                        <p class="text-center text-xs text-gray-500 mt-6">Demo: admin / unap2025</p>
-                    </div>
-                </div>
-            `;
-        }
-
-        function renderDashboard() {
-            document.getElementById('app').innerHTML = `
-                <div class="min-h-screen">
-                    <header class="bg-white shadow-sm border-b sticky top-0 z-50">
-                        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-                            <div class="flex items-center gap-3">
-                                <div class="bg-indigo-600 w-10 h-10 rounded-lg flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h1 class="text-xl font-bold">Dashboard Chatbot</h1>
-                                    <p class="text-xs text-gray-500">Auto-actualiza cada 10s</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div id="filterBadge" class="hidden px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium">
-                                    Filtrando: <span id="filterPhone"></span>
-                                    <button onclick="clearPhoneFilter()" class="ml-2 hover:text-indigo-900">✕</button>
-                                </div>
-                                <span class="text-sm">👤 ${currentUser?.username || 'Admin'}</span>
-                                <button onclick="loadDashboardData()" class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors" title="Actualizar">
-                                    🔄
-                                </button>
-                                <button onclick="logout()" class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors">
-                                    Salir
-                                </button>
-                            </div>
-                        </div>
-                    </header>
-
-                    <div class="max-w-7xl mx-auto px-4 py-6">
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                                <p class="text-sm text-gray-500">Mensajes Totales</p>
-                                <p id="totalMessages" class="text-2xl font-bold text-gray-800 mt-1">0</p>
-                            </div>
-                            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                                <p class="text-sm text-gray-500">Usuarios Únicos</p>
-                                <p id="totalUsers" class="text-2xl font-bold text-gray-800 mt-1">0</p>
-                            </div>
-                            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                                <p class="text-sm text-gray-500">Hoy</p>
-                                <p id="todayMessages" class="text-2xl font-bold text-gray-800 mt-1">0</p>
-                            </div>
-                            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                                <p class="text-sm text-gray-500">Tiempo Promedio</p>
-                                <p id="avgResponseTime" class="text-2xl font-bold text-gray-800 mt-1">N/A</p>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                                <h3 class="text-lg font-semibold mb-4">Mensajes por Hora (24h)</h3>
-                                <div style="height: 250px"><canvas id="hourlyChart"></canvas></div>
-                            </div>
-                            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                                <h3 class="text-lg font-semibold mb-4">Top Usuarios 
-                                    <span class="text-sm font-normal text-gray-500">(click para ver conversación)</span>
-                                </h3>
-                                <div style="height: 250px"><canvas id="usersChart"></canvas></div>
-                            </div>
-                        </div>
-
-                        <div class="bg-white rounded-xl shadow-sm border overflow-hidden">
-                            <div class="px-6 py-4 bg-gray-50 border-b">
-                                <h3 class="text-lg font-semibold">
-                                    Conversaciones Recientes 
-                                    <span class="text-sm font-normal text-gray-500">(click en número para ver conversación completa)</span>
-                                </h3>
-                            </div>
-                            <div id="conversationsList" class="max-h-[600px] overflow-y-auto">
-                                <p class="text-gray-500 text-center py-8">Cargando...</p>
-                            </div>
+                            <p class="text-gray-800">${conv.bot_response}</p>
                         </div>
                     </div>
                 </div>
-            `;
+            `).join('');
         }
 
-        if (authToken && currentUser) {
-            renderDashboard();
-            loadDashboardData();
-            startAutoRefresh();
-        } else {
-            renderLogin();
+        function closeConversationModal() {
+            elements.conversationModal.classList.add('hidden');
+            state.currentConversation = null;
+        }
+
+        // Utility functions
+        function formatTime(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleTimeString('es-ES', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+        }
+
+        function formatDateTime(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleString('es-ES', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function truncateText(text, maxLength) {
+            if (!text) return 'Sin mensaje';
+            if (text.length <= maxLength) return text;
+            return text.substring(0, maxLength) + '...';
         }
     </script>
 </body>

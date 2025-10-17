@@ -344,23 +344,34 @@
                     value: stats.avg_response_time ? `${stats.avg_response_time}s` : '0s',
                     icon: 'fa-clock',
                     color: 'orange'
+                },
+                {
+                    title: 'Tiempo Respuesta Actual',
+                    value: stats.current_response_time ? `${stats.current_response_time}ms` : 'N/A',
+                    icon: 'fa-gauge-high',
+                    color: 'red',
+                    description: 'Última respuesta'
                 }
             ];
             
             elements.statsCards.innerHTML = cards.map(card => `
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-lg bg-${card.color}-100 mr-4">
-                            <i class="fas ${card.icon} text-${card.color}-500 text-xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm font-medium text-gray-600">${card.title}</p>
-                            <p class="text-2xl font-bold text-gray-800">${card.value}</p>
-                        </div>
-                    </div>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+            <div class="flex items-center">
+                <div class="p-3 rounded-lg bg-${card.color}-100 mr-4">
+                    <i class="fas ${card.icon} text-${card.color}-500 text-xl"></i>
                 </div>
-            `).join('');
-        }
+                <div>
+                    <p class="text-sm font-medium text-gray-600">${card.title}</p>
+                    <p class="text-2xl font-bold text-gray-800">${card.value}</p>
+                    ${card.description ? `<p class="text-xs text-gray-500 mt-1">${card.description}</p>` : ''}
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    // Actualizar grid para 5 cards
+    elements.statsCards.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-8";
+}  
 
         function renderCharts() {
             renderMessagesChart();

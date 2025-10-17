@@ -22,6 +22,12 @@
         .performance-good { color: #10b981; }
         .performance-warning { color: #f59e0b; }
         .performance-critical { color: #ef4444; }
+        .response-time-badge {
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
@@ -93,21 +99,21 @@
         <!-- Main Content -->
         <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <!-- Stats Cards -->
-            <div id="statsCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-8">
+            <div id="statsCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <!-- Cards will be populated by JavaScript -->
             </div>
 
-            <!-- Performance Metrics -->
+            <!-- Performance Charts -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                <!-- Response Time Chart -->
+                <!-- Response Time Distribution -->
                 <div class="bg-white p-6 rounded-lg shadow-sm border">
-                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Tiempo de Respuesta (Últimas 24h)</h2>
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Distribución de Tiempos de Respuesta</h2>
                     <div class="h-64">
-                        <canvas id="responseTimeChart"></canvas>
+                        <canvas id="responseTimeDistributionChart"></canvas>
                     </div>
                 </div>
 
-                <!-- Messages by Hour Chart -->
+                <!-- Messages by Hour -->
                 <div class="bg-white p-6 rounded-lg shadow-sm border">
                     <h2 class="text-lg font-semibold text-gray-800 mb-4">Mensajes por Hora (Últimas 24h)</h2>
                     <div class="h-64">
@@ -116,26 +122,7 @@
                 </div>
             </div>
 
-            <!-- Bottom Charts -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                <!-- Top Users Chart -->
-                <div class="bg-white p-6 rounded-lg shadow-sm border">
-                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Top Usuarios</h2>
-                    <div class="h-64">
-                        <canvas id="usersChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Performance Distribution -->
-                <div class="bg-white p-6 rounded-lg shadow-sm border">
-                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Distribución de Tiempos de Respuesta</h2>
-                    <div class="h-64">
-                        <canvas id="performanceChart"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Recent Conversations -->
+            <!-- Recent Conversations with Response Times -->
             <div class="bg-white rounded-lg shadow-sm border">
                 <div class="px-6 py-4 border-b flex justify-between items-center">
                     <h2 class="text-lg font-semibold text-gray-800">Conversaciones Recientes</h2>
@@ -146,8 +133,22 @@
                         </button>
                     </div>
                 </div>
-                <div id="conversationsList" class="divide-y">
-                    <!-- Conversations will be populated by JavaScript -->
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Usuario</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mensaje Usuario</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Respuesta Bot</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tiempo Respuesta</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha/Hora</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="conversationsList" class="bg-white divide-y divide-gray-200">
+                            <!-- Conversations will be populated by JavaScript -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </main>
@@ -164,21 +165,6 @@
             </div>
             <div class="p-6 overflow-y-auto max-h-[70vh]" id="modalContent">
                 <!-- Conversation details will be populated by JavaScript -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Performance Detail Modal -->
-    <div id="performanceModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[80vh] overflow-hidden">
-            <div class="px-6 py-4 border-b flex justify-between items-center">
-                <h3 class="text-lg font-semibold text-gray-800">Detalles de Performance</h3>
-                <button id="closePerformanceModal" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-            <div class="p-6 overflow-y-auto max-h-[60vh]" id="performanceContent">
-                <!-- Performance details will be populated by JavaScript -->
             </div>
         </div>
     </div>
@@ -204,8 +190,7 @@
             stats: null,
             charts: {},
             currentConversation: null,
-            autoRefreshInterval: null,
-            performanceHistory: []
+            autoRefreshInterval: null
         };
 
         // DOM Elements
@@ -226,10 +211,7 @@
             modalContent: document.getElementById('modalContent'),
             performanceWarning: document.getElementById('performanceWarning'),
             refreshConversations: document.getElementById('refreshConversations'),
-            conversationsCount: document.getElementById('conversationsCount'),
-            performanceModal: document.getElementById('performanceModal'),
-            closePerformanceModal: document.getElementById('closePerformanceModal'),
-            performanceContent: document.getElementById('performanceContent')
+            conversationsCount: document.getElementById('conversationsCount')
         };
 
         // Initialize the application
@@ -260,18 +242,11 @@
             elements.logoutBtn.addEventListener('click', handleLogout);
             elements.closeModal.addEventListener('click', closeConversationModal);
             elements.refreshConversations.addEventListener('click', handleManualRefresh);
-            elements.closePerformanceModal.addEventListener('click', closePerformanceModal);
             
-            // Close modals when clicking outside
+            // Close modal when clicking outside
             elements.conversationModal.addEventListener('click', function(e) {
                 if (e.target === elements.conversationModal) {
                     closeConversationModal();
-                }
-            });
-            
-            elements.performanceModal.addEventListener('click', function(e) {
-                if (e.target === elements.performanceModal) {
-                    closePerformanceModal();
                 }
             });
         }
@@ -396,15 +371,13 @@
                     title: 'Total Mensajes',
                     value: stats.total_messages || 0,
                     icon: 'fa-comments',
-                    color: 'blue',
-                    trend: stats.message_trend
+                    color: 'blue'
                 },
                 {
                     title: 'Total Usuarios',
                     value: stats.total_users || 0,
                     icon: 'fa-users',
-                    color: 'green',
-                    trend: stats.user_trend
+                    color: 'green'
                 },
                 {
                     title: 'Mensajes Hoy',
@@ -418,30 +391,19 @@
                     icon: 'fa-clock',
                     color: getPerformanceColor(stats.avg_response_time),
                     description: getPerformanceDescription(stats.avg_response_time)
-                },
-                {
-                    title: 'Usuarios Activos',
-                    value: performance.active_users || 0,
-                    icon: 'fa-user-check',
-                    color: 'indigo',
-                    description: 'En los últimos 30 min'
                 }
             ];
             
             elements.statsCards.innerHTML = cards.map(card => `
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer" 
-                     onclick="${card.title.includes('Tiempo') ? 'showPerformanceDetails()' : ''}">
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                     <div class="flex items-center">
                         <div class="p-3 rounded-lg bg-${card.color}-100 mr-4">
                             <i class="fas ${card.icon} text-${card.color}-500 text-xl"></i>
                         </div>
-                        <div class="flex-1">
+                        <div>
                             <p class="text-sm font-medium text-gray-600">${card.title}</p>
                             <p class="text-2xl font-bold text-gray-800">${card.value}</p>
                             ${card.description ? `<p class="text-xs text-gray-500 mt-1">${card.description}</p>` : ''}
-                            ${card.trend ? `<p class="text-xs ${card.trend > 0 ? 'text-green-500' : 'text-red-500'} mt-1">
-                                ${card.trend > 0 ? '↗' : '↘'} ${Math.abs(card.trend)}%
-                            </p>` : ''}
                         </div>
                     </div>
                 </div>
@@ -465,9 +427,7 @@
 
         function renderCharts() {
             renderMessagesChart();
-            renderUsersChart();
-            renderResponseTimeChart();
-            renderPerformanceChart();
+            renderResponseTimeDistributionChart();
         }
 
         function renderMessagesChart() {
@@ -533,177 +493,36 @@
             });
         }
 
-        function renderResponseTimeChart() {
-            const ctx = document.getElementById('responseTimeChart').getContext('2d');
+        function renderResponseTimeDistributionChart() {
+            const ctx = document.getElementById('responseTimeDistributionChart').getContext('2d');
             
-            if (state.charts.responseTimeChart) {
-                state.charts.responseTimeChart.destroy();
+            if (state.charts.responseTimeDistributionChart) {
+                state.charts.responseTimeDistributionChart.destroy();
             }
             
-            const responseData = state.stats?.response_times || [];
-            const labels = responseData.map(item => `${item.hour}:00`);
-            const data = responseData.map(item => item.avg_response_time);
+            // Calculate distribution from recent conversations
+            const conversations = state.stats?.recent_conversations || [];
+            const responseTimes = conversations
+                .filter(conv => conv.response_time)
+                .map(conv => conv.response_time);
             
-            // Create gradient for the chart
-            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-            gradient.addColorStop(0, 'rgba(59, 130, 246, 0.3)');
-            gradient.addColorStop(1, 'rgba(59, 130, 246, 0.1)');
-            
-            state.charts.responseTimeChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Tiempo de Respuesta (ms)',
-                        data: data,
-                        borderColor: 'rgb(59, 130, 246)',
-                        backgroundColor: gradient,
-                        tension: 0.4,
-                        fill: true,
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return `Tiempo: ${context.parsed.y}ms`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Milisegundos (ms)'
-                            },
-                            ticks: {
-                                callback: function(value) {
-                                    return value + 'ms';
-                                }
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Hora del Día'
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        function renderUsersChart() {
-            const ctx = document.getElementById('usersChart').getContext('2d');
-            
-            if (state.charts.usersChart) {
-                state.charts.usersChart.destroy();
-            }
-            
-            const usersData = state.stats?.top_users || [];
-            const labels = usersData.map(user => 
-                user.phone_number ? `+${user.phone_number}` : 'Usuario'
-            );
-            const data = usersData.map(user => user.message_count);
-            
-            state.charts.usersChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Mensajes',
-                        data: data,
-                        backgroundColor: [
-                            'rgba(59, 130, 246, 0.7)',
-                            'rgba(16, 185, 129, 0.7)',
-                            'rgba(245, 158, 11, 0.7)',
-                            'rgba(139, 92, 246, 0.7)',
-                            'rgba(239, 68, 68, 0.7)'
-                        ],
-                        borderColor: [
-                            'rgb(59, 130, 246)',
-                            'rgb(16, 185, 129)',
-                            'rgb(245, 158, 11)',
-                            'rgb(139, 92, 246)',
-                            'rgb(239, 68, 68)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return `Mensajes: ${context.parsed.y}`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                precision: 0
-                            },
-                            title: {
-                                display: true,
-                                text: 'Cantidad de Mensajes'
-                            }
-                        }
-                    },
-                    onClick: (evt, elements) => {
-                        if (elements.length > 0) {
-                            const index = elements[0].index;
-                            const user = usersData[index];
-                            if (user && user.phone_number) {
-                                loadUserConversations(user.phone_number);
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        function renderPerformanceChart() {
-            const ctx = document.getElementById('performanceChart').getContext('2d');
-            
-            if (state.charts.performanceChart) {
-                state.charts.performanceChart.destroy();
-            }
-            
-            // Simulate performance distribution data
-            const performanceData = state.stats?.performance_distribution || {
-                excellent: 45,
-                good: 35,
-                regular: 15,
-                critical: 5
+            const distribution = {
+                excellent: responseTimes.filter(rt => rt <= PERFORMANCE_THRESHOLDS.EXCELLENT).length,
+                good: responseTimes.filter(rt => rt > PERFORMANCE_THRESHOLDS.EXCELLENT && rt <= PERFORMANCE_THRESHOLDS.GOOD).length,
+                regular: responseTimes.filter(rt => rt > PERFORMANCE_THRESHOLDS.GOOD && rt <= PERFORMANCE_THRESHOLDS.CRITICAL).length,
+                critical: responseTimes.filter(rt => rt > PERFORMANCE_THRESHOLDS.CRITICAL).length
             };
             
-            state.charts.performanceChart = new Chart(ctx, {
+            state.charts.responseTimeDistributionChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     labels: ['Excelente (<2s)', 'Bueno (2-5s)', 'Regular (5-10s)', 'Crítico (>10s)'],
                     datasets: [{
                         data: [
-                            performanceData.excellent || 0,
-                            performanceData.good || 0,
-                            performanceData.regular || 0,
-                            performanceData.critical || 0
+                            distribution.excellent,
+                            distribution.good,
+                            distribution.regular,
+                            distribution.critical
                         ],
                         backgroundColor: [
                             'rgba(16, 185, 129, 0.8)',
@@ -737,8 +556,8 @@
                                     const label = context.label || '';
                                     const value = context.parsed;
                                     const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                    const percentage = Math.round((value / total) * 100);
-                                    return `${label}: ${value} (${percentage}%)`;
+                                    const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+                                    return `${label}: ${value} mensaje${value !== 1 ? 's' : ''} (${percentage}%)`;
                                 }
                             }
                         }
@@ -755,99 +574,89 @@
             
             if (conversations.length === 0) {
                 elements.conversationsList.innerHTML = `
-                    <div class="p-8 text-center text-gray-500">
-                        <i class="fas fa-comments text-4xl mb-4"></i>
-                        <p>No hay conversaciones recientes</p>
-                    </div>
+                    <tr>
+                        <td colspan="6" class="px-6 py-8 text-center text-gray-500">
+                            <i class="fas fa-comments text-4xl mb-4"></i>
+                            <p>No hay conversaciones recientes</p>
+                        </td>
+                    </tr>
                 `;
                 return;
             }
             
             elements.conversationsList.innerHTML = conversations.map(conv => `
-                <div class="p-4 hover:bg-gray-50 cursor-pointer transition conversation-item" data-phone="${conv.phone_number}">
-                    <div class="flex justify-between items-start">
-                        <div class="flex-1">
-                            <div class="flex items-center mb-2">
-                                <i class="fas fa-user-circle text-gray-400 mr-2"></i>
-                                <span class="font-medium text-gray-800">+${conv.phone_number}</span>
-                                <span class="ml-2 text-xs text-gray-500">${formatTime(conv.created_at)}</span>
-                                ${conv.response_time ? `
-                                    <span class="ml-2 text-xs ${getPerformanceTextColor(conv.response_time)}">
-                                        ${conv.response_time}ms
-                                    </span>
-                                ` : ''}
-                            </div>
-                            <div class="text-sm text-gray-600 mb-1">
-                                <span class="font-medium">Usuario:</span> ${truncateText(conv.user_message, 80)}
-                            </div>
-                            <div class="text-sm text-gray-600">
-                                <span class="font-medium">Bot:</span> ${truncateText(conv.bot_response, 80)}
-                            </div>
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                            <i class="fas fa-user-circle text-gray-400 mr-2"></i>
+                            <span class="font-medium text-gray-900">+${conv.phone_number}</span>
                         </div>
-                        <i class="fas fa-chevron-right text-gray-400 ml-4 mt-2"></i>
-                    </div>
-                </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm text-gray-900 max-w-xs truncate">${conv.user_message || 'Sin mensaje'}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm text-gray-900 max-w-xs truncate">${conv.bot_response || 'Sin respuesta'}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        ${conv.response_time ? `
+                            <span class="response-time-badge ${getResponseTimeBadgeColor(conv.response_time)}">
+                                ${conv.response_time}ms
+                            </span>
+                            <div class="text-xs text-gray-500 mt-1">${getPerformanceDescription(conv.response_time)}</div>
+                        ` : `
+                            <span class="text-gray-400 text-sm">N/A</span>
+                        `}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        ${formatDateTime(conv.created_at)}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button onclick="loadUserConversations('${conv.phone_number}')" 
+                                class="text-blue-600 hover:text-blue-900 mr-3">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button onclick="showMessageDetails(${JSON.stringify(conv).replace(/"/g, '&quot;')})" 
+                                class="text-green-600 hover:text-green-900">
+                            <i class="fas fa-chart-line"></i>
+                        </button>
+                    </td>
+                </tr>
             `).join('');
-            
-            // Add event listeners to conversation items
-            document.querySelectorAll('.conversation-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    const phone = this.getAttribute('data-phone');
-                    loadUserConversations(phone);
-                });
-            });
         }
 
-        function getPerformanceTextColor(responseTime) {
-            if (!responseTime) return 'text-gray-500';
-            if (responseTime <= PERFORMANCE_THRESHOLDS.EXCELLENT) return 'text-green-500';
-            if (responseTime <= PERFORMANCE_THRESHOLDS.GOOD) return 'text-yellow-500';
-            if (responseTime <= PERFORMANCE_THRESHOLDS.CRITICAL) return 'text-orange-500';
-            return 'text-red-500';
+        function getResponseTimeBadgeColor(responseTime) {
+            if (!responseTime) return 'bg-gray-100 text-gray-800';
+            if (responseTime <= PERFORMANCE_THRESHOLDS.EXCELLENT) return 'bg-green-100 text-green-800';
+            if (responseTime <= PERFORMANCE_THRESHOLDS.GOOD) return 'bg-yellow-100 text-yellow-800';
+            if (responseTime <= PERFORMANCE_THRESHOLDS.CRITICAL) return 'bg-orange-100 text-orange-800';
+            return 'bg-red-100 text-red-800';
         }
 
         function checkPerformance() {
             const stats = state.stats?.general || {};
-            const performance = state.stats?.performance || {};
             
             elements.performanceWarning.classList.add('hidden');
             
             if (stats.avg_response_time > PERFORMANCE_THRESHOLDS.CRITICAL) {
                 showPerformanceWarning({
                     avg_response_time: stats.avg_response_time,
-                    active_users: performance.active_users,
                     message: 'Tiempo de respuesta crítico detectado'
-                });
-            } else if (stats.avg_response_time > PERFORMANCE_THRESHOLDS.GOOD) {
-                showPerformanceWarning({
-                    avg_response_time: stats.avg_response_time,
-                    active_users: performance.active_users,
-                    message: 'Tiempo de respuesta elevado',
-                    level: 'warning'
                 });
             }
         }
 
         function showPerformanceWarning(performance) {
-            const level = performance.level || 'critical';
-            const bgColor = level === 'critical' ? 'red' : 'yellow';
-            
             const warningHtml = `
-                <div class="bg-${bgColor}-50 border border-${bgColor}-200 rounded-lg p-4 m-4">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <i class="fas fa-exclamation-triangle text-${bgColor}-500 mr-3 text-lg"></i>
-                            <div>
-                                <h4 class="font-medium text-${bgColor}-800">${performance.message}</h4>
-                                <p class="text-${bgColor}-700 text-sm">
-                                    Tiempo promedio: ${performance.avg_response_time}ms
-                                    ${performance.active_users ? `• Usuarios activos: ${performance.active_users}` : ''}
-                                </p>
-                            </div>
+                <div class="bg-red-50 border border-red-200 rounded-lg p-4 m-4">
+                    <div class="flex items-center">
+                        <i class="fas fa-exclamation-triangle text-red-500 mr-3 text-lg"></i>
+                        <div>
+                            <h4 class="font-medium text-red-800">${performance.message}</h4>
+                            <p class="text-red-700 text-sm">
+                                Tiempo promedio: ${performance.avg_response_time}ms
+                            </p>
                         </div>
-                        <button onclick="showPerformanceDetails()" class="text-${bgColor}-600 hover:text-${bgColor}-800 text-sm font-medium">
-                            Ver detalles
-                        </button>
                     </div>
                 </div>
             `;
@@ -856,69 +665,51 @@
             elements.performanceWarning.classList.remove('hidden');
         }
 
-        function showPerformanceDetails() {
-            const stats = state.stats?.general || {};
-            const performance = state.stats?.performance || {};
-            
+        function showMessageDetails(message) {
             const detailsHtml = `
                 <div class="space-y-4">
                     <div class="grid grid-cols-2 gap-4">
                         <div class="bg-gray-50 p-4 rounded-lg">
-                            <p class="text-sm text-gray-600">Tiempo Respuesta Actual</p>
-                            <p class="text-2xl font-bold ${getPerformanceTextColor(stats.avg_response_time)}">
-                                ${stats.avg_response_time || 0}ms
+                            <p class="text-sm text-gray-600">Tiempo de Respuesta</p>
+                            <p class="text-2xl font-bold ${getPerformanceTextColor(message.response_time)}">
+                                ${message.response_time || 0}ms
                             </p>
+                            <p class="text-xs text-gray-500 mt-1">${getPerformanceDescription(message.response_time)}</p>
                         </div>
                         <div class="bg-gray-50 p-4 rounded-lg">
-                            <p class="text-sm text-gray-600">Usuarios Activos</p>
-                            <p class="text-2xl font-bold text-gray-800">
-                                ${performance.active_users || 0}
-                            </p>
+                            <p class="text-sm text-gray-600">Usuario</p>
+                            <p class="text-lg font-bold text-gray-800">+${message.phone_number}</p>
                         </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p class="text-sm font-medium text-blue-800 mb-2">Mensaje del Usuario:</p>
+                        <p class="text-blue-900">${message.user_message || 'Sin mensaje'}</p>
+                    </div>
+                    
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <p class="text-sm font-medium text-green-800 mb-2">Respuesta del Bot:</p>
+                        <p class="text-green-900">${message.bot_response || 'Sin respuesta'}</p>
                     </div>
                     
                     <div class="bg-gray-50 p-4 rounded-lg">
-                        <p class="text-sm text-gray-600 mb-2">Umbrales de Performance</p>
-                        <div class="space-y-2">
-                            <div class="flex justify-between items-center">
-                                <span class="text-green-600">✓ Excelente</span>
-                                <span>&lt; ${PERFORMANCE_THRESHOLDS.EXCELLENT}ms</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-yellow-600">⚠ Bueno</span>
-                                <span>&lt; ${PERFORMANCE_THRESHOLDS.GOOD}ms</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-orange-600">⚠ Regular</span>
-                                <span>&lt; ${PERFORMANCE_THRESHOLDS.CRITICAL}ms</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-red-600">✗ Crítico</span>
-                                <span>&gt; ${PERFORMANCE_THRESHOLDS.CRITICAL}ms</span>
-                            </div>
-                        </div>
+                        <p class="text-sm text-gray-600">Fecha y Hora</p>
+                        <p class="text-gray-800">${formatDateTime(message.created_at)}</p>
                     </div>
-                    
-                    ${stats.avg_response_time > PERFORMANCE_THRESHOLDS.GOOD ? `
-                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                        <p class="text-sm text-yellow-800 font-medium">Recomendaciones:</p>
-                        <ul class="text-sm text-yellow-700 mt-2 list-disc list-inside space-y-1">
-                            <li>Verificar conexión con APIs externas</li>
-                            <li>Revisar logs de errores</li>
-                            <li>Optimizar consultas a la base de datos</li>
-                            <li>Considerar escalar recursos del servidor</li>
-                        </ul>
-                    </div>
-                    ` : ''}
                 </div>
             `;
             
-            elements.performanceContent.innerHTML = detailsHtml;
-            elements.performanceModal.classList.remove('hidden');
+            elements.modalContent.innerHTML = detailsHtml;
+            elements.modalTitle.innerHTML = `Detalles del Mensaje - <span class="text-blue-600">+${message.phone_number}</span>`;
+            elements.conversationModal.classList.remove('hidden');
         }
 
-        function closePerformanceModal() {
-            elements.performanceModal.classList.add('hidden');
+        function getPerformanceTextColor(responseTime) {
+            if (!responseTime) return 'text-gray-500';
+            if (responseTime <= PERFORMANCE_THRESHOLDS.EXCELLENT) return 'text-green-500';
+            if (responseTime <= PERFORMANCE_THRESHOLDS.GOOD) return 'text-yellow-500';
+            if (responseTime <= PERFORMANCE_THRESHOLDS.CRITICAL) return 'text-orange-500';
+            return 'text-red-500';
         }
 
         async function loadUserConversations(phoneNumber) {
@@ -972,12 +763,12 @@
             );
             
             elements.modalContent.innerHTML = sortedConversations.map(conv => `
-                <div class="mb-6">
+                <div class="mb-6 border-l-4 ${getPerformanceBorderColor(conv.response_time)} pl-4">
                     <div class="flex justify-between items-center mb-2">
                         <div class="text-xs text-gray-500">${formatDateTime(conv.created_at)}</div>
                         ${conv.response_time ? `
                             <div class="text-xs ${getPerformanceTextColor(conv.response_time)} font-medium">
-                                ${conv.response_time}ms
+                                ${conv.response_time}ms - ${getPerformanceDescription(conv.response_time)}
                             </div>
                         ` : ''}
                     </div>
@@ -1003,6 +794,14 @@
                     </div>
                 </div>
             `).join('');
+        }
+
+        function getPerformanceBorderColor(responseTime) {
+            if (!responseTime) return 'border-gray-300';
+            if (responseTime <= PERFORMANCE_THRESHOLDS.EXCELLENT) return 'border-green-500';
+            if (responseTime <= PERFORMANCE_THRESHOLDS.GOOD) return 'border-yellow-500';
+            if (responseTime <= PERFORMANCE_THRESHOLDS.CRITICAL) return 'border-orange-500';
+            return 'border-red-500';
         }
 
         function closeConversationModal() {

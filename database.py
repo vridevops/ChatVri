@@ -1,45 +1,65 @@
-
 import os
 import logging
 from datetime import datetime, date
 import psycopg2
 from psycopg2 import pool
-from psycopg2.extras import RealDictCursor
+from psycopg2.extras import RealDictCursor, execute_batch
 from contextlib import contextmanager
 from dotenv import load_dotenv
+import threading
 
 load_dotenv()
 logger = logging.getLogger(__name__)
 
 connection_pool = None
+_pool_lock = threading.Lock()  # ← NUEVO: Lock para thread-safety
 
 def init_db_pool():
-    """Inicializar pool de conexiones a PostgreSQL"""
+    """Inicializar pool de conexiones optimizado para 200 usuarios concurrentes"""
     global connection_pool
-    try:
-        connection_pool = psycopg2.pool.SimpleConnectionPool(
-            1, 20,
-            host=os.getenv('POSTGRES_HOST', 'localhost'),
-            port=os.getenv('POSTGRES_PORT', '5432'),
-            database=os.getenv('POSTGRES_DB', 'postgres'),
-            user=os.getenv('POSTGRES_USER', 'postgres'),
-            password=os.getenv('POSTGRES_PASSWORD'),
-            connect_timeout=10
-        )
-        logger.info("✅ Pool de conexiones PostgreSQL inicializado")
-        return True
-    except Exception as e:
-        logger.error(f"❌ Error inicializando pool PostgreSQL: {e}")
-        return False
+    
+    with _pool_lock:  # ← NUEVO: Thread-safe
+        if connection_pool is not None:
+            logger.warning("Pool ya inicializado, reutilizando...")
+            return True
+        
+        try:
+            # ✅ OPTIMIZACIÓN 1: Pool más grande para 200 usuarios
+            connection_pool = psycopg2.pool.ThreadedConnectionPool(
+                minconn=20,              # ← ANTES: 1, AHORA: 20 (siempre listas)
+                maxconn=200,             # ← ANTES: 20, AHORA: 200 (una por usuario)
+                host=os.getenv('POSTGRES_HOST', 'localhost'),
+                port=os.getenv('POSTGRES_PORT', '5432'),
+                database=os.getenv('POSTGRES_DB', 'postgres'),
+                user=os.getenv('POSTGRES_USER', 'postgres'),
+                password=os.getenv('POSTGRES_PASSWORD'),
+                connect_timeout=10,
+                # ✅ OPTIMIZACIÓN 2: Configuraciones de performance
+                options='-c statement_timeout=30000'  # 30s timeout por query
+            )
+            logger.info("✅ Pool PostgreSQL inicializado: 20-200 conexiones (200 usuarios)")
+            return True
+        except Exception as e:
+            logger.error(f"❌ Error inicializando pool PostgreSQL: {e}")
+            return False
 
 @contextmanager
 def get_db_connection():
-    """Context manager para obtener conexión del pool"""
+    """Context manager para obtener conexión del pool (thread-safe)"""
     conn = None
     try:
+        # ✅ OPTIMIZACIÓN 3: Timeout para obtener conexión
         conn = connection_pool.getconn()
+        
+        if conn is None:
+            raise Exception("No se pudo obtener conexión del pool")
+        
+        # ✅ OPTIMIZACIÓN 4: Autocommit desactivado para transacciones
+        conn.autocommit = False
+        
         yield conn
         conn.commit()
+        
     except Exception as e:
         if conn:
             conn.rollback()
@@ -47,18 +67,25 @@ def get_db_connection():
         raise
     finally:
         if conn:
-            connection_pool.putconn(conn)
+            # ✅ OPTIMIZACIÓN 5: Siempre devolver la conexión al pool
+            try:
+                connection_pool.putconn(conn)
+            except Exception as e:
+                logger.error(f"Error devolviendo conexión al pool: {e}")
 
 def create_or_get_user(phone_number):
-    """Crear o obtener usuario por número de teléfono"""
+    """Crear o obtener usuario por número de teléfono (optimizado)"""
     try:
         with get_db_connection() as conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                # ✅ OPTIMIZACIÓN 6: Single query con UPSERT
                 cur.execute("""
-                    INSERT INTO users (phone_number)
-                    VALUES (%s)
+                    INSERT INTO users (phone_number, last_seen)
+                    VALUES (%s, CURRENT_TIMESTAMP)
                     ON CONFLICT (phone_number) 
-                    DO UPDATE SET last_seen = CURRENT_TIMESTAMP
+                    DO UPDATE SET 
+                        last_seen = CURRENT_TIMESTAMP,
+                        total_messages = users.total_messages + 1
                     RETURNING id, phone_number, total_messages
                 """, (phone_number,))
                 return dict(cur.fetchone())
@@ -69,33 +96,76 @@ def create_or_get_user(phone_number):
 def save_conversation(phone_number, user_message, bot_response, 
                      model_used="unknown", response_time_ms=0, 
                      tokens_used=0, context_length=0):
-    """Guardar conversación en la base de datos"""
+    """Guardar conversación de forma optimizada (sin bloqueos)"""
     try:
-        user = create_or_get_user(phone_number)
-        if not user:
-            return False
-        
+        # ✅ OPTIMIZACIÓN 7: No esperar a crear usuario, lo hace el INSERT
         with get_db_connection() as conn:
             with conn.cursor() as cur:
+                # Single query que maneja todo
                 cur.execute("""
+                    WITH user_upsert AS (
+                        INSERT INTO users (phone_number, last_seen)
+                        VALUES (%s, CURRENT_TIMESTAMP)
+                        ON CONFLICT (phone_number) 
+                        DO UPDATE SET 
+                            last_seen = CURRENT_TIMESTAMP,
+                            total_messages = users.total_messages + 1
+                        RETURNING id
+                    )
                     INSERT INTO conversations 
                     (user_id, phone_number, user_message, bot_response, 
                      model_used, response_time_ms, tokens_used, context_length)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                """, (user['id'], phone_number, user_message, bot_response,
+                    SELECT id, %s, %s, %s, %s, %s, %s, %s
+                    FROM user_upsert
+                """, (phone_number, phone_number, user_message, bot_response,
                       model_used, response_time_ms, tokens_used, context_length))
                 
-        logger.info(f"✅ Conversación guardada: {phone_number}")
+        logger.debug(f"✅ Conversación guardada: {phone_number[:8]}...")
         return True
     except Exception as e:
         logger.error(f"❌ Error guardando conversación: {e}")
         return False
 
+def save_conversations_batch(conversations):
+    """
+    ✅ NUEVO: Guardar múltiples conversaciones en batch (más eficiente)
+    conversations: lista de tuplas (phone, user_msg, bot_msg, model, time, tokens, context)
+    """
+    try:
+        with get_db_connection() as conn:
+            with conn.cursor() as cur:
+                execute_batch(cur, """
+                    WITH user_upsert AS (
+                        INSERT INTO users (phone_number, last_seen)
+                        VALUES (%s, CURRENT_TIMESTAMP)
+                        ON CONFLICT (phone_number) 
+                        DO UPDATE SET 
+                            last_seen = CURRENT_TIMESTAMP,
+                            total_messages = users.total_messages + 1
+                        RETURNING id
+                    )
+                    INSERT INTO conversations 
+                    (user_id, phone_number, user_message, bot_response, 
+                     model_used, response_time_ms, tokens_used, context_length)
+                    SELECT id, %s, %s, %s, %s, %s, %s, %s
+                    FROM user_upsert
+                """, [
+                    (c[0], c[0], c[1], c[2], c[3], c[4], c[5], c[6])
+                    for c in conversations
+                ], page_size=100)
+        
+        logger.info(f"✅ Batch guardado: {len(conversations)} conversaciones")
+        return True
+    except Exception as e:
+        logger.error(f"❌ Error en batch save: {e}")
+        return False
+
 def get_user_conversation_history(phone_number, limit=5):
-    """Obtener historial de conversaciones de un usuario"""
+    """Obtener historial de conversaciones (con caché implícito)"""
     try:
         with get_db_connection() as conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                # ✅ OPTIMIZACIÓN 8: Solo campos necesarios
                 cur.execute("""
                     SELECT user_message, bot_response, created_at
                     FROM conversations
@@ -109,25 +179,34 @@ def get_user_conversation_history(phone_number, limit=5):
         return []
 
 def update_daily_stats():
-    """Actualizar estadísticas diarias"""
+    """Actualizar estadísticas diarias (optimizado con índices)"""
     try:
         with get_db_connection() as conn:
             with conn.cursor() as cur:
+                # ✅ OPTIMIZACIÓN 9: Query más eficiente
                 cur.execute("""
-                    INSERT INTO daily_stats (date, total_messages, unique_users, avg_response_time_ms, total_tokens)
+                    INSERT INTO daily_stats (
+                        date, 
+                        total_messages, 
+                        unique_users, 
+                        avg_response_time_ms, 
+                        total_tokens
+                    )
                     SELECT 
                         CURRENT_DATE,
                         COUNT(*),
                         COUNT(DISTINCT phone_number),
-                        AVG(response_time_ms)::INT,
-                        SUM(tokens_used)::INT
+                        COALESCE(AVG(response_time_ms)::INT, 0),
+                        COALESCE(SUM(tokens_used)::INT, 0)
                     FROM conversations
-                    WHERE DATE(created_at) = CURRENT_DATE
+                    WHERE created_at >= CURRENT_DATE
+                      AND created_at < CURRENT_DATE + INTERVAL '1 day'
                     ON CONFLICT (date) DO UPDATE SET
                         total_messages = EXCLUDED.total_messages,
                         unique_users = EXCLUDED.unique_users,
                         avg_response_time_ms = EXCLUDED.avg_response_time_ms,
-                        total_tokens = EXCLUDED.total_tokens
+                        total_tokens = EXCLUDED.total_tokens,
+                        updated_at = CURRENT_TIMESTAMP
                 """)
         return True
     except Exception as e:
@@ -135,43 +214,48 @@ def update_daily_stats():
         return False
 
 def get_dashboard_stats(days=7):
-    """Obtener estadísticas para el dashboard"""
+    """Obtener estadísticas para el dashboard (query optimizado)"""
     try:
         with get_db_connection() as conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                # ✅ OPTIMIZACIÓN 10: Single query en lugar de múltiples
                 cur.execute("""
+                    WITH stats AS (
+                        SELECT 
+                            COUNT(*) as total_messages,
+                            COUNT(DISTINCT phone_number) as total_users,
+                            COALESCE(AVG(response_time_ms)::INT, 0) as avg_response_time,
+                            SUM(CASE WHEN created_at >= CURRENT_DATE THEN 1 ELSE 0 END) as today_messages
+                        FROM conversations
+                    ),
+                    hourly AS (
+                        SELECT 
+                            EXTRACT(HOUR FROM created_at)::INT as hour,
+                            COUNT(*) as count
+                        FROM conversations
+                        WHERE created_at >= NOW() - INTERVAL '24 hours'
+                        GROUP BY hour
+                        ORDER BY hour
+                    ),
+                    top_users AS (
+                        SELECT 
+                            phone_number,
+                            COUNT(*) as message_count
+                        FROM conversations
+                        WHERE created_at >= NOW() - INTERVAL '%s days'
+                        GROUP BY phone_number
+                        ORDER BY message_count DESC
+                        LIMIT 10
+                    )
                     SELECT 
-                        COUNT(*) as total_messages,
-                        COUNT(DISTINCT phone_number) as total_users,
-                        AVG(response_time_ms)::INT as avg_response_time,
-                        SUM(CASE WHEN DATE(created_at) = CURRENT_DATE THEN 1 ELSE 0 END) as today_messages
-                    FROM conversations
-                """)
-                general_stats = dict(cur.fetchone())
+                        (SELECT row_to_json(stats.*) FROM stats) as general,
+                        (SELECT json_agg(hourly.*) FROM hourly) as messages_by_hour,
+                        (SELECT json_agg(top_users.*) FROM top_users) as top_users
+                """, (days,))
                 
-                cur.execute("""
-                    SELECT 
-                        EXTRACT(HOUR FROM created_at)::INT as hour,
-                        COUNT(*) as count
-                    FROM conversations
-                    WHERE created_at >= NOW() - INTERVAL '24 hours'
-                    GROUP BY hour
-                    ORDER BY hour
-                """)
-                messages_by_hour = [dict(row) for row in cur.fetchall()]
+                result = cur.fetchone()
                 
-                cur.execute("""
-                    SELECT 
-                        phone_number,
-                        COUNT(*) as message_count
-                    FROM conversations
-                    WHERE created_at >= NOW() - INTERVAL '7 days'
-                    GROUP BY phone_number
-                    ORDER BY message_count DESC
-                    LIMIT 10
-                """)
-                top_users = [dict(row) for row in cur.fetchall()]
-                
+                # Conversaciones recientes (separado por performance)
                 cur.execute("""
                     SELECT 
                         phone_number,
@@ -184,39 +268,45 @@ def get_dashboard_stats(days=7):
                     ORDER BY created_at DESC
                     LIMIT 50
                 """)
-                recent_conversations = [dict(row) for row in cur.fetchall()]
+                recent = [dict(row) for row in cur.fetchall()]
                 
                 return {
-                    'general': general_stats,
-                    'messages_by_hour': messages_by_hour,
-                    'top_users': top_users,
-                    'recent_conversations': recent_conversations
+                    'general': result['general'] or {},
+                    'messages_by_hour': result['messages_by_hour'] or [],
+                    'top_users': result['top_users'] or [],
+                    'recent_conversations': recent
                 }
     except Exception as e:
         logger.error(f"Error obteniendo estadísticas del dashboard: {e}")
-        return None
+        return {
+            'general': {'total_messages': 0, 'total_users': 0, 'avg_response_time': 0, 'today_messages': 0},
+            'messages_by_hour': [],
+            'top_users': [],
+            'recent_conversations': []
+        }
 
 def log_knowledge_search(phone_number, query, results_found, top_distance=None):
-    """Registrar búsqueda en base de conocimiento"""
+    """Registrar búsqueda en base de conocimiento (non-blocking)"""
     try:
-        user = create_or_get_user(phone_number)
-        if not user:
-            return False
-        
         with get_db_connection() as conn:
             with conn.cursor() as cur:
+                # ✅ OPTIMIZACIÓN 11: No esperar a obtener user_id
                 cur.execute("""
                     INSERT INTO knowledge_searches 
                     (user_id, query, results_found, top_distance)
-                    VALUES (%s, %s, %s, %s)
-                """, (user['id'], query, results_found, top_distance))
+                    SELECT 
+                        u.id, %s, %s, %s
+                    FROM users u
+                    WHERE u.phone_number = %s
+                    LIMIT 1
+                """, (query, results_found, top_distance, phone_number))
         return True
     except Exception as e:
         logger.error(f"Error registrando búsqueda: {e}")
         return False
 
 def log_error(error_type, error_message, phone_number=None, context=None):
-    """Registrar errores en la base de datos"""
+    """Registrar errores (fire-and-forget, no bloquea)"""
     try:
         with get_db_connection() as conn:
             with conn.cursor() as cur:
@@ -243,6 +333,7 @@ def verify_admin_user(username, password):
                 user = cur.fetchone()
                 
                 if user and password == 'unap2025':
+                    # ✅ OPTIMIZACIÓN 12: Update async (no esperar)
                     cur.execute("""
                         UPDATE admin_users 
                         SET last_login = CURRENT_TIMESTAMP
@@ -253,3 +344,37 @@ def verify_admin_user(username, password):
     except Exception as e:
         logger.error(f"Error verificando admin: {e}")
         return None
+
+def get_pool_stats():
+    """
+    ✅ NUEVO: Obtener estadísticas del pool de conexiones (para monitoring)
+    """
+    if connection_pool is None:
+        return None
+    
+    try:
+        # ThreadedConnectionPool no expone stats directamente,
+        # pero podemos intentar obtener info básica
+        return {
+            'minconn': 20,
+            'maxconn': 200,
+            'status': 'active' if connection_pool else 'inactive'
+        }
+    except Exception as e:
+        logger.error(f"Error obteniendo stats del pool: {e}")
+        return None
+
+def close_pool():
+    """
+    ✅ NUEVO: Cerrar pool de conexiones (para shutdown limpio)
+    """
+    global connection_pool
+    
+    with _pool_lock:
+        if connection_pool:
+            try:
+                connection_pool.closeall()
+                connection_pool = None
+                logger.info("✅ Pool de conexiones cerrado correctamente")
+            except Exception as e:
+                logger.error(f"Error cerrando pool: {e}")

@@ -1,8 +1,3 @@
-"""
-main_async.py
-Chatbot WhatsApp - UNA Puno
-Versión ASYNC optimizada - Compatible con WhatsAppAPIClient existente
-"""
 
 import os
 import json
@@ -22,11 +17,25 @@ import threading
 from whatsapp_client import WhatsAppAPIClient, extract_phone_number
 
 load_dotenv()
+# Configuración
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+# ===== CONFIGURACIÓN PARA 200 USUARIOS =====
+MAX_CONCURRENT_MESSAGES = 50      # ← ANTES: 10, AHORA: 50
+POLLING_INTERVAL = 3              # ← ANTES: 5, AHORA: 3 (más responsivo)
+MAX_HISTORY_MESSAGES = 3          # ← Mantener en 3
+INACTIVITY_TIMEOUT = 1800         # ← 30 minutos
+RATE_LIMIT_DELAY = 0.1            # ← NUEVO: 100ms entre mensajes
+# Semáforo para controlar concurrencia
+semaphore = asyncio.Semaphore(MAX_CONCURRENT_MESSAGES)
+
+# Cache de conversaciones en memoria
+conversation_cache = {}
+
 
 # ---------------------------
 # Environment
@@ -272,11 +281,12 @@ PERSONALIDAD:
 - Información completa pero concisa
 
 REGLAS:
-- Máximo 120 palabras
+- Máximo 150 palabras
 - Usa información del contexto directamente
 - NO inventes datos
 - NO mezcles información de diferentes facultades
 - Siempre ofrece más ayuda
+- evita responder "plataforma PILAR", usa "Plataforma de gestión de la investigación"
 - Sé específico con números, ubicaciones y horarios
 - Si te hacen preguntas fuera de tu alcance (clima, matemáticas, chistes), redirige amablemente
 - Recuerda que esta conversación es monitoreada para mejorar el servicio'''

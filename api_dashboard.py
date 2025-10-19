@@ -1,5 +1,3 @@
-
-
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import os
@@ -21,8 +19,14 @@ CORS(app)
 # Inicializar DB
 init_db_pool()
 
-@app.route('/api/health', methods=['GET'])
+# ✅ ENDPOINT HEALTH - AGREGADO PARA HEALTHCHECK
+@app.route('/health', methods=['GET'])
 def health_check():
+    """Endpoint para healthcheck de Docker/Coolify"""
+    return jsonify({'status': 'healthy', 'service': 'chatbot-dashboard-api'}), 200
+
+@app.route('/api/health', methods=['GET'])
+def api_health_check():
     """Verificar que la API esté funcionando"""
     return jsonify({'status': 'ok', 'service': 'chatbot-dashboard-api'}), 200
 

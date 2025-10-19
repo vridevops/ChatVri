@@ -15,5 +15,9 @@ COPY database.py .
 # Exponer puerto
 EXPOSE 5000
 
+# HEALTHCHECK - ESTO ES LO QUE FALTABA
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:5000/health').read()" || exit 1
+
 # Comando para ejecutar
 CMD ["python", "api_dashboard.py"]

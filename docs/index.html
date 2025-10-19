@@ -3,368 +3,1139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Chatbot UNA Puno</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Dashboard - Chatbot UNA Puno</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <!-- SheetJS para Excel -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <!-- jsPDF para PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.6.0/jspdf.plugin.autotable.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #64748b;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #06b6d4;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --border: #334155;
+        }
+
+        /* Dark Theme */
+        body.dark-theme {
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            min-height: 100vh;
+        }
+
+        body.dark-theme .card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        body.dark-theme .table {
+            color: var(--light);
+        }
+
+        body.dark-theme .table thead {
+            background: rgba(37, 99, 235, 0.2);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        body.dark-theme .table tbody tr:hover {
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        body.dark-theme .form-control,
+        body.dark-theme .form-select {
+            background: rgba(15, 23, 42, 0.8);
+            border-color: var(--border);
+            color: var(--light);
+        }
+
+        body.dark-theme .form-control:focus,
+        body.dark-theme .form-select:focus {
+            background: rgba(15, 23, 42, 0.9);
+            border-color: var(--primary);
+            color: var(--light);
+            box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.25);
+        }
+
+        body.dark-theme .modal-content {
+            background: var(--dark);
+            border-color: var(--border);
+        }
+
+        body.dark-theme .modal-header {
+            border-bottom-color: var(--border);
+        }
+
+        body.dark-theme .nav-tabs .nav-link {
+            color: var(--secondary);
+        }
+
+        body.dark-theme .nav-tabs .nav-link.active {
+            background: rgba(37, 99, 235, 0.2);
+            border-color: var(--border) var(--border) transparent;
+            color: var(--primary);
+        }
+
+        /* Light Theme */
+        body.light-theme {
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        body.light-theme .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+        }
+
+        body.light-theme .table {
+            color: var(--dark);
+        }
+
+        body.light-theme .table thead {
+            background: #f1f5f9;
+        }
+
+        body.light-theme .navbar {
+            background: white !important;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        /* Components */
+        .kpi-card {
+            transition: transform 0.2s;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .kpi-icon {
+            font-size: 2.5rem;
+            opacity: 0.8;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .message-row {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .message-row:hover {
+            transform: scale(1.01);
+        }
+
+        .user-badge {
+            font-family: monospace;
+            font-size: 0.875rem;
+        }
+
+        .response-time-badge {
+            font-size: 0.75rem;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+        }
+
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-card {
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .theme-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+        }
+
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .theme-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--secondary);
+            transition: 0.4s;
+            border-radius: 30px;
+        }
+
+        .theme-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .theme-slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .theme-slider:before {
+            transform: translateX(30px);
+        }
+
+        .conversation-bubble {
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            max-width: 80%;
+        }
+
+        .user-message {
+            background: rgba(37, 99, 235, 0.2);
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .bot-message {
+            background: rgba(100, 116, 139, 0.2);
+            margin-right: auto;
+        }
+
+        .filter-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .export-btn-group {
+            gap: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .stat-value {
+                font-size: 1.5rem;
+            }
+            
+            .chart-container {
+                height: 300px;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-50">
-    <div id="app"></div>
+<body class="dark-theme">
 
-    <script>
-        // Configuración
-        const API_URL = 'https://dashboard.services.vridevops.space/api'; // Cambiar por tu URL de Coolify
-        let authToken = localStorage.getItem('authToken');
-        let currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
-
-        // Función de login
-        async function login(username, password) {
-            try {
-                const response = await fetch(`${API_URL}/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
+<!-- LOGIN PAGE -->
+<div id="loginPage" class="login-container">
+    <div class="login-card">
+        <div class="card shadow-lg">
+            <div class="card-body p-5">
+                <h2 class="text-center mb-4">
+                    <i class="bi bi-chat-dots-fill text-primary"></i>
+                    Dashboard Chatbot
+                </h2>
+                <p class="text-center text-muted mb-4">Universidad Nacional del Altiplano</p>
                 
-                const data = await response.json();
+                <div id="loginError" class="alert alert-danger d-none" role="alert"></div>
                 
-                if (response.ok) {
-                    currentUser = data.user;
-                    authToken = 'authenticated';
-                    localStorage.setItem('authToken', authToken);
-                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                    renderDashboard();
-                    loadDashboardData();
-                } else {
-                    alert(data.error || 'Error en login');
-                }
-            } catch (error) {
-                alert('Error conectando con el servidor');
-                console.error(error);
-            }
-        }
-
-        // Función de logout
-        function logout() {
-            localStorage.removeItem('authToken');
-            localStorage.removeItem('currentUser');
-            authToken = null;
-            currentUser = null;
-            renderLogin();
-        }
-
-        // Cargar datos del dashboard
-        async function loadDashboardData() {
-            try {
-                const response = await fetch(`${API_URL}/stats`);
-                const data = await response.json();
-                
-                updateStats(data.general);
-                renderCharts(data);
-                renderConversations(data.recent_conversations);
-            } catch (error) {
-                console.error('Error cargando datos:', error);
-            }
-        }
-
-        // Actualizar estadísticas
-        function updateStats(stats) {
-            document.getElementById('totalMessages').textContent = stats.total_messages || 0;
-            document.getElementById('totalUsers').textContent = stats.total_users || 0;
-            document.getElementById('todayMessages').textContent = stats.today_messages || 0;
-            document.getElementById('avgResponseTime').textContent = stats.avg_response_time ? 
-                (stats.avg_response_time / 1000).toFixed(1) + 's' : 'N/A';
-        }
-
-        // Renderizar gráficos
-        function renderCharts(data) {
-            // Gráfico de mensajes por hora
-            const hourlyCtx = document.getElementById('hourlyChart').getContext('2d');
-            
-            // Preparar datos (rellenar horas faltantes)
-            const hours = Array.from({length: 24}, (_, i) => i);
-            const hourlyData = hours.map(hour => {
-                const found = data.messages_by_hour?.find(d => d.hour === hour);
-                return found ? found.count : 0;
-            });
-            
-            new Chart(hourlyCtx, {
-                type: 'line',
-                data: {
-                    labels: hours.map(h => `${h}:00`),
-                    datasets: [{
-                        label: 'Mensajes',
-                        data: hourlyData,
-                        borderColor: 'rgb(79, 70, 229)',
-                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    }
-                }
-            });
-
-            // Gráfico de top usuarios
-            const usersCtx = document.getElementById('usersChart').getContext('2d');
-            const topUsers = data.top_users || [];
-            
-            new Chart(usersCtx, {
-                type: 'bar',
-                data: {
-                    labels: topUsers.map(u => u.phone_number.slice(-4)),
-                    datasets: [{
-                        label: 'Mensajes',
-                        data: topUsers.map(u => u.message_count),
-                        backgroundColor: 'rgb(16, 185, 129)'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    }
-                }
-            });
-        }
-
-        // Renderizar conversaciones
-        function renderConversations(conversations) {
-            const container = document.getElementById('conversationsList');
-            
-            if (!conversations || conversations.length === 0) {
-                container.innerHTML = '<p class="text-gray-500 text-center py-8">No hay conversaciones</p>';
-                return;
-            }
-
-            container.innerHTML = conversations.map(conv => {
-                const date = new Date(conv.created_at);
-                const formattedDate = date.toLocaleString('es-PE');
-                
-                return `
-                    <div class="p-6 hover:bg-gray-50 transition-colors border-b">
-                        <div class="flex justify-between items-start mb-3">
-                            <div class="flex items-center gap-3">
-                                <div class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">
-                                    ${conv.phone_number}
-                                </div>
-                                <span class="text-xs text-gray-500">${formattedDate}</span>
-                                ${conv.model_used ? `<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">${conv.model_used}</span>` : ''}
-                            </div>
-                            ${conv.response_time_ms ? `<span class="text-xs text-gray-500">${(conv.response_time_ms / 1000).toFixed(2)}s</span>` : ''}
-                        </div>
-                        
-                        <div class="space-y-2">
-                            <div class="bg-gray-100 p-3 rounded-lg">
-                                <p class="text-sm text-gray-600 font-medium">Usuario:</p>
-                                <p class="text-gray-800">${conv.user_message}</p>
-                            </div>
-                            
-                            <div class="bg-indigo-50 p-3 rounded-lg">
-                                <p class="text-sm text-indigo-600 font-medium">Bot:</p>
-                                <p class="text-gray-800">${conv.bot_response}</p>
-                            </div>
-                        </div>
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Usuario</label>
+                        <input type="text" class="form-control" id="username" required>
                     </div>
-                `;
-            }).join('');
-        }
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-        // Renderizar pantalla de login
-        function renderLogin() {
-            document.getElementById('app').innerHTML = `
-                <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-                    <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
-                        <div class="text-center mb-8">
-                            <div class="bg-indigo-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                                </svg>
-                            </div>
-                            <h1 class="text-2xl font-bold text-gray-800">Dashboard Chatbot</h1>
-                            <p class="text-gray-600 mt-2">Universidad Nacional del Altiplano</p>
-                        </div>
-                        
-                        <form id="loginForm" class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Usuario</label>
-                                <input type="text" id="username" required
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                                    placeholder="admin">
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
-                                <input type="password" id="password" required
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                                    placeholder="••••••••">
-                            </div>
-                            
-                            <div id="errorMsg" class="hidden bg-red-50 text-red-600 px-4 py-2 rounded-lg text-sm"></div>
-                            
-                            <button type="submit"
-                                class="w-full bg-indigo-600 text-white py-2 rounded-lg font-semibold hover:bg-indigo-700 transition-colors">
-                                Iniciar Sesión
-                            </button>
-                        </form>
-                        
-                        <p class="text-center text-xs text-gray-500 mt-6">
-                            Credenciales por defecto: admin / unap2025
-                        </p>
+<!-- DASHBOARD PAGE -->
+<div id="dashboardPage" class="d-none">
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark shadow-sm mb-4">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">
+                <i class="bi bi-chat-dots-fill text-primary"></i>
+                Dashboard Chatbot UNA Puno
+            </span>
+            <div class="d-flex align-items-center gap-3">
+                <span class="text-light" id="lastUpdate"></span>
+                <label class="theme-switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="theme-slider"></span>
+                </label>
+                <button class="btn btn-outline-light btn-sm" onclick="logout()">
+                    <i class="bi bi-box-arrow-right"></i> Salir
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <!-- KPI Cards -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-3">
+                <div class="card kpi-card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-chat-left-text-fill kpi-icon text-primary"></i>
+                        <p class="stat-value text-primary" id="totalMessages">0</p>
+                        <p class="stat-label mb-0">Total Mensajes</p>
                     </div>
                 </div>
-            `;
+            </div>
+            <div class="col-md-3">
+                <div class="card kpi-card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-people-fill kpi-icon text-success"></i>
+                        <p class="stat-value text-success" id="totalUsers">0</p>
+                        <p class="stat-label mb-0">Usuarios Únicos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card kpi-card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-lightning-charge-fill kpi-icon text-warning"></i>
+                        <p class="stat-value text-warning" id="avgResponseTime">0ms</p>
+                        <p class="stat-label mb-0">Tiempo Promedio</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card kpi-card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-calendar-check-fill kpi-icon text-info"></i>
+                        <p class="stat-value text-info" id="todayMessages">0</p>
+                        <p class="stat-label mb-0">Hoy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            document.getElementById('loginForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                login(username, password);
-            });
-        }
+        <!-- Filters -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-3">
+                        <label class="form-label">
+                            <i class="bi bi-calendar-range"></i> Fecha Inicio
+                        </label>
+                        <input type="date" class="form-control" id="startDate">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">
+                            <i class="bi bi-calendar-range"></i> Fecha Fin
+                        </label>
+                        <input type="date" class="form-control" id="endDate">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">
+                            <i class="bi bi-person"></i> Usuario
+                        </label>
+                        <select class="form-select" id="userFilter">
+                            <option value="">Todos los usuarios</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">
+                            <i class="bi bi-search"></i> Buscar mensaje
+                        </label>
+                        <input type="text" class="form-control" id="searchText" placeholder="Buscar...">
+                    </div>
+                </div>
+                <div class="mt-3 d-flex gap-2">
+                    <button class="btn btn-primary" onclick="applyFilters()">
+                        <i class="bi bi-funnel"></i> Aplicar Filtros
+                    </button>
+                    <button class="btn btn-outline-secondary" onclick="clearFilters()">
+                        <i class="bi bi-x-circle"></i> Limpiar
+                    </button>
+                    <div id="activeFilters" class="d-flex gap-2 align-items-center ms-3"></div>
+                </div>
+            </div>
+        </div>
 
-        // Renderizar dashboard
-        function renderDashboard() {
-            document.getElementById('app').innerHTML = `
-                <div class="min-h-screen">
-                    <!-- Header -->
-                    <header class="bg-white shadow-sm border-b">
-                        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-                            <div class="flex items-center gap-3">
-                                <div class="bg-indigo-600 w-10 h-10 rounded-lg flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h1 class="text-xl font-bold text-gray-800">Dashboard Chatbot</h1>
-                                    <p class="text-xs text-gray-500">Vicerrectorado de Investigación</p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center gap-4">
-                                <span class="text-sm text-gray-600">👤 ${currentUser?.username || 'Admin'}</span>
-                                <button onclick="loadDashboardData()"
-                                    class="flex items-center gap-2 px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                                    </svg>
-                                    Actualizar
-                                </button>
-                                <button onclick="logout()"
-                                    class="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                                    </svg>
-                                    Salir
-                                </button>
-                            </div>
+        <!-- Charts -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <ul class="nav nav-tabs mb-3" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#timeChart" type="button">
+                            <i class="bi bi-graph-up"></i> Mensajes en el Tiempo
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#usersChart" type="button">
+                            <i class="bi bi-bar-chart"></i> Top Usuarios
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#heatmapChart" type="button">
+                            <i class="bi bi-grid-3x3-gap"></i> Heatmap Horario
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#responseChart" type="button">
+                            <i class="bi bi-speedometer2"></i> Tiempos de Respuesta
+                        </button>
+                    </li>
+                </ul>
+                
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="timeChart">
+                        <div class="chart-container">
+                            <canvas id="messagesTimeChart"></canvas>
                         </div>
-                    </header>
-
-                    <div class="max-w-7xl mx-auto px-4 py-6">
-                        <!-- Stats Cards -->
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-sm text-gray-500">Mensajes Totales</p>
-                                        <p id="totalMessages" class="text-2xl font-bold text-gray-800 mt-1">0</p>
-                                    </div>
-                                    <div class="bg-blue-100 p-3 rounded-lg">
-                                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-sm text-gray-500">Usuarios Únicos</p>
-                                        <p id="totalUsers" class="text-2xl font-bold text-gray-800 mt-1">0</p>
-                                    </div>
-                                    <div class="bg-green-100 p-3 rounded-lg">
-                                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-sm text-gray-500">Hoy</p>
-                                        <p id="todayMessages" class="text-2xl font-bold text-gray-800 mt-1">0</p>
-                                    </div>
-                                    <div class="bg-purple-100 p-3 rounded-lg">
-                                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-sm text-gray-500">Tiempo Promedio</p>
-                                        <p id="avgResponseTime" class="text-2xl font-bold text-gray-800 mt-1">N/A</p>
-                                    </div>
-                                    <div class="bg-orange-100 p-3 rounded-lg">
-                                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="tab-pane fade" id="usersChart">
+                        <div class="chart-container">
+                            <canvas id="topUsersChart"></canvas>
                         </div>
-
-                        <!-- Charts -->
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                                <h3 class="text-lg font-semibold text-gray-800 mb-4">Mensajes por Hora (24h)</h3>
-                                <div style="height: 250px">
-                                    <canvas id="hourlyChart"></canvas>
-                                </div>
-                            </div>
-
-                            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                                <h3 class="text-lg font-semibold text-gray-800 mb-4">Top 10 Usuarios Activos</h3>
-                                <div style="height: 250px">
-                                    <canvas id="usersChart"></canvas>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="tab-pane fade" id="heatmapChart">
+                        <div class="chart-container">
+                            <canvas id="heatmapHourChart"></canvas>
                         </div>
-
-                        <!-- Conversations -->
-                        <div class="bg-white rounded-xl shadow-sm border overflow-hidden">
-                            <div class="px-6 py-4 bg-gray-50 border-b">
-                                <h3 class="text-lg font-semibold text-gray-800">Conversaciones Recientes</h3>
-                            </div>
-                            
-                            <div id="conversationsList" class="max-h-[600px] overflow-y-auto">
-                                <p class="text-gray-500 text-center py-8">Cargando...</p>
-                            </div>
+                    </div>
+                    <div class="tab-pane fade" id="responseChart">
+                        <div class="chart-container">
+                            <canvas id="responseTimeChart"></canvas>
                         </div>
                     </div>
                 </div>
-            `;
-        }
+            </div>
+        </div>
 
-        // Inicializar app
-        if (authToken && currentUser) {
-            renderDashboard();
-            loadDashboardData();
+        <!-- Conversations Table -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="bi bi-chat-left-quote"></i> Conversaciones Recientes
+                    <span class="badge bg-primary" id="conversationCount">0</span>
+                </h5>
+                <div class="export-btn-group d-flex">
+                    <button class="btn btn-sm btn-success" onclick="exportToCSV()">
+                        <i class="bi bi-file-earmark-spreadsheet"></i> CSV
+                    </button>
+                    <button class="btn btn-sm btn-success" onclick="exportToExcel()">
+                        <i class="bi bi-file-earmark-excel"></i> Excel
+                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="exportToPDF()">
+                        <i class="bi bi-file-earmark-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Usuario</th>
+                                <th>Mensaje</th>
+                                <th>Respuesta</th>
+                                <th>Modelo</th>
+                                <th>Tiempo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="conversationsTable"></tbody>
+                    </table>
+                </div>
+                <div id="loadingSpinner" class="text-center py-4 d-none">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Conversación Completa -->
+<div class="modal fade" id="conversationModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="bi bi-chat-dots"></i>
+                    Conversación con <span id="modalPhone" class="user-badge"></span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="conversationContent"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// API Configuration
+const API_URL = 'https://dashboard.services.vridevops.space/api';
+
+// Global State
+let currentUser = null;
+let allConversations = [];
+let filteredConversations = [];
+let charts = {};
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if already logged in
+    const savedUser = localStorage.getItem('chatbot_user');
+    if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        showDashboard();
+    }
+
+    // Setup event listeners
+    setupEventListeners();
+    
+    // Set default dates
+    const today = new Date();
+    const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+    document.getElementById('startDate').valueAsDate = weekAgo;
+    document.getElementById('endDate').valueAsDate = today;
+});
+
+function setupEventListeners() {
+    // Login form
+    document.getElementById('loginForm').addEventListener('submit', handleLogin);
+    
+    // Theme toggle
+    document.getElementById('themeToggle').addEventListener('change', toggleTheme);
+    
+    // Search input
+    document.getElementById('searchText').addEventListener('input', debounce(applyFilters, 500));
+}
+
+async function handleLogin(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const errorDiv = document.getElementById('loginError');
+    
+    try {
+        const response = await fetch(`${API_URL}/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok && data.success) {
+            currentUser = data.user;
+            localStorage.setItem('chatbot_user', JSON.stringify(currentUser));
+            showDashboard();
         } else {
-            renderLogin();
+            errorDiv.textContent = data.error || 'Credenciales incorrectas';
+            errorDiv.classList.remove('d-none');
         }
-    </script>
+    } catch (error) {
+        errorDiv.textContent = 'Error de conexión con el servidor';
+        errorDiv.classList.remove('d-none');
+    }
+}
+
+function logout() {
+    localStorage.removeItem('chatbot_user');
+    currentUser = null;
+    document.getElementById('loginPage').classList.remove('d-none');
+    document.getElementById('dashboardPage').classList.add('d-none');
+}
+
+async function showDashboard() {
+    document.getElementById('loginPage').classList.add('d-none');
+    document.getElementById('dashboardPage').classList.remove('d-none');
+    
+    await loadDashboardData();
+    
+    // Auto-refresh every 30 seconds
+    setInterval(loadDashboardData, 30000);
+}
+
+async function loadDashboardData() {
+    try {
+        showLoading(true);
+        
+        // Load stats
+        const statsResponse = await fetch(`${API_URL}/stats?days=7`);
+        const stats = await statsResponse.json();
+        
+        // Update KPIs
+        updateKPIs(stats.general);
+        
+        // Load conversations
+        await loadConversations();
+        
+        // Load users for filter
+        await loadUsers();
+        
+        // Create charts
+        createCharts(stats);
+        
+        // Update timestamp
+        document.getElementById('lastUpdate').textContent = 
+            `Actualizado: ${new Date().toLocaleTimeString('es-PE')}`;
+        
+        showLoading(false);
+    } catch (error) {
+        console.error('Error loading dashboard:', error);
+        showLoading(false);
+    }
+}
+
+function updateKPIs(general) {
+    document.getElementById('totalMessages').textContent = general.total_messages || 0;
+    document.getElementById('totalUsers').textContent = general.total_users || 0;
+    document.getElementById('todayMessages').textContent = general.today_messages || 0;
+    
+    const avgTime = general.avg_response_time || 0;
+    document.getElementById('avgResponseTime').textContent = avgTime > 0 ? `${avgTime}ms` : '-';
+}
+
+async function loadConversations() {
+    try {
+        const response = await fetch(`${API_URL}/conversations?limit=100`);
+        allConversations = await response.json();
+        filteredConversations = [...allConversations];
+        
+        applyFilters();
+    } catch (error) {
+        console.error('Error loading conversations:', error);
+    }
+}
+
+async function loadUsers() {
+    try {
+        const response = await fetch(`${API_URL}/users`);
+        const users = await response.json();
+        
+        const select = document.getElementById('userFilter');
+        select.innerHTML = '<option value="">Todos los usuarios</option>';
+        
+        users.forEach(user => {
+            const option = document.createElement('option');
+            option.value = user.phone_number;
+            option.textContent = `${user.phone_number} (${user.conversation_count} msgs)`;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error loading users:', error);
+    }
+}
+
+function applyFilters() {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const userPhone = document.getElementById('userFilter').value;
+    const searchText = document.getElementById('searchText').value.toLowerCase();
+    
+    filteredConversations = allConversations.filter(conv => {
+        // Date filter
+        if (startDate && new Date(conv.created_at) < new Date(startDate)) return false;
+        if (endDate && new Date(conv.created_at) > new Date(endDate + 'T23:59:59')) return false;
+        
+        // User filter
+        if (userPhone && conv.phone_number !== userPhone) return false;
+        
+        // Search filter
+        if (searchText && 
+            !conv.user_message.toLowerCase().includes(searchText) &&
+            !conv.bot_response.toLowerCase().includes(searchText)) {
+            return false;
+        }
+        
+        return true;
+    });
+    
+    updateActiveFilters();
+    renderConversations();
+}
+
+function updateActiveFilters() {
+    const container = document.getElementById('activeFilters');
+    container.innerHTML = '';
+    
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const userPhone = document.getElementById('userFilter').value;
+    const searchText = document.getElementById('searchText').value;
+    
+    if (startDate || endDate) {
+        const badge = createFilterBadge('Fecha', `${startDate || '...'} a ${endDate || '...'}`, () => {
+            document.getElementById('startDate').value = '';
+            document.getElementById('endDate').value = '';
+            applyFilters();
+        });
+        container.appendChild(badge);
+    }
+    
+    if (userPhone) {
+        const badge = createFilterBadge('Usuario', userPhone, () => {
+            document.getElementById('userFilter').value = '';
+            applyFilters();
+        });
+        container.appendChild(badge);
+    }
+    
+    if (searchText) {
+        const badge = createFilterBadge('Búsqueda', searchText, () => {
+            document.getElementById('searchText').value = '';
+            applyFilters();
+        });
+        container.appendChild(badge);
+    }
+}
+
+function createFilterBadge(label, value, onRemove) {
+    const badge = document.createElement('span');
+    badge.className = 'badge bg-primary filter-badge';
+    badge.innerHTML = `
+        ${label}: ${value}
+        <i class="bi bi-x-circle" style="cursor: pointer;"></i>
+    `;
+    badge.querySelector('i').onclick = onRemove;
+    return badge;
+}
+
+function clearFilters() {
+    document.getElementById('startDate').value = '';
+    document.getElementById('endDate').value = '';
+    document.getElementById('userFilter').value = '';
+    document.getElementById('searchText').value = '';
+    applyFilters();
+}
+
+function renderConversations() {
+    const tbody = document.getElementById('conversationsTable');
+    tbody.innerHTML = '';
+    
+    document.getElementById('conversationCount').textContent = filteredConversations.length;
+    
+    filteredConversations.slice(0, 50).forEach(conv => {
+        const row = tbody.insertRow();
+        row.className = 'message-row';
+        row.onclick = () => showFullConversation(conv.phone_number);
+        
+        const date = new Date(conv.created_at);
+        row.innerHTML = `
+            <td>${date.toLocaleString('es-PE')}</td>
+            <td><span class="badge bg-secondary user-badge">${conv.phone_number}</span></td>
+            <td>${truncateText(conv.user_message, 50)}</td>
+            <td>${truncateText(conv.bot_response, 50)}</td>
+            <td><span class="badge bg-info">${conv.model_used || '-'}</span></td>
+            <td>
+                ${conv.response_time_ms 
+                    ? `<span class="badge bg-${getResponseTimeBadgeColor(conv.response_time_ms)} response-time-badge">${conv.response_time_ms}ms</span>` 
+                    : '-'}
+            </td>
+            <td>
+                <button class="btn btn-sm btn-outline-primary" onclick="event.stopPropagation(); showFullConversation('${conv.phone_number}')">
+                    <i class="bi bi-chat-dots"></i>
+                </button>
+            </td>
+        `;
+    });
+}
+
+async function showFullConversation(phoneNumber) {
+    try {
+        const response = await fetch(`${API_URL}/conversations?phone=${phoneNumber}&limit=1000`);
+        const conversations = await response.json();
+        
+        document.getElementById('modalPhone').textContent = phoneNumber;
+        const content = document.getElementById('conversationContent');
+        content.innerHTML = '';
+        
+        if (conversations.length === 0) {
+            content.innerHTML = '<p class="text-center text-muted">No hay conversaciones</p>';
+            return;
+        }
+        
+        conversations.forEach(conv => {
+            const date = new Date(conv.created_at);
+            
+            // User message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'conversation-bubble user-message';
+            userDiv.innerHTML = `
+                <div class="mb-1">${conv.user_message}</div>
+                <small class="opacity-75">${date.toLocaleString('es-PE')}</small>
+            `;
+            content.appendChild(userDiv);
+            
+            // Bot response
+            const botDiv = document.createElement('div');
+            botDiv.className = 'conversation-bubble bot-message';
+            botDiv.innerHTML = `
+                <div class="mb-1">${conv.bot_response}</div>
+                <small class="opacity-75">
+                    ${date.toLocaleString('es-PE')} | ${conv.model_used || '-'}
+                    ${conv.response_time_ms ? ` | ${conv.response_time_ms}ms` : ''}
+                </small>
+            `;
+            content.appendChild(botDiv);
+        });
+        
+        const modal = new bootstrap.Modal(document.getElementById('conversationModal'));
+        modal.show();
+    } catch (error) {
+        console.error('Error loading full conversation:', error);
+    }
+}
+
+function createCharts(stats) {
+    // Destroy existing charts
+    Object.values(charts).forEach(chart => chart?.destroy());
+    
+    // 1. Messages over time (Line chart)
+    const timeCtx = document.getElementById('messagesTimeChart');
+    if (timeCtx && stats.messages_by_hour) {
+        const hours = stats.messages_by_hour.map(d => `${d.hour}:00`);
+        const counts = stats.messages_by_hour.map(d => d.count);
+        
+        charts.time = new Chart(timeCtx, {
+            type: 'line',
+            data: {
+                labels: hours,
+                datasets: [{
+                    label: 'Mensajes por hora',
+                    data: counts,
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    }
+    
+    // 2. Top users (Bar chart)
+    const usersCtx = document.getElementById('topUsersChart');
+    if (usersCtx && stats.top_users) {
+        const users = stats.top_users.slice(0, 10);
+        const phones = users.map(u => u.phone_number.slice(-8));
+        const counts = users.map(u => u.message_count);
+        
+        charts.users = new Chart(usersCtx, {
+            type: 'bar',
+            data: {
+                labels: phones,
+                datasets: [{
+                    label: 'Mensajes',
+                    data: counts,
+                    backgroundColor: '#22c55e',
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: { beginAtZero: true }
+                },
+                onClick: (event, elements) => {
+                    if (elements.length > 0) {
+                        const index = elements[0].index;
+                        const phone = stats.top_users[index].phone_number;
+                        document.getElementById('userFilter').value = phone;
+                        applyFilters();
+                    }
+                }
+            }
+        });
+    }
+    
+    // 3. Heatmap by hour (Bar chart styled as heatmap)
+    const heatmapCtx = document.getElementById('heatmapHourChart');
+    if (heatmapCtx && stats.messages_by_hour) {
+        const hourData = Array(24).fill(0);
+        stats.messages_by_hour.forEach(d => {
+            hourData[Math.floor(d.hour)] = d.count;
+        });
+        
+        charts.heatmap = new Chart(heatmapCtx, {
+            type: 'bar',
+            data: {
+                labels: Array.from({length: 24}, (_, i) => `${i}:00`),
+                datasets: [{
+                    label: 'Actividad por hora',
+                    data: hourData,
+                    backgroundColor: hourData.map(v => {
+                        const max = Math.max(...hourData);
+                        const intensity = v / max;
+                        return `rgba(37, 99, 235, ${0.2 + intensity * 0.8})`;
+                    }),
+                    borderWidth: 1,
+                    borderColor: '#2563eb'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    }
+    
+    // 4. Response time distribution
+    const responseCtx = document.getElementById('responseTimeChart');
+    if (responseCtx) {
+        const responseTimes = filteredConversations
+            .filter(c => c.response_time_ms)
+            .map(c => c.response_time_ms);
+        
+        // Group into ranges
+        const ranges = [
+            { label: '0-100ms', min: 0, max: 100 },
+            { label: '100-500ms', min: 100, max: 500 },
+            { label: '500-1000ms', min: 500, max: 1000 },
+            { label: '1-2s', min: 1000, max: 2000 },
+            { label: '2-5s', min: 2000, max: 5000 },
+            { label: '>5s', min: 5000, max: Infinity }
+        ];
+        
+        const distribution = ranges.map(range => {
+            return responseTimes.filter(t => t >= range.min && t < range.max).length;
+        });
+        
+        charts.response = new Chart(responseCtx, {
+            type: 'bar',
+            data: {
+                labels: ranges.map(r => r.label),
+                datasets: [{
+                    label: 'Cantidad de mensajes',
+                    data: distribution,
+                    backgroundColor: ['#22c55e', '#84cc16', '#eab308', '#f59e0b', '#ef4444', '#dc2626'],
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: `Promedio: ${Math.round(responseTimes.reduce((a,b) => a+b, 0) / responseTimes.length)}ms`
+                    }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    }
+}
+
+// Export functions
+function exportToCSV() {
+    const data = filteredConversations.map(conv => ({
+        'Fecha': new Date(conv.created_at).toLocaleString('es-PE'),
+        'Usuario': conv.phone_number,
+        'Mensaje Usuario': conv.user_message,
+        'Respuesta Bot': conv.bot_response,
+        'Modelo': conv.model_used || '',
+        'Tiempo (ms)': conv.response_time_ms || ''
+    }));
+    
+    const csv = [
+        Object.keys(data[0]).join(','),
+        ...data.map(row => Object.values(row).map(v => `"${v}"`).join(','))
+    ].join('\n');
+    
+    downloadFile(csv, 'conversaciones.csv', 'text/csv');
+}
+
+function exportToExcel() {
+    const data = filteredConversations.map(conv => ({
+        'Fecha': new Date(conv.created_at).toLocaleString('es-PE'),
+        'Usuario': conv.phone_number,
+        'Mensaje Usuario': conv.user_message,
+        'Respuesta Bot': conv.bot_response,
+        'Modelo': conv.model_used || '',
+        'Tiempo (ms)': conv.response_time_ms || ''
+    }));
+    
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Conversaciones');
+    XLSX.writeFile(wb, 'conversaciones.xlsx');
+}
+
+function exportToPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    doc.setFontSize(16);
+    doc.text('Reporte de Conversaciones - Chatbot UNA Puno', 14, 15);
+    
+    doc.setFontSize(10);
+    doc.text(`Generado: ${new Date().toLocaleString('es-PE')}`, 14, 22);
+    doc.text(`Total conversaciones: ${filteredConversations.length}`, 14, 28);
+    
+    const tableData = filteredConversations.slice(0, 100).map(conv => [
+        new Date(conv.created_at).toLocaleDateString('es-PE'),
+        conv.phone_number.slice(-8),
+        truncateText(conv.user_message, 40),
+        truncateText(conv.bot_response, 40),
+        conv.model_used || '-',
+        conv.response_time_ms ? `${conv.response_time_ms}ms` : '-'
+    ]);
+    
+    doc.autoTable({
+        head: [['Fecha', 'Usuario', 'Mensaje', 'Respuesta', 'Modelo', 'Tiempo']],
+        body: tableData,
+        startY: 35,
+        styles: { fontSize: 8 },
+        headStyles: { fillColor: [37, 99, 235] }
+    });
+    
+    doc.save('conversaciones.pdf');
+}
+
+// Utility functions
+function truncateText(text, maxLength) {
+    if (!text) return '-';
+    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+}
+
+function getResponseTimeBadgeColor(time) {
+    if (time < 500) return 'success';
+    if (time < 1000) return 'info';
+    if (time < 2000) return 'warning';
+    return 'danger';
+}
+
+function showLoading(show) {
+    const spinner = document.getElementById('loadingSpinner');
+    if (show) {
+        spinner.classList.remove('d-none');
+    } else {
+        spinner.classList.add('d-none');
+    }
+}
+
+function downloadFile(content, filename, contentType) {
+    const a = document.createElement('a');
+    const file = new Blob([content], { type: contentType });
+    a.href = URL.createObjectURL(file);
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(a.href);
+}
+
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+function toggleTheme() {
+    const body = document.body;
+    const isDark = body.classList.contains('dark-theme');
+    
+    if (isDark) {
+        body.classList.remove('dark-theme');
+        body.classList.add('light-theme');
+        localStorage.setItem('theme', 'light');
+    } else {
+        body.classList.remove('light-theme');
+        body.classList.add('dark-theme');
+        localStorage.setItem('theme', 'dark');
+    }
+    
+    // Recreate charts with new theme
+    if (currentUser) {
+        loadDashboardData();
+    }
+}
+
+// Load saved theme
+document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') {
+        document.body.classList.remove('dark-theme');
+        document.body.classList.add('light-theme');
+        document.getElementById('themeToggle').checked = true;
+    }
+});
+</script>
 </body>
 </html>

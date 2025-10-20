@@ -1,13 +1,14 @@
 import os
 import logging
+import bcrypt
 from datetime import datetime, date
 import psycopg2
 from psycopg2 import pool
-from psycopg2.extras import RealDictCursor, execute_batch
+from psycopg2.extras import RealDictCursor
 from contextlib import contextmanager
 from dotenv import load_dotenv
 import threading
-import bcrypt
+
 
 load_dotenv()
 logger = logging.getLogger(__name__)
@@ -382,10 +383,11 @@ def log_error(error_type, error_message, phone_number=None, context=None):
         logger.error(f"Error registrando log: {e}")
         return False
 
-import bcrypt  # Agregar al inicio del archivo
+
+
 
 def verify_admin_user(username, password):
-    """Verificar credenciales de admin con password hash"""
+    """Verificar credenciales de admin con bcrypt"""
     try:
         with get_db_connection() as conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
@@ -396,25 +398,39 @@ def verify_admin_user(username, password):
                 """, (username,))
                 user = cur.fetchone()
                 
-                if user and user['password_hash']:
-                    # Verificar password con bcrypt
-                    if bcrypt.checkpw(password.encode('utf-8'), user['password_hash'].encode('utf-8')):
-                        # Update last login
-                        cur.execute("""
-                            UPDATE admin_users 
-                            SET last_login = CURRENT_TIMESTAMP
-                            WHERE id = %s
-                        """, (user['id'],))
-                        
-                        return {
-                            'id': user['id'],
-                            'username': user['username'],
-                            'email': user['email']
-                        }
+                if not user:
+                    logger.warning(f"Usuario no encontrado: {username}")
+                    return None
                 
-                return None
+                if not user.get('password_hash'):
+                    logger.error(f"Usuario {username} no tiene password_hash")
+                    return None
+                
+                # Verificar password
+                password_bytes = password.encode('utf-8')
+                hash_bytes = user['password_hash'].encode('utf-8')
+                
+                if bcrypt.checkpw(password_bytes, hash_bytes):
+                    logger.info(f"Login exitoso: {username}")
+                    
+                    # Update last login
+                    cur.execute("""
+                        UPDATE admin_users 
+                        SET last_login = CURRENT_TIMESTAMP
+                        WHERE id = %s
+                    """, (user['id'],))
+                    
+                    return {
+                        'id': user['id'],
+                        'username': user['username'],
+                        'email': user['email']
+                    }
+                else:
+                    logger.warning(f"Contraseña incorrecta para: {username}")
+                    return None
+                
     except Exception as e:
-        logger.error(f"Error verificando admin: {e}")
+        logger.error(f"Error verificando admin: {e}", exc_info=True)
         return None
     
 def get_pool_stats():

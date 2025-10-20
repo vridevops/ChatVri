@@ -3,6 +3,7 @@ import logging
 import bcrypt
 from datetime import datetime, date
 import psycopg2
+import psycopg2.extensions  # ← LÍNEA AGREGADA
 from psycopg2 import pool
 from psycopg2.extras import RealDictCursor
 from contextlib import contextmanager
@@ -97,7 +98,7 @@ def get_db_connection():
                 connection_pool.putconn(conn)
             except Exception as e:
                 logger.error(f"Error devolviendo conexión al pool: {e}")
-                
+
 
 def create_or_get_user(phone_number):
     """Crear o obtener usuario por número de teléfono (optimizado)"""

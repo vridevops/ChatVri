@@ -214,14 +214,42 @@ def update_daily_stats():
         return False
 
 def get_dashboard_stats(days=7):
-    """Obtener estadísticas para el dashboard - VERSIÓN CORREGIDA"""
+    """Obtener estadísticas para el dashboard - VERSIÓN COMPLETA"""
     try:
         with get_db_connection() as conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
                 
-                # ... (código existente para general stats) ...
+                # ESTADÍSTICAS GENERALES
+                cur.execute("""
+                    SELECT 
+                        COUNT(*) as total_messages,
+                        COUNT(DISTINCT phone_number) as total_users
+                    FROM conversations
+                """)
+                general = cur.fetchone()
+                total_messages = general['total_messages']
+                total_users = general['total_users']
                 
-                # CONVERSACIONES RECIENTES - ¡CORREGIDO!
+                # MENSAJES DE HOY
+                cur.execute("""
+                    SELECT COUNT(*) as today_messages
+                    FROM conversations
+                    WHERE DATE(created_at) = CURRENT_DATE
+                """)
+                today_result = cur.fetchone()
+                today_messages = today_result['today_messages']
+                
+                # TIEMPO DE RESPUESTA PROMEDIO
+                cur.execute("""
+                    SELECT AVG(response_time_ms) as avg_response_time
+                    FROM conversations 
+                    WHERE response_time_ms IS NOT NULL 
+                    AND created_at >= NOW() - INTERVAL '7 days'
+                """)
+                avg_result = cur.fetchone()
+                avg_response_time = round(avg_result['avg_response_time']) if avg_result['avg_response_time'] else 0
+                
+                # CONVERSACIONES RECIENTES
                 cur.execute("""
                     SELECT 
                         id,
@@ -229,7 +257,7 @@ def get_dashboard_stats(days=7):
                         user_message,
                         bot_response,
                         model_used,
-                        response_time_ms,  -- ¡AGREGAR ESTE CAMPO!
+                        response_time_ms,
                         created_at,
                         knowledge_used
                     FROM conversations 
@@ -257,6 +285,13 @@ def get_dashboard_stats(days=7):
                 """)
                 top_users = [dict(row) for row in cur.fetchall()]
                 
+                # Convertir datetime a string en top_users
+                for user in top_users:
+                    if isinstance(user.get('first_seen'), datetime):
+                        user['first_seen'] = user['first_seen'].isoformat()
+                    if isinstance(user.get('last_seen'), datetime):
+                        user['last_seen'] = user['last_seen'].isoformat()
+                
                 # MENSAJES POR HORA (últimas 24h)
                 cur.execute("""
                     SELECT 
@@ -269,16 +304,6 @@ def get_dashboard_stats(days=7):
                 """)
                 messages_by_hour = [dict(row) for row in cur.fetchall()]
                 
-                # TIEMPO DE RESPUESTA PROMEDIO
-                cur.execute("""
-                    SELECT AVG(response_time_ms) as avg_response_time
-                    FROM conversations 
-                    WHERE response_time_ms IS NOT NULL 
-                    AND created_at >= NOW() - INTERVAL '7 days'
-                """)
-                avg_result = cur.fetchone()
-                avg_response_time = round(avg_result['avg_response_time']) if avg_result['avg_response_time'] else None
-                
                 return {
                     'general': {
                         'total_messages': total_messages,
@@ -286,13 +311,13 @@ def get_dashboard_stats(days=7):
                         'today_messages': today_messages,
                         'avg_response_time': avg_response_time
                     },
-                    'recent_conversations': recent_conversations,  # ¡AHORA CON response_time_ms!
+                    'recent_conversations': recent_conversations,
                     'top_users': top_users,
                     'messages_by_hour': messages_by_hour
                 }
                 
     except Exception as e:
-        app.logger.error(f"Error en get_dashboard_stats: {e}")
+        logger.error(f"Error en get_dashboard_stats: {e}", exc_info=True)
         return None
 
 def log_knowledge_search(phone_number, query, results_found, top_distance=None):

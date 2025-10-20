@@ -381,31 +381,40 @@ def log_error(error_type, error_message, phone_number=None, context=None):
         logger.error(f"Error registrando log: {e}")
         return False
 
+import bcrypt  # Agregar al inicio del archivo
+
 def verify_admin_user(username, password):
-    """Verificar credenciales de admin"""
+    """Verificar credenciales de admin con password hash"""
     try:
         with get_db_connection() as conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
                 cur.execute("""
-                    SELECT id, username, email
+                    SELECT id, username, email, password_hash
                     FROM admin_users
                     WHERE username = %s
                 """, (username,))
                 user = cur.fetchone()
                 
-                if user and password == 'unap2025':
-                    # ✅ OPTIMIZACIÓN 12: Update async (no esperar)
-                    cur.execute("""
-                        UPDATE admin_users 
-                        SET last_login = CURRENT_TIMESTAMP
-                        WHERE id = %s
-                    """, (user['id'],))
-                    return dict(user)
+                if user and user['password_hash']:
+                    # Verificar password con bcrypt
+                    if bcrypt.checkpw(password.encode('utf-8'), user['password_hash'].encode('utf-8')):
+                        # Update last login
+                        cur.execute("""
+                            UPDATE admin_users 
+                            SET last_login = CURRENT_TIMESTAMP
+                            WHERE id = %s
+                        """, (user['id'],))
+                        
+                        return {
+                            'id': user['id'],
+                            'username': user['username'],
+                            'email': user['email']
+                        }
+                
                 return None
     except Exception as e:
         logger.error(f"Error verificando admin: {e}")
         return None
-
 def get_pool_stats():
     """
     ✅ NUEVO: Obtener estadísticas del pool de conexiones (para monitoring)

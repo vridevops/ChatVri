@@ -12,6 +12,19 @@ El presente reglamento norma la presentación de proyectos de tesis de pregrado 
 
 ---
 
+### ETAPAS DEL PROYECTO DE TESIS
+
+- Carga de Proyecto
+- Revisión de Formato de Proyecto
+- Revisión por el Director de Tesis
+- Revisión por el Subdirector de Investigación
+Sorteo de Jurados
+- Revisión de Proyecto
+- Dictamen de Proyecto de Investigación
+- Generación de Acta de Dictamen
+
+---
+
 ### ETAPA 1: CARGA DE PROYECTO
 
 Para acceder a todos los servicios de la plataforma, el usuario deberá registrarse en **pgi.vriunap.pe**, ingresando su DNI, correo electrónico y una contraseña.
@@ -114,17 +127,29 @@ El proyecto de tesis podrá ser declarado apto para su ejecución (Apto para su 
 
 *Las observaciones menores consideradas cuando el proyecto se aprobó con observaciones mayores, deberán ser subsanadas en el punto (Apto para su ejecución con observaciones menores) del dictamen del proyecto de tesis, deberán ser subsanadas, corregidas, argumentadas, fundamentadas o justificadas en el proceso de ejecución del mismo o durante la redacción y defensa del borrador de tesis.*
 
-Luego de la dictaminación, la PGI generará el acta de dictamen de proyecto de tesis con el resultado de la dictaminación de los jurados. Esta acta podrá ser descargada desde el panel del tesista.
+Luego de la dictaminación, la Plataforma de Gestión de la Investigación generará el acta de dictamen de proyecto de tesis con el resultado de la dictaminación de los jurados. Esta acta podrá ser descargada desde el panel del tesista.
 
 Los miembros del jurado revisor/dictaminador que hayan revisado y declaren apto el proyecto de tesis serán considerados posteriormente para el proceso de revisión de los borradores de tesis y defensa del trabajo. Los que no hayan revisado el proyecto o no declaren apto el proyecto, serán retirados del proceso de revisión de borrador de tesis.
 
 Una vez que tu proyecto haya sido aprobado, el tesista deberá ejecutar el proyecto por un plazo mínimo de 3 meses y 2 años como máximo. Además, y si es que lo requiriese, el tesista podrá solicitar a la unidad de investigación de su facultad una ampliación de hasta 6 meses como máximo para la culminación de su trabajo y defensa de tesis. Esta solicitud solo puede ser remitida estando el tesista en la etapa de borrador de tesis. Es requisito para solicitar esta ampliación una resolución de decanato que autorice dicha ampliación.
 
-Esta solicitud de ampliación deberá ser autorizada con la respectiva Resolución de Decanato. Transcurrido los tiempos máximos y/o ampliaciones solicitadas, el proyecto de tesis será retirado de la Plataforma PILAR y se considerará como no presentado.
+Esta solicitud de ampliación deberá ser autorizada con la respectiva Resolución de Decanato. Transcurrido los tiempos máximos y/o ampliaciones solicitadas, el proyecto de tesis será retirado de la Plataforma de Gestión de la Investigación y se considerará como no presentado.
 
 ---
 
 ## BORRADOR DE TESIS
+
+---
+
+### ETAPAS DEL BORRADOR DE TESIS
+
+- Habilitación de Borrador de Tesis
+- Carga de Borrador de Tesis
+- Revisión de Formato de Borrador
+- Revisión de Borrador por Jurados
+- Dictamen de Borrador de Tesis
+- Carga de Archivos para la Sustentación
+- Sustentación
 
 ---
 
@@ -150,7 +175,7 @@ El personal administrativo de las unidades de investigación realizará la revis
 
 Una vez que el personal administrativo de la unidad de investigación de tu facultad haya validado y aprobado su borrador de tesis, este será derivado a los miembros del jurado para que en plazo máximo de 10 días hábiles puedan realizar sus observaciones y/o sugerencias con claridad y precisión.
 
-Cumplido el tiempo establecido de revisión por los jurados, además de la extensión permitida, los miembros del jurado **no podrán añadir observaciones adicionales**. El bachiller con su director podrán revisar las respectivas observaciones del jurado mediante la plataforma PILAR, para realizar las **correcciones correspondientes en un plazo máximo de cinco (5) días hábiles**. Si transcurrido este tiempo, no existiera respuesta alguna del interesado, el trámite será considerado no presentado y se procederá con el archivamiento respectivo y notificado a los interesados (director-bachiller).
+Cumplido el tiempo establecido de revisión por los jurados, además de la extensión permitida, los miembros del jurado **no podrán añadir observaciones adicionales**. El bachiller con su director podrán revisar las respectivas observaciones del jurado mediante la Plataforma de Gestión de la Investigación, para realizar las **correcciones correspondientes en un plazo máximo de cinco (5) días hábiles**. Si transcurrido este tiempo, no existiera respuesta alguna del interesado, el trámite será considerado no presentado y se procederá con el archivamiento respectivo y notificado a los interesados (director-bachiller).
 
 Transcurrido el tiempo establecido, el bachiller entregará a la Unidad de Investigación respectiva cuatro (04) ejemplares anillados del borrador de tesis indicando los números de página, párrafo y número de línea (resaltado) donde se encuentran las modificaciones. En consecuencia, la unidad de investigación comunicará al presidente del Jurado que el borrador de tesis ha sido corregido y presentado, el cual se encuentra listo para el proceso de dictamen. Si transcurrido este tiempo, no existiera respuesta alguna del jurado, la unidad de investigación respectiva deberá notificar a través de un memorándum sobre el incumplimiento, otorgando un nuevo plazo de 2 días hábiles. Si en caso persistiera la negatividad, resistencia o pérdida de vínculo laboral o caso fortuito, la unidad de investigación informará al Instituto de Investigación para la sustitución y acciones pertinentes, volviendo a la etapa de conformación de jurado. En casos que amerite, el Instituto de Investigación convocará a ambas partes (miembro(s) de jurado(s), tesista y director) para conciliar conflictos existentes.
 
@@ -171,7 +196,18 @@ Una vez culminada la reunión de dictamen y producto de esta el tesista cuente c
 En caso de que el borrador de tesis no se encuentre apto para sustentación, se establecerá en el acta de dictamen la próxima fecha de reunión, no excediendo los diez (10) días hábiles. Este proceso puede ser repetido en un máximo de 02 veces.
 
 ---
+## SUSTENTACIÓN
 
+---
+
+### ETAPAS DE LA SUSTENTACIÓN
+
+- Sustentación
+- Carga de Archivo Final
+- Trámite Concluido
+
+
+---
 ### ETAPA 15: SUSTENTACIÓN
 
 Una vez cargado los datos de la reunión del dictamen así como los archivos requeridos, el personal administrativo de la unidad de investigación, revisará y validará dicha conformación. Si la información es válida se publicará el comunicado de sustentación en la Plataforma de Gestión de la Investigación, además de publicar el dicho comunicado en el mural de la escuela profesional con una anticipación de 24 horas antes de la sustentación como mínimo.
@@ -208,7 +244,7 @@ Los bachilleres que hayan aprobado su defensa de tesis cargarán a la plataforma
 
 ### ETAPA 17: TRÁMITE CONCLUIDO
 
-El personal administrativo verificará y validará la información registrada para emitir la constancia de culminación del proceso de tesis, la cual podrá ser descargada desde la plataforma PGI.
+El personal administrativo verificará y validará la información registrada para emitir la constancia de culminación del proceso de tesis, la cual podrá ser descargada desde la Plataforma de Gestión de la Investigación.
 
 ---
 
@@ -218,15 +254,15 @@ Los trabajos de tesis considerados desaprobados en la etapa de sustentación ten
 
 En caso de negatividad, resistencia a la revisión o conflicto relacionado a la tesis o de índole personal por parte de algún miembro del jurado, la unidad de investigación de la Facultad debe realizar un informe correspondiente a pedido del bachiller con medios justificados o probatorios y de encontrarse responsabilidad se tomará las medidas correctivas sancionadoras que amerite el informe.
 
-Los proyectos de Tesis que no hayan sido defendidos transcurridos dos (2) años, más la respectiva ampliación (06 meses) serán eliminados de PILAR, sin derecho a reconsideración, dejando constancia a los interesados.
+Los proyectos de Tesis que no hayan sido defendidos transcurridos dos (2) años, más la respectiva ampliación (06 meses) serán eliminados de la Plataforma de la Gestión de la Investigación, sin derecho a reconsideración, dejando constancia a los interesados.
 
-El bachiller que por razones debidamente justificadas no pueda concluir su trabajo de tesis podrá solicitar su eliminación de PILAR con el visto bueno de Director de tesis a fin de presentar un nuevo proyecto.
+El bachiller que por razones debidamente justificadas no pueda concluir su trabajo de tesis podrá solicitar su eliminación de la Plataforma de Gestión de la Investigación con el visto bueno de Director de tesis a fin de presentar un nuevo proyecto.
 
 Las unidades de investigación de cada facultad tendrán que registrar el proceso del borrador de tesis, así como los documentos que dependan de este proceso (acta de sustentación, dictamen, informes de jurados, memorándums, entre otros) en los plazos y tiempos establecidos.
 
-La unidad de investigación es la responsable de guiar, verificar y conservar los documentos previos a su publicación en PILAR para su difusión.
+La unidad de investigación es la responsable de guiar, verificar y conservar los documentos previos a su publicación en la Plataforma de Gestión de la Investigación para su difusión.
 
-El sistema PILAR, permitirá el registro de nuevos borradores de tesis hasta 30 días antes de la finalización del semestre académico.
+El sistema PGI (Plataforma de Gestión de la Investigación), permitirá el registro de nuevos borradores de tesis hasta 30 días antes de la finalización del semestre académico.
 
 En caso que exista algún tipo de conflicto debidamente comprobado con alguno de los miembros de su jurado o en contra del bachiller, el bachiller podrá solicitar audiencia antes de **la presentación del borrador de tesis**. Este trámite se realiza ante la unidad de investigación de la escuela profesional el cual será derivado al Instituto de Investigación para su atención.
 
@@ -234,4 +270,4 @@ Los hechos no contemplados en el presente reglamento serán resueltos por el Ins
 
 El personal administrativo de la unidad de investigación de cada facultad deberá promover un sistema de custodia de todos los trabajos de investigación (proyecto y borrador de tesis) a fin de salvaguardar los derechos de autor y establecer una prueba inoponible y probatoria que combine la fecha de registro, la identidad del depositante y contenido de los mismos.
 
-Las Direcciones, subdirecciones y personal administrativo de las unidades de investigación de cada facultad se encargarán de la administración de la Plataforma PILAR y los procesos que conlleve. Asimismo orientarán al bachiller en todo el proceso del borrador de tesis hasta su sustentación.
+Las Direcciones, subdirecciones y personal administrativo de las unidades de investigación de cada facultad se encargarán de la administración de la Plataforma de Gestión de la Investigación y los procesos que conlleve. Asimismo orientarán al bachiller en todo el proceso del borrador de tesisx hasta su sustentación.

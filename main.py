@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 MAX_CONCURRENT_MESSAGES = 50      # ← ANTES: 10, AHORA: 50
 POLLING_INTERVAL = 3              # ← ANTES: 5, AHORA: 3 (más responsivo)
 MAX_HISTORY_MESSAGES = 3          # ← Mantener en 3
-INACTIVITY_TIMEOUT = 1800         # ← 30 minutos
+INACTIVITY_TIMEOUT = 600        # ← 10 minutos
 RATE_LIMIT_DELAY = 0.1            # ← NUEVO: 100ms entre mensajes
 # Semáforo para controlar concurrencia
 semaphore = asyncio.Semaphore(MAX_CONCURRENT_MESSAGES)
@@ -253,6 +253,7 @@ async def generate_response_async(user_message, context="", history="", is_first
             "• Información de contacto de las coordinaciones de Investigación de \n"
             "• Horarios de atención\n"
             "• Ubicaciones de oficinas\n"
+            "• Lineas de investigación\n"
 
             "💡 *Comandos útiles:*\n"
             "/ayuda - Ver esta información\n"
@@ -272,7 +273,7 @@ Ayudar con información del Vicerrectorado de Investigación:
 📚 Coordinación de investigación y tesis
    informacion general sobre los procesos y borrador de tesis
    preguntas frecuentes sobre los procesos de borrador de tesis
-
+    Lineas de investigación
 PERSONALIDAD:
 - Profesional pero cercano
 - Usas emojis estratégicamente (2-3 por mensaje)
@@ -281,10 +282,11 @@ PERSONALIDAD:
 - Información completa pero concisa
 
 REGLAS:
-- Máximo 150 palabras
+- Máximo 250 palabras
 - Usa información del contexto directamente
 - NO inventes datos
 - NO mezcles información de diferentes facultades
+- si te piden responder en algun lenguaje de programacion, responde que no puedes y que tu especialidad es informacion del vicerrectorado de investigacion
 - Siempre ofrece más ayuda
 - evita responder "plataforma PILAR", usa "Plataforma de gestión de la investigación"
 - Sé específico con números, ubicaciones y horarios
@@ -482,7 +484,7 @@ async def main():
 
     logger.info("✅ Todo listo")
     logger.info(f"🚀 Concurrencia máxima: {MAX_CONCURRENT}")
-    logger.info(f"⏱️ Timeout inactividad: {INACTIVITY_TIMEOUT}s (30 min)")
+    logger.info(f"⏱️ Timeout inactividad: {INACTIVITY_TIMEOUT}s (10 min)")
     logger.info(f"🤖 Modelo: {DEEPSEEK_MODEL}")
     logger.info("=" * 60)
 

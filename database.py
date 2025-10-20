@@ -18,26 +18,28 @@ def init_db_pool():
     """Inicializar pool de conexiones optimizado para 200 usuarios concurrentes"""
     global connection_pool
     
-    with _pool_lock:  # ← NUEVO: Thread-safe
+    with _pool_lock:
         if connection_pool is not None:
             logger.warning("Pool ya inicializado, reutilizando...")
             return True
         
         try:
-            # ✅ OPTIMIZACIÓN 1: Pool más grande para 200 usuarios
             connection_pool = psycopg2.pool.ThreadedConnectionPool(
-                minconn=20,              # ← ANTES: 1, AHORA: 20 (siempre listas)
-                maxconn=200,             # ← ANTES: 20, AHORA: 200 (una por usuario)
+                minconn=20,
+                maxconn=200,
                 host=os.getenv('POSTGRES_HOST', 'localhost'),
                 port=os.getenv('POSTGRES_PORT', '5432'),
                 database=os.getenv('POSTGRES_DB', 'postgres'),
                 user=os.getenv('POSTGRES_USER', 'postgres'),
                 password=os.getenv('POSTGRES_PASSWORD'),
-                connect_timeout=10,
-                # ✅ OPTIMIZACIÓN 2: Configuraciones de performance
-                options='-c statement_timeout=30000'  # 30s timeout por query
+                connect_timeout=30,  # ← AUMENTADO de 10 a 30
+                keepalives=1,  # ← NUEVO: Mantener conexiones vivas
+                keepalives_idle=30,  # ← NUEVO: Ping cada 30s
+                keepalives_interval=10,  # ← NUEVO: Intervalo de ping
+                keepalives_count=5,  # ← NUEVO: Reintentos
+                options='-c statement_timeout=60000'  # ← AUMENTADO a 60s
             )
-            logger.info("✅ Pool PostgreSQL inicializado: 20-200 conexiones (200 usuarios)")
+            logger.info("✅ Pool PostgreSQL inicializado: 20-200 conexiones")
             return True
         except Exception as e:
             logger.error(f"❌ Error inicializando pool PostgreSQL: {e}")
@@ -45,33 +47,70 @@ def init_db_pool():
 
 @contextmanager
 def get_db_connection():
-    """Context manager para obtener conexión del pool (thread-safe)"""
+    """Context manager para obtener conexión del pool (thread-safe con retry)"""
     conn = None
-    try:
-        # ✅ OPTIMIZACIÓN 3: Timeout para obtener conexión
-        conn = connection_pool.getconn()
-        
-        if conn is None:
-            raise Exception("No se pudo obtener conexión del pool")
-        
-        # ✅ OPTIMIZACIÓN 4: Autocommit desactivado para transacciones
-        conn.autocommit = False
-        
-        yield conn
-        conn.commit()
-        
-    except Exception as e:
-        if conn:
-            conn.rollback()
-        logger.error(f"Error en transacción DB: {e}")
-        raise
-    finally:
-        if conn:
-            # ✅ OPTIMIZACIÓN 5: Siempre devolver la conexión al pool
-            try:
-                connection_pool.putconn(conn)
-            except Exception as e:
-                logger.error(f"Error devolviendo conexión al pool: {e}")
+    max_retries = 3
+    retry_count = 0
+    
+    while retry_count < max_retries:
+        try:
+            # Obtener conexión del pool
+            conn = connection_pool.getconn()
+            
+            if conn is None:
+                raise Exception("No se pudo obtener conexión del pool")
+            
+            # Verificar que la conexión esté activa
+            if conn.closed:
+                logger.warning("Conexión cerrada, obteniendo nueva...")
+                connection_pool.putconn(conn, close=True)
+                conn = connection_pool.getconn()
+            
+            # Probar la conexión
+            with conn.cursor() as test_cur:
+                test_cur.execute("SELECT 1")
+            
+            conn.autocommit = False
+            
+            yield conn
+            conn.commit()
+            break  # Éxito, salir del loop
+            
+        except (psycopg2.OperationalError, psycopg2.InterfaceError) as e:
+            retry_count += 1
+            logger.warning(f"Error de conexión (intento {retry_count}/{max_retries}): {e}")
+            
+            if conn:
+                try:
+                    connection_pool.putconn(conn, close=True)
+                except:
+                    pass
+                conn = None
+            
+            if retry_count >= max_retries:
+                logger.error("Max reintentos alcanzado, lanzando excepción")
+                raise
+            
+            # Esperar antes de reintentar
+            import time
+            time.sleep(0.5 * retry_count)
+            
+        except Exception as e:
+            if conn:
+                try:
+                    conn.rollback()
+                except:
+                    pass
+            logger.error(f"Error en transacción DB: {e}")
+            raise
+            
+        finally:
+            if conn and not conn.closed:
+                try:
+                    connection_pool.putconn(conn)
+                except Exception as e:
+                    logger.error(f"Error devolviendo conexión al pool: {e}")
+
 
 def create_or_get_user(phone_number):
     """Crear o obtener usuario por número de teléfono (optimizado)"""
@@ -214,64 +253,58 @@ def update_daily_stats():
         return False
 
 def get_dashboard_stats(days=7):
-    """Obtener estadísticas para el dashboard - VERSIÓN COMPLETA"""
+    """Obtener estadísticas para el dashboard - VERSIÓN OPTIMIZADA"""
     try:
+        stats = {
+            'general': {},
+            'recent_conversations': [],
+            'top_users': [],
+            'messages_by_hour': []
+        }
+        
+        # Consulta 1: Estadísticas generales (más rápida)
         with get_db_connection() as conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
-                
-                # ESTADÍSTICAS GENERALES
                 cur.execute("""
                     SELECT 
                         COUNT(*) as total_messages,
-                        COUNT(DISTINCT phone_number) as total_users
+                        COUNT(DISTINCT phone_number) as total_users,
+                        COUNT(*) FILTER (WHERE DATE(created_at) = CURRENT_DATE) as today_messages,
+                        ROUND(AVG(response_time_ms) FILTER (WHERE response_time_ms IS NOT NULL 
+                            AND created_at >= NOW() - INTERVAL '7 days')) as avg_response_time
                     FROM conversations
                 """)
-                general = cur.fetchone()
-                total_messages = general['total_messages']
-                total_users = general['total_users']
+                general_result = cur.fetchone()
                 
-                # MENSAJES DE HOY
-                cur.execute("""
-                    SELECT COUNT(*) as today_messages
-                    FROM conversations
-                    WHERE DATE(created_at) = CURRENT_DATE
-                """)
-                today_result = cur.fetchone()
-                today_messages = today_result['today_messages']
-                
-                # TIEMPO DE RESPUESTA PROMEDIO
-                cur.execute("""
-                    SELECT AVG(response_time_ms) as avg_response_time
-                    FROM conversations 
-                    WHERE response_time_ms IS NOT NULL 
-                    AND created_at >= NOW() - INTERVAL '7 days'
-                """)
-                avg_result = cur.fetchone()
-                avg_response_time = round(avg_result['avg_response_time']) if avg_result['avg_response_time'] else 0
-                
-                # CONVERSACIONES RECIENTES
+                stats['general'] = {
+                    'total_messages': general_result['total_messages'] or 0,
+                    'total_users': general_result['total_users'] or 0,
+                    'today_messages': general_result['today_messages'] or 0,
+                    'avg_response_time': int(general_result['avg_response_time'] or 0)
+                }
+        
+        # Consulta 2: Conversaciones recientes
+        with get_db_connection() as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
                 cur.execute("""
                     SELECT 
-                        id,
-                        phone_number,
-                        user_message,
-                        bot_response,
-                        model_used,
-                        response_time_ms,
-                        created_at,
-                        knowledge_used
+                        id, phone_number, user_message, bot_response,
+                        model_used, response_time_ms, created_at, knowledge_used
                     FROM conversations 
                     ORDER BY created_at DESC 
                     LIMIT 20
                 """)
                 recent_conversations = [dict(row) for row in cur.fetchall()]
                 
-                # Convertir datetime a string
                 for conv in recent_conversations:
-                    if isinstance(conv['created_at'], datetime):
+                    if isinstance(conv.get('created_at'), datetime):
                         conv['created_at'] = conv['created_at'].isoformat()
                 
-                # TOP USUARIOS
+                stats['recent_conversations'] = recent_conversations
+        
+        # Consulta 3: Top usuarios
+        with get_db_connection() as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
                 cur.execute("""
                     SELECT 
                         phone_number,
@@ -285,36 +318,29 @@ def get_dashboard_stats(days=7):
                 """)
                 top_users = [dict(row) for row in cur.fetchall()]
                 
-                # Convertir datetime a string en top_users
                 for user in top_users:
                     if isinstance(user.get('first_seen'), datetime):
                         user['first_seen'] = user['first_seen'].isoformat()
                     if isinstance(user.get('last_seen'), datetime):
                         user['last_seen'] = user['last_seen'].isoformat()
                 
-                # MENSAJES POR HORA (últimas 24h)
+                stats['top_users'] = top_users
+        
+        # Consulta 4: Mensajes por hora
+        with get_db_connection() as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
                 cur.execute("""
                     SELECT 
-                        EXTRACT(HOUR FROM created_at) as hour,
+                        EXTRACT(HOUR FROM created_at)::INTEGER as hour,
                         COUNT(*) as count
                     FROM conversations 
                     WHERE created_at >= NOW() - INTERVAL '24 hours'
                     GROUP BY EXTRACT(HOUR FROM created_at)
                     ORDER BY hour
                 """)
-                messages_by_hour = [dict(row) for row in cur.fetchall()]
-                
-                return {
-                    'general': {
-                        'total_messages': total_messages,
-                        'total_users': total_users,
-                        'today_messages': today_messages,
-                        'avg_response_time': avg_response_time
-                    },
-                    'recent_conversations': recent_conversations,
-                    'top_users': top_users,
-                    'messages_by_hour': messages_by_hour
-                }
+                stats['messages_by_hour'] = [dict(row) for row in cur.fetchall()]
+        
+        return stats
                 
     except Exception as e:
         logger.error(f"Error en get_dashboard_stats: {e}", exc_info=True)

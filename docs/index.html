@@ -161,6 +161,10 @@
             font-size: 0.75rem;
         }
 
+        .bg-orange {
+            background-color: #f97316 !important;
+        }
+
         .chart-container {
             position: relative;
             height: 400px;
@@ -768,9 +772,12 @@ function renderConversations() {
         row.className = 'message-row';
         row.onclick = () => showFullConversation(conv.phone_number);
         
+        // Convertir UTC a hora local de Perú (UTC-5)
         const date = new Date(conv.created_at);
+        const peruDate = new Date(date.getTime() - (5 * 60 * 60 * 1000));
+        
         row.innerHTML = `
-            <td>${date.toLocaleString('es-PE')}</td>
+            <td>${peruDate.toLocaleString('es-PE', { timeZone: 'America/Lima' })}</td>
             <td><span class="badge bg-secondary user-badge">${conv.phone_number}</span></td>
             <td>${truncateText(conv.user_message, 50)}</td>
             <td>${truncateText(conv.bot_response, 50)}</td>
@@ -804,14 +811,16 @@ async function showFullConversation(phoneNumber) {
         }
         
         conversations.forEach(conv => {
+            // Convertir a hora de Perú (UTC-5)
             const date = new Date(conv.created_at);
+            const peruDate = new Date(date.getTime() - (5 * 60 * 60 * 1000));
             
             // User message
             const userDiv = document.createElement('div');
             userDiv.className = 'conversation-bubble user-message';
             userDiv.innerHTML = `
                 <div class="mb-1">${conv.user_message}</div>
-                <small class="opacity-75">${date.toLocaleString('es-PE')}</small>
+                <small class="opacity-75">${peruDate.toLocaleString('es-PE', { timeZone: 'America/Lima' })}</small>
             `;
             content.appendChild(userDiv);
             
@@ -821,7 +830,7 @@ async function showFullConversation(phoneNumber) {
             botDiv.innerHTML = `
                 <div class="mb-1">${conv.bot_response}</div>
                 <small class="opacity-75">
-                    ${date.toLocaleString('es-PE')} | ${conv.model_used || '-'}
+                    ${peruDate.toLocaleString('es-PE', { timeZone: 'America/Lima' })} | ${conv.model_used || '-'}
                     ${conv.response_time_ms ? ` | ${conv.response_time_ms}ms` : ''}
                 </small>
             `;
@@ -955,19 +964,28 @@ function createCharts(stats) {
             .filter(c => c.response_time_ms)
             .map(c => c.response_time_ms);
         
-        // Group into ranges
+        // Group into ranges (0-2s, 2-5s, 5-8s, 8-10s, >10s)
         const ranges = [
-            { label: '0-100ms', min: 0, max: 100 },
-            { label: '100-500ms', min: 100, max: 500 },
-            { label: '500-1000ms', min: 500, max: 1000 },
-            { label: '1-2s', min: 1000, max: 2000 },
-            { label: '2-5s', min: 2000, max: 5000 },
-            { label: '>5s', min: 5000, max: Infinity }
+            { label: '0-2s', min: 0, max: 2000, color: '#22c55e' },
+            { label: '2-5s', min: 2000, max: 5000, color: '#84cc16' },
+            { label: '5-8s', min: 5000, max: 8000, color: '#eab308' },
+            { label: '8-10s', min: 8000, max: 10000, color: '#f59e0b' },
+            { label: '>10s', min: 10000, max: Infinity, color: '#ef4444' }
         ];
         
         const distribution = ranges.map(range => {
             return responseTimes.filter(t => t >= range.min && t < range.max).length;
         });
+        
+        // Calcular estadísticas adicionales
+        const avgTime = responseTimes.length > 0 
+            ? Math.round(responseTimes.reduce((a,b) => a+b, 0) / responseTimes.length)
+            : 0;
+        const minTime = responseTimes.length > 0 ? Math.min(...responseTimes) : 0;
+        const maxTime = responseTimes.length > 0 ? Math.max(...responseTimes) : 0;
+        const medianTime = responseTimes.length > 0 
+            ? responseTimes.sort((a,b) => a-b)[Math.floor(responseTimes.length / 2)]
+            : 0;
         
         charts.response = new Chart(responseCtx, {
             type: 'bar',
@@ -976,8 +994,10 @@ function createCharts(stats) {
                 datasets: [{
                     label: 'Cantidad de mensajes',
                     data: distribution,
-                    backgroundColor: ['#22c55e', '#84cc16', '#eab308', '#f59e0b', '#ef4444', '#dc2626'],
-                    borderRadius: 8
+                    backgroundColor: ranges.map(r => r.color),
+                    borderRadius: 8,
+                    borderWidth: 2,
+                    borderColor: ranges.map(r => r.color)
                 }]
             },
             options: {
@@ -987,11 +1007,26 @@ function createCharts(stats) {
                     legend: { display: false },
                     title: {
                         display: true,
-                        text: `Promedio: ${Math.round(responseTimes.reduce((a,b) => a+b, 0) / responseTimes.length)}ms`
+                        text: `📊 Estadísticas: Promedio: ${avgTime}ms | Mínimo: ${minTime}ms | Máximo: ${maxTime}ms | Mediana: ${medianTime}ms`,
+                        font: { size: 14 }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const total = distribution.reduce((a, b) => a + b, 0);
+                                const percentage = ((context.parsed.y / total) * 100).toFixed(1);
+                                return `${context.parsed.y} mensajes (${percentage}%)`;
+                            }
+                        }
                     }
                 },
                 scales: {
-                    y: { beginAtZero: true }
+                    y: { 
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
                 }
             }
         });
@@ -1000,14 +1035,19 @@ function createCharts(stats) {
 
 // Export functions
 function exportToCSV() {
-    const data = filteredConversations.map(conv => ({
-        'Fecha': new Date(conv.created_at).toLocaleString('es-PE'),
-        'Usuario': conv.phone_number,
-        'Mensaje Usuario': conv.user_message,
-        'Respuesta Bot': conv.bot_response,
-        'Modelo': conv.model_used || '',
-        'Tiempo (ms)': conv.response_time_ms || ''
-    }));
+    const data = filteredConversations.map(conv => {
+        const date = new Date(conv.created_at);
+        const peruDate = new Date(date.getTime() - (5 * 60 * 60 * 1000));
+        
+        return {
+            'Fecha': peruDate.toLocaleString('es-PE', { timeZone: 'America/Lima' }),
+            'Usuario': conv.phone_number,
+            'Mensaje Usuario': conv.user_message,
+            'Respuesta Bot': conv.bot_response,
+            'Modelo': conv.model_used || '',
+            'Tiempo (ms)': conv.response_time_ms || ''
+        };
+    });
     
     const csv = [
         Object.keys(data[0]).join(','),
@@ -1018,14 +1058,19 @@ function exportToCSV() {
 }
 
 function exportToExcel() {
-    const data = filteredConversations.map(conv => ({
-        'Fecha': new Date(conv.created_at).toLocaleString('es-PE'),
-        'Usuario': conv.phone_number,
-        'Mensaje Usuario': conv.user_message,
-        'Respuesta Bot': conv.bot_response,
-        'Modelo': conv.model_used || '',
-        'Tiempo (ms)': conv.response_time_ms || ''
-    }));
+    const data = filteredConversations.map(conv => {
+        const date = new Date(conv.created_at);
+        const peruDate = new Date(date.getTime() - (5 * 60 * 60 * 1000));
+        
+        return {
+            'Fecha': peruDate.toLocaleString('es-PE', { timeZone: 'America/Lima' }),
+            'Usuario': conv.phone_number,
+            'Mensaje Usuario': conv.user_message,
+            'Respuesta Bot': conv.bot_response,
+            'Modelo': conv.model_used || '',
+            'Tiempo (ms)': conv.response_time_ms || ''
+        };
+    });
     
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
@@ -1040,18 +1085,26 @@ function exportToPDF() {
     doc.setFontSize(16);
     doc.text('Reporte de Conversaciones - Chatbot UNA Puno', 14, 15);
     
+    const now = new Date();
+    const peruNow = new Date(now.getTime() - (5 * 60 * 60 * 1000));
+    
     doc.setFontSize(10);
-    doc.text(`Generado: ${new Date().toLocaleString('es-PE')}`, 14, 22);
+    doc.text(`Generado: ${peruNow.toLocaleString('es-PE', { timeZone: 'America/Lima' })}`, 14, 22);
     doc.text(`Total conversaciones: ${filteredConversations.length}`, 14, 28);
     
-    const tableData = filteredConversations.slice(0, 100).map(conv => [
-        new Date(conv.created_at).toLocaleDateString('es-PE'),
-        conv.phone_number.slice(-8),
-        truncateText(conv.user_message, 40),
-        truncateText(conv.bot_response, 40),
-        conv.model_used || '-',
-        conv.response_time_ms ? `${conv.response_time_ms}ms` : '-'
-    ]);
+    const tableData = filteredConversations.slice(0, 100).map(conv => {
+        const date = new Date(conv.created_at);
+        const peruDate = new Date(date.getTime() - (5 * 60 * 60 * 1000));
+        
+        return [
+            peruDate.toLocaleDateString('es-PE'),
+            conv.phone_number.slice(-8),
+            truncateText(conv.user_message, 40),
+            truncateText(conv.bot_response, 40),
+            conv.model_used || '-',
+            conv.response_time_ms ? `${conv.response_time_ms}ms` : '-'
+        ];
+    });
     
     doc.autoTable({
         head: [['Fecha', 'Usuario', 'Mensaje', 'Respuesta', 'Modelo', 'Tiempo']],
@@ -1071,10 +1124,11 @@ function truncateText(text, maxLength) {
 }
 
 function getResponseTimeBadgeColor(time) {
-    if (time < 500) return 'success';
-    if (time < 1000) return 'info';
-    if (time < 2000) return 'warning';
-    return 'danger';
+    if (time < 2000) return 'success';      // Verde: 0-2s
+    if (time < 5000) return 'info';         // Azul: 2-5s
+    if (time < 8000) return 'warning';      // Amarillo: 5-8s
+    if (time < 10000) return 'orange';      // Naranja: 8-10s
+    return 'danger';                        // Rojo: >10s
 }
 
 function showLoading(show) {

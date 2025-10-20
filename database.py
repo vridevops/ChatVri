@@ -17,7 +17,7 @@ connection_pool = None
 _pool_lock = threading.Lock()  # ← NUEVO: Lock para thread-safety
 
 def init_db_pool():
-    """Inicializar pool de conexiones optimizado para 200 usuarios concurrentes"""
+    """Inicializar pool de conexiones optimizado"""
     global connection_pool
     
     with _pool_lock:
@@ -27,21 +27,22 @@ def init_db_pool():
         
         try:
             connection_pool = psycopg2.pool.ThreadedConnectionPool(
-                minconn=20,
-                maxconn=200,
+                minconn=5,              # Reducido de 20 a 5
+                maxconn=20,             # Reducido de 200 a 20
                 host=os.getenv('POSTGRES_HOST', 'localhost'),
                 port=os.getenv('POSTGRES_PORT', '5432'),
                 database=os.getenv('POSTGRES_DB', 'postgres'),
                 user=os.getenv('POSTGRES_USER', 'postgres'),
                 password=os.getenv('POSTGRES_PASSWORD'),
-                connect_timeout=30,  # ← AUMENTADO de 10 a 30
-                keepalives=1,  # ← NUEVO: Mantener conexiones vivas
-                keepalives_idle=30,  # ← NUEVO: Ping cada 30s
-                keepalives_interval=10,  # ← NUEVO: Intervalo de ping
-                keepalives_count=5,  # ← NUEVO: Reintentos
-                options='-c statement_timeout=60000'  # ← AUMENTADO a 60s
+                connect_timeout=30,
+                keepalives=1,
+                keepalives_idle=30,
+                keepalives_interval=10,
+                keepalives_count=5
+                # ⭐ REMOVIDO: options='-c statement_timeout=60000'
+                # Esto puede causar problemas con autocommit
             )
-            logger.info("✅ Pool PostgreSQL inicializado: 20-200 conexiones")
+            logger.info("✅ Pool PostgreSQL inicializado: 5-20 conexiones")
             return True
         except Exception as e:
             logger.error(f"❌ Error inicializando pool PostgreSQL: {e}")
@@ -62,17 +63,22 @@ def get_db_connection():
             if conn is None:
                 raise Exception("No se pudo obtener conexión del pool")
             
-            # Verificar que la conexión esté activa
+            # ⭐ IMPORTANTE: Verificar y resetear el estado de la conexión
             if conn.closed:
                 logger.warning("Conexión cerrada, obteniendo nueva...")
                 connection_pool.putconn(conn, close=True)
                 conn = connection_pool.getconn()
             
-            # Probar la conexión
+            # ⭐ FIX: No cambiar autocommit si ya está en transacción
+            # Simplemente resetear la transacción si existe
+            try:
+                conn.rollback()  # Resetear cualquier transacción previa
+            except:
+                pass
+            
+            # Probar la conexión con un simple SELECT
             with conn.cursor() as test_cur:
                 test_cur.execute("SELECT 1")
-            
-            conn.autocommit = False
             
             yield conn
             conn.commit()

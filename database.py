@@ -3,7 +3,7 @@ import logging
 import bcrypt
 from datetime import datetime, date
 import psycopg2
-import psycopg2.extensions  # ← LÍNEA AGREGADA
+import psycopg2.extensions  
 from psycopg2 import pool
 from psycopg2.extras import RealDictCursor
 from contextlib import contextmanager

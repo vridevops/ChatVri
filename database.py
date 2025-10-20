@@ -7,6 +7,7 @@ from psycopg2.extras import RealDictCursor, execute_batch
 from contextlib import contextmanager
 from dotenv import load_dotenv
 import threading
+import bcrypt
 
 load_dotenv()
 logger = logging.getLogger(__name__)
@@ -415,6 +416,7 @@ def verify_admin_user(username, password):
     except Exception as e:
         logger.error(f"Error verificando admin: {e}")
         return None
+    
 def get_pool_stats():
     """
     ✅ NUEVO: Obtener estadísticas del pool de conexiones (para monitoring)

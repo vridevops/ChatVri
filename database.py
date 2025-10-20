@@ -383,9 +383,6 @@ def log_error(error_type, error_message, phone_number=None, context=None):
         logger.error(f"Error registrando log: {e}")
         return False
 
-
-
-
 def verify_admin_user(username, password):
     """Verificar credenciales de admin con bcrypt"""
     try:
@@ -406,27 +403,32 @@ def verify_admin_user(username, password):
                     logger.error(f"Usuario {username} no tiene password_hash")
                     return None
                 
-                # Verificar password
-                password_bytes = password.encode('utf-8')
-                hash_bytes = user['password_hash'].encode('utf-8')
-                
-                if bcrypt.checkpw(password_bytes, hash_bytes):
-                    logger.info(f"Login exitoso: {username}")
+                # Verificar password con bcrypt
+                try:
+                    password_bytes = password.encode('utf-8')
+                    hash_bytes = user['password_hash'].encode('utf-8')
                     
-                    # Update last login
-                    cur.execute("""
-                        UPDATE admin_users 
-                        SET last_login = CURRENT_TIMESTAMP
-                        WHERE id = %s
-                    """, (user['id'],))
-                    
-                    return {
-                        'id': user['id'],
-                        'username': user['username'],
-                        'email': user['email']
-                    }
-                else:
-                    logger.warning(f"Contraseña incorrecta para: {username}")
+                    if bcrypt.checkpw(password_bytes, hash_bytes):
+                        logger.info(f"✅ Login exitoso: {username}")
+                        
+                        # Update last login
+                        cur.execute("""
+                            UPDATE admin_users 
+                            SET last_login = CURRENT_TIMESTAMP
+                            WHERE id = %s
+                        """, (user['id'],))
+                        
+                        return {
+                            'id': user['id'],
+                            'username': user['username'],
+                            'email': user['email']
+                        }
+                    else:
+                        logger.warning(f"❌ Contraseña incorrecta para: {username}")
+                        return None
+                        
+                except Exception as bcrypt_error:
+                    logger.error(f"Error en bcrypt.checkpw: {bcrypt_error}")
                     return None
                 
     except Exception as e:

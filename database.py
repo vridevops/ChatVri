@@ -50,75 +50,54 @@ def init_db_pool():
 
 @contextmanager
 def get_db_connection():
-    """Context manager para obtener conexión del pool (thread-safe con retry)"""
+    """Context manager para obtener conexión del pool - VERSION CORREGIDA"""
     conn = None
-    max_retries = 3
-    retry_count = 0
-    
-    while retry_count < max_retries:
-        try:
-            # Obtener conexión del pool
+    try:
+        # Obtener conexión del pool
+        conn = connection_pool.getconn()
+        
+        if conn is None:
+            raise Exception("No se pudo obtener conexión del pool")
+        
+        # Verificar que la conexión esté activa
+        if conn.closed:
+            logger.warning("Conexión cerrada, obteniendo nueva...")
+            connection_pool.putconn(conn, close=True)
             conn = connection_pool.getconn()
+        
+        # ⭐ CRÍTICO: NO establecer autocommit, solo resetear transacción
+        # NO USAR: conn.autocommit = False
+        # En su lugar, solo hacer rollback si hay transacción pendiente
+        try:
+            if conn.info.transaction_status != psycopg2.extensions.TRANSACTION_STATUS_IDLE:
+                conn.rollback()
+        except:
+            pass
+        
+        yield conn
+        
+        # Commit solo si no hubo errores
+        if not conn.closed:
+            conn.commit()
             
-            if conn is None:
-                raise Exception("No se pudo obtener conexión del pool")
-            
-            # ⭐ IMPORTANTE: Verificar y resetear el estado de la conexión
-            if conn.closed:
-                logger.warning("Conexión cerrada, obteniendo nueva...")
-                connection_pool.putconn(conn, close=True)
-                conn = connection_pool.getconn()
-            
-            # ⭐ FIX: No cambiar autocommit si ya está en transacción
-            # Simplemente resetear la transacción si existe
+    except Exception as e:
+        # Rollback en caso de error
+        if conn and not conn.closed:
             try:
-                conn.rollback()  # Resetear cualquier transacción previa
+                conn.rollback()
             except:
                 pass
-            
-            # Probar la conexión con un simple SELECT
-            with conn.cursor() as test_cur:
-                test_cur.execute("SELECT 1")
-            
-            yield conn
-            conn.commit()
-            break  # Éxito, salir del loop
-            
-        except (psycopg2.OperationalError, psycopg2.InterfaceError) as e:
-            retry_count += 1
-            logger.warning(f"Error de conexión (intento {retry_count}/{max_retries}): {e}")
-            
-            if conn:
-                try:
-                    connection_pool.putconn(conn, close=True)
-                except:
-                    pass
-                conn = None
-            
-            if retry_count >= max_retries:
-                logger.error("Max reintentos alcanzado, lanzando excepción")
-                raise
-            
-            # Esperar antes de reintentar
-            import time
-            time.sleep(0.5 * retry_count)
-            
-        except Exception as e:
-            if conn:
-                try:
-                    conn.rollback()
-                except:
-                    pass
-            logger.error(f"Error en transacción DB: {e}")
-            raise
-            
-        finally:
-            if conn and not conn.closed:
-                try:
-                    connection_pool.putconn(conn)
-                except Exception as e:
-                    logger.error(f"Error devolviendo conexión al pool: {e}")
-
+        logger.error(f"Error en transacción DB: {e}")
+        raise
+        
+    finally:
+        # Siempre devolver la conexión al pool
+        if conn:
+            try:
+                connection_pool.putconn(conn)
+            except Exception as e:
+                logger.error(f"Error devolviendo conexión al pool: {e}")
+                
 
 def create_or_get_user(phone_number):
     """Crear o obtener usuario por número de teléfono (optimizado)"""

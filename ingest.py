@@ -73,10 +73,10 @@ def parse_markdown_file(filepath):
             # Dividir por párrafos (doble salto de línea) o por líneas
             paragraphs = re.split(r'\n\n+', body)
             
-            # Agrupar párrafos pequeños juntos (max 300 palabras por chunk)
+            # Agrupar párrafos pequeños juntos (max 400 palabras por chunk)
             current_chunk = []
             current_words = 0
-            max_words = 300
+            max_words = 450
             
             for para in paragraphs:
                 para_clean = clean_markdown(para.strip())

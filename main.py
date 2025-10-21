@@ -413,7 +413,7 @@ async def process_message_async(user_message, phone_number):
 
         context = ""
         if relevant_docs:
-            context = "\n\n".join([doc['content'][:1000] for doc in relevant_docs[:3]])
+            context = "\n\n".join([doc['text'][:1000] for doc in relevant_docs[:3]])
 
         history_task = asyncio.create_task(get_conversation_history_async(phone_number))
         history = await history_task

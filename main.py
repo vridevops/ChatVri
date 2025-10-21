@@ -153,52 +153,73 @@ async def get_conversation_history_async(phone):
 # Knowledge base
 # ---------------------------
 
-def load_knowledge_base(index_path='knowledge_base.index', json_path='knowledge_base.json'):
+def load_knowledge_base(index_path='faiss_index.bin', json_path='knowledge_base.json'):
+    """Cargar base de conocimiento FAISS + documentos JSON"""
     global embedding_model, faiss_index, documents
     try:
         logger.info("Cargando embeddings...")
         embedding_model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
+        
+        logger.info(f"Cargando índice FAISS desde {index_path}...")
         faiss_index = faiss.read_index(index_path)
+        
+        logger.info(f"Cargando documentos desde {json_path}...")
         with open(json_path, 'r', encoding='utf-8') as f:
-            documents = json.load(f)
+            knowledge_data = json.load(f)
+            # ⭐ CAMBIO: Extraer la lista de documentos del objeto JSON
+            documents = knowledge_data.get('documents', knowledge_data)
+        
         logger.info(f"✓ Base cargada: {len(documents)} docs")
         return True
     except Exception as e:
         logger.error(f"Error KB: {e}")
         return False
 
+
 def expand_query(query):
+    """Expandir términos de búsqueda con sinónimos"""
     expanded_terms = [query.lower()]
     for word in query.lower().split():
         if word in TERM_EXPANSION:
             expanded_terms.extend(TERM_EXPANSION[word])
     return ' '.join(expanded_terms)
 
+
 @lru_cache(maxsize=500)
 def search_knowledge_base_cached(query, top_k=5):
+    """Caché de búsquedas para mejorar rendimiento"""
     return search_knowledge_base(query, top_k)
 
+
 def search_knowledge_base(query, top_k=5):
+    """Buscar en base de conocimiento usando FAISS"""
     if not embedding_model or not faiss_index:
         return []
     try:
+        # Expandir query con sinónimos
         expanded_query = expand_query(query)
+        
+        # Generar embedding de la query
         query_vector = embedding_model.encode([expanded_query])
         query_vector = np.array(query_vector).astype('float32')
+        
+        # Buscar en FAISS
         distances, indices = faiss_index.search(query_vector, top_k)
         
+        # Filtrar resultados por distancia
         results = []
         for dist, idx in zip(distances[0], indices[0]):
             if idx < len(documents):
                 doc = documents[idx].copy()
                 doc['distance'] = float(dist)
+                # Solo agregar si está en top 3 o tiene distancia < 9.0
                 if len(results) < 3 or dist < 9.0:
                     results.append(doc)
+        
         return results
     except Exception as e:
         logger.error(f"Error búsqueda: {e}")
         return []
-
 # ---------------------------
 # DeepSeek async
 # ---------------------------
@@ -258,7 +279,7 @@ async def generate_response_async(user_message, context="", history="", is_first
             "💡 *Comandos útiles:*\n"
             "/ayuda - Ver esta información\n"
             "/reset - Reiniciar conversación\n\n"
-            "⏱️ Tu conversación estará activa por 30 minutos.\n"
+            "⏱️ Tu conversación estará activa por 10 minutos.\n"
             "🔒 Este chat es monitoreado para mejorar nuestro servicio.\n\n"
             "¿En qué puedo ayudarte hoy?"
         ), "welcome"

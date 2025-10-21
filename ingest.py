@@ -1,7 +1,8 @@
 """
 Procesador de archivos Markdown a base de conocimiento FAISS
 Limpia formato Markdown y crea índice vectorial
-MEJORADO: Soporta HTML, frontmatter, mejor chunking
+MEJORADO: Mejor chunking, limpieza de HTML, más preciso
+Genera 2 archivos: faiss_index.bin + knowledge_base.json
 """
 
 import os
@@ -21,8 +22,8 @@ logger = logging.getLogger(__name__)
 
 
 def clean_markdown(text):
-    """Limpiar formato Markdown Y HTML"""
-    # ⭐ NUEVO: Eliminar tags HTML
+    """Limpiar formato Markdown y HTML"""
+    # Eliminar tags HTML (⭐ NUEVO)
     text = re.sub(r'<ul>|</ul>|<li>|</li>|<br/?>|</br>', ' ', text)
     text = re.sub(r'<[^>]+>', '', text)
     
@@ -38,7 +39,7 @@ def clean_markdown(text):
     # Eliminar cursivas *texto*
     text = re.sub(r'\*([^\*]+)\*', r'\1', text)
     
-    # ⭐ NUEVO: Eliminar código `texto`
+    # Eliminar código `texto` (⭐ NUEVO)
     text = re.sub(r'`([^`]+)`', r'\1', text)
     
     # Eliminar múltiples espacios
@@ -47,185 +48,157 @@ def clean_markdown(text):
     return text.strip()
 
 
-def extract_frontmatter(content):
-    """⭐ NUEVO: Extraer metadata YAML si existe"""
-    metadata = {}
-    pattern = r'^---\s*\n(.*?)\n---\s*\n'
-    match = re.search(pattern, content, re.DOTALL)
-    
-    if match:
-        frontmatter = match.group(1)
-        content = content[match.end():]
-        
-        # Parsear campos simples
-        for line in frontmatter.split('\n'):
-            if ':' in line:
-                key, value = line.split(':', 1)
-                metadata[key.strip().lower()] = value.strip()
-    
-    return metadata, content
-
-
 def parse_markdown_file(filepath):
-    """Parsear archivo Markdown por secciones (encabezados ##)"""
+    """Parsear archivo Markdown dividiéndolo en chunks optimizados"""
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        # ⭐ NUEVO: Extraer frontmatter
-        metadata_base, content = extract_frontmatter(content)
+        documents = []
+        filename = filepath.stem
         
-        # Dividir por secciones ##
+        # Dividir por secciones (##) primero
         sections = re.split(r'\n##\s+', content)
         
-        documents = []
         for section in sections:
             if not section.strip():
                 continue
             
-            # Primera línea es el título
+            # Extraer título de la sección (primera línea)
             lines = section.split('\n', 1)
-            if len(lines) < 2:
-                continue
+            title = lines[0].strip() if lines else filename
+            body = lines[1] if len(lines) > 1 else section
             
-            title = lines[0].strip()
-            content_text = lines[1].strip() if len(lines) > 1 else ""
+            # ⭐ NUEVO: Dividir sección en chunks más pequeños
+            # Dividir por párrafos (doble salto de línea) o por líneas
+            paragraphs = re.split(r'\n\n+', body)
             
-            # Limpiar formato
-            cleaned_content = clean_markdown(content_text)
+            # Agrupar párrafos pequeños juntos (max 300 palabras por chunk)
+            current_chunk = []
+            current_words = 0
+            max_words = 300
             
-            if cleaned_content:
-                doc = {
-                    'title': title,
-                    'content': cleaned_content,
-                    'source': filepath.name
-                }
+            for para in paragraphs:
+                para_clean = clean_markdown(para.strip())
+                if not para_clean:
+                    continue
                 
-                # ⭐ NUEVO: Agregar metadata del frontmatter si existe
-                if metadata_base:
-                    doc['metadata'] = metadata_base
+                para_words = len(para_clean.split())
                 
-                documents.append(doc)
+                # Si agregar este párrafo excede el límite, guardar chunk actual
+                if current_words + para_words > max_words and current_chunk:
+                    chunk_text = ' '.join(current_chunk)
+                    documents.append({
+                        'text': chunk_text,
+                        'source': filename,
+                        'section': title
+                    })
+                    current_chunk = [para_clean]
+                    current_words = para_words
+                else:
+                    current_chunk.append(para_clean)
+                    current_words += para_words
+            
+            # Guardar último chunk si existe
+            if current_chunk:
+                chunk_text = ' '.join(current_chunk)
+                documents.append({
+                    'text': chunk_text,
+                    'source': filename,
+                    'section': title
+                })
         
         return documents
         
     except Exception as e:
-        logger.error(f"Error parseando {filepath}: {e}")
+        logger.error(f"Error procesando {filepath}: {e}")
         return []
 
 
-def process_documents_folder(docs_folder='docs'):
-    """Procesar todos los archivos .md de la carpeta docs/"""
+def create_knowledge_base(docs_folder='docs', 
+                         index_file='faiss_index.bin',
+                         json_file='knowledge_base.json'):
+    """Crear base de conocimiento FAISS desde archivos Markdown
+    
+    Genera 2 archivos:
+    - faiss_index.bin: Índice vectorial FAISS
+    - knowledge_base.json: Documentos con metadata
+    """
+    
+    logger.info("="*60)
+    logger.info("CREANDO BASE DE CONOCIMIENTO")
+    logger.info("="*60)
+    
+    # 1. Cargar modelo de embeddings
+    logger.info("Cargando modelo de embeddings...")
+    model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
+    
+    # 2. Leer todos los archivos .md
     docs_path = Path(docs_folder)
-    
     if not docs_path.exists():
-        logger.error(f"Carpeta {docs_folder}/ no encontrada")
-        return []
+        logger.error(f"Carpeta {docs_folder} no existe")
+        return False
     
-    all_documents = []
     md_files = list(docs_path.glob('*.md'))
+    if not md_files:
+        logger.error(f"No se encontraron archivos .md en {docs_folder}")
+        return False
     
     logger.info(f"Encontrados {len(md_files)} archivos .md")
     
+    # 3. Procesar todos los archivos
+    all_documents = []
     for md_file in md_files:
         logger.info(f"Procesando: {md_file.name}")
         docs = parse_markdown_file(md_file)
         all_documents.extend(docs)
-        logger.info(f"  → {len(docs)} secciones extraídas")
+        logger.info(f"  → {len(docs)} chunks extraídos")
     
-    return all_documents
-
-
-def create_faiss_index(documents, model_name='paraphrase-multilingual-MiniLM-L12-v2'):
-    """Crear índice FAISS con embeddings"""
-    try:
-        logger.info(f"Cargando modelo de embeddings: {model_name}")
-        model = SentenceTransformer(model_name)
-        
-        logger.info(f"Generando embeddings para {len(documents)} documentos...")
-        texts = [doc['content'] for doc in documents]
-        embeddings = model.encode(texts, show_progress_bar=True)
-        embeddings = np.array(embeddings).astype('float32')
-        
-        logger.info("Creando índice FAISS...")
-        dimension = embeddings.shape[1]
-        index = faiss.IndexFlatL2(dimension)
-        index.add(embeddings)
-        
-        logger.info(f"✓ Índice FAISS creado: {index.ntotal} vectores de dimensión {dimension}")
-        return index
-        
-    except Exception as e:
-        logger.error(f"Error creando índice FAISS: {e}")
-        return None
-
-
-def save_knowledge_base(index, documents):
-    """Guardar índice FAISS y documentos"""
-    try:
-        # Guardar índice FAISS
-        faiss.write_index(index, 'knowledge_base.index')
-        logger.info("✓ Índice FAISS guardado: knowledge_base.index")
-        
-        # Guardar documentos
-        with open('knowledge_base.json', 'w', encoding='utf-8') as f:
-            json.dump(documents, f, ensure_ascii=False, indent=2)
-        logger.info("✓ Documentos guardados: knowledge_base.json")
-        
-        return True
-        
-    except Exception as e:
-        logger.error(f"Error guardando base de conocimiento: {e}")
+    if not all_documents:
+        logger.error("No se extrajeron documentos")
         return False
-
-
-def main():
-    """Proceso principal"""
-    logger.info("=" * 60)
-    logger.info("PROCESADOR DE BASE DE CONOCIMIENTO")
-    logger.info("=" * 60)
     
-    # Procesar archivos Markdown
-    logger.info("\n1. Procesando archivos Markdown...")
-    documents = process_documents_folder('docs')
+    logger.info(f"\nTotal de chunks creados: {len(all_documents)}")
     
-    if not documents:
-        logger.error("No se encontraron documentos para procesar")
-        return
+    # 4. Generar embeddings
+    logger.info("Generando embeddings...")
+    texts = [doc['text'] for doc in all_documents]
+    embeddings = model.encode(texts, show_progress_bar=True)
     
-    logger.info(f"✓ Total de documentos procesados: {len(documents)}")
+    # 5. Crear índice FAISS
+    logger.info("Creando índice FAISS...")
+    dimension = embeddings.shape[1]
+    index = faiss.IndexFlatL2(dimension)
+    index.add(embeddings.astype('float32'))
     
-    # Mostrar muestra
-    logger.info("\nMuestra de documentos procesados:")
-    for i, doc in enumerate(documents[:3]):
-        logger.info(f"\n  [{i+1}] {doc['title']}")
-        logger.info(f"      Contenido: {doc['content'][:100]}...")
-        logger.info(f"      Fuente: {doc['source']}")
-        if 'metadata' in doc:
-            logger.info(f"      Metadata: {doc['metadata']}")
+    # 6. Guardar ÍNDICE FAISS (archivo binario)
+    logger.info(f"Guardando índice FAISS en {index_file}...")
+    faiss.write_index(index, index_file)
     
-    # Crear índice FAISS
-    logger.info("\n2. Creando índice FAISS...")
-    index = create_faiss_index(documents)
+    # 7. Guardar DOCUMENTOS (archivo JSON)
+    logger.info(f"Guardando documentos en {json_file}...")
+    knowledge_data = {
+        'documents': all_documents,
+        'model_name': 'paraphrase-multilingual-MiniLM-L12-v2',
+        'total_docs': len(all_documents),
+        'dimension': dimension
+    }
     
-    if not index:
-        logger.error("Error creando índice FAISS")
-        return
+    with open(json_file, 'w', encoding='utf-8') as f:
+        json.dump(knowledge_data, f, ensure_ascii=False, indent=2)
     
-    # Guardar base de conocimiento
-    logger.info("\n3. Guardando base de conocimiento...")
-    if save_knowledge_base(index, documents):
-        logger.info("\n" + "=" * 60)
-        logger.info("✓ BASE DE CONOCIMIENTO CREADA EXITOSAMENTE")
-        logger.info("=" * 60)
-        logger.info("\nArchivos generados:")
-        logger.info("  • knowledge_base.index (índice FAISS)")
-        logger.info("  • knowledge_base.json (documentos)")
-        logger.info(f"\nTotal de documentos indexados: {len(documents)}")
-        logger.info("\nAhora puedes ejecutar: python main.py")
-    else:
-        logger.error("Error guardando base de conocimiento")
+    logger.info("="*60)
+    logger.info("✅ BASE DE CONOCIMIENTO CREADA EXITOSAMENTE")
+    logger.info(f"   Archivos procesados: {len(md_files)}")
+    logger.info(f"   Chunks totales: {len(all_documents)}")
+    logger.info(f"   Dimensión embeddings: {dimension}")
+    logger.info(f"   Archivo índice: {index_file}")
+    logger.info(f"   Archivo JSON: {json_file}")
+    logger.info("="*60)
+    
+    return True
 
 
 if __name__ == '__main__':
-    main()
+    success = create_knowledge_base()
+    exit(0 if success else 1)

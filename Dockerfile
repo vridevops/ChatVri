@@ -30,6 +30,16 @@ COPY *.py /app/
 COPY knowledge_base.index .
 COPY knowledge_base.json .
 
+# Copiar carpeta docs/
+COPY docs/ /app/docs/
+
+# ⭐ NUEVO: Generar base de conocimiento durante build
+RUN python ingest.py
+
+# Verificar que se crearon los archivos
+RUN ls -lh faiss_index.bin knowledge_base.json
+
+
 # Crear usuario no-root para seguridad
 RUN useradd -m -u 1001 chatbot && \
     chown -R chatbot:chatbot /app

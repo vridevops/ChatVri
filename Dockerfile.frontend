@@ -1,12 +1,24 @@
 # Imagen base nginx alpine (ligera)
 FROM nginx:alpine
 
-# Copiar archivos del dashboard
-COPY docs/index.html /usr/share/nginx/html/index.html
-COPY docs/*.html /usr/share/nginx/html/ 2>/dev/null || true
-COPY docs/*.css /usr/share/nginx/html/ 2>/dev/null || true
-COPY docs/*.js /usr/share/nginx/html/ 2>/dev/null || true
-COPY docs/assets /usr/share/nginx/html/assets 2>/dev/null || true
+# Crear directorio de trabajo temporal
+WORKDIR /tmp
+
+# Copiar TODO el contenido de docs/
+COPY docs/ /tmp/docs/
+
+# Copiar solo archivos HTML al directorio nginx
+RUN cp -r /tmp/docs/*.html /usr/share/nginx/html/ 2>/dev/null || echo "No HTML files" && \
+    cp -r /tmp/docs/*.css /usr/share/nginx/html/ 2>/dev/null || echo "No CSS files" && \
+    cp -r /tmp/docs/*.js /usr/share/nginx/html/ 2>/dev/null || echo "No JS files" && \
+    cp -r /tmp/docs/assets /usr/share/nginx/html/ 2>/dev/null || echo "No assets folder" && \
+    rm -rf /tmp/docs
+
+# Asegurar que index.html existe
+RUN if [ ! -f /usr/share/nginx/html/index.html ]; then \
+        echo "ERROR: index.html not found!"; \
+        exit 1; \
+    fi
 
 # Configuración nginx personalizada
 RUN echo 'server { \
@@ -14,19 +26,23 @@ RUN echo 'server { \
     server_name _; \
     root /usr/share/nginx/html; \
     index index.html; \
+    \
     location / { \
         try_files $uri $uri/ /index.html; \
     } \
+    \
     # Cache estático \
     location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ { \
         expires 1y; \
         add_header Cache-Control "public, immutable"; \
     } \
+    \
     # Sin cache para HTML \
     location ~* \.html$ { \
         expires -1; \
         add_header Cache-Control "no-store, no-cache, must-revalidate"; \
     } \
+    \
     # Comprimir respuestas \
     gzip on; \
     gzip_types text/plain text/css application/json application/javascript text/xml application/xml text/javascript; \
@@ -38,6 +54,9 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 
 # Exponer puerto 80
 EXPOSE 80
+
+# Volver al directorio raíz
+WORKDIR /
 
 # Comando para iniciar nginx
 CMD ["nginx", "-g", "daemon off;"]

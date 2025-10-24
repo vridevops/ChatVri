@@ -275,6 +275,7 @@ async def generate_response_async(user_message, context="", history="", is_first
             "• Horarios de atención\n"
             "• Ubicaciones de oficinas\n"
             "• Lineas de investigación\n"
+            "• Migración de cuenta a PGI\n"
 
             "💡 *Comandos útiles:*\n"
             "/ayuda - Ver esta información\n"

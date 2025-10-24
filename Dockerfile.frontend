@@ -1,34 +1,43 @@
+# Imagen base nginx alpine (ligera)
 FROM nginx:alpine
 
-# Copiar el HTML del dashboard
+# Copiar archivos del dashboard
 COPY docs/index.html /usr/share/nginx/html/index.html
+COPY docs/*.html /usr/share/nginx/html/ 2>/dev/null || true
+COPY docs/*.css /usr/share/nginx/html/ 2>/dev/null || true
+COPY docs/*.js /usr/share/nginx/html/ 2>/dev/null || true
+COPY docs/assets /usr/share/nginx/html/assets 2>/dev/null || true
 
-# Crear configuración de nginx para SPA
+# Configuración nginx personalizada
 RUN echo 'server { \
     listen 80; \
     server_name _; \
     root /usr/share/nginx/html; \
     index index.html; \
-    \
     location / { \
         try_files $uri $uri/ /index.html; \
     } \
-    \
-    # Configuración de CORS (si es necesario) \
-    add_header Access-Control-Allow-Origin *; \
-    \
-    # Cacheo de assets \
+    # Cache estático \
     location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ { \
         expires 1y; \
         add_header Cache-Control "public, immutable"; \
     } \
+    # Sin cache para HTML \
+    location ~* \.html$ { \
+        expires -1; \
+        add_header Cache-Control "no-store, no-cache, must-revalidate"; \
+    } \
+    # Comprimir respuestas \
+    gzip on; \
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml text/javascript; \
 }' > /etc/nginx/conf.d/default.conf
-
-# Exponer puerto 80
-EXPOSE 80
 
 # Healthcheck
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
 
+# Exponer puerto 80
+EXPOSE 80
+
+# Comando para iniciar nginx
 CMD ["nginx", "-g", "daemon off;"]

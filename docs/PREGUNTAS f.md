@@ -70,5 +70,16 @@
 | **En qué puedes ayudarme?** | Puedo ayudarte a entender todas las etapas del proceso de tesis, desde la carga del proyecto hasta la sustentación, según el reglamento de la **UNA Puno**. También puedo explicar **plazos, requisitos, roles de jurados y uso de la PGI**. y brindarte las sublineas de investigación de tu escuela profesional. |
 | **Por qué me das dos respuestas?** | El chatbot puede ofrecer respuestas complementarias o alternativas. Si ves respuestas duplicadas o inconsistentes, se debe a la configuración del sistema. |
 
+## MIGRACION DE CUENTA A PGI
+si poseías una cuenta en la Plataforma anterior para migrar a la nueva PGI necesitas crear una nueva contraseña
+1.  ve a https://pgi.vriunap.pe/ 
+2. haz click en "iniciar sesión"
+3. busca el textoque dice "deberás actualizar tu contraseña haciendo click aquí"  y haz click
+4. ingresa tu número de DNI
+5. si luego de ingresar su DNI le aparece un mensaje que dice "USUARIO YA REGISTRADO", quiere decir que usted ya posee una cuenta ACTIVA en la plataforma PGI y se mostrará el correo con el cual tiene la cuenta activa
+6. si luego de ingresar su DNI y no tiene una cuenta activa en la PLATAFORMA se le mostrará el correo actual y un formulario donde deberá REGISTRAR una nueva CONTRASEÑA y haga click en continuar para ACTIVAR su cuenta 
+7. Ahora revise su bandeja de CORREO  para CONFIRMAR SU CUENTA
+8. Ingrese al mensaje y haga click en VERIFICAR CUENTA
+9. ahora usted ya posee una cuenta activa que le permitirá acceder a todos los servicios de la Plataforma PGI
 
 

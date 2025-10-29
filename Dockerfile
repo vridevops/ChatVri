@@ -27,7 +27,6 @@ COPY whatsapp_client.py .
 COPY *.py /app/
 
 # Copiar base de conocimiento ya generada
-COPY knowledge_base.index .
 COPY knowledge_base.json .
 
 # Copiar carpeta docs/

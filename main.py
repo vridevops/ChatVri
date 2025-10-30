@@ -190,36 +190,54 @@ def search_knowledge_base_cached(query, top_k=5):
     """Caché de búsquedas para mejorar rendimiento"""
     return search_knowledge_base(query, top_k)
 
-
-def search_knowledge_base(query, top_k=5):
-    """Buscar en base de conocimiento usando FAISS"""
+def search_knowledge_base(query, top_k=5, similarity_threshold=0.7):
+    """Búsqueda semántica mejorada con filtros más inteligentes"""
     if not embedding_model or not faiss_index:
         return []
+    
     try:
-        # Expandir query con sinónimos
+        # Preprocesamiento mejorado de la query
         expanded_query = expand_query(query)
+        cleaned_query = re.sub(r'[^\w\sáéíóúñ]', ' ', expanded_query.lower())
+        cleaned_query = re.sub(r'\s+', ' ', cleaned_query).strip()
         
-        # Generar embedding de la query
-        query_vector = embedding_model.encode([expanded_query])
+        # Generar embedding
+        query_vector = embedding_model.encode([cleaned_query])
         query_vector = np.array(query_vector).astype('float32')
         
-        # Buscar en FAISS
-        distances, indices = faiss_index.search(query_vector, top_k)
+        # Buscar más resultados para luego filtrar mejor
+        distances, indices = faiss_index.search(query_vector, top_k * 2)
         
-        # Filtrar resultados por distancia
+        # Convertir distancias a similitudes (más intuitivo)
+        similarities = 1 / (1 + distances[0])
+        
+        # Filtrar resultados más inteligentemente
         results = []
-        for dist, idx in zip(distances[0], indices[0]):
-            if idx < len(documents):
+        for i, (similarity, idx) in enumerate(zip(similarities, indices[0])):
+            if idx < len(documents) and similarity >= similarity_threshold:
                 doc = documents[idx].copy()
-                doc['distance'] = float(dist)
-                # Solo agregar si está en top 3 o tiene distancia < 9.0
-                if len(results) < 3 or dist < 9.0:
-                    results.append(doc)
+                doc['similarity'] = float(similarity)
+                doc['distance'] = float(distances[0][i])
+                
+                # ⭐ NUEVO: Calcular relevancia por matching de palabras clave
+                query_words = set(cleaned_query.split())
+                doc_words = set(doc['text'].lower().split())
+                keyword_overlap = len(query_words.intersection(doc_words)) / len(query_words)
+                doc['keyword_score'] = keyword_overlap
+                
+                # Score combinado (70% semántica, 30% keywords)
+                doc['combined_score'] = (similarity * 0.7) + (keyword_overlap * 0.3)
+                
+                results.append(doc)
         
-        return results
+        # Ordenar por score combinado y limitar
+        results.sort(key=lambda x: x['combined_score'], reverse=True)
+        return results[:top_k]
+        
     except Exception as e:
-        logger.error(f"Error búsqueda: {e}")
+        logger.error(f"Error búsqueda mejorada: {e}")
         return []
+
 # ---------------------------
 # DeepSeek async
 # ---------------------------
@@ -329,6 +347,37 @@ REGLAS:
     if response:
         return response, DEEPSEEK_MODEL
     return "Lo siento, tengo problemas técnicos. Por favor, intenta de nuevo en unos momentos. 🔧", "error"
+
+async def verify_response_quality(user_query, bot_response, context):
+    """Verificar que la respuesta sea precisa y relevante"""
+    verification_prompt = f"""
+    VERIFICACIÓN DE RESPUESTA - CRÍTICO:
+    
+    PREGUNTA ORIGINAL: {user_query}
+    CONTEXTO DISPONIBLE: {context[:800]}
+    RESPUESTA GENERADA: {bot_response}
+    
+    Evalúa si:
+    1. ✅ La respuesta se basa SOLO en el contexto proporcionado
+    2. ✅ No inventa información ni añade detalles no verificados
+    3. ✅ Responde directamente a la pregunta
+    4. ✅ Es coherente con el contexto
+    
+    Si la respuesta INCUMPLE alguno de estos puntos, genera una versión corregida.
+    Si es correcta, responde exactamente: "APPROVED"
+    
+    RESPUESTA CORREGIDA O "APPROVED":
+    """
+    
+    try:
+        verification = await call_deepseek_async(verification_prompt, timeout=10)
+        if verification and verification.strip() != "APPROVED":
+            logger.warning(f"🔍 Respuesta corregida para: {user_query[:50]}...")
+            return verification.strip()
+        return bot_response
+    except Exception as e:
+        logger.error(f"Error en verificación: {e}")
+        return bot_response  # Fallback a respuesta original
 
 # ---------------------------
 # Inactivity checker

@@ -1,615 +1,1198 @@
 {
   "documents": [
     {
-      "text": "ACTOR DEL PROCESO TESIS:\nROL: :---\nDESCRIPCIÓN: :---",
+      "text": "TITULO: ACTORES_DEL_PROCESO\nTIPO: actor_proceso\nROL: Tesista\nDESCRIPCION: Estudiante de 7mo a 10mo semestre, egresado de la UNA Puno\nRESPONSABILIDADES: Desarrollo de la investigación, entrega de documentos, sustentación",
       "source": "mapa y procesos",
-      "type": "actor_proceso",
-      "rol": ":---",
-      "descripcion": ":---",
-      "keywords": "proceso, etapas, proyecto, borrador, sustentación, director, jurados, coordinador"
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "actor_proceso",
+        "rol": "Tesista",
+        "descripcion": "Estudiante de 7mo a 10mo semestre, egresado de la UNA Puno",
+        "responsabilidades": "Desarrollo de la investigación, entrega de documentos, sustentación"
+      }
     },
     {
-      "text": "ACTOR DEL PROCESO TESIS:\nROL: 👨‍🎓 Tesista\nDESCRIPCIÓN: Estudiante de 7mo a 10mo semestre, egresado de la UNA Puno",
+      "text": "TITULO: ACTORES_DEL_PROCESO\nTIPO: actor_proceso\nROL: Director de Tesis\nDESCRIPCION: También conocido como Asesor de Tesis, es un docente ordinario de la misma escuela profesional\nRESPONSABILIDADES: Revisión y aprobación del proyecto, orientación metodológica, seguimiento de la investigación",
       "source": "mapa y procesos",
-      "type": "actor_proceso",
-      "rol": "👨‍🎓 Tesista",
-      "descripcion": "Estudiante de 7mo a 10mo semestre, egresado de la UNA Puno",
-      "keywords": "proceso, etapas, proyecto, borrador, sustentación, director, jurados, coordinador"
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "actor_proceso",
+        "rol": "Director de Tesis",
+        "descripcion": "También conocido como Asesor de Tesis, es un docente ordinario de la misma escuela profesional",
+        "responsabilidades": "Revisión y aprobación del proyecto, orientación metodológica, seguimiento de la investigación"
+      }
     },
     {
-      "text": "ACTOR DEL PROCESO TESIS:\nROL: 👨‍🏫 Director de Tesis\nDESCRIPCIÓN: - Tambien conocido como Asesor de Tesis es un docente ordinario de la misma escuela profesional",
+      "text": "TITULO: ACTORES_DEL_PROCESO\nTIPO: actor_proceso\nROL: Jurados\nDESCRIPCION: Docentes ordinarios y contratados de la UNA Puno\nRESPONSABILIDADES: Evaluación del proyecto y borrador, participación en la sustentación, asignación de calificación",
       "source": "mapa y procesos",
-      "type": "actor_proceso",
-      "rol": "👨‍🏫 Director de Tesis",
-      "descripcion": "- Tambien conocido como Asesor de Tesis es un docente ordinario de la misma escuela profesional",
-      "keywords": "proceso, etapas, proyecto, borrador, sustentación, director, jurados, coordinador"
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "actor_proceso",
+        "rol": "Jurados",
+        "descripcion": "Docentes ordinarios y contratados de la UNA Puno",
+        "responsabilidades": "Evaluación del proyecto y borrador, participación en la sustentación, asignación de calificación"
+      }
     },
     {
-      "text": "ACTOR DEL PROCESO TESIS:\nROL: 👩‍⚖️ Jurados\nDESCRIPCIÓN: Docentes ordinarios y contratados de la UNA Puno",
+      "text": "TITULO: ACTORES_DEL_PROCESO\nTIPO: actor_proceso\nROL: Sub Director Unidad de Investigación\nDESCRIPCION: Docente ordinario de la escuela profesional\nRESPONSABILIDADES: Supervisión del proceso a nivel de escuela profesional",
       "source": "mapa y procesos",
-      "type": "actor_proceso",
-      "rol": "👩‍⚖️ Jurados",
-      "descripcion": "Docentes ordinarios y contratados de la UNA Puno",
-      "keywords": "proceso, etapas, proyecto, borrador, sustentación, director, jurados, coordinador"
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "actor_proceso",
+        "rol": "Sub Director Unidad de Investigación",
+        "descripcion": "Docente ordinario de la escuela profesional",
+        "responsabilidades": "Supervisión del proceso a nivel de escuela profesional"
+      }
     },
     {
-      "text": "ACTOR DEL PROCESO TESIS:\nROL: 🏫 Sub Director Unidad de Investigación\nDESCRIPCIÓN: Docente ordinario de la escuela profesional",
+      "text": "TITULO: ACTORES_DEL_PROCESO\nTIPO: actor_proceso\nROL: Director de Investigación de Facultad\nDESCRIPCION: Resuelve conflictos a nivel facultad\nRESPONSABILIDADES: Resolución de controversias, supervisión general del proceso",
       "source": "mapa y procesos",
-      "type": "actor_proceso",
-      "rol": "🏫 Sub Director Unidad de Investigación",
-      "descripcion": "Docente ordinario de la escuela profesional",
-      "keywords": "proceso, etapas, proyecto, borrador, sustentación, director, jurados, coordinador"
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "actor_proceso",
+        "rol": "Director de Investigación de Facultad",
+        "descripcion": "Resuelve conflictos a nivel facultad",
+        "responsabilidades": "Resolución de controversias, supervisión general del proceso"
+      }
     },
     {
-      "text": "ACTOR DEL PROCESO TESIS:\nROL: 🏢 Director de Investigación de Facultad\nDESCRIPCIÓN: Resuelve conflictos a nivel facultad",
+      "text": "TITULO: ACTORES_DEL_PROCESO\nTIPO: actor_proceso\nROL: Dirección de Instituto de Investigación\nDESCRIPCION: Instancia superior para mediación\nRESPONSABILIDADES: Mediación en conflictos complejos, supervisión institucional",
       "source": "mapa y procesos",
-      "type": "actor_proceso",
-      "rol": "🏢 Director de Investigación de Facultad",
-      "descripcion": "Resuelve conflictos a nivel facultad",
-      "keywords": "proceso, etapas, proyecto, borrador, sustentación, director, jurados, coordinador"
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "actor_proceso",
+        "rol": "Dirección de Instituto de Investigación",
+        "descripcion": "Instancia superior para mediación",
+        "responsabilidades": "Mediación en conflictos complejos, supervisión institucional"
+      }
     },
     {
-      "text": "ACTOR DEL PROCESO TESIS:\nROL: 🏛️ Dirección de Instituto de Investigación\nDESCRIPCIÓN: Instancia superior para mediación",
+      "text": "TITULO: ACTORES_DEL_PROCESO\nTIPO: actor_proceso\nROL: Sub Unidad de Plataforma\nDESCRIPCION: Administra y desarrolla la plataforma\nRESPONSABILIDADES: Gestión de la Plataforma de Gestión de la Investigación (PGI), soporte técnico",
       "source": "mapa y procesos",
-      "type": "actor_proceso",
-      "rol": "🏛️ Dirección de Instituto de Investigación",
-      "descripcion": "Instancia superior para mediación",
-      "keywords": "proceso, etapas, proyecto, borrador, sustentación, director, jurados, coordinador"
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "actor_proceso",
+        "rol": "Sub Unidad de Plataforma",
+        "descripcion": "Administra y desarrolla la plataforma",
+        "responsabilidades": "Gestión de la Plataforma de Gestión de la Investigación (PGI), soporte técnico"
+      }
     },
     {
-      "text": "ACTOR DEL PROCESO TESIS:\nROL: 💻 Sub Unidad de Plataforma\nDESCRIPCIÓN: Administra y desarrolla la plataforma",
+      "text": "TITULO: ACTORES_DEL_PROCESO\nTIPO: actor_proceso\nROL: Coordinador de Investigación\nDESCRIPCION: Guía y supervisa todo el proceso\nRESPONSABILIDADES: Revisión de formato, verificación de requisitos, coordinación general del proceso",
       "source": "mapa y procesos",
-      "type": "actor_proceso",
-      "rol": "💻 Sub Unidad de Plataforma",
-      "descripcion": "Administra y desarrolla la plataforma",
-      "keywords": "proceso, etapas, proyecto, borrador, sustentación, director, jurados, coordinador"
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "actor_proceso",
+        "rol": "Coordinador de Investigación",
+        "descripcion": "Guía y supervisa todo el proceso",
+        "responsabilidades": "Revisión de formato, verificación de requisitos, coordinación general del proceso"
+      }
     },
     {
-      "text": "ACTOR DEL PROCESO TESIS:\nROL: 📋 Coordinador de Investigación\nDESCRIPCIÓN: Guía y supervisa todo el proceso",
+      "text": "TITULO: ETAPA_PROYECTO_TESIS\nTIPO: etapa_proceso\nNOMBRE: Proyecto de Tesis\nDESCRIPCION: Primera etapa del proceso donde se presenta y aprueba el proyecto de investigación\nRESPONSABLE: Tesista y Director de Tesis\nSUBPROCESOS: Revisión del Director, Revisión del Coordinador\nRESULTADO_ESPERADO: Proyecto aprobado para ejecución",
       "source": "mapa y procesos",
-      "type": "actor_proceso",
-      "rol": "📋 Coordinador de Investigación",
-      "descripcion": "Guía y supervisa todo el proceso",
-      "keywords": "proceso, etapas, proyecto, borrador, sustentación, director, jurados, coordinador"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_PROYECTO_TESIS",
+      "metadata": {
+        "tipo": "etapa_proceso",
+        "nombre": "Proyecto de Tesis",
+        "descripcion": "Primera etapa del proceso donde se presenta y aprueba el proyecto de investigación",
+        "responsable": "Tesista y Director de Tesis",
+        "subprocesos": "Revisión del Director, Revisión del Coordinador",
+        "resultado_esperado": "Proyecto aprobado para ejecución"
+      }
     },
     {
-      "text": "PREGUNTA: :---\nRESPUESTA: :---",
+      "text": "TITULO: SUBETAPA_REVISION_DIRECTOR\nTIPO: subetapa_proceso\nETAPA_PADRE: ETAPA_PROYECTO_TESIS\nNOMBRE: Revisión por Director de Tesis\nDESCRIPCION: El Director de Tesis revisa y aprueba el proyecto de investigación\nACCIONES_APROBADO: Firma digital en plataforma, autorización para continuar proceso\nACCIONES_RECHAZADO: Observaciones específicas, oportunidad de corrección y reenvío\nRECOMENDACION: Programar reunión con Director para aclarar dudas antes de reenviar",
+      "source": "mapa y procesos",
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "SUBETAPA_REVISION_DIRECTOR",
+      "metadata": {
+        "tipo": "subetapa_proceso",
+        "etapa_padre": "ETAPA_PROYECTO_TESIS",
+        "nombre": "Revisión por Director de Tesis",
+        "descripcion": "El Director de Tesis revisa y aprueba el proyecto de investigación",
+        "acciones_aprobado": "Firma digital en plataforma, autorización para continuar proceso",
+        "acciones_rechazado": "Observaciones específicas, oportunidad de corrección y reenvío",
+        "recomendacion": "Programar reunión con Director para aclarar dudas antes de reenviar"
+      }
+    },
+    {
+      "text": "TITULO: SUBETAPA_REVISION_COORDINADOR\nTIPO: subetapa_proceso\nETAPA_PADRE: ETAPA_PROYECTO_TESIS\nNOMBRE: Revisión por Coordinador de Investigación\nDESCRIPCION: Revisión de aspectos formales del proyecto por el Coordinador de Investigación\nASPECTOS_REVISADOS: Formato según normativa universitaria, estructura del documento, márgenes y espaciado, numeración y orden de secciones, referencias bibliográficas\nACCIONES_APROBADO: Registro oficial del proyecto, autorización para iniciar investigación\nACCIONES_RECHAZADO: Lista detallada de correcciones, pausa del proceso hasta ajustes",
+      "source": "mapa y procesos",
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "SUBETAPA_REVISION_COORDINADOR",
+      "metadata": {
+        "tipo": "subetapa_proceso",
+        "etapa_padre": "ETAPA_PROYECTO_TESIS",
+        "nombre": "Revisión por Coordinador de Investigación",
+        "descripcion": "Revisión de aspectos formales del proyecto por el Coordinador de Investigación",
+        "aspectos_revisados": "Formato según normativa universitaria, estructura del documento, márgenes y espaciado, numeración y orden de secciones, referencias bibliográficas",
+        "acciones_aprobado": "Registro oficial del proyecto, autorización para iniciar investigación",
+        "acciones_rechazado": "Lista detallada de correcciones, pausa del proceso hasta ajustes"
+      }
+    },
+    {
+      "text": "TITULO: ETAPA_BORRADOR_TESIS\nTIPO: etapa_proceso\nNOMBRE: Borrador de Tesis\nDESCRIPCION: Segunda etapa donde se entrega el borrador completo de la tesis para revisión formal\nRESPONSABLE: Tesista y Coordinador de Investigación\nASPECTOS_VERIFICADOS: Paginación correcta, sistema de citas, tablas y figuras numeradas, índices actualizados, redacción y ortografía, formato de títulos, anexos completos\nRESULTADO_ESPERADO: Borrador aprobado para proceder a sustentación",
+      "source": "mapa y procesos",
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_BORRADOR_TESIS",
+      "metadata": {
+        "tipo": "etapa_proceso",
+        "nombre": "Borrador de Tesis",
+        "descripcion": "Segunda etapa donde se entrega el borrador completo de la tesis para revisión formal",
+        "responsable": "Tesista y Coordinador de Investigación",
+        "aspectos_verificados": "Paginación correcta, sistema de citas, tablas y figuras numeradas, índices actualizados, redacción y ortografía, formato de títulos, anexos completos",
+        "resultado_esperado": "Borrador aprobado para proceder a sustentación"
+      }
+    },
+    {
+      "text": "TITULO: PROCESO_BORRADOR_APROBADO\nTIPO: flujo_proceso\nETAPA: ETAPA_BORRADOR_TESIS\nCONDICION: Borrador cumple todos los requisitos\nACCIONES: Recepción de ejemplares corregidos, generación de documentación oficial, designación formal del jurado evaluador\nDOCUMENTOS_GENERADOS: Memorándum para convocar Reunión de Dictamen, Oficios de notificación a jurados",
+      "source": "mapa y procesos",
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "PROCESO_BORRADOR_APROBADO",
+      "metadata": {
+        "tipo": "flujo_proceso",
+        "etapa": "ETAPA_BORRADOR_TESIS",
+        "condicion": "Borrador cumple todos los requisitos",
+        "acciones": "Recepción de ejemplares corregidos, generación de documentación oficial, designación formal del jurado evaluador",
+        "documentos_generados": "Memorándum para convocar Reunión de Dictamen, Oficios de notificación a jurados"
+      }
+    },
+    {
+      "text": "TITULO: PROCESO_BORRADOR_RECHAZADO\nTIPO: flujo_proceso\nETAPA: ETAPA_BORRADOR_TESIS\nCONDICION: Borrador no cumple requisitos\nACCIONES: Devolución con observaciones puntuales, tiempo para correcciones, pausa del proceso hasta subsanación\nRECOMENDACION: Solicitar revisión previa con Director antes de entrega oficial",
+      "source": "mapa y procesos",
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "PROCESO_BORRADOR_RECHAZADO",
+      "metadata": {
+        "tipo": "flujo_proceso",
+        "etapa": "ETAPA_BORRADOR_TESIS",
+        "condicion": "Borrador no cumple requisitos",
+        "acciones": "Devolución con observaciones puntuales, tiempo para correcciones, pausa del proceso hasta subsanación",
+        "recomendacion": "Solicitar revisión previa con Director antes de entrega oficial"
+      }
+    },
+    {
+      "text": "TITULO: ETAPA_SUSTENTACION\nTIPO: etapa_proceso\nNOMBRE: Sustentación de Tesis\nDESCRIPCION: Tercera etapa donde se presenta y defiende la tesis ante el jurado evaluador\nRESPONSABLE: Tesista, Jurados, Coordinador de Investigación\nINFORMACION_REQUERIDA: Título final, resumen ejecutivo, palabras clave, datos de miembros del jurado, fecha y hora propuestas, lugar de sustentación\nRESULTADO_ESPERADO: Tesis sustentada exitosamente y calificada",
+      "source": "mapa y procesos",
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_SUSTENTACION",
+      "metadata": {
+        "tipo": "etapa_proceso",
+        "nombre": "Sustentación de Tesis",
+        "descripcion": "Tercera etapa donde se presenta y defiende la tesis ante el jurado evaluador",
+        "responsable": "Tesista, Jurados, Coordinador de Investigación",
+        "informacion_requerida": "Título final, resumen ejecutivo, palabras clave, datos de miembros del jurado, fecha y hora propuestas, lugar de sustentación",
+        "resultado_esperado": "Tesis sustentada exitosamente y calificada"
+      }
+    },
+    {
+      "text": "TITULO: SUBETAPA_REGISTRO_INFORMACION\nTIPO: subetapa_proceso\nETAPA_PADRE: ETAPA_SUSTENTACION\nNOMBRE: Registro de Información Final\nDESCRIPCION: Ingreso de información definitiva de la tesis al sistema antes de la sustentación\nDATOS_REQUERIDOS: Título final, resumen ejecutivo, palabras clave, datos del jurado, fecha y hora, lugar\nVALIDACION: Coordinador verifica que toda la información esté correcta",
+      "source": "mapa y procesos",
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "SUBETAPA_REGISTRO_INFORMACION",
+      "metadata": {
+        "tipo": "subetapa_proceso",
+        "etapa_padre": "ETAPA_SUSTENTACION",
+        "nombre": "Registro de Información Final",
+        "descripcion": "Ingreso de información definitiva de la tesis al sistema antes de la sustentación",
+        "datos_requeridos": "Título final, resumen ejecutivo, palabras clave, datos del jurado, fecha y hora, lugar",
+        "validacion": "Coordinador verifica que toda la información esté correcta"
+      }
+    },
+    {
+      "text": "TITULO: SUBETAPA_VALIDACION_COORDINADOR\nTIPO: subetapa_proceso\nETAPA_PADRE: ETAPA_SUSTENTACION\nNOMBRE: Validación por Coordinador\nDESCRIPCION: Verificación final de que toda la información esté en orden antes de la sustentación\nACCIONES_APROBADO: Publicación del Comunicado Oficial de Sustentación, difusión por portal web, correos institucionales, redes sociales, vitrinas informativas\nACCIONES_RECHAZADO: Notificación de errores, requerimiento de correcciones, retraso del proceso",
+      "source": "mapa y procesos",
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "SUBETAPA_VALIDACION_COORDINADOR",
+      "metadata": {
+        "tipo": "subetapa_proceso",
+        "etapa_padre": "ETAPA_SUSTENTACION",
+        "nombre": "Validación por Coordinador",
+        "descripcion": "Verificación final de que toda la información esté en orden antes de la sustentación",
+        "acciones_aprobado": "Publicación del Comunicado Oficial de Sustentación, difusión por portal web, correos institucionales, redes sociales, vitrinas informativas",
+        "acciones_rechazado": "Notificación de errores, requerimiento de correcciones, retraso del proceso"
+      }
+    },
+    {
+      "text": "TITULO: EVENTO_SUSTENTACION\nTIPO: evento_proceso\nETAPA: ETAPA_SUSTENTACION\nNOMBRE: Día de la Sustentación\nDESCRIPCION: Acto académico donde se presenta y defiende la tesis\nPREPARACION: Llegar 30 minutos antes, probar presentación y equipo\nDESARROLLO: Exposición del trabajo (20-30 minutos), ronda de preguntas del jurado, deliberación del jurado, veredicto y calificación\nRESULTADO_EXITOSO: Tesis sustentada, calificación oficial recibida, inicio de trámite de titulación",
+      "source": "mapa y procesos",
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "evento_proceso",
+        "etapa": "ETAPA_SUSTENTACION",
+        "nombre": "Día de la Sustentación",
+        "descripcion": "Acto académico donde se presenta y defiende la tesis",
+        "preparacion": "Llegar 30 minutos antes, probar presentación y equipo",
+        "desarrollo": "Exposición del trabajo (20-30 minutos), ronda de preguntas del jurado, deliberación del jurado, veredicto y calificación",
+        "resultado_exitoso": "Tesis sustentada, calificación oficial recibida, inicio de trámite de titulación"
+      }
+    },
+    {
+      "text": "TITULO: CONSEJOS_PROCESO\nTIPO: consejo_proceso\nCATEGORIA: comunicación\nDESCRIPCION: Mantener comunicación constante con el Director de Tesis",
+      "source": "mapa y procesos",
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "consejo_proceso",
+        "categoria": "comunicación",
+        "descripcion": "Mantener comunicación constante con el Director de Tesis"
+      }
+    },
+    {
+      "text": "TITULO: CONSEJOS_PROCESO\nTIPO: consejo_proceso\nCATEGORIA: documentación\nDESCRIPCION: Guardar todas las versiones del trabajo",
+      "source": "mapa y procesos",
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "consejo_proceso",
+        "categoria": "documentación",
+        "descripcion": "Guardar todas las versiones del trabajo"
+      }
+    },
+    {
+      "text": "TITULO: CONSEJOS_PROCESO\nTIPO: consejo_proceso\nCATEGORIA: plazos\nDESCRIPCION: Cumplir los plazos establecidos por la facultad",
+      "source": "mapa y procesos",
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "consejo_proceso",
+        "categoria": "plazos",
+        "descripcion": "Cumplir los plazos establecidos por la facultad"
+      }
+    },
+    {
+      "text": "TITULO: CONSEJOS_PROCESO\nTIPO: consejo_proceso\nCATEGORIA: formato\nDESCRIPCION: No dejar para último momento las correcciones de formato",
+      "source": "mapa y procesos",
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "consejo_proceso",
+        "categoria": "formato",
+        "descripcion": "No dejar para último momento las correcciones de formato"
+      }
+    },
+    {
+      "text": "TITULO: CONSEJOS_PROCESO\nTIPO: consejo_proceso\nCATEGORIA: preparación\nDESCRIPCION: Practicar la sustentación al menos 5 veces antes del día D",
+      "source": "mapa y procesos",
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "consejo_proceso",
+        "categoria": "preparación",
+        "descripcion": "Practicar la sustentación al menos 5 veces antes del día D"
+      }
+    },
+    {
+      "text": "TITULO: CONSEJOS_PROCESO\nTIPO: consejo_proceso\nCATEGORIA: preparación\nDESCRIPCION: Anticipar preguntas difíciles y preparar respuestas",
+      "source": "mapa y procesos",
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "consejo_proceso",
+        "categoria": "preparación",
+        "descripcion": "Anticipar preguntas difíciles y preparar respuestas"
+      }
+    },
+    {
+      "text": "TITULO: CONSEJOS_PROCESO\nTIPO: consejo_proceso\nCATEGORIA: actitud\nDESCRIPCION: Mantener la calma - cientos lo han logrado antes",
+      "source": "mapa y procesos",
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "consejo_proceso",
+        "categoria": "actitud",
+        "descripcion": "Mantener la calma - cientos lo han logrado antes"
+      }
+    },
+    {
+      "text": "TITULO: TIEMPOS_PROCESO\nTIPO: tiempo_proceso\nETAPA: Aprobación del Proyecto\nTIEMPO_ESTIMADO: 2-4 semanas",
+      "source": "mapa y procesos",
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "tiempo_proceso",
+        "etapa": "Aprobación del Proyecto",
+        "tiempo_estimado": "2-4 semanas"
+      }
+    },
+    {
+      "text": "TITULO: TIEMPOS_PROCESO\nTIPO: tiempo_proceso\nETAPA: Desarrollo de la Investigación\nTIEMPO_ESTIMADO: 6-12 meses",
+      "source": "mapa y procesos",
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "tiempo_proceso",
+        "etapa": "Desarrollo de la Investigación",
+        "tiempo_estimado": "6-12 meses"
+      }
+    },
+    {
+      "text": "TITULO: TIEMPOS_PROCESO\nTIPO: tiempo_proceso\nETAPA: Revisión del Borrador\nTIEMPO_ESTIMADO: 2-3 semanas",
+      "source": "mapa y procesos",
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "tiempo_proceso",
+        "etapa": "Revisión del Borrador",
+        "tiempo_estimado": "2-3 semanas"
+      }
+    },
+    {
+      "text": "TITULO: TIEMPOS_PROCESO\nTIPO: tiempo_proceso\nETAPA: Preparación para Sustentación\nTIEMPO_ESTIMADO: 2-4 semanas",
+      "source": "mapa y procesos",
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "tiempo_proceso",
+        "etapa": "Preparación para Sustentación",
+        "tiempo_estimado": "2-4 semanas"
+      }
+    },
+    {
+      "text": "TITULO: TIEMPOS_PROCESO\nTIPO: tiempo_proceso\nETAPA: TOTAL\nTIEMPO_ESTIMADO: 8-15 meses\nNOTA: Los tiempos varían según la facultad y la complejidad de la investigación",
+      "source": "mapa y procesos",
+      "type": "procesos_tesis",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "tiempo_proceso",
+        "etapa": "TOTAL",
+        "tiempo_estimado": "8-15 meses",
+        "nota": "Los tiempos varían según la facultad y la complejidad de la investigación"
+      }
+    },
+    {
+      "text": "TITULO: GESTION_CUENTA_PLATAFORMA\nPREGUNTA: Si tengo dos carreras, ¿Necesito dos cuentas de correo?\nRESPUESTA: No. Solo necesitas 1 cuenta de correo para administrar todos los servicios de la Plataforma de Gestión de Investigación.\nTIPO: pregunta_frecuente\nCATEGORIA: gestion_cuenta",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": ":---",
-      "respuesta": ":---"
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "gestion_cuenta",
+        "pregunta": "Si tengo dos carreras, ¿Necesito dos cuentas de correo?",
+        "respuesta": "No. Solo necesitas 1 cuenta de correo para administrar todos los servicios de la Plataforma de Gestión de Investigación."
+      }
     },
     {
-      "text": "PREGUNTA: Si tengo dos carreras, ¿Necesito dos cuentas de correo?\nRESPUESTA: No. Solo necesitas 1 cuenta de correo para administrar todos los servicios de la Plataforma de Gestión de Investigación.",
+      "text": "TITULO: MIGRACION_CONTRASEÑA_PLATAFORMA\nPREGUNTA: Yo tenía una cuenta en la plataforma anterior, ¿es necesario actualizar mi contraseña para ingresar a la nueva plataforma?\nRESPUESTA: SÍ. Es necesario que usted actualice su contraseña para acceder a todos los servicios de la Plataforma de Gestión de Investigación.\nTIPO: pregunta_frecuente\nCATEGORIA: gestion_cuenta",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "Si tengo dos carreras, ¿Necesito dos cuentas de correo?",
-      "respuesta": "No. Solo necesitas 1 cuenta de correo para administrar todos los servicios de la Plataforma de Gestión de Investigación."
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "gestion_cuenta",
+        "pregunta": "Yo tenía una cuenta en la plataforma anterior, ¿es necesario actualizar mi contraseña para ingresar a la nueva plataforma?",
+        "respuesta": "SÍ. Es necesario que usted actualice su contraseña para acceder a todos los servicios de la Plataforma de Gestión de Investigación."
+      }
     },
     {
-      "text": "PREGUNTA: Yo tenía una cuenta en la plataforma anterior, ¿es necesario actualizar mi contraseña para ingresar a la nueva plataforma?\nRESPUESTA: SÍ. Es necesario que usted actualice su contraseña para acceder a todos los servicios de la Plataforma de Gestión de Investigación.",
+      "text": "TITULO: SUBIR_TESIS_PLATAFORMA\nPREGUNTA: Quiero subir mi tesis / Cómo subir mi tesis\nRESPUESTA: El proceso se realiza a través de la Plataforma de Gestión de la Investigación (PGI) en pgi.vriunap.pe. Debes: 1️⃣ Registrarte con tu correo y contraseña. 2️⃣ Confirmar tu cuenta vía correo electrónico. 3️⃣ Subir tu proyecto de tesis en PDF, junto con el reporte de similitud (Turnitin) firmado por tu director y la declaración jurada sobre autoría y uso ético de IA (Anexo 1).\nTIPO: pregunta_frecuente\nCATEGORIA: gestion_cuenta",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "Yo tenía una cuenta en la plataforma anterior, ¿es necesario actualizar mi contraseña para ingresar a la nueva plataforma?",
-      "respuesta": "SÍ. Es necesario que usted actualice su contraseña para acceder a todos los servicios de la Plataforma de Gestión de Investigación."
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "gestion_cuenta",
+        "pregunta": "Quiero subir mi tesis / Cómo subir mi tesis",
+        "respuesta": "El proceso se realiza a través de la Plataforma de Gestión de la Investigación (PGI) en pgi.vriunap.pe. Debes: 1️⃣ Registrarte con tu correo y contraseña. 2️⃣ Confirmar tu cuenta vía correo electrónico. 3️⃣ Subir tu proyecto de tesis en PDF, junto con el reporte de similitud (Turnitin) firmado por tu director y la declaración jurada sobre autoría y uso ético de IA (Anexo 1)."
+      }
     },
     {
-      "text": "PREGUNTA: Quiero subir mi tesis / Cómo subir mi tesis\nRESPUESTA: El proceso se realiza a través de la Plataforma de Gestión de la Investigación (PGI) en pgi.vriunap.pe. Debes: 1️⃣ Registrarte con tu correo y contraseña. 2️⃣ Confirmar tu cuenta vía correo electrónico. 3️⃣ Subir tu proyecto de tesis en PDF, junto con el reporte de similitud (Turnitin) firmado por tu director y la declaración jurada sobre autoría y uso ético de IA (Anexo 1).",
+      "text": "TITULO: TRAMITE_DIGITAL\nPREGUNTA: Puedo realizar mi trámite sin ir a las oficinas?\nRESPUESTA: SÍ. Todo el proceso se realiza de forma digital a través de la Plataforma PGI, desde la carga del proyecto hasta la sustentación y emisión de constancias.\nTIPO: pregunta_frecuente\nCATEGORIA: gestion_cuenta",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "Quiero subir mi tesis / Cómo subir mi tesis",
-      "respuesta": "El proceso se realiza a través de la Plataforma de Gestión de la Investigación (PGI) en pgi.vriunap.pe. Debes: 1️⃣ Registrarte con tu correo y contraseña. 2️⃣ Confirmar tu cuenta vía correo electrónico. 3️⃣ Subir tu proyecto de tesis en PDF, junto con el reporte de similitud (Turnitin) firmado por tu director y la declaración jurada sobre autoría y uso ético de IA (Anexo 1)."
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "gestion_cuenta",
+        "pregunta": "Puedo realizar mi trámite sin ir a las oficinas?",
+        "respuesta": "SÍ. Todo el proceso se realiza de forma digital a través de la Plataforma PGI, desde la carga del proyecto hasta la sustentación y emisión de constancias."
+      }
     },
     {
-      "text": "PREGUNTA: Puedo realizar mi trámite sin ir a las oficinas?\nRESPUESTA: SÍ. Todo el proceso se realiza de forma digital a través de la Plataforma PGI, desde la carga del proyecto hasta la sustentación y emisión de constancias.",
+      "text": "TITULO: PROCESO_COMPLETO_TESIS\nPREGUNTA: Cuál es el proceso de desarrollo de una tesis de pregrado?\nRESPUESTA: El proceso completo incluye: 1. Carga del proyecto de tesis. 2. Revisión de formato. 3. Revisión por el director. 4. Revisión por subdirector de investigación. 5. Sorteo de jurados. 6. Revisión por jurados. 7. Dictamen del proyecto. 8. Ejecución (3 meses a 2 años). 9. Carga y revisión del borrador. 10. Dictamen del borrador. 11. Sustentación. 12. Carga del archivo final.\nTIPO: pregunta_frecuente\nCATEGORIA: gestion_cuenta",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "Puedo realizar mi trámite sin ir a las oficinas?",
-      "respuesta": "SÍ. Todo el proceso se realiza de forma digital a través de la Plataforma PGI, desde la carga del proyecto hasta la sustentación y emisión de constancias."
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "PROCESO_COMPLETO_TESIS",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "gestion_cuenta",
+        "pregunta": "Cuál es el proceso de desarrollo de una tesis de pregrado?",
+        "respuesta": "El proceso completo incluye: 1. Carga del proyecto de tesis. 2. Revisión de formato. 3. Revisión por el director. 4. Revisión por subdirector de investigación. 5. Sorteo de jurados. 6. Revisión por jurados. 7. Dictamen del proyecto. 8. Ejecución (3 meses a 2 años). 9. Carga y revisión del borrador. 10. Dictamen del borrador. 11. Sustentación. 12. Carga del archivo final."
+      }
     },
     {
-      "text": "PREGUNTA: Cuál es el proceso de desarrollo de una tesis de pregrado?\nRESPUESTA: El proceso completo incluye: 1. Carga del proyecto de tesis. 2. Revisión de formato. 3. Revisión por el director. 4. Revisión por subdirector de investigación. 5. Sorteo de jurados. 6. Revisión por jurados. 7. Dictamen del proyecto. 8. Ejecución (3 meses a 2 años). 9. Carga y revisión del borrador. 10. Dictamen del borrador. 11. Sustentación. 12. Carga del archivo final.",
+      "text": "TITULO: REGLAMENTOS_VIGENTES\nPREGUNTA: ¿Dónde puedo obtener los reglamentos vigentes del Vicerrectorado de Investigación?\nRESPUESTA: Para acceder al reglamento accede al sitio web: web.vriunap.pe y revisa la sección reglamentos.\nTIPO: pregunta_frecuente\nCATEGORIA: reglamentos",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "Cuál es el proceso de desarrollo de una tesis de pregrado?",
-      "respuesta": "El proceso completo incluye: 1. Carga del proyecto de tesis. 2. Revisión de formato. 3. Revisión por el director. 4. Revisión por subdirector de investigación. 5. Sorteo de jurados. 6. Revisión por jurados. 7. Dictamen del proyecto. 8. Ejecución (3 meses a 2 años). 9. Carga y revisión del borrador. 10. Dictamen del borrador. 11. Sustentación. 12. Carga del archivo final."
+      "type": "articulo_reglamento",
+      "entidad": "general",
+      "articulo": "REGLAMENTOS_VIGENTES",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "reglamentos",
+        "pregunta": "¿Dónde puedo obtener los reglamentos vigentes del Vicerrectorado de Investigación?",
+        "respuesta": "Para acceder al reglamento accede al sitio web: web.vriunap.pe y revisa la sección reglamentos."
+      }
     },
     {
-      "text": "PREGUNTA: :---\nRESPUESTA: :---",
+      "text": "TITULO: INFORMACION_COORDINADOR\nPREGUNTA: Quiero información sobre el coordinador\nRESPUESTA: En el reglamento se aclara que el coordinador de investigación es el personal administrativo de investigación de la unidad de investigación de cada facultad. Son responsables de revisar el formato inicial del proyecto y del borrador de tesis.\nTIPO: pregunta_frecuente\nCATEGORIA: reglamentos",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": ":---",
-      "respuesta": ":---"
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "reglamentos",
+        "pregunta": "Quiero información sobre el coordinador",
+        "respuesta": "En el reglamento se aclara que el coordinador de investigación es el personal administrativo de investigación de la unidad de investigación de cada facultad. Son responsables de revisar el formato inicial del proyecto y del borrador de tesis."
+      }
     },
     {
-      "text": "PREGUNTA: ¿Dónde puedo obtener los reglamentos vigentes del Vicerrectorado de Investigación?\nRESPUESTA: Para acceder al reglamento accede al sitio web: web.vriunap.pe y revisa la sección reglamentos.",
+      "text": "TITULO: CONOCER_JURADOS\nPREGUNTA: ¿Es posible conocer quiénes son los miembros del jurado?\nRESPUESTA: SÍ. Los miembros del jurado son de conocimiento público desde que el Sub Director de la Unidad de Investigación realiza el sorteo.\nTIPO: pregunta_frecuente\nCATEGORIA: proyecto_tesis",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "¿Dónde puedo obtener los reglamentos vigentes del Vicerrectorado de Investigación?",
-      "respuesta": "Para acceder al reglamento accede al sitio web: web.vriunap.pe y revisa la sección reglamentos."
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "proyecto_tesis",
+        "pregunta": "¿Es posible conocer quiénes son los miembros del jurado?",
+        "respuesta": "SÍ. Los miembros del jurado son de conocimiento público desde que el Sub Director de la Unidad de Investigación realiza el sorteo."
+      }
     },
     {
-      "text": "PREGUNTA: Quiero información sobre el coordinador\nRESPUESTA: En el reglamento se aclara que el coordinador de investigación es el personal administrativo de investigación de la unidad de investigación de cada facultad. Son responsables de revisar el formato inicial del proyecto y del borrador de tesis.",
+      "text": "TITULO: CORRECCIONES_JURADOS\nPREGUNTA: En la etapa de proyecto, ¿es necesario que los 3 jurados realicen las correcciones para subir el archivo corregido?\nRESPUESTA: SÍ, si es posible siempre y cuando 2 jurados hayan finalizado el proceso de corrección y el otro jurado haya excedido el tiempo de corrección establecido.\nTIPO: pregunta_frecuente\nCATEGORIA: proyecto_tesis",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "Quiero información sobre el coordinador",
-      "respuesta": "En el reglamento se aclara que el coordinador de investigación es el personal administrativo de investigación de la unidad de investigación de cada facultad. Son responsables de revisar el formato inicial del proyecto y del borrador de tesis."
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "proyecto_tesis",
+        "pregunta": "En la etapa de proyecto, ¿es necesario que los 3 jurados realicen las correcciones para subir el archivo corregido?",
+        "respuesta": "SÍ, si es posible siempre y cuando 2 jurados hayan finalizado el proceso de corrección y el otro jurado haya excedido el tiempo de corrección establecido."
+      }
     },
     {
-      "text": "PREGUNTA: :---\nRESPUESTA: :---",
+      "text": "TITULO: BACHILLER_BORRADOR\nPREGUNTA: ¿Es necesario contar con el bachiller para iniciar con la etapa de borrador de tesis?\nRESPUESTA: SÍ. Es un requisito indispensable contar con el grado de Bachiller para iniciar con la etapa de borrador de tesis.\nTIPO: pregunta_frecuente\nCATEGORIA: proyecto_tesis",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": ":---",
-      "respuesta": ":---"
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "proyecto_tesis",
+        "pregunta": "¿Es necesario contar con el bachiller para iniciar con la etapa de borrador de tesis?",
+        "respuesta": "SÍ. Es un requisito indispensable contar con el grado de Bachiller para iniciar con la etapa de borrador de tesis."
+      }
     },
     {
-      "text": "PREGUNTA: ¿Es posible conocer quiénes son los miembros del jurado?\nRESPUESTA: SÍ. Los miembros del jurado son de conocimiento público desde que el Sub Director de la Unidad de Investigación realiza el sorteo.",
+      "text": "TITULO: TIEMPO_MINIMO_EJECUCION\nPREGUNTA: ¿Puedo iniciar la etapa del borrador de tesis antes de los 90 días de ejecución del proyecto?\nRESPUESTA: NO. El tiempo mínimo de ejecución del proyecto de tesis es de 90 días.\nTIPO: pregunta_frecuente\nCATEGORIA: proyecto_tesis",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "¿Es posible conocer quiénes son los miembros del jurado?",
-      "respuesta": "SÍ. Los miembros del jurado son de conocimiento público desde que el Sub Director de la Unidad de Investigación realiza el sorteo."
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "proyecto_tesis",
+        "pregunta": "¿Puedo iniciar la etapa del borrador de tesis antes de los 90 días de ejecución del proyecto?",
+        "respuesta": "NO. El tiempo mínimo de ejecución del proyecto de tesis es de 90 días."
+      }
     },
     {
-      "text": "PREGUNTA: En la etapa de proyecto, ¿es necesario que los 3 jurados realicen las correcciones para subir el archivo corregido?\nRESPUESTA: SÍ, si es posible siempre y cuando 2 jurados hayan finalizado el proceso de corrección y el otro jurado haya excedido el tiempo de corrección establecido.",
+      "text": "TITULO: INICIAR_PROYECTO_TESIS\nPREGUNTA: Cómo inicio mi proyecto de tesis?\nRESPUESTA: Debes: 1️⃣ Registrar y confirmar tu cuenta en la PGI. 2️⃣ Contar con un director de tesis (docente ordinario de tu escuela y sub-línea de investigación). 3️⃣ Subir el proyecto con el formato establecido, el reporte de similitud ≤20% y la declaración jurada de autoría.\nTIPO: pregunta_frecuente\nCATEGORIA: proyecto_tesis",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "En la etapa de proyecto, ¿es necesario que los 3 jurados realicen las correcciones para subir el archivo corregido?",
-      "respuesta": "SÍ, si es posible siempre y cuando 2 jurados hayan finalizado el proceso de corrección y el otro jurado haya excedido el tiempo de corrección establecido."
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "proyecto_tesis",
+        "pregunta": "Cómo inicio mi proyecto de tesis?",
+        "respuesta": "Debes: 1️⃣ Registrar y confirmar tu cuenta en la PGI. 2️⃣ Contar con un director de tesis (docente ordinario de tu escuela y sub-línea de investigación). 3️⃣ Subir el proyecto con el formato establecido, el reporte de similitud ≤20% y la declaración jurada de autoría."
+      }
     },
     {
-      "text": "PREGUNTA: ¿Es necesario contar con el bachiller para iniciar con la etapa de borrador de tesis?\nRESPUESTA: SÍ. Es un requisito indispensable contar con el grado de Bachiller para iniciar con la etapa de borrador de tesis.",
+      "text": "TITULO: SORTEO_JURADOS\nPREGUNTA: Quiero saber el sorteo de mis jurados\nRESPUESTA: El sorteo de jurados se realiza automáticamente en la PGI. Se eligen 3 docentes de la UNA Puno. Al menos uno debe ser docente ordinario de tu escuela. El presidente se asigna por grado, categoría y antigüedad. Puedes ver los resultados en tu panel.\nTIPO: pregunta_frecuente\nCATEGORIA: proyecto_tesis",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "¿Es necesario contar con el bachiller para iniciar con la etapa de borrador de tesis?",
-      "respuesta": "SÍ. Es un requisito indispensable contar con el grado de Bachiller para iniciar con la etapa de borrador de tesis."
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "proyecto_tesis",
+        "pregunta": "Quiero saber el sorteo de mis jurados",
+        "respuesta": "El sorteo de jurados se realiza automáticamente en la PGI. Se eligen 3 docentes de la UNA Puno. Al menos uno debe ser docente ordinario de tu escuela. El presidente se asigna por grado, categoría y antigüedad. Puedes ver los resultados en tu panel."
+      }
     },
     {
-      "text": "PREGUNTA: ¿Puedo iniciar la etapa del borrador de tesis antes de los 90 días de ejecución del proyecto?\nRESPUESTA: NO. El tiempo mínimo de ejecución del proyecto de tesis es de 90 días.",
+      "text": "TITULO: QUIENES_PUEDEN_SER_JURADOS\nPREGUNTA: Quiénes pueden ser mis jurados?\nRESPUESTA: Tres docentes de la UNA-Puno, que pertenezcan a la sublinea de investigacion de tu trabajo de tu escuela porfesional que seran sorteados aleatoriamente por el Sub Director de la Unidad de Investigacion de tu Facultad a travez de la Plataforma de Gestión de la Investigación (PGI). Al menos uno debe ser docente ordinario de tu escuela.\nTIPO: pregunta_frecuente\nCATEGORIA: proyecto_tesis",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "¿Puedo iniciar la etapa del borrador de tesis antes de los 90 días de ejecución del proyecto?",
-      "respuesta": "NO. El tiempo mínimo de ejecución del proyecto de tesis es de 90 días."
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "proyecto_tesis",
+        "pregunta": "Quiénes pueden ser mis jurados?",
+        "respuesta": "Tres docentes de la UNA-Puno, que pertenezcan a la sublinea de investigacion de tu trabajo de tu escuela porfesional que seran sorteados aleatoriamente por el Sub Director de la Unidad de Investigacion de tu Facultad a travez de la Plataforma de Gestión de la Investigación (PGI). Al menos uno debe ser docente ordinario de tu escuela."
+      }
     },
     {
-      "text": "PREGUNTA: Cómo inicio mi proyecto de tesis?\nRESPUESTA: Debes: 1️⃣ Registrar y confirmar tu cuenta en la PGI. 2️⃣ Contar con un director de tesis (docente ordinario de tu escuela y sub-línea de investigación). 3️⃣ Subir el proyecto con el formato establecido, el reporte de similitud ≤20% y la declaración jurada de autoría.",
+      "text": "TITULO: FIRMA_DIRECTOR_PROYECTO\nPREGUNTA: ¿Es necesario que el director de la tesis o el asesor de la tesis firme mi proyecto para poder cargar mi proyecto a la Plataforma de Gestión de la Investigación?\nRESPUESTA: SÍ. Es necesario que tu director o asesor revise previamente tu proyecto y firme el proyecto además del reporte de similitud para que puedas cargarlo a la plataforma e iniciar el proceso.\nTIPO: pregunta_frecuente\nCATEGORIA: asesoria",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "Cómo inicio mi proyecto de tesis?",
-      "respuesta": "Debes: 1️⃣ Registrar y confirmar tu cuenta en la PGI. 2️⃣ Contar con un director de tesis (docente ordinario de tu escuela y sub-línea de investigación). 3️⃣ Subir el proyecto con el formato establecido, el reporte de similitud ≤20% y la declaración jurada de autoría."
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "asesoria",
+        "pregunta": "¿Es necesario que el director de la tesis o el asesor de la tesis firme mi proyecto para poder cargar mi proyecto a la Plataforma de Gestión de la Investigación?",
+        "respuesta": "SÍ. Es necesario que tu director o asesor revise previamente tu proyecto y firme el proyecto además del reporte de similitud para que puedas cargarlo a la plataforma e iniciar el proceso."
+      }
     },
     {
-      "text": "PREGUNTA: Quiero saber el sorteo de mis jurados\nRESPUESTA: El sorteo de jurados se realiza automáticamente en la PGI. Se eligen 3 docentes de la UNA Puno. Al menos uno debe ser docente ordinario de tu escuela. El presidente se asigna por grado, categoría y antigüedad. Puedes ver los resultados en tu panel.",
+      "text": "TITULO: CO_ASESOR_EXTERNO\nPREGUNTA: ¿Es posible agregar a mi proyecto un co-asesor externo?\nRESPUESTA: SÍ. El reglamento actual lo permite, siempre que cumpla con los requisitos establecidos.\nTIPO: pregunta_frecuente\nCATEGORIA: asesoria",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "Quiero saber el sorteo de mis jurados",
-      "respuesta": "El sorteo de jurados se realiza automáticamente en la PGI. Se eligen 3 docentes de la UNA Puno. Al menos uno debe ser docente ordinario de tu escuela. El presidente se asigna por grado, categoría y antigüedad. Puedes ver los resultados en tu panel."
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "asesoria",
+        "pregunta": "¿Es posible agregar a mi proyecto un co-asesor externo?",
+        "respuesta": "SÍ. El reglamento actual lo permite, siempre que cumpla con los requisitos establecidos."
+      }
     },
     {
-      "text": "PREGUNTA: Quiénes pueden ser mis jurados?\nRESPUESTA: Tres docentes de la UNA-Puno, que pertenezcan a la sublinea de investigacion de tu trabajo de tu escuela porfesional que seran sorteados aleatoriamente por el Sub Director de la Unidad de Investigacion de tu Facultad a travez de la Plataforma de Gestión de la Investigación (PGI). Al menos uno debe ser docente ordinario de tu escuela.",
+      "text": "TITULO: REGISTRO_CO_ASESOR_EXTERNO\nPREGUNTA: ¿Cómo me registro para ser un co-asesor externo?\nRESPUESTA: Debes tener una cuenta en la PGI y activar el perfil de investigador. Luego podrás postular como co-asesor y la Dirección del Instituto de Investigación evaluará tu solicitud.\nTIPO: pregunta_frecuente\nCATEGORIA: asesoria",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "Quiénes pueden ser mis jurados?",
-      "respuesta": "Tres docentes de la UNA-Puno, que pertenezcan a la sublinea de investigacion de tu trabajo de tu escuela porfesional que seran sorteados aleatoriamente por el Sub Director de la Unidad de Investigacion de tu Facultad a travez de la Plataforma de Gestión de la Investigación (PGI). Al menos uno debe ser docente ordinario de tu escuela."
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "asesoria",
+        "pregunta": "¿Cómo me registro para ser un co-asesor externo?",
+        "respuesta": "Debes tener una cuenta en la PGI y activar el perfil de investigador. Luego podrás postular como co-asesor y la Dirección del Instituto de Investigación evaluará tu solicitud."
+      }
     },
     {
-      "text": "PREGUNTA: :---\nRESPUESTA: :---",
+      "text": "TITULO: CAUSALES_RECHAZO_PROYECTO\nPREGUNTA: ¿Cuáles son las causales técnicas del rechazo de mi proyecto, luego de haberlo subido a la Plataforma?\nRESPUESTA: Si el proyecto no cumple con el formato establecido en el reglamento (disponible para descarga en la plataforma), será devuelto al tesista.\nTIPO: pregunta_frecuente\nCATEGORIA: formatos",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": ":---",
-      "respuesta": ":---"
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "formatos",
+        "pregunta": "¿Cuáles son las causales técnicas del rechazo de mi proyecto, luego de haberlo subido a la Plataforma?",
+        "respuesta": "Si el proyecto no cumple con el formato establecido en el reglamento (disponible para descarga en la plataforma), será devuelto al tesista."
+      }
     },
     {
-      "text": "PREGUNTA: ¿Es necesario que el director de la tesis o el asesor de la tesis firme mi proyecto para poder cargar mi proyecto a la Plataforma de Gestión de la Investigación?\nRESPUESTA: SÍ. Es necesario que tu director o asesor revise previamente tu proyecto y firme el proyecto además del reporte de similitud para que puedas cargarlo a la plataforma e iniciar el proceso.",
+      "text": "TITULO: FORMATO_PROYECTO_TESIS\nPREGUNTA: ¿Qué incluye el formato que debo respetar en el proyecto de tesis?\nRESPUESTA: Debe cumplir con la numeración continua, la estructura de secciones, el formato general, indentación y espaciado.\nTIPO: pregunta_frecuente\nCATEGORIA: formatos",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "¿Es necesario que el director de la tesis o el asesor de la tesis firme mi proyecto para poder cargar mi proyecto a la Plataforma de Gestión de la Investigación?",
-      "respuesta": "SÍ. Es necesario que tu director o asesor revise previamente tu proyecto y firme el proyecto además del reporte de similitud para que puedas cargarlo a la plataforma e iniciar el proceso."
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "formatos",
+        "pregunta": "¿Qué incluye el formato que debo respetar en el proyecto de tesis?",
+        "respuesta": "Debe cumplir con la numeración continua, la estructura de secciones, el formato general, indentación y espaciado."
+      }
     },
     {
-      "text": "PREGUNTA: ¿Es posible agregar a mi proyecto un co-asesor externo?\nRESPUESTA: SÍ. El reglamento actual lo permite, siempre que cumpla con los requisitos establecidos.",
+      "text": "TITULO: NUMERACION_BORRADOR\nPREGUNTA: ¿El archivo de borrador de tesis también debe contener la numeración continua?\nRESPUESTA: SÍ. Es necesario que también contenga numeración continua.\nTIPO: pregunta_frecuente\nCATEGORIA: formatos",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "¿Es posible agregar a mi proyecto un co-asesor externo?",
-      "respuesta": "SÍ. El reglamento actual lo permite, siempre que cumpla con los requisitos establecidos."
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "formatos",
+        "pregunta": "¿El archivo de borrador de tesis también debe contener la numeración continua?",
+        "respuesta": "SÍ. Es necesario que también contenga numeración continua."
+      }
     },
     {
-      "text": "PREGUNTA: ¿Cómo me registro para ser un co-asesor externo?\nRESPUESTA: Debes tener una cuenta en la PGI y activar el perfil de investigador. Luego podrás postular como co-asesor y la Dirección del Instituto de Investigación evaluará tu solicitud.",
+      "text": "TITULO: DESCARGAR_FORMATOS\nPREGUNTA: ¿Dónde encuentro los formatos de proyecto de tesis, borrador de tesis, informe de correcciones, declaración jurada sobre autoría, autenticidad y uso ético de IA?\nRESPUESTA: Puedes descargarlos desde el panel del tesista → formatos y plantillas, o solicitarlos al personal administrativo de tu unidad de investigación.\nTIPO: pregunta_frecuente\nCATEGORIA: formatos",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "¿Cómo me registro para ser un co-asesor externo?",
-      "respuesta": "Debes tener una cuenta en la PGI y activar el perfil de investigador. Luego podrás postular como co-asesor y la Dirección del Instituto de Investigación evaluará tu solicitud."
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "formatos",
+        "pregunta": "¿Dónde encuentro los formatos de proyecto de tesis, borrador de tesis, informe de correcciones, declaración jurada sobre autoría, autenticidad y uso ético de IA?",
+        "respuesta": "Puedes descargarlos desde el panel del tesista → formatos y plantillas, o solicitarlos al personal administrativo de tu unidad de investigación."
+      }
     },
     {
-      "text": "PREGUNTA: :---\nRESPUESTA: :---",
+      "text": "TITULO: INFORME_CORRECCIONES\nPREGUNTA: ¿Qué es el informe de correcciones en el proyecto de tesis?\nRESPUESTA: Es el documento que acompaña al proyecto corregido, y que deberas cargar a la plataforma junto con tu archivo de proyecto. Contiene el número de línea, observación del jurado y la descripción de la corrección, firmado por el director.\nTIPO: pregunta_frecuente\nCATEGORIA: correcciones",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": ":---",
-      "respuesta": ":---"
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "correcciones",
+        "pregunta": "¿Qué es el informe de correcciones en el proyecto de tesis?",
+        "respuesta": "Es el documento que acompaña al proyecto corregido, y que deberas cargar a la plataforma junto con tu archivo de proyecto. Contiene el número de línea, observación del jurado y la descripción de la corrección, firmado por el director."
+      }
     },
     {
-      "text": "PREGUNTA: ¿Cuáles son las causales técnicas del rechazo de mi proyecto, luego de haberlo subido a la Plataforma?\nRESPUESTA: Si el proyecto no cumple con el formato establecido en el reglamento (disponible para descarga en la plataforma), será devuelto al tesista.",
+      "text": "TITULO: AYUDA_CHATBOT\nPREGUNTA: En qué puedes ayudarme?\nRESPUESTA: Puedo ayudarte a entender todas las etapas del proceso de tesis, desde la carga del proyecto hasta la sustentación, según el reglamento de la UNA Puno. También puedo explicar plazos, requisitos, roles de jurados y uso de la PGI. y brindarte las sublineas de investigación de tu escuela profesional.\nTIPO: pregunta_frecuente\nCATEGORIA: asistencia",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "¿Cuáles son las causales técnicas del rechazo de mi proyecto, luego de haberlo subido a la Plataforma?",
-      "respuesta": "Si el proyecto no cumple con el formato establecido en el reglamento (disponible para descarga en la plataforma), será devuelto al tesista."
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "asistencia",
+        "pregunta": "En qué puedes ayudarme?",
+        "respuesta": "Puedo ayudarte a entender todas las etapas del proceso de tesis, desde la carga del proyecto hasta la sustentación, según el reglamento de la UNA Puno. También puedo explicar plazos, requisitos, roles de jurados y uso de la PGI. y brindarte las sublineas de investigación de tu escuela profesional."
+      }
     },
     {
-      "text": "PREGUNTA: ¿Qué incluye el formato que debo respetar en el proyecto de tesis?\nRESPUESTA: Debe cumplir con la numeración continua, la estructura de secciones, el formato general, indentación y espaciado.",
+      "text": "TITULO: RESPUESTAS_DOBLES\nPREGUNTA: Por qué me das dos respuestas?\nRESPUESTA: El chatbot puede ofrecer respuestas complementarias o alternativas. Si ves respuestas duplicadas o inconsistentes, se debe a la configuración del sistema.\nTIPO: pregunta_frecuente\nCATEGORIA: asistencia",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "¿Qué incluye el formato que debo respetar en el proyecto de tesis?",
-      "respuesta": "Debe cumplir con la numeración continua, la estructura de secciones, el formato general, indentación y espaciado."
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "pregunta_frecuente",
+        "categoria": "asistencia",
+        "pregunta": "Por qué me das dos respuestas?",
+        "respuesta": "El chatbot puede ofrecer respuestas complementarias o alternativas. Si ves respuestas duplicadas o inconsistentes, se debe a la configuración del sistema."
+      }
     },
     {
-      "text": "PREGUNTA: ¿El archivo de borrador de tesis también debe contener la numeración continua?\nRESPUESTA: SÍ. Es necesario que también contenga numeración continua.",
+      "text": "TITULO: MIGRACION_CUENTA_PGI\nTIPO: proceso_migracion\nCATEGORIA: migracion_pgi\nNOMBRE: Migración de Cuenta a PGI\nDESCRIPCION: Proceso para actualizar contraseña y activar cuenta en la nueva Plataforma de Gestión de la Investigación\nRESULTADO: Ahora posees cuenta activa que permite acceder a todos los servicios de la Plataforma PGI",
       "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "¿El archivo de borrador de tesis también debe contener la numeración continua?",
-      "respuesta": "SÍ. Es necesario que también contenga numeración continua."
+      "type": "preguntas_frecuentes",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "proceso_migracion",
+        "categoria": "migracion_pgi",
+        "nombre": "Migración de Cuenta a PGI",
+        "descripcion": "Proceso para actualizar contraseña y activar cuenta en la nueva Plataforma de Gestión de la Investigación",
+        "resultado": "Ahora posees cuenta activa que permite acceder a todos los servicios de la Plataforma PGI"
+      }
     },
     {
-      "text": "PREGUNTA: ¿Dónde encuentro los formatos de proyecto de tesis, borrador de tesis, informe de correcciones, declaración jurada sobre autoría, autenticidad y uso ético de IA?\nRESPUESTA: Puedes descargarlos desde el panel del tesista → formatos y plantillas, o solicitarlos al personal administrativo de tu unidad de investigación.",
-      "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "¿Dónde encuentro los formatos de proyecto de tesis, borrador de tesis, informe de correcciones, declaración jurada sobre autoría, autenticidad y uso ético de IA?",
-      "respuesta": "Puedes descargarlos desde el panel del tesista → formatos y plantillas, o solicitarlos al personal administrativo de tu unidad de investigación."
-    },
-    {
-      "text": "PREGUNTA: :---\nRESPUESTA: :---",
-      "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": ":---",
-      "respuesta": ":---"
-    },
-    {
-      "text": "PREGUNTA: ¿Qué es el informe de correcciones en el proyecto de tesis?\nRESPUESTA: Es el documento que acompaña al proyecto corregido, y que deberas cargar a la plataforma junto con tu archivo de proyecto. Contiene el número de línea, observación del jurado y la descripción de la corrección, firmado por el director.",
-      "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "¿Qué es el informe de correcciones en el proyecto de tesis?",
-      "respuesta": "Es el documento que acompaña al proyecto corregido, y que deberas cargar a la plataforma junto con tu archivo de proyecto. Contiene el número de línea, observación del jurado y la descripción de la corrección, firmado por el director."
-    },
-    {
-      "text": "PREGUNTA: :---\nRESPUESTA: :---",
-      "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": ":---",
-      "respuesta": ":---"
-    },
-    {
-      "text": "PREGUNTA: En qué puedes ayudarme?\nRESPUESTA: Puedo ayudarte a entender todas las etapas del proceso de tesis, desde la carga del proyecto hasta la sustentación, según el reglamento de la UNA Puno. También puedo explicar plazos, requisitos, roles de jurados y uso de la PGI. y brindarte las sublineas de investigación de tu escuela profesional.",
-      "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "En qué puedes ayudarme?",
-      "respuesta": "Puedo ayudarte a entender todas las etapas del proceso de tesis, desde la carga del proyecto hasta la sustentación, según el reglamento de la UNA Puno. También puedo explicar plazos, requisitos, roles de jurados y uso de la PGI. y brindarte las sublineas de investigación de tu escuela profesional."
-    },
-    {
-      "text": "PREGUNTA: Por qué me das dos respuestas?\nRESPUESTA: El chatbot puede ofrecer respuestas complementarias o alternativas. Si ves respuestas duplicadas o inconsistentes, se debe a la configuración del sistema.",
-      "source": "PREGUNTAS f",
-      "type": "pregunta_frecuente",
-      "pregunta": "Por qué me das dos respuestas?",
-      "respuesta": "El chatbot puede ofrecer respuestas complementarias o alternativas. Si ves respuestas duplicadas o inconsistentes, se debe a la configuración del sistema."
-    },
-    {
-      "text": "MIGRACIÓN PLATAFORMA PGI:\n## MIGRACION DE CUENTA A PGI si poseías una cuenta en la Plataforma anterior para migrar a la nueva PGI necesitas crear una nueva contraseña 1. ve a https://pgi.vriunap.pe/ 2. haz click en \"iniciar sesión\" 3. busca el textoque dice \"deberás actualizar tu contraseña haciendo click aquí\" y haz click 4. ingresa tu número de DNI 5. si luego de ingresar su DNI le aparece un mensaje que dice \"USUARIO YA REGISTRADO\", quiere decir que usted ya posee una cuenta ACTIVA en la plataforma PGI y se mostrará el correo con el cual tiene la cuenta activa 6. si luego de ingresar su DNI y no tiene una cuenta activa en la PLATAFORMA se le mostrará el correo actual y un formulario donde deberá REGISTRAR una nueva CONTRASEÑA y haga click en continuar para ACTIVAR su cuenta 7. Ahora revise su bandeja de CORREO para CONFIRMAR SU CUENTA 8. Ingrese al mensaje y haga click en VERIFICAR CUENTA 9. ahora usted ya posee una cuenta activa que le permitirá acceder a todos los servicios de la Plataforma PGI",
-      "source": "PREGUNTAS f",
-      "type": "migracion_pgi"
-    },
-    {
-      "text": "REGLAMENTO TESIS - Introducción al Reglamento:\nEl presente reglamento norma la presentación de proyectos de tesis de pregrado conducentes a la obtención del título profesional vía Plataforma de Gestión de la Investigación PGI del Vicerrectorado de Investigación VRI de la Universidad Nacional del Altiplano de Puno UNA PUNO para los estudiantes matriculados y egresados de la Universidad Nacional del Altiplano.",
+      "text": "TITULO: # Reglamento de Tesis UNA Puno\nCONTENIDO: ",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "introduccion_reglamento",
-      "seccion": "Introducción al Reglamento",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "articulo_reglamento",
+      "entidad": "general",
+      "articulo": "# Reglamento de Tesis UNA Puno",
+      "metadata": {
+        "contenido": ""
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapas del Proyecto de Tesis:\nLas etapas del proyecto de tesis son carga de proyecto revisión de formato de proyecto revisión por el director de tesis revisión por el subdirector de investigación sorteo de jurados revisión de proyecto dictamen de proyecto de investigación generación de acta de dictamen.",
+      "text": "TITULO: INTRODUCCION_REGLAMENTO\nCONTENIDO: El presente reglamento norma la presentación de proyectos de tesis de pregrado conducentes a la obtención del título profesional vía Plataforma de Gestión de la Investigación PGI del Vicerrectorado de Investigación VRI de la Universidad Nacional del Altiplano de Puno UNA PUNO para los estudiantes matriculados y egresados de la Universidad Nacional del Altiplano.\nARTICULO: Introducción\nTIPO: articulo_reglamento",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "reglamento_general",
-      "seccion": "Etapas del Proyecto de Tesis",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "articulo_reglamento",
+      "entidad": "general",
+      "articulo": "INTRODUCCION_REGLAMENTO",
+      "metadata": {
+        "tipo": "articulo_reglamento",
+        "articulo": "Introducción",
+        "contenido": "El presente reglamento norma la presentación de proyectos de tesis de pregrado conducentes a la obtención del título profesional vía Plataforma de Gestión de la Investigación PGI del Vicerrectorado de Investigación VRI de la Universidad Nacional del Altiplano de Puno UNA PUNO para los estudiantes matriculados y egresados de la Universidad Nacional del Altiplano."
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapa 1 Carga de Proyecto:\nPara acceder a todos los servicios de la plataforma el usuario deberá registrarse en pgi.vriunap.pe ingresando su DNI correo electrónico y una contraseña. Luego del registro deberá confirmar en su correo electrónico la creación de la cuenta. Solo registrándose en la plataforma el usuario podrá acceder a todos los servicios de esta plataforma tesis pregrado FEDU co asesoría externa perfil de investigador y docente de pregrado. El estudiante o egresado podrá agregar el servicio de tesis de pregrado en la Plataforma de Gestión de la Investigación PGI. Este proceso se validará con su código de matrícula y Documento Nacional de Identidad DNI para la respectiva validación de la información consignada y ser considerado usuario de la Plataforma de Gestión de la Investigación. Etapa de inicio el estudiante o egresado con autorización conocimiento y aprobación del director de tesis quien debe ser necesariamente un docente ordinario que esté adscrito en la sub línea principal de investigación de la Escuela Profesional del interesado subirá su proyecto de tesis usando un gestor de referencias bibliográficas y el reporte de similitud realizado y firmado por el director de la tesis respectiva y los anexos que componen el proyecto de tesis en formato digital PDF Portable Document File con un máximo de 15 páginas cumpliendo el formato establecido por cada Facultad. Los proyectos de investigación que involucren muestras biológicas de personas investigaciones epidemiológicas genética social y de comportamiento deberán ser revisados y autorizados a través de una constancia emitida por el Comité Institucional de Ética en Investigación CIEI de la UNA PUNO cuyo plazo de revisión estará comprendido hasta los 40 días según la complejidad. Los proyectos de investigación referidos a ensayos clínicos uso de productos farmacológicos productos biológicos uso de dispositivos médicos deben ser revisados y autorizados por el Instituto Nacional de Salud del Perú INS a través de una constancia.",
+      "text": "TITULO: ETAPAS_PROYECTO_TESIS\nCONTENIDO: Las etapas del proyecto de tesis son carga de proyecto revisión de formato de proyecto revisión por el director de tesis revisión por el subdirector de investigación sorteo de jurados revisión de proyecto dictamen de proyecto de investigación generación de acta de dictamen.\nARTICULO: Etapas del Proyecto de Tesis\nTIPO: articulo_reglamento",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_reglamento",
-      "seccion": "Etapa 1 Carga de Proyecto",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "reglamento",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "articulo_reglamento",
+        "articulo": "Etapas del Proyecto de Tesis",
+        "contenido": "Las etapas del proyecto de tesis son carga de proyecto revisión de formato de proyecto revisión por el director de tesis revisión por el subdirector de investigación sorteo de jurados revisión de proyecto dictamen de proyecto de investigación generación de acta de dictamen."
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapa 2 Revisión de Formato de Proyecto:\nSubido el proyecto de tesis el personal administrativo de la unidad de investigación de la Facultad a través de la Plataforma de Gestión de la Investigación PGI revisará el reporte de similitud y el formato del proyecto en un plazo máximo de 3 días hábiles. Si el proyecto no cumple con los formatos establecidos o presenta un reporte de similitud con un porcentaje superior al 20 por ciento o indicios de evasión a la integridad del texto presentado como texto oculto o caracteres reemplazados o no adjunta la declaración jurada sobre autoría autenticidad y uso ético de herramientas de Inteligencia Artificial anexo 1 el personal administrativo devolverá el proyecto al interesado para su corrección. Todo lo que diga coordinador de investigación es personal administrativo de investigación.",
+      "text": "TITULO: ETAPA_CARGA_PROYECTO\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 1\nNOMBRE: Carga de Proyecto\nDESCRIPCION: Proceso de registro y carga inicial del proyecto de tesis en la plataforma PGI\nREQUISITOS: Registro en pgi.vriunap.pe con DNI y correo, confirmación de cuenta, director de tesis docente ordinario, proyecto en PDF máximo 15 páginas, reporte de similitud firmado, declaración jurada de autoría\nPLAZO: Inmediato después del registro\nRESPONSABLE: Tesista\nPROYECTOS_ESPECIALES: Investigaciones con muestras biológicas requieren autorización del CIEI (hasta 40 días), ensayos clínicos requieren autorización del INS",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_reglamento",
-      "seccion": "Etapa 2 Revisión de Formato de Proyecto",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_CARGA_PROYECTO",
+      "metadata": {
+        "tipo": "etapa_reglamento",
+        "numero_etapa": "1",
+        "nombre": "Carga de Proyecto",
+        "descripcion": "Proceso de registro y carga inicial del proyecto de tesis en la plataforma PGI",
+        "requisitos": "Registro en pgi.vriunap.pe con DNI y correo, confirmación de cuenta, director de tesis docente ordinario, proyecto en PDF máximo 15 páginas, reporte de similitud firmado, declaración jurada de autoría",
+        "plazo": "Inmediato después del registro",
+        "responsable": "Tesista",
+        "proyectos_especiales": "Investigaciones con muestras biológicas requieren autorización del CIEI (hasta 40 días), ensayos clínicos requieren autorización del INS"
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapa 3 Revisión por el Director de Tesis:\nLos proyectos de tesis que cumplan los formatos de presentación establecidos por el Reglamento serán enviados al director de tesis a través de la Plataforma de Gestión de la Investigación PGI. A su vez serán notificados por la unidad de investigación de su escuela mediante un memorándum y mensaje de correo electrónico. El director de la tesis podrá aceptar y autorizar la continuación del proyecto de tesis cargando a la plataforma teniendo 3 días hábiles para realizar esta acción. Si el director de tesis elegido no responde en este periodo de tiempo el proyecto de tesis se considerará como no presentable y será archivado. Si el proyecto de tesis es aceptado por el director de tesis este continuará con su trámite a la etapa de sorteo. En esta etapa el director de tesis puede observar el proyecto. Si ese fuera el caso el director de tesis comunicará al tesista de estas observaciones a través de la Plataforma de Gestión de la Investigación para que el tesista pueda levantar las observaciones y continuar con el proceso.",
+      "text": "TITULO: ETAPA_REVISION_FORMATO_PROYECTO\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 2\nNOMBRE: Revisión de Formato de Proyecto\nDESCRIPCION: Revisión del formato y reporte de similitud por el personal administrativo\nREVISADO_POR: Personal administrativo de la unidad de investigación\nPLAZO: 3 días hábiles\nCRITERIOS_RECHAZO: Formato no establecido, similitud superior al 20%, evasión de integridad de texto, falta de declaración jurada de autoría y uso ético de IA\nNOTA: Coordinador de investigación es personal administrativo de investigación",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_reglamento",
-      "seccion": "Etapa 3 Revisión por el Director de Tesis",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_REVISION_FORMATO_PROYECTO",
+      "metadata": {
+        "tipo": "etapa_reglamento",
+        "numero_etapa": "2",
+        "nombre": "Revisión de Formato de Proyecto",
+        "descripcion": "Revisión del formato y reporte de similitud por el personal administrativo",
+        "revisado_por": "Personal administrativo de la unidad de investigación",
+        "plazo": "3 días hábiles",
+        "criterios_rechazo": "Formato no establecido, similitud superior al 20%, evasión de integridad de texto, falta de declaración jurada de autoría y uso ético de IA",
+        "nota": "Coordinador de investigación es personal administrativo de investigación"
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapa 4 Revisión por el Subdirector de Investigación:\nEl subdirector de investigación revisará el proyecto en contenido y forma además de los documentos anexados para su aprobación o rechazo. Si el proyecto es corregido el tesista podrá levantar las correcciones realizadas por única vez y si el proyecto es aceptado este pasará a la etapa de sorteo de jurados.",
+      "text": "TITULO: ETAPA_REVISION_DIRECTOR_TESIS\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 3\nNOMBRE: Revisión por el Director de Tesis\nDESCRIPCION: Revisión y aprobación del proyecto por el director de tesis\nREVISADO_POR: Director de Tesis\nPLAZO: 3 días hábiles\nACCIONES_DIRECTOR: Aceptar y autorizar continuación, observar proyecto\nCONSECUENCIA_NO_RESPUESTA: Proyecto considerado no presentable y archivado\nNOTIFICACION: Memorándum y correo electrónico",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_reglamento",
-      "seccion": "Etapa 4 Revisión por el Subdirector de Investigación",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_REVISION_DIRECTOR_TESIS",
+      "metadata": {
+        "tipo": "etapa_reglamento",
+        "numero_etapa": "3",
+        "nombre": "Revisión por el Director de Tesis",
+        "descripcion": "Revisión y aprobación del proyecto por el director de tesis",
+        "revisado_por": "Director de Tesis",
+        "plazo": "3 días hábiles",
+        "acciones_director": "Aceptar y autorizar continuación, observar proyecto",
+        "consecuencia_no_respuesta": "Proyecto considerado no presentable y archivado",
+        "notificacion": "Memorándum y correo electrónico"
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapa 5 Sorteo de Jurados:\nEl sorteo de los miembros integrantes del jurado revisor y dictaminador del proyecto de tesis se realizará mediante la Plataforma de Gestión de la Investigación PGI en las unidades de investigación de las Facultades de la UNA Puno y estará a cargo del respectivo director de la unidad de investigación o subdirector de investigación de la Facultad o Escuela Profesional en caso la Facultad tuviera varias escuelas. El proyecto de tesis autorizado a trámite por el director de tesis será revisado y validado por el director de investigación o subdirector de investigación de la respectiva Facultad o Escuela Profesional para proceder al sorteo en un plazo máximo de tres 03 días hábiles con un máximo de cinco 5 intentos bajo responsabilidad. Realizado el sorteo el tesista podrá conocer la conformación de jurados en el panel de la Plataforma de Gestión de la Investigación. Si transcurridos cuatro 04 días hábiles desde que el proyecto de tesis ingresó a la bandeja de la Plataforma de Gestión de la Investigación del director de la unidad de investigación o subdirector y no haya realizado el sorteo la Plataforma de Gestión de la Investigación sorteará automáticamente a los miembros integrantes del jurado revisor e informará de este hecho al Instituto de Investigación del VRI para las acciones correspondientes. El jurado revisor dictaminador de los proyectos de tesis estará conformado por tres 03 docentes de la UNA PUNO sorteados aleatoriamente a través de la Plataforma de Gestión de la Investigación. Teniendo mayor prioridad los docentes que tengan menor cantidad de designación de jurado. Los docentes sorteados deberán pertenecer a la sub línea de investigación del proyecto de tesis presentado. De los tres 03 docentes miembros del jurado revisor dictaminador del proyecto de tesis al menos uno 01 debe ser docente ordinario del mismo programa profesional del tesista. Los docentes de la UNA PUNO sorteados para ser miembros del jurado revisor dictaminador del proyecto de tesis que no pertenezcan a la Escuela Profesional del solicitante no podrán ocupar la presidencia del jurado independiente de su categoría docente. El presidente del Jurado del proyecto de tesis el primer miembro y el segundo miembro serán asignados por la Plataforma de Gestión de la Investigación considerando los siguientes criterios en orden de prioridad grado académico categoría y dedicación antigüedad en la categoría. Para ser considerados miembros del jurado revisor dictaminador del proyecto de tesis y directores de tesis los docentes de la UNA Puno deben estar habilitados por su respectivo Colegio Profesional registrados en el CTI Vitae del CONCYTEC registro ORCID estar registrado en el Sistema de Información de Investigación de la Universidad Nacional Del Altiplano SIGIU. En caso de no existir Colegios Profesionales se validará con el registro del CTI VITAE. Este proceso estará a cargo de las Unidades o Sub Unidades de Investigación en cada escuela profesional. Las unidades de investigación de las Facultades a través de la Plataforma de Gestión de la Investigación notificarán a los docentes sorteados integrantes del jurado revisor dictaminador del proyecto de tesis a través de mensajes en la plataforma correo electrónico institucional y memorándum para su aceptación revisión y dictamen de proyecto de tesis. Los docentes sorteados tienen la opción de aceptar ser jurado revisor dictaminador del proyecto de tesis. En caso de no aceptar se deberá indicar los motivos por los cuales no se acepta incompatibilidad exceso de proyectos falta de tiempo por responsabilidad en la universidad y el proyecto volverá a la etapa de sorteo para sustituir a este jurado. En caso de que los motivos considerados no sean debidamente sustentados se aplicarán las sanciones conforme a lo estipulado en el Estatuto Universitario y de acuerdo a la Ley Universitaria 30220 teniendo en consideración que el artículo 79 de la misma ley estipula que los docentes universitarios tienen como funciones la investigación el mejoramiento continuo y permanente de la enseñanza la proyección social y la gestión universitaria en los ámbitos que les corresponde. En caso no existan docentes en la plataforma para realizar el sorteo el proyecto será retirado de la plataforma y la sub línea será suspendida de nuevos proyectos pasando a ser evaluada su continuidad por el Instituto de Investigación.",
+      "text": "TITULO: ETAPA_REVISION_SUBDIRECTOR_INVESTIGACION\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 4\nNOMBRE: Revisión por el Subdirector de Investigación\nDESCRIPCION: Revisión en contenido y forma por el subdirector de investigación\nREVISADO_POR: Subdirector de Investigación\nCRITERIOS: Contenido y forma, documentos anexados\nOPCIONES: Aprobación o rechazo\nCORRECCIONES: Tesista puede levantar correcciones por única vez",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_reglamento",
-      "seccion": "Etapa 5 Sorteo de Jurados",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_REVISION_SUBDIRECTOR_INVESTIGACION",
+      "metadata": {
+        "tipo": "etapa_reglamento",
+        "numero_etapa": "4",
+        "nombre": "Revisión por el Subdirector de Investigación",
+        "descripcion": "Revisión en contenido y forma por el subdirector de investigación",
+        "revisado_por": "Subdirector de Investigación",
+        "criterios": "Contenido y forma, documentos anexados",
+        "opciones": "Aprobación o rechazo",
+        "correcciones": "Tesista puede levantar correcciones por única vez"
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapa 6 Revisión de Proyecto:\nLos miembros sorteados del jurado revisor dictaminador del proyecto de tesis que acepten su participación deberán revisar el documento en un plazo máximo de siete 07 días hábiles. Las respectivas observaciones o sugerencias deberán estar hechas con objetividad claridad y precisión científica indicando el número de línea del proyecto de tesis en las cuales se realiza las observaciones o sugerencias. Las correcciones de cada jurado serán registradas en la Plataforma de Gestión de la Investigación obligatoriamente para la continuidad del trámite. El no cumplimiento en la revisión de proyectos es considerado falta grave y será comunicado a su facultad para la sanción correspondiente. Para continuar con la revisión del proyecto de tesis por lo menos 02 jurados deberán haber revisado el proyecto. A medida que los jurados realicen observaciones el tesista podrá observarlas en su panel. Para que el tesista pueda cargar su archivo corregido a la plataforma los 3 miembros del jurado deben haber culminado las correcciones o al menos 2 jurados hayan finalizado el proceso de corrección y el tiempo de corrección haya sido superado. Luego de las correcciones realizadas por los miembros del jurado el tesista tiene como plazo máximo 10 días calendario para cargar su proyecto de tesis corregido junto con su reporte de Turnitin y el informe de correcciones para pasar a la etapa de dictamen. Si el tesista no carga el archivo corregido en el tiempo establecido este será automáticamente retirado de la plataforma se considerará como no presentado y será sancionado limitando la carga de un nuevo proyecto de tesis por 1 mes.",
+      "text": "TITULO: ETAPA_SORTEO_JURADOS\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 5\nNOMBRE: Sorteo de Jurados\nDESCRIPCION: Sorteo aleatorio de los tres miembros del jurado revisor\nRESPONSABLE_SORTEO: Director o Subdirector de Investigación de la Facultad\nPLAZO_SORTEO: 3 días hábiles (máximo 5 intentos)\nSORTEO_AUTOMATICO: Si no se realiza en 4 días hábiles, la plataforma sortea automáticamente\nCOMPOSICION_JURADO: 3 docentes de la UNA Puno, al menos 1 docente ordinario del mismo programa profesional\nCRITERIOS_PRESIDENTE: Grado académico, categoría y dedicación, antigüedad en la categoría\nREQUISITOS_JURADOS: Habilitado por Colegio Profesional, registro CTI Vitae CONCYTEC, registro ORCID, registro SIGIU",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_reglamento",
-      "seccion": "Etapa 6 Revisión de Proyecto",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_SORTEO_JURADOS",
+      "metadata": {
+        "tipo": "etapa_reglamento",
+        "numero_etapa": "5",
+        "nombre": "Sorteo de Jurados",
+        "descripcion": "Sorteo aleatorio de los tres miembros del jurado revisor",
+        "responsable_sorteo": "Director o Subdirector de Investigación de la Facultad",
+        "plazo_sorteo": "3 días hábiles (máximo 5 intentos)",
+        "sorteo_automatico": "Si no se realiza en 4 días hábiles, la plataforma sortea automáticamente",
+        "composicion_jurado": "3 docentes de la UNA Puno, al menos 1 docente ordinario del mismo programa profesional",
+        "criterios_presidente": "Grado académico, categoría y dedicación, antigüedad en la categoría",
+        "requisitos_jurados": "Habilitado por Colegio Profesional, registro CTI Vitae CONCYTEC, registro ORCID, registro SIGIU"
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapa 7 Dictamen de Proyecto de Investigación:\nUna vez que el tesista cargue el archivo corregido junto con el informe de correcciones este será revisado y dictaminado por los miembros del jurado en un plazo máximo de 3 días hábiles. Transcurrido ese tiempo y si no existiese respuesta alguna por alguno de los miembros del jurado las unidades de investigación notificarán a los miembros de jurado que aún no dictaminaron otorgándoles un plazo de 3 días hábiles adicionales. Las opciones del dictamen del proyecto de tesis por parte de los miembros del jurado revisor dictaminador son apto para su ejecución sin observaciones apto para su ejecución con observaciones menores no apto para ejecución criterios de fondo.",
+      "text": "TITULO: PROCESO_ACEPTACION_JURADOS\nTIPO: proceso_reglamento\nETAPA: ETAPA_SORTEO_JURADOS\nNOMBRE: Aceptación de Jurados\nDESCRIPCION: Proceso de aceptación o rechazo por parte de los jurados sorteados\nNOTIFICACION: Mensajes en plataforma, correo institucional, memorándum\nMOTIVOS_RECHAZO: Incompatibilidad, exceso de proyectos, falta de tiempo por responsabilidad universitaria\nCONSECUENCIA_RECHAZO: Vuelve a etapa de sorteo para sustitución\nSANCIONES: Por motivos no sustentados, según Estatuto Universitario y Ley Universitaria 30220 artículo 79",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_reglamento",
-      "seccion": "Etapa 7 Dictamen de Proyecto de Investigación",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "PROCESO_ACEPTACION_JURADOS",
+      "metadata": {
+        "tipo": "proceso_reglamento",
+        "etapa": "ETAPA_SORTEO_JURADOS",
+        "nombre": "Aceptación de Jurados",
+        "descripcion": "Proceso de aceptación o rechazo por parte de los jurados sorteados",
+        "notificacion": "Mensajes en plataforma, correo institucional, memorándum",
+        "motivos_rechazo": "Incompatibilidad, exceso de proyectos, falta de tiempo por responsabilidad universitaria",
+        "consecuencia_rechazo": "Vuelve a etapa de sorteo para sustitución",
+        "sanciones": "Por motivos no sustentados, según Estatuto Universitario y Ley Universitaria 30220 artículo 79"
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapa 8 Generación de Acta de Dictamen:\nEl proyecto de tesis podrá ser declarado apto para su ejecución apto para su ejecución sin observaciones y apto para su ejecución con observaciones menores por mayoría por al menos 2 dictámenes favorables o por unanimidad de los miembros integrantes del jurado revisor dictaminador. Las observaciones menores consideradas cuando el proyecto se aprobó con observaciones mayores deberán ser subsanadas en el punto apto para su ejecución con observaciones menores del dictamen del proyecto de tesis deberán ser subsanadas corregidas argumentadas fundamentadas o justificadas en el proceso de ejecución del mismo o durante la redacción y defensa del borrador de tesis. Luego de la dictaminación la Plataforma de Gestión de la Investigación generará el acta de dictamen de proyecto de tesis con el resultado de la dictaminación de los jurados. Esta acta podrá ser descargada desde el panel del tesista. Los miembros del jurado revisor dictaminador que hayan revisado y declaren apto el proyecto de tesis serán considerados posteriormente para el proceso de revisión de los borradores de tesis y defensa del trabajo. Los que no hayan revisado el proyecto o no declaren apto el proyecto serán retirados del proceso de revisión de borrador de tesis. Una vez que tu proyecto haya sido aprobado el tesista deberá ejecutar el proyecto por un plazo mínimo de 3 meses y 2 años como máximo. Además y si es que lo requiriese el tesista podrá solicitar a la unidad de investigación de su facultad una ampliación de hasta 6 meses como máximo para la culminación de su trabajo y defensa de tesis. Esta solicitud solo puede ser remitida estando el tesista en la etapa de borrador de tesis. Es requisito para solicitar esta ampliación una resolución de decanato que autorice dicha ampliación. Esta solicitud de ampliación deberá ser autorizada con la respectiva Resolución de Decanato. Transcurrido los tiempos máximos o ampliaciones solicitadas el proyecto de tesis será retirado de la Plataforma de Gestión de la Investigación y se considerará como no presentado.",
+      "text": "TITULO: ETAPA_REVISION_PROYECTO\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 6\nNOMBRE: Revisión de Proyecto\nDESCRIPCION: Revisión detallada del proyecto por los jurados\nREVISADO_POR: Jurados sorteados\nPLAZO_REVISION: 7 días hábiles\nREQUISITOS_OBSERVACIONES: Objetividad, claridad, precisión científica, indicar número de línea\nREGISTRO_CORRECCIONES: Obligatorio en plataforma para continuidad del trámite\nMINIMO_JURADOS: Al menos 2 jurados deben haber revisado el proyecto\nSANCION_NO_REVISION: Falta grave, comunicado a facultad para sanción",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_reglamento",
-      "seccion": "Etapa 8 Generación de Acta de Dictamen",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_REVISION_PROYECTO",
+      "metadata": {
+        "tipo": "etapa_reglamento",
+        "numero_etapa": "6",
+        "nombre": "Revisión de Proyecto",
+        "descripcion": "Revisión detallada del proyecto por los jurados",
+        "revisado_por": "Jurados sorteados",
+        "plazo_revision": "7 días hábiles",
+        "requisitos_observaciones": "Objetividad, claridad, precisión científica, indicar número de línea",
+        "registro_correcciones": "Obligatorio en plataforma para continuidad del trámite",
+        "minimo_jurados": "Al menos 2 jurados deben haber revisado el proyecto",
+        "sancion_no_revision": "Falta grave, comunicado a facultad para sanción"
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapas del Borrador de Tesis:\nLas etapas del borrador de tesis son habilitación de borrador de tesis carga de borrador de tesis revisión de formato de borrador revisión de borrador por jurados dictamen de borrador de tesis carga de archivos para la sustentación sustentación.",
+      "text": "TITULO: PROCESO_CORRECCION_TESISTA\nTIPO: proceso_reglamento\nETAPA: ETAPA_REVISION_PROYECTO\nNOMBRE: Corrección por Tesista\nDESCRIPCION: Proceso de corrección del proyecto por el tesista después de observaciones de jurados\nCONDICION_CARGA: 3 jurados culminaron correcciones O 2 jurados finalizaron y tiempo superado\nPLAZO_CARGA: 10 días calendario después de correcciones de jurados\nDOCUMENTOS_CARGA: Proyecto corregido, reporte Turnitin, informe de correcciones\nCONSECUENCIA_NO_CARGA: Retiro automático de plataforma, considerado no presentado, sanción de 1 mes sin carga de nuevo proyecto",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "reglamento_general",
-      "seccion": "Etapas del Borrador de Tesis",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "PROCESO_CORRECCION_TESISTA",
+      "metadata": {
+        "tipo": "proceso_reglamento",
+        "etapa": "ETAPA_REVISION_PROYECTO",
+        "nombre": "Corrección por Tesista",
+        "descripcion": "Proceso de corrección del proyecto por el tesista después de observaciones de jurados",
+        "condicion_carga": "3 jurados culminaron correcciones O 2 jurados finalizaron y tiempo superado",
+        "plazo_carga": "10 días calendario después de correcciones de jurados",
+        "documentos_carga": "Proyecto corregido, reporte Turnitin, informe de correcciones",
+        "consecuencia_no_carga": "Retiro automático de plataforma, considerado no presentado, sanción de 1 mes sin carga de nuevo proyecto"
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapa 9 Habilitación de Borrador de Tesis:\nTranscurrido al menos 3 meses desde la aprobación del proyecto de tesis el tesista podrá cargar la constancia de inscripción del grado de bachiller que emite la SUNEDU para habilitar la etapa de borrador de tesis. Esta habilitación no implica que el tesista deberá cargar inmediatamente el borrador de tesis.",
+      "text": "TITULO: ETAPA_DICTAMEN_PROYECTO\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 7\nNOMBRE: Dictamen de Proyecto de Investigación\nDESCRIPCION: Dictamen final del proyecto por los miembros del jurado\nPLAZO_DICTAMEN: 3 días hábiles\nPRORROGA: 3 días hábiles adicionales si no hay respuesta\nOPCIONES_DICTAMEN: Apto para ejecución sin observaciones, Apto para ejecución con observaciones menores, No apto para ejecución (criterios de fondo)",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_reglamento",
-      "seccion": "Etapa 9 Habilitación de Borrador de Tesis",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_DICTAMEN_PROYECTO",
+      "metadata": {
+        "tipo": "etapa_reglamento",
+        "numero_etapa": "7",
+        "nombre": "Dictamen de Proyecto de Investigación",
+        "descripcion": "Dictamen final del proyecto por los miembros del jurado",
+        "plazo_dictamen": "3 días hábiles",
+        "prorroga": "3 días hábiles adicionales si no hay respuesta",
+        "opciones_dictamen": "Apto para ejecución sin observaciones, Apto para ejecución con observaciones menores, No apto para ejecución (criterios de fondo)"
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapa 10 Carga de Borrador de Tesis:\nUna vez habilitado la etapa de borrador de tesis el tesista deberá cargar el archivo de borrador de tesis según el formato establecido por su facultad. Además deberá adjuntar el reporte de similitud este no deberá superar el 20 por ciento de similitud que deberá estar firmado por el director de la tesis. Además se deberá adjuntar la declaración jurada sobre autoría autenticidad y uso ético de herramientas de inteligencia artificial.",
+      "text": "TITULO: ETAPA_GENERACION_ACTA_DICTAMEN\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 8\nNOMBRE: Generación de Acta de Dictamen\nDESCRIPCION: Generación del acta oficial de dictamen del proyecto\nCRITERIO_APROBACION: Mayoría (2 dictámenes favorables) o unanimidad\nOBSERVACIONES_MENORES: Subsanadas durante ejecución o redacción del borrador\nDISPONIBILIDAD_ACTA: Descargable desde panel del tesista\nTIEMPO_EJECUCION: Mínimo 3 meses, máximo 2 años\nAMPLIACION: Hasta 6 meses adicionales, requiere Resolución de Decanato\nSOLICITUD_AMPLIACION: Solo en etapa de borrador de tesis",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_reglamento",
-      "seccion": "Etapa 10 Carga de Borrador de Tesis",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_GENERACION_ACTA_DICTAMEN",
+      "metadata": {
+        "tipo": "etapa_reglamento",
+        "numero_etapa": "8",
+        "nombre": "Generación de Acta de Dictamen",
+        "descripcion": "Generación del acta oficial de dictamen del proyecto",
+        "criterio_aprobacion": "Mayoría (2 dictámenes favorables) o unanimidad",
+        "observaciones_menores": "Subsanadas durante ejecución o redacción del borrador",
+        "disponibilidad_acta": "Descargable desde panel del tesista",
+        "tiempo_ejecucion": "Mínimo 3 meses, máximo 2 años",
+        "ampliacion": "Hasta 6 meses adicionales, requiere Resolución de Decanato",
+        "solicitud_ampliacion": "Solo en etapa de borrador de tesis"
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapa 11 Revisión de Formato de Borrador:\nEl personal administrativo de las unidades de investigación realizará la revisión del formato del borrador de tesis de acuerdo a lo establecido por cada escuela profesional. Si este contuviera errores o inconsistencias será devuelto al tesista para que cargue los archivos e información correcta.",
+      "text": "TITULO: ETAPAS_BORRADOR_TESIS\nCONTENIDO: Las etapas del borrador de tesis son habilitación de borrador de tesis carga de borrador de tesis revisión de formato de borrador revisión de borrador por jurados dictamen de borrador de tesis carga de archivos para la sustentación sustentación.\nARTICULO: Etapas del Borrador de Tesis\nTIPO: articulo_reglamento",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_reglamento",
-      "seccion": "Etapa 11 Revisión de Formato de Borrador",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "reglamento",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "articulo_reglamento",
+        "articulo": "Etapas del Borrador de Tesis",
+        "contenido": "Las etapas del borrador de tesis son habilitación de borrador de tesis carga de borrador de tesis revisión de formato de borrador revisión de borrador por jurados dictamen de borrador de tesis carga de archivos para la sustentación sustentación."
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapa 12 Revisión de Borrador por Jurados:\nUna vez que el personal administrativo de la unidad de investigación de tu facultad haya validado y aprobado su borrador de tesis este será derivado a los miembros del jurado para que en plazo máximo de 10 días hábiles puedan realizar sus observaciones o sugerencias con claridad y precisión. Cumplido el tiempo establecido de revisión por los jurados además de la extensión permitida los miembros del jurado no podrán añadir observaciones adicionales. El bachiller con su director podrán revisar las respectivas observaciones del jurado mediante la Plataforma de Gestión de la Investigación para realizar las correcciones correspondientes en un plazo máximo de cinco 5 días hábiles. Si transcurrido este tiempo no existiera respuesta alguna del interesado el trámite será considerado no presentado y se procederá con el archivamiento respectivo y notificado a los interesados director bachiller. Transcurrido el tiempo establecido el bachiller entregará a la Unidad de Investigación respectiva cuatro 04 ejemplares anillados del borrador de tesis indicando los números de página párrafo y número de línea resaltado donde se encuentran las modificaciones. En consecuencia la unidad de investigación comunicará al presidente del Jurado que el borrador de tesis ha sido corregido y presentado el cual se encuentra listo para el proceso de dictamen. Si transcurrido este tiempo no existiera respuesta alguna del jurado la unidad de investigación respectiva deberá notificar a través de un memorándum sobre el incumplimiento otorgando un nuevo plazo de 2 días hábiles. Si en caso persistiera la negatividad resistencia o pérdida de vínculo laboral o caso fortuito la unidad de investigación informará al Instituto de Investigación para la sustitución y acciones pertinentes volviendo a la etapa de conformación de jurado. En casos que amerite el Instituto de Investigación convocará a ambas partes miembros de jurado tesista y director para conciliar conflictos existentes.",
+      "text": "TITULO: ETAPA_HABILITACION_BORRADOR\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 9\nNOMBRE: Habilitación de Borrador de Tesis\nDESCRIPCION: Habilitación de la etapa de borrador después de aprobación del proyecto\nREQUISITO: Constancia de inscripción del grado de bachiller (SUNEDU)\nTIEMPO_MINIMO: 3 meses desde aprobación del proyecto\nNOTA: Habilitación no implica carga inmediata del borrador",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_reglamento",
-      "seccion": "Etapa 12 Revisión de Borrador por Jurados",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_HABILITACION_BORRADOR",
+      "metadata": {
+        "tipo": "etapa_reglamento",
+        "numero_etapa": "9",
+        "nombre": "Habilitación de Borrador de Tesis",
+        "descripcion": "Habilitación de la etapa de borrador después de aprobación del proyecto",
+        "requisito": "Constancia de inscripción del grado de bachiller (SUNEDU)",
+        "tiempo_minimo": "3 meses desde aprobación del proyecto",
+        "nota": "Habilitación no implica carga inmediata del borrador"
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapa 13 Dictamen de Borrador de Tesis:\nUna vez que el tesista entregue los 4 ejemplares anillados a la unidad de investigación de la facultad el personal administrativo de la unidad de investigación de la facultad comunicará mediante un memorándum al presidente de jurado para el dictamen en un plazo máximo de cinco 05 días hábiles el cual convocará a los miembros del jurado a una reunión presencial con el bachiller a fin de dictaminar el borrador de tesis o realizar las observaciones finales. La fecha de reunión debe ser informada a la Unidad de Investigación respectiva quien a su vez citará a los miembros del Jurado. La reunión de dictamen se llevará a cabo en la Sala de docentes de la Escuela profesional a la que pertenezca el bachiller. Excepcionalmente la reunión de dictamen podrá llevarse a cabo de forma virtual previa justificación y comunicación a la unidad de investigación respectiva. En la reunión de dictamen el presidente del Jurado invitará a los participantes a emitir su opinión sobre el borrador de tesis corregido a fin de dictaminar o realizar las observaciones finales las cuales deberán estar registradas en dicha acta de reunión para así fijar la fecha de defensa en un plazo que no sea menor a las 72 horas y que no exceda los 10 días hábiles.",
+      "text": "TITULO: ETAPA_CARGA_BORRADOR\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 10\nNOMBRE: Carga de Borrador de Tesis\nDESCRIPCION: Carga del borrador completo de tesis\nREQUISITOS: Formato establecido por facultad, reporte de similitud ≤20% firmado por director, declaración jurada sobre autoría y uso ético de IA",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_reglamento",
-      "seccion": "Etapa 13 Dictamen de Borrador de Tesis",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_CARGA_BORRADOR",
+      "metadata": {
+        "tipo": "etapa_reglamento",
+        "numero_etapa": "10",
+        "nombre": "Carga de Borrador de Tesis",
+        "descripcion": "Carga del borrador completo de tesis",
+        "requisitos": "Formato establecido por facultad, reporte de similitud ≤20% firmado por director, declaración jurada sobre autoría y uso ético de IA"
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapa 14 Carga de Archivos para la Sustentación:\nUna vez culminada la reunión de dictamen y producto de esta el tesista cuente con acta de dictamen este deberá registrar en la plataforma los datos de dicha acta los datos del borrador de tesis fecha hora y lugar de la defensa de la tesis y además adjuntar el acta del dictamen el reporte de similitud y los memorándums generados en este proceso. En caso de que el borrador de tesis no se encuentre apto para sustentación se establecerá en el acta de dictamen la próxima fecha de reunión no excediendo los diez 10 días hábiles. Este proceso puede ser repetido en un máximo de 02 veces.",
+      "text": "TITULO: ETAPA_REVISION_FORMATO_BORRADOR\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 11\nNOMBRE: Revisión de Formato de Borrador\nDESCRIPCION: Revisión del formato del borrador por personal administrativo\nREVISADO_POR: Personal administrativo de unidad de investigación\nCRITERIOS: Formato establecido por escuela profesional\nCONSECUENCIA_ERRORES: Devolución al tesista para corrección",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_reglamento",
-      "seccion": "Etapa 14 Carga de Archivos para la Sustentación",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_REVISION_FORMATO_BORRADOR",
+      "metadata": {
+        "tipo": "etapa_reglamento",
+        "numero_etapa": "11",
+        "nombre": "Revisión de Formato de Borrador",
+        "descripcion": "Revisión del formato del borrador por personal administrativo",
+        "revisado_por": "Personal administrativo de unidad de investigación",
+        "criterios": "Formato establecido por escuela profesional",
+        "consecuencia_errores": "Devolución al tesista para corrección"
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapas de la Sustentación:\nLas etapas de la sustentación son sustentación carga de archivo final trámite concluido.",
+      "text": "TITULO: ETAPA_REVISION_BORRADOR_JURADOS\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 12\nNOMBRE: Revisión de Borrador por Jurados\nDESCRIPCION: Revisión del borrador por los miembros del jurado\nPLAZO_REVISION: 10 días hábiles\nCARACTERISTICAS_OBSERVACIONES: Claridad y precisión\nPLAZO_CORRECCION_TESISTA: 5 días hábiles después de observaciones\nENTREGA_FISICA: 4 ejemplares anillados indicando modificaciones (página, párrafo, línea)\nPROCESO_SUSTITUCION_JURADO: Por negatividad, resistencia o pérdida de vínculo laboral",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "reglamento_general",
-      "seccion": "Etapas de la Sustentación",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_REVISION_BORRADOR_JURADOS",
+      "metadata": {
+        "tipo": "etapa_reglamento",
+        "numero_etapa": "12",
+        "nombre": "Revisión de Borrador por Jurados",
+        "descripcion": "Revisión del borrador por los miembros del jurado",
+        "plazo_revision": "10 días hábiles",
+        "caracteristicas_observaciones": "Claridad y precisión",
+        "plazo_correccion_tesista": "5 días hábiles después de observaciones",
+        "entrega_fisica": "4 ejemplares anillados indicando modificaciones (página, párrafo, línea)",
+        "proceso_sustitucion_jurado": "Por negatividad, resistencia o pérdida de vínculo laboral"
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapa 15 Sustentación:\nUna vez cargado los datos de la reunión del dictamen así como los archivos requeridos el personal administrativo de la unidad de investigación revisará y validará dicha conformación. Si la información es válida se publicará el comunicado de sustentación en la Plataforma de Gestión de la Investigación además de publicar el dicho comunicado en el mural de la escuela profesional con una anticipación de 24 horas antes de la sustentación como mínimo. En caso presente algún tipo de inconsistencia estos serán devueltos al tesista para que registre la información correcta. En el acto de exposición y defensa de tesis deberán estar presentes el presidente de jurado el director de tesis y al menos un miembro del jurado. La defensa de tesis es un acto formal académico y público que debe llevarse a cabo en las instalaciones de la Universidad Nacional del Altiplano en días y horas laborables durante el semestre académico. En la fecha y hora fijada para la defensa de la tesis el presidente del Jurado iniciará presentando a los integrantes del jurado e invitando al bachiller a presentar los resultados de su trabajo de tesis en un tiempo máximo de 25 minutos. El bachiller podrá defender su trabajo de tesis en los idiomas Español Quechua Aimara o Inglés dejando constancia de este hecho en el acta de sustentación. Efectuada la exposición del trabajo de tesis el Presidente del jurado invitará a cada uno de los integrantes del jurado a realizar las preguntas sobre el tema que consideren necesarias. Este proceso no debe exceder en ningún caso los 90 minutos. Concluida las preguntas el Presidente del Jurado invitará al bachiller y al auditorio a retirarse del local de defensa para la deliberación y calificación final del trabajo de tesis. Cada uno de los miembros del jurado de tesis calificará en la plataforma la defensa y el trabajo final de tesis pudiendo ellos dictaminar de la siguiente manera APROBADO DESAPROBADO y APROBADO CON DISTINCIÓN. Una vez culminado el proceso de investigación la plataforma emitirá el acta de sustentación de acuerdo a los votos emitidos por el jurado. Si en la dictaminación no se registraron observaciones por parte de los miembros del jurado también se emitirá la constancia de culminación del proceso de tesis. Pero si en la dictaminación el jurado registró correcciones la plataforma emitirá un informe de correcciones junto con el acta de sustentación teniendo el tesista 10 días hábiles para levantar dichas correcciones. Concluida la calificación del trabajo de tesis y su defensa el Presidente del Jurado invitará al bachiller y al auditorio a ingresar al local de defensa a fin de dar cuenta de los resultados finales a través de la lectura del acta respectiva. En caso que haya sido calificado como APROBADO se procederá a la entrega de los símbolos y constancias que la Universidad otorga.",
+      "text": "TITULO: ETAPA_DICTAMEN_BORRADOR\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 13\nNOMBRE: Dictamen de Borrador de Tesis\nDESCRIPCION: Reunión de dictamen del borrador por el jurado\nCONVOCATORIA: Presidente del Jurado mediante memorándum\nPLAZO_DICTAMEN: 5 días hábiles después de entrega de ejemplares\nLUGAR_REUNION: Sala de docentes de la Escuela profesional (excepcionalmente virtual)\nFECHA_DEFENSA: No menor a 72 horas, no mayor a 10 días hábiles después de dictamen",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_reglamento",
-      "seccion": "Etapa 15 Sustentación",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_DICTAMEN_BORRADOR",
+      "metadata": {
+        "tipo": "etapa_reglamento",
+        "numero_etapa": "13",
+        "nombre": "Dictamen de Borrador de Tesis",
+        "descripcion": "Reunión de dictamen del borrador por el jurado",
+        "convocatoria": "Presidente del Jurado mediante memorándum",
+        "plazo_dictamen": "5 días hábiles después de entrega de ejemplares",
+        "lugar_reunion": "Sala de docentes de la Escuela profesional (excepcionalmente virtual)",
+        "fecha_defensa": "No menor a 72 horas, no mayor a 10 días hábiles después de dictamen"
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapa 16 Carga de Archivo Final:\nLos bachilleres que hayan aprobado su defensa de tesis cargarán a la plataforma de gestión el archivo final de su trabajo el acta de correcciones firmada por los jurados y director de tesis y el reporte de similitud.",
+      "text": "TITULO: ETAPA_CARGA_ARCHIVOS_SUSTENTACION\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 14\nNOMBRE: Carga de Archivos para la Sustentación\nDESCRIPCION: Registro de datos y archivos para la sustentación\nDATOS_REQUERIDOS: Datos del acta de dictamen, datos del borrador, fecha, hora y lugar de defensa\nARCHIVOS_REQUERIDOS: Acta de dictamen, reporte de similitud, memorándums del proceso\nPROCESO_NO_APTO: Próxima fecha de reunión (máximo 10 días hábiles), máximo 2 repeticiones",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_reglamento",
-      "seccion": "Etapa 16 Carga de Archivo Final",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_CARGA_ARCHIVOS_SUSTENTACION",
+      "metadata": {
+        "tipo": "etapa_reglamento",
+        "numero_etapa": "14",
+        "nombre": "Carga de Archivos para la Sustentación",
+        "descripcion": "Registro de datos y archivos para la sustentación",
+        "datos_requeridos": "Datos del acta de dictamen, datos del borrador, fecha, hora y lugar de defensa",
+        "archivos_requeridos": "Acta de dictamen, reporte de similitud, memorándums del proceso",
+        "proceso_no_apto": "Próxima fecha de reunión (máximo 10 días hábiles), máximo 2 repeticiones"
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Etapa 17 Trámite Concluido:\nEl personal administrativo verificará y validará la información registrada para emitir la constancia de culminación del proceso de tesis la cual podrá ser descargada desde la Plataforma de Gestión de la Investigación.",
+      "text": "TITULO: ETAPA_SUSTENTACION\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 15\nNOMBRE: Sustentación\nDESCRIPCION: Exposición y defensa pública de la tesis\nVALIDACION: Personal administrativo revisa y valida conformación\nPUBLICACION_COMUNICADO: 24 horas antes mínimo en mural de escuela profesional\nASISTENCIA_MINIMA: Presidente de jurado, director de tesis, al menos 1 miembro del jurado\nLUGAR: Instalaciones de la UNA Puno, días y horas laborables\nTIEMPO_EXPOSICION: 25 minutos máximo\nIDIOMAS_PERMITIDOS: Español, Quechua, Aimara, Inglés\nTIEMPO_PREGUNTAS: 90 minutos máximo\nCALIFICACIONES: APROBADO, DESAPROBADO, APROBADO CON DISTINCIÓN\nACTA_SUSTENTACION: Emitida por plataforma según votos del jurado",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_reglamento",
-      "seccion": "Etapa 17 Trámite Concluido",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_SUSTENTACION",
+      "metadata": {
+        "tipo": "etapa_reglamento",
+        "numero_etapa": "15",
+        "nombre": "Sustentación",
+        "descripcion": "Exposición y defensa pública de la tesis",
+        "validacion": "Personal administrativo revisa y valida conformación",
+        "publicacion_comunicado": "24 horas antes mínimo en mural de escuela profesional",
+        "asistencia_minima": "Presidente de jurado, director de tesis, al menos 1 miembro del jurado",
+        "lugar": "Instalaciones de la UNA Puno, días y horas laborables",
+        "tiempo_exposicion": "25 minutos máximo",
+        "idiomas_permitidos": "Español, Quechua, Aimara, Inglés",
+        "tiempo_preguntas": "90 minutos máximo",
+        "calificaciones": "APROBADO, DESAPROBADO, APROBADO CON DISTINCIÓN",
+        "acta_sustentacion": "Emitida por plataforma según votos del jurado"
+      }
     },
     {
-      "text": "REGLAMENTO TESIS - Consideraciones Adicionales:\nLos trabajos de tesis considerados desaprobados en la etapa de sustentación tendrán un plazo de 30 días hábiles para iniciar un nuevo trámite de presentación dictamen y evaluación de sus borradores de tesis. En caso de negatividad resistencia a la revisión o conflicto relacionado a la tesis o de índole personal por parte de algún miembro del jurado la unidad de investigación de la Facultad debe realizar un informe correspondiente a pedido del bachiller con medios justificados o probatorios y de encontrarse responsabilidad se tomará las medidas correctivas sancionadoras que amerite el informe. Los proyectos de Tesis que no hayan sido defendidos transcurridos dos 2 años más la respectiva ampliación 06 meses serán eliminados de la Plataforma de la Gestión de la Investigación sin derecho a reconsideración dejando constancia a los interesados. El bachiller que por razones debidamente justificadas no pueda concluir su trabajo de tesis podrá solicitar su eliminación de la Plataforma de Gestión de la Investigación con el visto bueno de Director de tesis a fin de presentar un nuevo proyecto. Las unidades de investigación de cada facultad tendrán que registrar el proceso del borrador de tesis así como los documentos que dependan de este proceso acta de sustentación dictamen informes de jurados memorándums entre otros en los plazos y tiempos establecidos. La unidad de investigación es la responsable de guiar verificar y conservar los documentos previos a su publicación en la Plataforma de Gestión de la Investigación para su difusión. El sistema PGI Plataforma de Gestión de la Investigación permitirá el registro de nuevos borradores de tesis hasta 30 días antes de la finalización del semestre académico. En caso que exista algún tipo de conflicto debidamente comprobado con alguno de los miembros de su jurado o en contra del bachiller el bachiller podrá solicitar audiencia antes de la presentación del borrador de tesis. Este trámite se realiza ante la unidad de investigación de la escuela profesional el cual será derivado al Instituto de Investigación para su atención. Los hechos no contemplados en el presente reglamento serán resueltos por el Instituto de Investigación. El personal administrativo de la unidad de investigación de cada facultad deberá promover un sistema de custodia de todos los trabajos de investigación proyecto y borrador de tesis a fin de salvaguardar los derechos de autor y establecer una prueba inoponible y probatoria que combine la fecha de registro la identidad del depositante y contenido de los mismos. Las Direcciones subdirecciones y personal administrativo de las unidades de investigación de cada facultad se encargarán de la administración de la Plataforma de Gestión de la Investigación y los procesos que conlleve. Asimismo orientarán al bachiller en todo el proceso del borrador de tesis hasta su sustentación.",
+      "text": "TITULO: ETAPA_CARGA_ARCHIVO_FINAL\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 16\nNOMBRE: Carga de Archivo Final\nDESCRIPCION: Carga del archivo final después de sustentación aprobada\nREQUISITOS: Archivo final de trabajo, acta de correcciones firmada, reporte de similitud",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "reglamento_general",
-      "seccion": "Consideraciones Adicionales",
-      "keywords": "reglamento, tesis, normas, procedimientos"
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_CARGA_ARCHIVO_FINAL",
+      "metadata": {
+        "tipo": "etapa_reglamento",
+        "numero_etapa": "16",
+        "nombre": "Carga de Archivo Final",
+        "descripcion": "Carga del archivo final después de sustentación aprobada",
+        "requisitos": "Archivo final de trabajo, acta de correcciones firmada, reporte de similitud"
+      }
     },
     {
-      "text": "# 🎓 Líneas y Sublíneas de Investigación",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "# 🎓 Líneas y Sublíneas de Investigación",
-      "type": "general"
+      "text": "TITULO: ETAPA_TRAMITE_CONCLUIDO\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 17\nNOMBRE: Trámite Concluido\nDESCRIPCION: Verificación final y emisión de constancia de culminación\nRESPONSABLE: Personal administrativo\nDOCUMENTO_FINAL: Constancia de culminación del proceso de tesis",
+      "source": "REGLAMENTO FINAL (2)",
+      "type": "etapa_proceso",
+      "entidad": "general",
+      "etapa": "ETAPA_TRAMITE_CONCLUIDO",
+      "metadata": {
+        "tipo": "etapa_reglamento",
+        "numero_etapa": "17",
+        "nombre": "Trámite Concluido",
+        "descripcion": "Verificación final y emisión de constancia de culminación",
+        "responsable": "Personal administrativo",
+        "documento_final": "Constancia de culminación del proceso de tesis"
+      }
     },
     {
-      "text": "> Esta es la estructura oficial actualizada de líneas y sublíneas de investigación aprobadas para todas las facultades y escuelas profesionales de la UNA-Puno. Encuentra tu facultad, escuela y las áreas específicas donde puedes desarrollar tu investigación. ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "Universidad Nacional del Altiplano - Puno",
-      "type": "general"
+      "text": "TITULO: CONSIDERACIONES_ADICIONALES\nCONTENIDO: Trabajos desaprobados tienen 30 días hábiles para nuevo trámite. Conflictos con jurados se resuelven mediante informe. Proyectos no defendidos en 2 años + 6 meses ampliación son eliminados. Bachiller puede solicitar eliminación con visto bueno del director. Unidades de investigación deben registrar todo el proceso. Sistema PGI permite nuevos borradores hasta 30 días antes de finalización de semestre. Conflictos se resuelven ante unidad de investigación e Instituto de Investigación. Hechos no contemplados los resuelve el Instituto de Investigación. Custodia de trabajos para derechos de autor. Direcciones y personal administrativo administran la plataforma y orientan al bachiller.\nARTICULO: Consideraciones Adicionales\nTIPO: articulo_reglamento",
+      "source": "REGLAMENTO FINAL (2)",
+      "type": "reglamento",
+      "entidad": "general",
+      "facultad": "",
+      "escuela": "",
+      "metadata": {
+        "tipo": "articulo_reglamento",
+        "articulo": "Consideraciones Adicionales",
+        "contenido": "Trabajos desaprobados tienen 30 días hábiles para nuevo trámite. Conflictos con jurados se resuelven mediante informe. Proyectos no defendidos en 2 años + 6 meses ampliación son eliminados. Bachiller puede solicitar eliminación con visto bueno del director. Unidades de investigación deben registrar todo el proceso. Sistema PGI permite nuevos borradores hasta 30 días antes de finalización de semestre. Conflictos se resuelven ante unidad de investigación e Instituto de Investigación. Hechos no contemplados los resuelve el Instituto de Investigación. Custodia de trabajos para derechos de autor. Direcciones y personal administrativo administran la plataforma y orientan al bachiller."
+      }
     },
     {
-      "text": "1. Facultad de Ciencias Agrarias 2. Facultad de Medicina Veterinaria y Zootecnia 3. Facultad de Ingeniería Económica 4. Facultad de Ciencias Contables y Administrativas 5. Facultad de Enfermería 6. Facultad de Trabajo Social 7. Facultad de Ciencias Sociales 8. Facultad de Ingeniería de Minas 9. Facultad de Ciencias Jurídicas y Políticas 10. Facultad de Ingeniería Química 11. Facultad de Ciencias Biológicas 12. Facultad de Ciencias de la Educación 13. Facultad de Ingeniería Geológica y Metalúrgica 14. Facultad de Ingeniería Estadística e Informática 15. Facultad de Ingeniería Civil y Arquitectura 16. Facultad de Ingeniería Agrícola 17. Facultad de Ciencias de la Salud 18. Facultad de Ingeniería Mecánica Eléctrica, Electrónica y Sistemas 19. Facultad de Medicina Humana 20. Facultad de Ciencias Administrativas y Humanas ---",
+      "text": "TITULO: RESUMEN_LINEAS_INSTITUCIONALES\nTIPO: resumen_lineas\nTOTAL_LINEAS: 24\nLINEAS: Administración y Marketing; Alimentación y Nutrición Humana; Arquitectura y Urbanismo; Arte y Música; Auditoría, Costos y Finanzas; Ciencias de la Salud; Ciencia y Producción Animal; Ciencias del Deporte y Educación Física; Derecho; Economía y Desarrollo; Educación y Dinámica Educativa; Estadística e Investigación; Física y Matemática; Geología, Minas y Metalurgia; Gestión y Responsabilidad Social; Infraestructura y Construcciones; Ingeniería de Procesos; Manejo Agronómico Cultivos; Mecánica - Eléctrica; Recursos Naturales y Medio Ambiente; Salud Pública; Sistemas de Información Geográfica; Sistemas, Computación e Informática; Sociedad, Cultura y Comunicación",
       "source": "sublíneas-investigacion-una-puno",
-      "section": "📋 Índice por Facultades",
-      "type": "general"
+      "type": "lineas_investigacion",
+      "entidad": "facultad_escuela",
+      "facultad": "FACULTAD_DE_CIENCIAS_ADMINISTRATIVAS_Y_HUMANAS",
+      "escuela": "",
+      "metadata": {
+        "tipo": "resumen_lineas",
+        "total_lineas": "24",
+        "lineas": "Administración y Marketing; Alimentación y Nutrición Humana; Arquitectura y Urbanismo; Arte y Música; Auditoría, Costos y Finanzas; Ciencias de la Salud; Ciencia y Producción Animal; Ciencias del Deporte y Educación Física; Derecho; Economía y Desarrollo; Educación y Dinámica Educativa; Estadística e Investigación; Física y Matemática; Geología, Minas y Metalurgia; Gestión y Responsabilidad Social; Infraestructura y Construcciones; Ingeniería de Procesos; Manejo Agronómico Cultivos; Mecánica - Eléctrica; Recursos Naturales y Medio Ambiente; Salud Pública; Sistemas de Información Geográfica; Sistemas, Computación e Informática; Sociedad, Cultura y Comunicación"
+      }
     },
     {
-      "text": "### 🌾 Escuela Profesional de Ingeniería Agronómica Línea de Investigación: MANEJO AGRONÓMICO CULTIVOS Sublíneas de Investigación: - Gestión sostenible, manejo agronómico y mejoramiento genético de cultivos - Gestión, manejo y conservación de recursos naturales y medio ambiente - Desarrollo de sistemas agropecuarios - Innovación tecnológica, económica y extensión agraria --- ### 🏭 Escuela Profesional de Ingeniería Agroindustrial Línea de Investigación: INGENIERÍA DE PROCESOS Sublíneas de Investigación: - Ingeniería, tecnología y gestión agroindustrial --- ### 📐 Escuela Profesional de Ingeniería Topográfica y Agrimensura Línea de Investigación: SISTEMAS DE INFORMACIÓN GEOGRÁFICA Sublíneas de Investigación: - Topografía aplicada, geodesia, cartografía y catastro - Teledetección, fotometría y sistemas de información geográfica - SIG - Gestión de riesgos y cambio climático - Planificación y ordenamiento territorial - Geotecnia y pavimentos - Diseño geométrico e infraestructura vial - Hidrología e hidráulica de vías ---",
+      "text": "TITULO: INFORMACION_GENERAL\nTIPO: informacion_general\nVIGENCIA: Esta estructura está vigente desde el 05 de septiembre de 2025 según Resolución Rectoral N° 2589-2025-R-UNA\nESCUELAS_PARTICIPANTES: 28 Escuelas participaron activamente en la evaluación y actualización de sus sublíneas\nREQUISITO_INVESTIGACION: Toda investigación en la UNA-Puno debe enmarcarse en alguna de estas líneas y sublíneas institucionales",
       "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE CIENCIAS AGRARIAS",
-      "type": "general"
-    },
-    {
-      "text": "### 🐄 Escuela Profesional de Medicina Veterinaria y Zootecnia Línea de Investigación: CIENCIA Y PRODUCCIÓN ANIMAL Sublíneas de Investigación: - Salud animal - Producción animal - Salud pública - Acuicultura (verificar) ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE MEDICINA VETERINARIA Y ZOOTECNIA",
-      "type": "general"
-    },
-    {
-      "text": "### 💼 Escuela Profesional de Ingeniería Económica Línea de Investigación: ECONOMÍA Y DESARROLLO Sublíneas de Investigación: - Economía de la empresa y mercados - Economía regional y local - Políticas públicas - Gobernabilidad Ciudadanía y Desarrollo Social (Sociologia tambien) - Desarrollo Turístico Regional (Turismo) --- ### 🚀 Escuela Profesional de Administración Línea de Investigación: ADMINISTRACIÓN Y MARKETING Sublíneas de Investigación: - Administración de finanzas - Administración de procesos organizacionales - Administración de emprendimientos - Administración general - Administración de recursos humanos - Administración de marketing y negocios internacionales - Administración pública - Administración de Empresas Turísticas (revisar) ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE INGENIERÍA ECONÓMICA",
-      "type": "general"
-    },
-    {
-      "text": "### 📊 Escuela Profesional de Ciencias Contables Línea de Investigación: AUDITORÍA, COSTOS Y FINANZAS Sublíneas de Investigación: - Contabilidad y auditoría - Finanzas y gestión - Tributación - Gestión pública ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE CIENCIAS CONTABLES Y ADMINISTRATIVAS",
-      "type": "general"
-    },
-    {
-      "text": "### 👩‍⚕️ Escuela Profesional de Enfermería Línea de Investigación: SALUD PÚBLICA Sublíneas de Investigación: - Salud del recién nacido, niño, escolar y adolescente - Salud del adulto y salud de la mujer - Gerencia y gestión en salud, salud familiar y comunitaria ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE ENFERMERÍA",
-      "type": "general"
-    },
-    {
-      "text": "### 🤝 Escuela Profesional de Trabajo Social Línea de Investigación: SOCIEDAD, CULTURA Y COMUNICACIÓN Sublíneas de Investigación: - Desarrollo humano y calidad de vida - Familias: realidades, cambio y dinámicas de intervención - Derechos humanos y fortalecimiento democrático ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE TRABAJO SOCIAL",
-      "type": "general"
-    },
-    {
-      "text": "### 👥 Escuela Profesional de Antropología Línea de Investigación: GESTIÓN Y RESPONSABILIDAD SOCIAL Sublíneas de Investigación: - Cultura andina, sociedad y medioambiente - Antropología jurídica y forense biológica-cultural (REVISAR) --- ### 🎨 Escuela Profesional de Arte Línea de Investigación: ARTE Y MÚSICA Sublíneas de Investigación: (REVISAR) - Danza: revaloración de las danzas étnicas de nuestro contexto para la generación de conocimiento, cultura Y memoria histórica. - Música: Análisis e interpretación de la producción musical. - Música: Innovaciones y aplicación de tecnologías en la producción musical. - Artes Plásticas: Creación plástica en base a las técnicas tradicionales Y Tecnologías actuales, considerando aspectos filosóficos y teóricos. - Artes Plásticas: Gestión y administración de la labor artística Enfatizando Los Nuevos Escenarios Plásticos. --- ### 💃 Programa de Estudios de Arte: Danza Línea de Investigación: ARTE Y MÚSICA Sublíneas de Investigación: - Danza: revalorización de las danzas étnicas de nuestro contexto para la generación de conocimiento, cultura y memoria histórica --- ### 🎵 Programa de Estudios de Arte: Música Línea de Investigación: ARTE Y MÚSICA Sublíneas de Investigación: - Música: análisis e interpretación de la producción musical - Música: innovaciones y aplicación de tecnologías en la producción musical --- ### 🎭 Programa de Estudios de Arte: Teatro Línea de Investigación: ARTE Y MÚSICA Sublíneas de Investigación: - Teatro: (en proceso de definición de sublíneas específicas) --- ### 📱 Escuela Profesional de Ciencias de la Comunicación Social Línea de Investigación: SOCIEDAD, CULTURA Y COMUNICACIÓN Sublíneas de Investigación: - Comunicación sociocultural y desarrollo - Comunicación organizacional, marketing y publicidad - Medios de comunicación y periodismo --- ### 🔍 Escuela Profesional de Sociología Línea de Investigación: SOCIEDAD, CULTURA Y COMUNICACIÓN / GESTIÓN Y RESPONSABILIDAD SOCIAL Sublíneas de Investigación: - Análisis de procesos sociales - Organizaciones, liderazgo y gestión organizacional - Gobernabilidad, ciudadanía y desarrollo social - Sociolingüística e interculturalidad - Política, gestión pública y planificación - Institucionalidad, conflictos y gestión ambiental --- ### 🏖️ Escuela Profesional de Turismo Línea de Investigación: ADMINISTRACIÓN Y MARKETING / ECONOMÍA Y DESARROLLO / GESTIÓN Y RESPONSABILIDAD SOCIAL Sublíneas de Investigación: - Administración de empresas turísticas - Desarrollo turístico regional - Gestión de destinos turísticos - Gestión de emprendimientos y negocios turísticos --- ### 🧠 Escuela Profesional de Psicología Línea de Investigación: (En proceso de definición de sublíneas específicas) Sublíneas de Investigación: - (En proceso de definición de sublíneas específicas) ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE CIENCIAS SOCIALES",
-      "type": "general"
-    },
-    {
-      "text": "### ⛏️ Escuela Profesional de Ingeniería de Minas Línea de Investigación: GEOLOGÍA, MINAS Y METALURGIA Sublíneas de Investigación: - Sistemas de extracción de recursos minerales - Geotecnia y estabilidad de minas - Minería sostenible y medio ambiente - Tecnologías de la información en minería ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE INGENIERÍA DE MINAS",
-      "type": "general"
-    },
-    {
-      "text": "### ⚖️ Escuela Profesional de Derecho Línea de Investigación: DERECHO Sublíneas de Investigación: - Derecho penal - Derecho administrativo - Derecho laboral - Derecho constitucional - Derecho civil - Teoría del derecho - Derechos humanos y fortalecimiento democrático (revisar) ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE CIENCIAS JURÍDICAS Y POLÍTICAS",
-      "type": "general"
-    },
-    {
-      "text": "### ⚗️ Escuela Profesional de Ingeniería Química Línea de Investigación: INGENIERÍA DE PROCESOS / ALIMENTACIÓN Y NUTRICIÓN HUMANA / RECURSOS NATURALES Y MEDIO AMBIENTE Sublíneas de Investigación: - Desarrollo de operaciones, procesos industriales y automatización - Recuperación, conservación y transformación de recursos naturales - Seguridad industrial y ambiental - Tecnologías ambientales y energías renovables - Procesamiento de alimentos ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE INGENIERÍA QUÍMICA",
-      "type": "general"
-    },
-    {
-      "text": "### 🔬 Escuela Profesional de Ciencias Biológicas: Ecología Línea de Investigación: CIENCIA Y PRODUCCIÓN ANIMAL / RECURSOS NATURALES Y MEDIO AMBIENTE / CIENCIAS DE LA SALUD Sublíneas de Investigación: - Acuicultura - Conservación y aprovechamiento de recursos naturales - Calidad ambiental - Diagnóstico y epidemiología - Microbiología aplicada y biotecnología en salud y medio ambiente --- ### 🐟 Escuela Profesional de Ciencias Biológicas: Pesquería Línea de Investigación: CIENCIA Y PRODUCCIÓN ANIMAL / RECURSOS NATURALES Y MEDIO AMBIENTE Sublíneas de Investigación: - Acuicultura - Conservación y aprovechamiento de recursos naturales - Calidad ambiental --- ### 🦠 Escuela Profesional de Ciencias Biológicas: Microbiología Línea de Investigación: CIENCIAS DE LA SALUD / RECURSOS NATURALES Y MEDIO AMBIENTE Sublíneas de Investigación: - Diagnóstico y epidemiología - Microbiología aplicada y biotecnología en salud y medio ambiente - Calidad ambiental ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE CIENCIAS BIOLÓGICAS",
-      "type": "general"
-    },
-    {
-      "text": "### 🏃 Escuela Profesional de Educación Física Línea de Investigación: CIENCIAS DEL DEPORTE Y EDUCACIÓN FÍSICA Sublíneas de Investigación: - Psicomotricidad - Educación física - Deporte y recreación - Ciencias del deporte - Promoción de la salud --- ### 👶 Escuela Profesional de Educación Inicial Línea de Investigación: EDUCACIÓN Y DINÁMICA EDUCATIVA / GESTIÓN Y RESPONSABILIDAD SOCIAL Sublíneas de Investigación: - Perspectivas teóricas de la educación en la primera infancia - Gestión curricular en la primera infancia - Responsabilidad social de la educación --- ### 📚 Escuela Profesional de Educación Primaria Línea de Investigación: EDUCACIÓN Y DINÁMICA EDUCATIVA / GESTIÓN Y RESPONSABILIDAD SOCIAL Sublíneas de Investigación: - Perspectivas teóricas de la educación - Gestión curricular - Responsabilidad social de la educación --- ### 🔬 EPES - Especialidad de Ciencia, Tecnología y Ambiente Línea de Investigación: EDUCACIÓN Y DINÁMICA EDUCATIVA Sublíneas de Investigación: - Gestión del aprendizaje en ciencia, tecnología y ambiente - Interdisciplinariedad en la dinámica educativa de la ciencia, tecnología y ambiente --- ### 🌍 EPES - Especialidad de Ciencias Sociales Línea de Investigación: EDUCACIÓN Y DINÁMICA EDUCATIVA Sublíneas de Investigación: - Gestión educativa y desarrollo institucional - Innovación educativa y prácticas pedagógicas --- ### 📖 EPES - Especialidad de Lengua, Literatura, Psicología y Filosofía Línea de Investigación: EDUCACIÓN Y DINÁMICA EDUCATIVA Sublíneas de Investigación: - Desarrollo del proceso pedagógico - Docencia en lengua, literatura, psicología y filosofía - Gestión y acreditación educativa - Gestión de procesos pedagógicos y procesos de desarrollo - Difusión de la lengua y literatura: producción de contenido editorial y medios digitales --- ### ➗ EPES - Especialidad de Matemáticas, Física, Computación e Informática Línea de Investigación: EDUCACIÓN Y DINÁMICA EDUCATIVA Sublíneas de Investigación: - Interdisciplinariedad en la dinámica educativa: teoría y métodos de investigación de la didáctica de la matemática ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE CIENCIAS DE LA EDUCACIÓN",
-      "type": "general"
-    },
-    {
-      "text": "### 🪨 Escuela Profesional de Ingeniería Geológica Línea de Investigación: GEOLOGÍA, MINAS Y METALURGIA Sublíneas de Investigación: - Seguridad y medio ambiente - Ingeniería geotécnica - Geología regional - Geología de minas --- ### ⚙️ Escuela Profesional de Ingeniería Metalúrgica Línea de Investigación: GEOLOGÍA, MINAS Y METALURGIA Sublíneas de Investigación: - Metalurgia extractiva - Metalurgia transformativa - Medio ambiente y seguridad en procesos metalúrgicos ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE INGENIERÍA GEOLÓGICA Y METALÚRGICA",
-      "type": "general"
-    },
-    {
-      "text": "### 📈 Escuela Profesional de Ingeniería Estadística e Informática Línea de Investigación: ESTADÍSTICA E INVESTIGACIÓN Sublíneas de Investigación: - Ingeniería de software e inteligencia artificial - Modelos predictivos uni y multivariantes - Base de datos y sistemas de información - Análisis multivariado, big data, minería de datos e investigación de mercados ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE INGENIERÍA ESTADÍSTICA E INFORMÁTICA",
-      "type": "general"
-    },
-    {
-      "text": "### 🔢 Programa de Estudios Ciencias Físico Matemáticas: Física Línea de Investigación: FÍSICA Y MATEMÁTICA Sublíneas de Investigación: - Física del medio ambiente - Energías renovables - Óptica cuántica --- ### 🧮 Programa de Estudios Ciencias Físico Matemáticas: Matemática Línea de Investigación: FÍSICA Y MATEMÁTICA Sublíneas de Investigación: - Álgebra - Análisis funcional y complejo - Geometría y topología - Ecuaciones diferenciales - Optimización matemática - Análisis numérico --- ### 🏗️ Escuela Profesional de Ingeniería Civil - Acreditada por ICACIT Línea de Investigación: INFRAESTRUCTURA Y CONSTRUCCIONES Sublíneas de Investigación: - Construcción y gerencia - Geotecnia - Hidráulica y medio ambiente - Análisis y diseño estructural - Transportes y gestión vial --- ### 🏛️ Escuela Profesional de Arquitectura y Urbanismo Línea de Investigación: ARQUITECTURA Y URBANISMO Sublíneas de Investigación: - Arquitectura, teoría y diseño arquitectónico sostenible - Planificación urbana y desarrollo territorial sostenible - Tecnología, gestión e innovación en la edificación - Patrimonio arquitectónico y arquitectura social ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE INGENIERÍA CIVIL Y ARQUITECTURA",
-      "type": "general"
-    },
-    {
-      "text": "### 💧 Escuela Profesional de Ingeniería Agrícola Línea de Investigación: INFRAESTRUCTURA Y CONSTRUCCIONES / RECURSOS NATURALES Y MEDIO AMBIENTE Sublíneas de Investigación: - Recursos hídricos - Ingeniería de infraestructura rural - Ordenamiento territorial y medio ambiente ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE INGENIERÍA AGRÍCOLA",
-      "type": "general"
-    },
-    {
-      "text": "### 🍎 Escuela Profesional de Nutrición Humana Línea de Investigación: ALIMENTACIÓN Y NUTRICIÓN HUMANA Sublíneas de Investigación: - Atención nutricional a personas sanas y enfermas en las diferentes etapas de la vida - Promoción de salud de las personas - Formulación, evaluación y gestión de proyectos y empresas con alimentos, nutrición y salud - Innovación, análisis y control de los alimentos en el sistema alimentario --- ### 🦷 Escuela Profesional de Odontología Línea de Investigación: CIENCIAS DE LA SALUD Sublíneas de Investigación: - Salud pública y ocupacional - Biología, crecimiento y desarrollo craneofacial - Diagnóstico, tratamiento y rehabilitación del sistema estomatognático ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE CIENCIAS DE LA SALUD",
-      "type": "general"
-    },
-    {
-      "text": "### 📡 Escuela Profesional de Ingeniería Electrónica Línea de Investigación: MECÁNICA - ELÉCTRICA / SISTEMAS, COMPUTACIÓN E INFORMÁTICA Sublíneas de Investigación: - Automatización e instrumentación - Telecomunicaciones y redes de datos - Microelectrónica (revisar) - Robótica (revisar) --- ### ⚡ Escuela Profesional de Ingeniería Mecánica Eléctrica Línea de Investigación: MECÁNICA - ELÉCTRICA / RECURSOS NATURALES Y MEDIO AMBIENTE Sublíneas de Investigación: - Control de procesos - Energías renovables - Ingeniería eléctrica - Ingeniería mecánica - Aplicaciones energéticas (revisar) --- ### 💻 Escuela Profesional de Ingeniería de Sistemas Línea de Investigación: SISTEMAS, COMPUTACIÓN E INFORMÁTICA Sublíneas de Investigación: - Ingeniería de software, bases de datos e inteligencia de negocios - Inteligencia artificial, sistemas computacionales y sistemas bioinspirados - Desarrollo, gestión, seguridad y auditoría de sistemas de información - Nuevas tecnologías - informática, educación y sociedad - Teoría de sistemas, administración de sistemas, sistemas distribuidos, redes y telemática --- ### 📶 Escuela Profesional de Ingeniería de Telecomunicaciones Línea de Investigación: (En proceso de definición de sublíneas específicas) Sublíneas de Investigación: - (En proceso de definición de sublíneas específicas) --- ### 🤖 Escuela Profesional de Ingeniería Inteligencia Artificial y Ciencia de Datos Línea de Investigación: (En proceso de definición de sublíneas específicas) Sublíneas de Investigación: (En proceso de definición de sublíneas específicas) ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE INGENIERÍA MECÁNICA ELÉCTRICA, ELECTRÓNICA Y SISTEMAS",
-      "type": "general"
-    },
-    {
-      "text": "### 🩺 Escuela Profesional de Medicina Humana Línea de Investigación: CIENCIAS DE LA SALUD Sublíneas de Investigación: - Ciencias médicas básicas - Ciencias médicas clínicas - Medicina de altura ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE MEDICINA HUMANA",
-      "type": "general"
-    },
-    {
-      "text": "### 💼 Escuela Profesional de Administración Línea de Investigación: ADMINISTRACIÓN Y MARKETING Sublíneas de Investigación: - Administración de finanzas - Administración de procesos organizacionales - Administración de emprendimientos - Administración general - Administración de recursos humanos - Administración de marketing y negocios internacionales - Administración pública ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "FACULTAD DE CIENCIAS ADMINISTRATIVAS Y HUMANAS",
-      "type": "general"
-    },
-    {
-      "text": "1. Administración y Marketing 2. Alimentación y Nutrición Humana 3. Arquitectura y Urbanismo 4. Arte y Música 5. Auditoría, Costos y Finanzas 6. Ciencias de la Salud 7. Ciencia y Producción Animal 8. Ciencias del Deporte y Educación Física 9. Derecho 10. Economía y Desarrollo 11. Educación y Dinámica Educativa 12. Estadística e Investigación 13. Física y Matemática 14. Geología, Minas y Metalurgia 15. Gestión y Responsabilidad Social 16. Infraestructura y Construcciones 17. Ingeniería de Procesos 18. Manejo Agronómico Cultivos 19. Mecánica - Eléctrica 20. Recursos Naturales y Medio Ambiente 21. Salud Pública 22. Sistemas de Información Geográfica 23. Sistemas, Computación e Informática 24. Sociedad, Cultura y Comunicación ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "📊 Resumen: 24 Líneas de Investigación Institucionales",
-      "type": "general"
-    },
-    {
-      "text": "- Vigencia: Esta estructura está vigente desde el 05 de septiembre de 2025 según Resolución Rectoral N° 2589-2025-R-UNA. - 28 Escuelas: Participaron activamente en la evaluación y actualización de sus sublíneas. - Requisito para investigación: Toda investigación en la UNA-Puno debe enmarcarse en alguna de estas líneas y sublíneas institucionales. --- Vicerrectorado de Investigación - UNA Puno Instituto de Investigación - UNA-PUNO Para consultas adicionales sobre líneas y sublíneas de investigación, contacta con: - Tu Director de Escuela Profesional - El Instituto de Investigación de tu Facultad - El Vicerrectorado de Investigación ---",
-      "source": "sublíneas-investigacion-una-puno",
-      "section": "📝 Notas Importantes",
-      "type": "general"
+      "type": "lineas_investigacion",
+      "entidad": "facultad_escuela",
+      "facultad": "FACULTAD_DE_CIENCIAS_ADMINISTRATIVAS_Y_HUMANAS",
+      "escuela": "",
+      "metadata": {
+        "tipo": "informacion_general",
+        "vigencia": "Esta estructura está vigente desde el 05 de septiembre de 2025 según Resolución Rectoral N° 2589-2025-R-UNA",
+        "escuelas_participantes": "28 Escuelas participaron activamente en la evaluación y actualización de sus sublíneas",
+        "requisito_investigacion": "Toda investigación en la UNA-Puno debe enmarcarse en alguna de estas líneas y sublíneas institucionales"
+      }
     }
   ],
   "model_name": "paraphrase-multilingual-MiniLM-L12-v2",
-  "total_docs": 88,
+  "total_docs": 81,
   "dimension": 384,
   "chunk_types": {
-    "actor_proceso": 9,
-    "pregunta_frecuente": 31,
-    "migracion_pgi": 1,
-    "introduccion_reglamento": 1,
-    "reglamento_general": 4,
-    "etapa_reglamento": 17,
-    "general": 25
+    "procesos_tesis": 21,
+    "etapa_proceso": 29,
+    "preguntas_frecuentes": 23,
+    "articulo_reglamento": 3,
+    "reglamento": 3,
+    "lineas_investigacion": 2
   },
-  "created_at": "2025-10-30T15:40:42"
+  "created_at": "2025-10-30T16:46:26"
 }

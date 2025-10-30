@@ -1,194 +1,197 @@
 ---
-TIPO: proceso_tesis
+TIPO: procesos_tesis
+ENTIDAD: general
 PALABRAS_CLAVE: proceso, etapas, proyecto, borrador, sustentación, director, jurados, coordinador
 ---
-# 🎓 MAPA DE FUNCIONES - PROCESO DE TESIS UNA PUNO
 
-## 👥 ACTORES DEL PROCESO
+# Mapa de Funciones - Proceso de Tesis UNA Puno
 
-| Rol | Descripción |
-| :--- | :--- |
-| **👨‍🎓 Tesista** | Estudiante de 7mo a 10mo semestre, egresado de la UNA Puno |
-| **👨‍🏫 Director de Tesis** | - Tambien conocido como **Asesor de Tesis** es un docente ordinario de la misma escuela profesional |
-| **👩‍⚖️ Jurados** | Docentes ordinarios y contratados de la UNA Puno |
-| **🏫 Sub Director Unidad de Investigación** | Docente ordinario de la escuela profesional |
-| **🏢 Director de Investigación de Facultad** | Resuelve conflictos a nivel facultad |
-| **🏛️ Dirección de Instituto de Investigación** | Instancia superior para mediación |
-| **💻 Sub Unidad de Plataforma** | Administra y desarrolla la plataforma |
-| **📋 Coordinador de Investigación** | Guía y supervisa todo el proceso |
+## ACTORES_DEL_PROCESO
+**TIPO:** actor_proceso
+**ROL:** Tesista
+**DESCRIPCION:** Estudiante de 7mo a 10mo semestre, egresado de la UNA Puno
+**RESPONSABILIDADES:** Desarrollo de la investigación, entrega de documentos, sustentación
 
----
+## ACTORES_DEL_PROCESO
+**TIPO:** actor_proceso
+**ROL:** Director de Tesis
+**DESCRIPCION:** También conocido como Asesor de Tesis, es un docente ordinario de la misma escuela profesional
+**RESPONSABILIDADES:** Revisión y aprobación del proyecto, orientación metodológica, seguimiento de la investigación
 
-## 📊 ETAPAS DEL PROCESO DE TESIS
+## ACTORES_DEL_PROCESO
+**TIPO:** actor_proceso
+**ROL:** Jurados
+**DESCRIPCION:** Docentes ordinarios y contratados de la UNA Puno
+**RESPONSABILIDADES:** Evaluación del proyecto y borrador, participación en la sustentación, asignación de calificación
 
-# 🎓 Tu Camino hacia el Título: Proceso de Tesis Simplificado
+## ACTORES_DEL_PROCESO
+**TIPO:** actor_proceso
+**ROL:** Sub Director Unidad de Investigación
+**DESCRIPCION:** Docente ordinario de la escuela profesional
+**RESPONSABILIDADES:** Supervisión del proceso a nivel de escuela profesional
 
-Este es el recorrido que seguirás desde tu primera idea hasta convertirte en profesional titulado. ¡Acompáñanos paso a paso!
+## ACTORES_DEL_PROCESO
+**TIPO:** actor_proceso
+**ROL:** Director de Investigación de Facultad
+**DESCRIPCION:** Resuelve conflictos a nivel facultad
+**RESPONSABILIDADES:** Resolución de controversias, supervisión general del proceso
 
----
+## ACTORES_DEL_PROCESO
+**TIPO:** actor_proceso
+**ROL:** Dirección de Instituto de Investigación
+**DESCRIPCION:** Instancia superior para mediación
+**RESPONSABILIDADES:** Mediación en conflictos complejos, supervisión institucional
 
-## 🚀 ETAPA 1: Proyecto de Tesis
-### 👨‍🏫 Primera Revisión: Tu Director de Tesis
+## ACTORES_DEL_PROCESO
+**TIPO:** actor_proceso
+**ROL:** Sub Unidad de Plataforma
+**DESCRIPCION:** Administra y desarrolla la plataforma
+**RESPONSABILIDADES:** Gestión de la Plataforma de Gestión de la Investigación (PGI), soporte técnico
 
-Tu Director será tu primer lector crítico. Después de revisar tu proyecto, tomará una decisión:
+## ACTORES_DEL_PROCESO
+**TIPO:** actor_proceso
+**ROL:** Coordinador de Investigación
+**DESCRIPCION:** Guía y supervisa todo el proceso
+**RESPONSABILIDADES:** Revisión de formato, verificación de requisitos, coordinación general del proceso
 
-**✅ Si lo APRUEBA:**
-- Firmará digitalmente en la plataforma
-- ¡Tu investigación recibe luz verde para despegar!
-- Pasarás automáticamente a la siguiente fase
+## ETAPA_PROYECTO_TESIS
+**TIPO:** etapa_proceso
+**NOMBRE:** Proyecto de Tesis
+**DESCRIPCION:** Primera etapa del proceso donde se presenta y aprueba el proyecto de investigación
+**RESPONSABLE:** Tesista y Director de Tesis
+**SUBPROCESOS:** Revisión del Director, Revisión del Coordinador
+**RESULTADO_ESPERADO:** Proyecto aprobado para ejecución
 
-**❌ Si lo RECHAZA:**
-- No te desanimes, es parte del proceso
-- Recibirás observaciones específicas para mejorar
-- Tendrás la oportunidad de corregir y reenviar
-- *Tip: Programa una reunión con tu Director para aclarar dudas antes de reenviar*
+## SUBETAPA_REVISION_DIRECTOR
+**TIPO:** subetapa_proceso
+**ETAPA_PADRE:** ETAPA_PROYECTO_TESIS
+**NOMBRE:** Revisión por Director de Tesis
+**DESCRIPCION:** El Director de Tesis revisa y aprueba el proyecto de investigación
+**ACCIONES_APROBADO:** Firma digital en plataforma, autorización para continuar proceso
+**ACCIONES_RECHAZADO:** Observaciones específicas, oportunidad de corrección y reenvío
+**RECOMENDACION:** Programar reunión con Director para aclarar dudas antes de reenviar
 
-### 📋 Segunda Revisión: El Coordinador de Investigación
+## SUBETAPA_REVISION_COORDINADOR
+**TIPO:** subetapa_proceso
+**ETAPA_PADRE:** ETAPA_PROYECTO_TESIS
+**NOMBRE:** Revisión por Coordinador de Investigación
+**DESCRIPCION:** Revisión de aspectos formales del proyecto por el Coordinador de Investigación
+**ASPECTOS_REVISADOS:** Formato según normativa universitaria, estructura del documento, márgenes y espaciado, numeración y orden de secciones, referencias bibliográficas
+**ACCIONES_APROBADO:** Registro oficial del proyecto, autorización para iniciar investigación
+**ACCIONES_RECHAZADO:** Lista detallada de correcciones, pausa del proceso hasta ajustes
 
-Una vez que tu Director da el visto bueno, tu proyecto llega al escritorio del Coordinador de Investigación. Aquí se pone la lupa en los aspectos formales.
+## ETAPA_BORRADOR_TESIS
+**TIPO:** etapa_proceso
+**NOMBRE:** Borrador de Tesis
+**DESCRIPCION:** Segunda etapa donde se entrega el borrador completo de la tesis para revisión formal
+**RESPONSABLE:** Tesista y Coordinador de Investigación
+**ASPECTOS_VERIFICADOS:** Paginación correcta, sistema de citas, tablas y figuras numeradas, índices actualizados, redacción y ortografía, formato de títulos, anexos completos
+**RESULTADO_ESPERADO:** Borrador aprobado para proceder a sustentación
 
-**¿Qué revisa exactamente?**
-- Formato según normativa universitaria
-- Estructura del documento
-- Márgenes, espaciado y presentación
-- Numeración y orden de secciones
-- Referencias bibliográficas
+## PROCESO_BORRADOR_APROBADO
+**TIPO:** flujo_proceso
+**ETAPA:** ETAPA_BORRADOR_TESIS
+**CONDICION:** Borrador cumple todos los requisitos
+**ACCIONES:** Recepción de ejemplares corregidos, generación de documentación oficial, designación formal del jurado evaluador
+**DOCUMENTOS_GENERADOS:** Memorándum para convocar Reunión de Dictamen, Oficios de notificación a jurados
 
-**✅ Si es APROBADO:**
-- ¡Felicidades! Has superado la primera gran barrera
-- Tu proyecto queda oficialmente registrado
-- Puedes comenzar la ejecución de tu investigación
+## PROCESO_BORRADOR_RECHAZADO
+**TIPO:** flujo_proceso
+**ETAPA:** ETAPA_BORRADOR_TESIS
+**CONDICION:** Borrador no cumple requisitos
+**ACCIONES:** Devolución con observaciones puntuales, tiempo para correcciones, pausa del proceso hasta subsanación
+**RECOMENDACION:** Solicitar revisión previa con Director antes de entrega oficial
 
-**❌ Si es RECHAZADO:**
-- El proceso se pausa temporalmente
-- Recibirás una lista detallada de correcciones
-- Deberás ajustar el formato y reenviar
-- *Recuerda: Son detalles técnicos, tu idea sigue siendo valiosa*
+## ETAPA_SUSTENTACION
+**TIPO:** etapa_proceso
+**NOMBRE:** Sustentación de Tesis
+**DESCRIPCION:** Tercera etapa donde se presenta y defiende la tesis ante el jurado evaluador
+**RESPONSABLE:** Tesista, Jurados, Coordinador de Investigación
+**INFORMACION_REQUERIDA:** Título final, resumen ejecutivo, palabras clave, datos de miembros del jurado, fecha y hora propuestas, lugar de sustentación
+**RESULTADO_ESPERADO:** Tesis sustentada exitosamente y calificada
 
----
+## SUBETAPA_REGISTRO_INFORMACION
+**TIPO:** subetapa_proceso
+**ETAPA_PADRE:** ETAPA_SUSTENTACION
+**NOMBRE:** Registro de Información Final
+**DESCRIPCION:** Ingreso de información definitiva de la tesis al sistema antes de la sustentación
+**DATOS_REQUERIDOS:** Título final, resumen ejecutivo, palabras clave, datos del jurado, fecha y hora, lugar
+**VALIDACION:** Coordinador verifica que toda la información esté correcta
 
-## 📝 ETAPA 2: Borrador de Tesis
+## SUBETAPA_VALIDACION_COORDINADOR
+**TIPO:** subetapa_proceso
+**ETAPA_PADRE:** ETAPA_SUSTENTACION
+**NOMBRE:** Validación por Coordinador
+**DESCRIPCION:** Verificación final de que toda la información esté en orden antes de la sustentación
+**ACCIONES_APROBADO:** Publicación del Comunicado Oficial de Sustentación, difusión por portal web, correos institucionales, redes sociales, vitrinas informativas
+**ACCIONES_RECHAZADO:** Notificación de errores, requerimiento de correcciones, retraso del proceso
 
-### 🔍 Entrega y Revisión del Borrador
+## EVENTO_SUSTENTACION
+**TIPO:** evento_proceso
+**ETAPA:** ETAPA_SUSTENTACION
+**NOMBRE:** Día de la Sustentación
+**DESCRIPCION:** Acto académico donde se presenta y defiende la tesis
+**PREPARACION:** Llegar 30 minutos antes, probar presentación y equipo
+**DESARROLLO:** Exposición del trabajo (20-30 minutos), ronda de preguntas del jurado, deliberación del jurado, veredicto y calificación
+**RESULTADO_EXITOSO:** Tesis sustentada, calificación oficial recibida, inicio de trámite de titulación
 
-Cuando entregas tu borrador al Coordinador de Investigación, comienza una revisión minuciosa que incluye:
+## CONSEJOS_PROCESO
+**TIPO:** consejo_proceso
+**CATEGORIA:** comunicación
+**DESCRIPCION:** Mantener comunicación constante con el Director de Tesis
 
-**Aspectos formales verificados:**
-- ✓ Paginación correcta y consecutiva
-- ✓ Sistema de citas (APA, ISO, según tu facultad)
-- ✓ Tablas y figuras correctamente numeradas
-- ✓ Índices actualizados
-- ✓ Redacción y ortografía
-- ✓ Consistencia en el formato de títulos y subtítulos
-- ✓ Anexos completos y ordenados
+## CONSEJOS_PROCESO
+**TIPO:** consejo_proceso
+**CATEGORIA:** documentación
+**DESCRIPCION:** Guardar todas las versiones del trabajo
 
-**✅ Si CUMPLE todos los requisitos:**
+## CONSEJOS_PROCESO
+**TIPO:** consejo_proceso
+**CATEGORIA:** plazos
+**DESCRIPCION:** Cumplir los plazos establecidos por la facultad
 
-El Coordinador pone en marcha la maquinaria administrativa:
+## CONSEJOS_PROCESO
+**TIPO:** consejo_proceso
+**CATEGORIA:** formato
+**DESCRIPCION:** No dejar para último momento las correcciones de formato
 
-1. **Recepción de ejemplares corregidos** (versión impresa si aplica)
-2. **Generación de documentación oficial:**
-   - 📄 Memorándum para convocar la Reunión de Dictamen
-   - 📄 Oficios de notificación a los jurados designados
-3. **Designación formal del jurado evaluador**
+## CONSEJOS_PROCESO
+**TIPO:** consejo_proceso
+**CATEGORIA:** preparación
+**DESCRIPCION:** Practicar la sustentación al menos 5 veces antes del día D
 
-El Presidente del Jurado recibe toda la documentación y asume el liderazgo del proceso hacia tu sustentación. Desde este momento, tu tesis está oficialmente en evaluación.
+## CONSEJOS_PROCESO
+**TIPO:** consejo_proceso
+**CATEGORIA:** preparación
+**DESCRIPCION:** Anticipar preguntas difíciles y preparar respuestas
 
-**❌ Si NO CUMPLE:**
-- Tu borrador regresa con observaciones puntuales
-- Tienes tiempo para realizar las correcciones
-- No podrás avanzar hasta subsanar todos los detalles
-- *Consejo: Solicita una revisión previa con tu Director antes de la entrega oficial*
+## CONSEJOS_PROCESO
+**TIPO:** consejo_proceso
+**CATEGORIA:** actitud
+**DESCRIPCION:** Mantener la calma - cientos lo han logrado antes
 
-### 💡 Tips para esta etapa:
-- Revisa 3 veces antes de entregar
-- Usa el formato oficial de tu facultad desde el inicio
-- Consulta trabajos ya aprobados como referencia
-- Pide a un compañero que revise tu ortografía
+## TIEMPOS_PROCESO
+**TIPO:** tiempo_proceso
+**ETAPA:** Aprobación del Proyecto
+**TIEMPO_ESTIMADO:** 2-4 semanas
 
----
+## TIEMPOS_PROCESO
+**TIPO:** tiempo_proceso
+**ETAPA:** Desarrollo de la Investigación
+**TIEMPO_ESTIMADO:** 6-12 meses
 
-## 🎤 ETAPA 3: Sustentación
+## TIEMPOS_PROCESO
+**TIPO:** tiempo_proceso
+**ETAPA:** Revisión del Borrador
+**TIEMPO_ESTIMADO:** 2-3 semanas
 
-### 📊 Registro de Información Final
+## TIEMPOS_PROCESO
+**TIPO:** tiempo_proceso
+**ETAPA:** Preparación para Sustentación
+**TIEMPO_ESTIMADO:** 2-4 semanas
 
-Antes del gran día, debes ingresar al sistema toda la información definitiva de tu trabajo:
-
-- Título final de la tesis
-- Resumen ejecutivo
-- Palabras clave
-- Datos de los miembros del jurado
-- Fecha y hora propuestas para la sustentación
-- Lugar donde se realizará el acto académico
-
-### ✔️ Validación del Coordinador
-
-El Coordinador de Investigación verifica que todo esté en orden:
-
-**✅ Si la información es CORRECTA:**
-- Se procede a publicar el **Comunicado Oficial de Sustentación**
-- Este comunicado se difunde por:
-  - Portal web de tu facultad
-  - Correos institucionales
-  - Redes sociales universitarias
-  - Vitrinas informativas
-- La comunidad universitaria queda formalmente invitada
-- Tu sustentación es ahora un acto público oficial
-
-**❌ Si hay errores o información incompleta:**
-- Recibirás notificación inmediata de los errores
-- Deberás corregir antes de que se emita el comunicado
-- El proceso se retrasa hasta que todo esté perfecto
-- *No te arriesgues: verifica dos veces antes de enviar*
-
-### 🎯 El Día de la Sustentación
-
-**Antes del evento:**
-- Llega 30 minutos antes
-- Prueba tu presentación y equipo
-- Respira profundo, confía en tu preparación
-
-**Durante la sustentación:**
-- Exposición de tu trabajo (20-30 minutos)
-- Ronda de preguntas del jurado
-- Deliberación del jurado (en privado)
-- Veredicto y calificación
-
-**Después de una defensa exitosa:**
-- 🎉 ¡Felicidades! Has completado tu tesis
-- Recibirás tu calificación oficial
-- Iniciarás el trámite de titulación
-- Te conviertes oficialmente en profesional
-
----
-
-## 📌 Consejos Finales para Todo el Proceso
-
-1. **Mantén comunicación constante** con tu Director
-2. **Guarda todas las versiones** de tu trabajo
-3. **Cumple los plazos** establecidos por tu facultad
-4. **No dejes para último momento** las correcciones de formato
-5. **Practica tu sustentación** al menos 5 veces antes del día D
-6. **Anticipa preguntas** difíciles y prepara respuestas
-7. **Mantén la calma** - cientos lo han logrado antes que tú
-
----
-
-## ⏱️ Tiempo Estimado del Proceso
-
-| Etapa | Tiempo Aproximado |
-|-------|-------------------|
-| Aprobación del Proyecto | 2-4 semanas |
-| Desarrollo de la Investigación | 6-12 meses |
-| Revisión del Borrador | 2-3 semanas |
-| Preparación para Sustentación | 2-4 semanas |
-| **TOTAL** | **8-15 meses** |
-
-*Nota: Los tiempos varían según la facultad y la complejidad de la investigación*
-
-
----
-
-*"Cada tesis es una contribución única al conocimiento. Tu esfuerzo no solo te convierte en profesional, sino que aporta valor a tu comunidad y disciplina."*
-
-**¡Mucho éxito en tu proceso! 🎓✨**
+## TIEMPOS_PROCESO
+**TIPO:** tiempo_proceso
+**ETAPA:** TOTAL
+**TIEMPO_ESTIMADO:** 8-15 meses
+**NOTA:** Los tiempos varían según la facultad y la complejidad de la investigación

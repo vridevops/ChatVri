@@ -333,8 +333,30 @@ REGLAS:
 - evita responder "plataforma PILAR", usa "Plataforma de gestión de la investigación"
 - Sé específico con números, ubicaciones y horarios
 - Si te hacen preguntas fuera de tu alcance (clima, matemáticas, chistes), redirige amablemente
-- Recuerda que esta conversación es monitoreada para mejorar el servicio'''
+- Recuerda que esta conversación es monitoreada para mejorar el servicio
+🔒 **REGLAS ESTRICTAS - CRÍTICO:**
+1. SOLO usa la información del CONTEXTO proporcionado
+2. NUNCA inventes datos, contactos, horarios o líneas de investigación
+3. Si la información no está en el CONTEXTO, di exactamente: "No tengo información específica sobre eso en mi base de datos"
+4. NO combines información de diferentes facultades
+5. NO extrapoles o deduzcas información no presente
 
+🎯 **INFORMACIÓN QUE MANEJAS:**
+- Coordinadores por facultad (nombres, emails, teléfonos EXACTOS)
+- Líneas y sublíneas de investigación POR FACULTAD Y ESCUELA
+- Procesos de tesis según reglamento
+- Preguntas frecuentes
+
+❌ **PROHIBIDO ABSOLUTO:**
+- Crear emails que no existen (ej: estadistica.investigacion@unap.edu.pe)
+- Inventar teléfonos o horarios
+- Generar líneas de investigación no listadas
+- Modificar ubicaciones o contactos
+
+📋 **CUANDO NO HAY INFORMACIÓN:**
+Responde EXACTAMENTE: "No encuentro información específica sobre [facultad/escuela] en mi base de conocimiento. Te recomiendo contactar directamente al Vicerrectorado de Investigación."
+
+'''
     history_section = f"CONVERSACIÓN PREVIA:\n{history}\n\n" if history else ""
     
     if context:
@@ -347,6 +369,71 @@ REGLAS:
     if response:
         return response, DEEPSEEK_MODEL
     return "Lo siento, tengo problemas técnicos. Por favor, intenta de nuevo en unos momentos. 🔧", "error"
+
+def strict_search_knowledge_base(query, top_k=3, similarity_threshold=0.75):
+    """Búsqueda estricta que prioriza matching exacto de facultades"""
+    if not embedding_model or not faiss_index:
+        return []
+    
+    try:
+        # Normalizar query para matching de facultades
+        query_lower = query.lower()
+        
+        # Mapeo de términos de búsqueda a nombres de facultad estandarizados
+        faculty_mapping = {
+            'estadística': 'FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA',
+            'estadistica': 'FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA', 
+            'enfermería': 'FACULTAD_DE_ENFERMERIA',
+            'enfermeria': 'FACULTAD_DE_ENFERMERIA',
+            'agrarias': 'FACULTAD_DE_CIENCIAS_AGRARIAS',
+            'veterinaria': 'FACULTAD_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA',
+            # ... agregar más mapeos
+        }
+        
+        # Buscar facultad específica en la query
+        target_faculty = None
+        for term, faculty in faculty_mapping.items():
+            if term in query_lower:
+                target_faculty = faculty
+                break
+        
+        # Búsqueda semántica normal
+        query_vector = embedding_model.encode([query])
+        query_vector = np.array(query_vector).astype('float32')
+        
+        distances, indices = faiss_index.search(query_vector, top_k * 5)  # Buscar más resultados
+        
+        # Filtrar estrictamente
+        results = []
+        for dist, idx in zip(distances[0], indices[0]):
+            if idx >= len(documents):
+                continue
+                
+            doc = documents[idx].copy()
+            doc['similarity'] = 1 / (1 + dist)
+            
+            # ⭐ FILTRO ESTRICTO: Solo documentos con alta similitud
+            if doc['similarity'] < similarity_threshold:
+                continue
+            
+            # ⭐ FILTRO POR FACULTAD: Si se busca una facultad específica
+            if target_faculty:
+                doc_facultad = doc.get('facultad', '').upper()
+                if target_faculty in doc_facultad:
+                    doc['faculty_match'] = True
+                    results.append(doc)
+                else:
+                    continue
+            else:
+                results.append(doc)
+        
+        # Ordenar por similitud y facultad match
+        results.sort(key=lambda x: (x.get('faculty_match', False), x['similarity']), reverse=True)
+        return results[:top_k]
+        
+    except Exception as e:
+        logger.error(f"Error búsqueda estricta: {e}")
+        return []
 
 async def verify_response_quality(user_query, bot_response, context):
     """Verificar que la respuesta sea precisa y relevante"""

@@ -1,1198 +1,1183 @@
 {
   "documents": [
     {
-      "text": "TITULO: ACTORES_DEL_PROCESO\nTIPO: actor_proceso\nROL: Tesista\nDESCRIPCION: Estudiante de 7mo a 10mo semestre, egresado de la UNA Puno\nRESPONSABILIDADES: Desarrollo de la investigación, entrega de documentos, sustentación",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_AGRARIAS\nCOORDINADOR: Betsy Zelmira Avalos Alejo\nEMAIL: fca.ui@unap.edu.pe\nTELÉFONO: 962382228\nHORARIO: 7:30 a 14:00 horas\nUBICACIÓN: Pabellón antiguo de la E. P. Ing. Agronómica, Segundo Piso, Oficina 206, Ciudad Universitaria\nATENCIÓN: Lunes a viernes de 7:30 a 14:00 h\nALIAS: Ciencias Agrarias, FCA, Agronomía, Agrarias\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Betsy Zelmira Avalos Alejo EMAIL: fca.ui@unap.edu.pe TELEFONO: 962382228 HORARIO: 7:30 a 14:00 horas ATENCION: Lunes a viernes de 7:30 a 14:00 h UBICACION: Pabellón antiguo de la E. P. Ing. Agronómica, Segundo Piso, Oficina 206, Ciudad Universitaria ALIAS: Ciencias Agrarias, FCA, Agronomía, Agrarias",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_CIENCIAS_AGRARIAS",
+      "entidad": "facultad",
       "metadata": {
-        "tipo": "actor_proceso",
-        "rol": "Tesista",
-        "descripcion": "Estudiante de 7mo a 10mo semestre, egresado de la UNA Puno",
-        "responsabilidades": "Desarrollo de la investigación, entrega de documentos, sustentación"
+        "tipo": "coordinador",
+        "nombre": "Betsy Zelmira Avalos Alejo",
+        "email": "fca.ui@unap.edu.pe",
+        "telefono": "962382228",
+        "horario": "7:30 a 14:00 horas",
+        "atencion": "Lunes a viernes de 7:30 a 14:00 h",
+        "ubicacion": "Pabellón antiguo de la E. P. Ing. Agronómica, Segundo Piso, Oficina 206, Ciudad Universitaria",
+        "alias": "Ciencias Agrarias, FCA, Agronomía, Agrarias"
       }
     },
     {
-      "text": "TITULO: ACTORES_DEL_PROCESO\nTIPO: actor_proceso\nROL: Director de Tesis\nDESCRIPCION: También conocido como Asesor de Tesis, es un docente ordinario de la misma escuela profesional\nRESPONSABILIDADES: Revisión y aprobación del proyecto, orientación metodológica, seguimiento de la investigación",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
+      "text": "FACULTAD: FACULTAD_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA\nCOORDINADOR: Elizabeth Choque Sallo\nEMAIL: investigacion.fmvz@unap.edu.pe\nTELÉFONO: 951644391\nHORARIO: 8:00 a 13:00 horas\nUBICACIÓN: Pabellón antiguo de la E.P. Medicina Veterinaria, Segundo Piso, Oficina 106, Ciudad Universitaria\nATENCIÓN: Lunes a viernes de 8:00 a 13:00 h\nALIAS: Medicina Veterinaria, Veterinaria, Zootecnia, FMVZ\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Elizabeth Choque Sallo EMAIL: investigacion.fmvz@unap.edu.pe TELEFONO: 951644391 HORARIO: 8:00 a 13:00 horas ATENCION: Lunes a viernes de 8:00 a 13:00 h UBICACION: Pabellón antiguo de la E.P. Medicina Veterinaria, Segundo Piso, Oficina 106, Ciudad Universitaria ALIAS: Medicina Veterinaria, Veterinaria, Zootecnia, FMVZ",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA",
+      "entidad": "facultad",
       "metadata": {
-        "tipo": "actor_proceso",
-        "rol": "Director de Tesis",
-        "descripcion": "También conocido como Asesor de Tesis, es un docente ordinario de la misma escuela profesional",
-        "responsabilidades": "Revisión y aprobación del proyecto, orientación metodológica, seguimiento de la investigación"
+        "tipo": "coordinador",
+        "nombre": "Elizabeth Choque Sallo",
+        "email": "investigacion.fmvz@unap.edu.pe",
+        "telefono": "951644391",
+        "horario": "8:00 a 13:00 horas",
+        "atencion": "Lunes a viernes de 8:00 a 13:00 h",
+        "ubicacion": "Pabellón antiguo de la E.P. Medicina Veterinaria, Segundo Piso, Oficina 106, Ciudad Universitaria",
+        "alias": "Medicina Veterinaria, Veterinaria, Zootecnia, FMVZ"
       }
     },
     {
-      "text": "TITULO: ACTORES_DEL_PROCESO\nTIPO: actor_proceso\nROL: Jurados\nDESCRIPCION: Docentes ordinarios y contratados de la UNA Puno\nRESPONSABILIDADES: Evaluación del proyecto y borrador, participación en la sustentación, asignación de calificación",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_ECONOMICA\nCOORDINADOR: Delia Aguilar Laura\nEMAIL: unidadinvestigacion.fie@unap.edu.pe\nTELÉFONO: 951074978\nHORARIO: 8:00 a 13:00 horas\nUBICACIÓN: Pabellón nuevo de E.P. Ingeniería Económica, Cuarto Piso, Ciudad Universitaria\nATENCIÓN: Lunes a viernes de 8:00 a 13:00 h\nALIAS: Ingeniería Económica, FIE, Economía, Económica\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Delia Aguilar Laura EMAIL: unidadinvestigacion.fie@unap.edu.pe TELEFONO: 951074978 HORARIO: 8:00 a 13:00 horas ATENCION: Lunes a viernes de 8:00 a 13:00 h UBICACION: Pabellón nuevo de E.P. Ingeniería Económica, Cuarto Piso, Ciudad Universitaria ALIAS: Ingeniería Económica, FIE, Economía, Económica",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_INGENIERIA_ECONOMICA",
+      "entidad": "facultad",
       "metadata": {
-        "tipo": "actor_proceso",
-        "rol": "Jurados",
-        "descripcion": "Docentes ordinarios y contratados de la UNA Puno",
-        "responsabilidades": "Evaluación del proyecto y borrador, participación en la sustentación, asignación de calificación"
+        "tipo": "coordinador",
+        "nombre": "Delia Aguilar Laura",
+        "email": "unidadinvestigacion.fie@unap.edu.pe",
+        "telefono": "951074978",
+        "horario": "8:00 a 13:00 horas",
+        "atencion": "Lunes a viernes de 8:00 a 13:00 h",
+        "ubicacion": "Pabellón nuevo de E.P. Ingeniería Económica, Cuarto Piso, Ciudad Universitaria",
+        "alias": "Ingeniería Económica, FIE, Economía, Económica"
       }
     },
     {
-      "text": "TITULO: ACTORES_DEL_PROCESO\nTIPO: actor_proceso\nROL: Sub Director Unidad de Investigación\nDESCRIPCION: Docente ordinario de la escuela profesional\nRESPONSABILIDADES: Supervisión del proceso a nivel de escuela profesional",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_CONTABLES_Y_ADMINISTRATIVAS\nCOORDINADOR: Massiel Gonzales Condori\nEMAIL: duifcca@unap.edu.pe\nTELÉFONO: 925306963\nHORARIO: 8:00 a 14:00 horas\nUBICACIÓN: Pabellón Antiguo E.P. Contabilidad, Tercer piso, Ciudad Universitaria\nATENCIÓN: Lunes a viernes de 8:00 a 14:00 h\nALIAS: Contables y Administrativas, FCCA, Contabilidad, Administración\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Massiel Gonzales Condori EMAIL: duifcca@unap.edu.pe TELEFONO: 925306963 HORARIO: 8:00 a 14:00 horas ATENCION: Lunes a viernes de 8:00 a 14:00 h UBICACION: Pabellón Antiguo E.P. Contabilidad, Tercer piso, Ciudad Universitaria ALIAS: Contables y Administrativas, FCCA, Contabilidad, Administración",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_CIENCIAS_CONTABLES_Y_ADMINISTRATIVAS",
+      "entidad": "facultad",
       "metadata": {
-        "tipo": "actor_proceso",
-        "rol": "Sub Director Unidad de Investigación",
-        "descripcion": "Docente ordinario de la escuela profesional",
-        "responsabilidades": "Supervisión del proceso a nivel de escuela profesional"
+        "tipo": "coordinador",
+        "nombre": "Massiel Gonzales Condori",
+        "email": "duifcca@unap.edu.pe",
+        "telefono": "925306963",
+        "horario": "8:00 a 14:00 horas",
+        "atencion": "Lunes a viernes de 8:00 a 14:00 h",
+        "ubicacion": "Pabellón Antiguo E.P. Contabilidad, Tercer piso, Ciudad Universitaria",
+        "alias": "Contables y Administrativas, FCCA, Contabilidad, Administración"
       }
     },
     {
-      "text": "TITULO: ACTORES_DEL_PROCESO\nTIPO: actor_proceso\nROL: Director de Investigación de Facultad\nDESCRIPCION: Resuelve conflictos a nivel facultad\nRESPONSABILIDADES: Resolución de controversias, supervisión general del proceso",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
+      "text": "FACULTAD: FACULTAD_DE_TRABAJO_SOCIAL\nCOORDINADOR: Jhonatan Edward Charca Noblega\nEMAIL: investigacion.fts@unap.edu.pe\nTELÉFONO: 989655958\nHORARIO: 8:00 a 13:00 horas\nUBICACIÓN: Pabellón antiguo de E.P. de Trabajo Social, Segundo Piso, Oficina 205, Ciudad Universitaria\nATENCIÓN: Lunes a viernes de 8:00 a 13:00 h\nALIAS: Trabajo Social, FTS, Servicio Social\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Jhonatan Edward Charca Noblega EMAIL: investigacion.fts@unap.edu.pe EMAIL_ALTERNATIVO: jcharca@unap.edu.pe TELEFONO: 989655958 HORARIO: 8:00 a 13:00 horas ATENCION: Lunes a viernes de 8:00 a 13:00 h UBICACION: Pabellón antiguo de E.P. de Trabajo Social, Segundo Piso, Oficina 205, Ciudad Universitaria ALIAS: Trabajo Social, FTS, Servicio Social",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_TRABAJO_SOCIAL",
+      "entidad": "facultad",
       "metadata": {
-        "tipo": "actor_proceso",
-        "rol": "Director de Investigación de Facultad",
-        "descripcion": "Resuelve conflictos a nivel facultad",
-        "responsabilidades": "Resolución de controversias, supervisión general del proceso"
+        "tipo": "coordinador",
+        "nombre": "Jhonatan Edward Charca Noblega",
+        "email": "investigacion.fts@unap.edu.pe",
+        "email_alternativo": "jcharca@unap.edu.pe",
+        "telefono": "989655958",
+        "horario": "8:00 a 13:00 horas",
+        "atencion": "Lunes a viernes de 8:00 a 13:00 h",
+        "ubicacion": "Pabellón antiguo de E.P. de Trabajo Social, Segundo Piso, Oficina 205, Ciudad Universitaria",
+        "alias": "Trabajo Social, FTS, Servicio Social"
       }
     },
     {
-      "text": "TITULO: ACTORES_DEL_PROCESO\nTIPO: actor_proceso\nROL: Dirección de Instituto de Investigación\nDESCRIPCION: Instancia superior para mediación\nRESPONSABILIDADES: Mediación en conflictos complejos, supervisión institucional",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
+      "text": "FACULTAD: FACULTAD_DE_ENFERMERIA\nCOORDINADOR: Edson Gilmar Quispe Ponce\nEMAIL: enfermeria.investigacion@unap.edu.pe\nTELÉFONO: 958748583\nHORARIO: 8:00 a 16:30 horas\nUBICACIÓN: Pabellón Administrativo de la Facultad de Enfermería, Tercer piso, Oficina 311, Ciudad Universitaria\nATENCIÓN: Lunes a viernes de 8:00 a 16:30 h\nALIAS: Enfermería, Escuela de Enfermería\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Edson Gilmar Quispe Ponce EMAIL: enfermeria.investigacion@unap.edu.pe TELEFONO: 958748583 HORARIO: 8:00 a 16:30 horas ATENCION: Lunes a viernes de 8:00 a 16:30 h UBICACION: Pabellón Administrativo de la Facultad de Enfermería, Tercer piso, Oficina 311, Ciudad Universitaria ALIAS: Enfermería, Escuela de Enfermería",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_ENFERMERIA",
+      "entidad": "facultad",
       "metadata": {
-        "tipo": "actor_proceso",
-        "rol": "Dirección de Instituto de Investigación",
-        "descripcion": "Instancia superior para mediación",
-        "responsabilidades": "Mediación en conflictos complejos, supervisión institucional"
+        "tipo": "coordinador",
+        "nombre": "Edson Gilmar Quispe Ponce",
+        "email": "enfermeria.investigacion@unap.edu.pe",
+        "telefono": "958748583",
+        "horario": "8:00 a 16:30 horas",
+        "atencion": "Lunes a viernes de 8:00 a 16:30 h",
+        "ubicacion": "Pabellón Administrativo de la Facultad de Enfermería, Tercer piso, Oficina 311, Ciudad Universitaria",
+        "alias": "Enfermería, Escuela de Enfermería"
       }
     },
     {
-      "text": "TITULO: ACTORES_DEL_PROCESO\nTIPO: actor_proceso\nROL: Sub Unidad de Plataforma\nDESCRIPCION: Administra y desarrolla la plataforma\nRESPONSABILIDADES: Gestión de la Plataforma de Gestión de la Investigación (PGI), soporte técnico",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nCOORDINADOR: Elsa Maria Mamani Tapia\nEMAIL: investigacion.fcs@unap.edu.pe\nTELÉFONO: 990129411\nHORARIO: 7:30 a 14:30 horas\nUBICACIÓN: Pabellón antiguo de la E.P. de Sociología, Primer piso, Oficina 103, Ciudad Universitaria\nATENCIÓN: Lunes a viernes de 7:30 a 14:30 h\nALIAS: Ciencias Sociales, FCS, Sociología, Antropología\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Elsa Maria Mamani Tapia EMAIL: investigacion.fcs@unap.edu.pe TELEFONO: 990129411 HORARIO: 7:30 a 14:30 horas ATENCION: Lunes a viernes de 7:30 a 14:30 h UBICACION: Pabellón antiguo de la E.P. de Sociología, Primer piso, Oficina 103, Ciudad Universitaria ALIAS: Ciencias Sociales, FCS, Sociología, Antropología",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_CIENCIAS_SOCIALES",
+      "entidad": "facultad",
       "metadata": {
-        "tipo": "actor_proceso",
-        "rol": "Sub Unidad de Plataforma",
-        "descripcion": "Administra y desarrolla la plataforma",
-        "responsabilidades": "Gestión de la Plataforma de Gestión de la Investigación (PGI), soporte técnico"
+        "tipo": "coordinador",
+        "nombre": "Elsa Maria Mamani Tapia",
+        "email": "investigacion.fcs@unap.edu.pe",
+        "telefono": "990129411",
+        "horario": "7:30 a 14:30 horas",
+        "atencion": "Lunes a viernes de 7:30 a 14:30 h",
+        "ubicacion": "Pabellón antiguo de la E.P. de Sociología, Primer piso, Oficina 103, Ciudad Universitaria",
+        "alias": "Ciencias Sociales, FCS, Sociología, Antropología"
       }
     },
     {
-      "text": "TITULO: ACTORES_DEL_PROCESO\nTIPO: actor_proceso\nROL: Coordinador de Investigación\nDESCRIPCION: Guía y supervisa todo el proceso\nRESPONSABILIDADES: Revisión de formato, verificación de requisitos, coordinación general del proceso",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_DE_MINAS\nCOORDINADOR: Jose Carlos Cucho Cruz\nEMAIL: jcucho@unap.edu.pe\nTELÉFONO: 982379208\nHORARIO: 8:00 a 14:30 horas\nUBICACIÓN: Pabellón Antiguo de la E.P Ing. Minas, Cuarto Piso, Oficina 406, Ciudad Universitaria\nATENCIÓN: Lunes a viernes de 8:00 a 14:30 h\nALIAS: Ingeniería de Minas, Minas, FIM\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Jose Carlos Cucho Cruz EMAIL: jcucho@unap.edu.pe TELEFONO: 982379208 HORARIO: 8:00 a 14:30 horas ATENCION: Lunes a viernes de 8:00 a 14:30 h UBICACION: Pabellón Antiguo de la E.P Ing. Minas, Cuarto Piso, Oficina 406, Ciudad Universitaria ALIAS: Ingeniería de Minas, Minas, FIM",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_INGENIERIA_DE_MINAS",
+      "entidad": "facultad",
       "metadata": {
-        "tipo": "actor_proceso",
-        "rol": "Coordinador de Investigación",
-        "descripcion": "Guía y supervisa todo el proceso",
-        "responsabilidades": "Revisión de formato, verificación de requisitos, coordinación general del proceso"
+        "tipo": "coordinador",
+        "nombre": "Jose Carlos Cucho Cruz",
+        "email": "jcucho@unap.edu.pe",
+        "telefono": "982379208",
+        "horario": "8:00 a 14:30 horas",
+        "atencion": "Lunes a viernes de 8:00 a 14:30 h",
+        "ubicacion": "Pabellón Antiguo de la E.P Ing. Minas, Cuarto Piso, Oficina 406, Ciudad Universitaria",
+        "alias": "Ingeniería de Minas, Minas, FIM"
       }
     },
     {
-      "text": "TITULO: ETAPA_PROYECTO_TESIS\nTIPO: etapa_proceso\nNOMBRE: Proyecto de Tesis\nDESCRIPCION: Primera etapa del proceso donde se presenta y aprueba el proyecto de investigación\nRESPONSABLE: Tesista y Director de Tesis\nSUBPROCESOS: Revisión del Director, Revisión del Coordinador\nRESULTADO_ESPERADO: Proyecto aprobado para ejecución",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_BIOLOGICAS\nCOORDINADOR: Yrma Ruelas Ortega\nEMAIL: yruelas@unap.edu.pe\nTELÉFONO: 955660218\nHORARIO: 8:00 a 16:30 horas\nUBICACIÓN: Pabellón de Biomédicas parte Administrativa, Cuarto piso, Oficina 403, Ciudad Universitaria\nATENCIÓN: Lunes a viernes de 8:00 a 16:30 h\nALIAS: Ciencias Biológicas, Biología, FCB\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Yrma Ruelas Ortega EMAIL: yruelas@unap.edu.pe TELEFONO: 955660218 HORARIO: 8:00 a 16:30 horas ATENCION: Lunes a viernes de 8:00 a 16:30 h UBICACION: Pabellón de Biomédicas parte Administrativa, Cuarto piso, Oficina 403, Ciudad Universitaria ALIAS: Ciencias Biológicas, Biología, FCB",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_CIENCIAS_BIOLOGICAS",
+      "entidad": "facultad",
+      "metadata": {
+        "tipo": "coordinador",
+        "nombre": "Yrma Ruelas Ortega",
+        "email": "yruelas@unap.edu.pe",
+        "telefono": "955660218",
+        "horario": "8:00 a 16:30 horas",
+        "atencion": "Lunes a viernes de 8:00 a 16:30 h",
+        "ubicacion": "Pabellón de Biomédicas parte Administrativa, Cuarto piso, Oficina 403, Ciudad Universitaria",
+        "alias": "Ciencias Biológicas, Biología, FCB"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION\nCOORDINADOR: Ruth Mery Cruz Huisa\nEMAIL: rcruzh@unap.edu.pe\nTELÉFONO: 982311128\nHORARIO: Consultar directamente\nUBICACIÓN: Por confirmar\nATENCIÓN: Por confirmar\nALIAS: Ciencias de la Educación, Educación, FCEDUC\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Ruth Mery Cruz Huisa EMAIL: rcruzh@unap.edu.pe TELEFONO: 982311128 HORARIO: Consultar directamente ATENCION: Por confirmar UBICACION: Por confirmar ALIAS: Ciencias de la Educación, Educación, FCEDUC",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION",
+      "entidad": "facultad",
+      "metadata": {
+        "tipo": "coordinador",
+        "nombre": "Ruth Mery Cruz Huisa",
+        "email": "rcruzh@unap.edu.pe",
+        "telefono": "982311128",
+        "horario": "Consultar directamente",
+        "atencion": "Por confirmar",
+        "ubicacion": "Por confirmar",
+        "alias": "Ciencias de la Educación, Educación, FCEDUC"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA\nCOORDINADOR: Coordinación de Estadística\nEMAIL: bcanqui@unap.edu.pe\nTELÉFONO: 951524868\nHORARIO: 8:00 a 14:30 horas\nUBICACIÓN: Pabellón antiguo de la Facultad de Estadística e Informática, Tercer Piso, Ciudad Universitaria\nATENCIÓN: Lunes a viernes de 8:00 a 14:30 h\nALIAS: Estadística e Informática, FIEI, Estadística, Informática, Sistemas\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Coordinación de Estadística EMAIL: bcanqui@unap.edu.pe TELEFONO: 951524868 HORARIO: 8:00 a 14:30 horas ATENCION: Lunes a viernes de 8:00 a 14:30 h UBICACION: Pabellón antiguo de la Facultad de Estadística e Informática, Tercer Piso, Ciudad Universitaria ALIAS: Estadística e Informática, FIEI, Estadística, Informática, Sistemas",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA",
+      "entidad": "facultad",
+      "metadata": {
+        "tipo": "coordinador",
+        "nombre": "Coordinación de Estadística",
+        "email": "bcanqui@unap.edu.pe",
+        "telefono": "951524868",
+        "horario": "8:00 a 14:30 horas",
+        "atencion": "Lunes a viernes de 8:00 a 14:30 h",
+        "ubicacion": "Pabellón antiguo de la Facultad de Estadística e Informática, Tercer Piso, Ciudad Universitaria",
+        "alias": "Estadística e Informática, FIEI, Estadística, Informática, Sistemas"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_JURIDICAS_Y_POLITICAS\nCOORDINADOR: Nadia Yanett Pineda Chaquilla\nEMAIL: npineda@unap.edu.pe\nTELÉFONO: 951591608\nHORARIO: 8:00 a 15:00 horas\nUBICACIÓN: Edificio de la Facultad de Ciencias Jurídicas y políticas, Jr. Grau esquina con Jr. Conde de Lemus, Cuarto piso, Oficina 503\nATENCIÓN: Lunes a viernes de 8:00 a 15:00 h\nALIAS: Ciencias Jurídicas, Derecho, FCJP\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Nadia Yanett Pineda Chaquilla EMAIL: npineda@unap.edu.pe TELEFONO: 951591608 HORARIO: 8:00 a 15:00 horas ATENCION: Lunes a viernes de 8:00 a 15:00 h UBICACION: Edificio de la Facultad de Ciencias Jurídicas y políticas, Jr. Grau esquina con Jr. Conde de Lemus, Cuarto piso, Oficina 503 ALIAS: Ciencias Jurídicas, Derecho, FCJP",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_CIENCIAS_JURIDICAS_Y_POLITICAS",
+      "entidad": "facultad",
+      "metadata": {
+        "tipo": "coordinador",
+        "nombre": "Nadia Yanett Pineda Chaquilla",
+        "email": "npineda@unap.edu.pe",
+        "telefono": "951591608",
+        "horario": "8:00 a 15:00 horas",
+        "atencion": "Lunes a viernes de 8:00 a 15:00 h",
+        "ubicacion": "Edificio de la Facultad de Ciencias Jurídicas y políticas, Jr. Grau esquina con Jr. Conde de Lemus, Cuarto piso, Oficina 503",
+        "alias": "Ciencias Jurídicas, Derecho, FCJP"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_QUIMICA\nCOORDINADOR: Jessica Milena Euribe Puma\nEMAIL: jeuribe@unap.edu.pe\nTELÉFONO: 956668846\nHORARIO: 7:40 a 14:30 horas\nUBICACIÓN: Pabellón de Facultad de Ingeniería Química, Ciudad Universitaria\nATENCIÓN: Lunes a viernes de 7:40 a 14:30 h\nALIAS: Ingeniería Química, FIQ, Química\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Jessica Milena Euribe Puma EMAIL: jeuribe@unap.edu.pe TELEFONO: 956668846 HORARIO: 7:40 a 14:30 horas ATENCION: Lunes a viernes de 7:40 a 14:30 h UBICACION: Pabellón de Facultad de Ingeniería Química, Ciudad Universitaria ALIAS: Ingeniería Química, FIQ, Química",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_INGENIERIA_QUIMICA",
+      "entidad": "facultad",
+      "metadata": {
+        "tipo": "coordinador",
+        "nombre": "Jessica Milena Euribe Puma",
+        "email": "jeuribe@unap.edu.pe",
+        "telefono": "956668846",
+        "horario": "7:40 a 14:30 horas",
+        "atencion": "Lunes a viernes de 7:40 a 14:30 h",
+        "ubicacion": "Pabellón de Facultad de Ingeniería Química, Ciudad Universitaria",
+        "alias": "Ingeniería Química, FIQ, Química"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_DE_LA_SALUD\nCOORDINADOR: Eufemia Marron Huaranca\nEMAIL: emarron@unap.edu.pe\nTELÉFONO: 951676890\nHORARIO: 7:30 a 14:30 horas\nUBICACIÓN: Pabellón Antiguo de la E.P. de Nutrición y Odontología, Segundo piso, Oficina 202, Ciudad Universitaria\nATENCIÓN: Lunas a viernes de 7:30 a 14:30 h\nALIAS: Ciencias de la Salud, Salud, Nutrición, Odontología\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Eufemia Marron Huaranca EMAIL: emarron@unap.edu.pe TELEFONO: 951676890 HORARIO: 7:30 a 14:30 horas ATENCION: Lunas a viernes de 7:30 a 14:30 h UBICACION: Pabellón Antiguo de la E.P. de Nutrición y Odontología, Segundo piso, Oficina 202, Ciudad Universitaria ALIAS: Ciencias de la Salud, Salud, Nutrición, Odontología",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_CIENCIAS_DE_LA_SALUD",
+      "entidad": "facultad",
+      "metadata": {
+        "tipo": "coordinador",
+        "nombre": "Eufemia Marron Huaranca",
+        "email": "emarron@unap.edu.pe",
+        "telefono": "951676890",
+        "horario": "7:30 a 14:30 horas",
+        "atencion": "Lunas a viernes de 7:30 a 14:30 h",
+        "ubicacion": "Pabellón Antiguo de la E.P. de Nutrición y Odontología, Segundo piso, Oficina 202, Ciudad Universitaria",
+        "alias": "Ciencias de la Salud, Salud, Nutrición, Odontología"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_GEOLOGICA_Y_METALURGICA\nCOORDINADOR: Yenny Aguirre Luna\nEMAIL: yaguirre@unap.edu.pe\nTELÉFONO: 919666026\nHORARIO: 8:30 a 14:30 horas\nUBICACIÓN: Pabellón de Facultad de Ingeniería Geológica y Metalúrgica, Tercer piso, Ciudad Universitaria\nATENCIÓN: Lunes a viernes de 8:30 a 14:30 h\nALIAS: Geológica y Metalúrgica, Geología, Metalurgia, FIGMM\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Yenny Aguirre Luna EMAIL: yaguirre@unap.edu.pe TELEFONO: 919666026 HORARIO: 8:30 a 14:30 horas ATENCION: Lunes a viernes de 8:30 a 14:30 h UBICACION: Pabellón de Facultad de Ingeniería Geológica y Metalúrgica, Tercer piso, Ciudad Universitaria ALIAS: Geológica y Metalúrgica, Geología, Metalurgia, FIGMM",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_INGENIERIA_GEOLOGICA_Y_METALURGICA",
+      "entidad": "facultad",
+      "metadata": {
+        "tipo": "coordinador",
+        "nombre": "Yenny Aguirre Luna",
+        "email": "yaguirre@unap.edu.pe",
+        "telefono": "919666026",
+        "horario": "8:30 a 14:30 horas",
+        "atencion": "Lunes a viernes de 8:30 a 14:30 h",
+        "ubicacion": "Pabellón de Facultad de Ingeniería Geológica y Metalúrgica, Tercer piso, Ciudad Universitaria",
+        "alias": "Geológica y Metalúrgica, Geología, Metalurgia, FIGMM"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_CIVIL_Y_ARQUITECTURA\nCOORDINADOR: Hilda Fidela Yanarico Monroy\nEMAIL: hyanarico@unap.edu.pe\nTELÉFONO: 951510290\nHORARIO: 8:00 a 14:30 horas\nUBICACIÓN: Pabellón de la E.P. de Ciencias Físico Matemáticas, Segundo piso, Oficina 210, Ciudad Universitaria\nATENCIÓN: Lunes a viernes de 8:00 a 14:30 h\nALIAS: Ingeniería Civil, Arquitectura, FICA, Civil\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Hilda Fidela Yanarico Monroy EMAIL: hyanarico@unap.edu.pe TELEFONO: 951510290 HORARIO: 8:00 a 14:30 horas ATENCION: Lunes a viernes de 8:00 a 14:30 h UBICACION: Pabellón de la E.P. de Ciencias Físico Matemáticas, Segundo piso, Oficina 210, Ciudad Universitaria ALIAS: Ingeniería Civil, Arquitectura, FICA, Civil",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_INGENIERIA_CIVIL_Y_ARQUITECTURA",
+      "entidad": "facultad",
+      "metadata": {
+        "tipo": "coordinador",
+        "nombre": "Hilda Fidela Yanarico Monroy",
+        "email": "hyanarico@unap.edu.pe",
+        "telefono": "951510290",
+        "horario": "8:00 a 14:30 horas",
+        "atencion": "Lunes a viernes de 8:00 a 14:30 h",
+        "ubicacion": "Pabellón de la E.P. de Ciencias Físico Matemáticas, Segundo piso, Oficina 210, Ciudad Universitaria",
+        "alias": "Ingeniería Civil, Arquitectura, FICA, Civil"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_AGRICOLA\nCOORDINADOR: Angel Jogues Calsina Ponce\nEMAIL: agricola.investigacion@unap.edu.pe\nTELÉFONO: 946549806\nHORARIO: 7:55 a 15:30 horas\nUBICACIÓN: Pabellón de la E.P. de Ingeniería Agrícola, Tercer piso, Oficina 310, Ciudad Universitaria\nATENCIÓN: Lunes a viernes de 7:55 a 15:30 h\nALIAS: Ingeniería Agrícola, Agrícola, FIA\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Angel Jogues Calsina Ponce EMAIL: agricola.investigacion@unap.edu.pe TELEFONO: 946549806 HORARIO: 7:55 a 15:30 horas ATENCION: Lunes a viernes de 7:55 a 15:30 h UBICACION: Pabellón de la E.P. de Ingeniería Agrícola, Tercer piso, Oficina 310, Ciudad Universitaria ALIAS: Ingeniería Agrícola, Agrícola, FIA",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_INGENIERIA_AGRICOLA",
+      "entidad": "facultad",
+      "metadata": {
+        "tipo": "coordinador",
+        "nombre": "Angel Jogues Calsina Ponce",
+        "email": "agricola.investigacion@unap.edu.pe",
+        "telefono": "946549806",
+        "horario": "7:55 a 15:30 horas",
+        "atencion": "Lunes a viernes de 7:55 a 15:30 h",
+        "ubicacion": "Pabellón de la E.P. de Ingeniería Agrícola, Tercer piso, Oficina 310, Ciudad Universitaria",
+        "alias": "Ingeniería Agrícola, Agrícola, FIA"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_MEDICINA_HUMANA\nCOORDINADOR: Nilda Elizabeth Nuñez Pari\nEMAIL: uinvestigacion.fmh@unap.edu.pe\nTELÉFONO: 982306639\nHORARIO: 8:00 a 14:30 horas\nUBICACIÓN: Pabellón biomédicas administrativo, Segundo piso, Oficina 213, Ciudad Universitaria\nATENCIÓN: Lunes a viernes de 8:00 a 14:30 h\nALIAS: Medicina Humana, Medicina, FMH\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Nilda Elizabeth Nuñez Pari EMAIL: uinvestigacion.fmh@unap.edu.pe TELEFONO: 982306639 HORARIO: 8:00 a 14:30 horas ATENCION: Lunes a viernes de 8:00 a 14:30 h UBICACION: Pabellón biomédicas administrativo, Segundo piso, Oficina 213, Ciudad Universitaria ALIAS: Medicina Humana, Medicina, FMH",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_MEDICINA_HUMANA",
+      "entidad": "facultad",
+      "metadata": {
+        "tipo": "coordinador",
+        "nombre": "Nilda Elizabeth Nuñez Pari",
+        "email": "uinvestigacion.fmh@unap.edu.pe",
+        "telefono": "982306639",
+        "horario": "8:00 a 14:30 horas",
+        "atencion": "Lunes a viernes de 8:00 a 14:30 h",
+        "ubicacion": "Pabellón biomédicas administrativo, Segundo piso, Oficina 213, Ciudad Universitaria",
+        "alias": "Medicina Humana, Medicina, FMH"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS\nCOORDINADOR: Maritza Yolanda Quea Gutierrez\nEMAIL: mquea@unap.edu.pe\nTELÉFONO: 968823210\nHORARIO: 8:00 a 14:30 horas\nUBICACIÓN: Pabellón de la Escuela Profesional de Ingeniería Mecánica Eléctrica, Tercer piso, Ciudad Universitaria\nATENCIÓN: Lunes a viernes de 8:00 a 14:30 h\nALIAS: Ingeniería Mecánica Eléctrica, FIMEES, Mecánica, Eléctrica, Electrónica, Sistemas\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Maritza Yolanda Quea Gutierrez EMAIL: mquea@unap.edu.pe TELEFONO: 968823210 HORARIO: 8:00 a 14:30 horas ATENCION: Lunes a viernes de 8:00 a 14:30 h UBICACION: Pabellón de la Escuela Profesional de Ingeniería Mecánica Eléctrica, Tercer piso, Ciudad Universitaria ALIAS: Ingeniería Mecánica Eléctrica, FIMEES, Mecánica, Eléctrica, Electrónica, Sistemas",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS",
+      "entidad": "facultad",
+      "metadata": {
+        "tipo": "coordinador",
+        "nombre": "Maritza Yolanda Quea Gutierrez",
+        "email": "mquea@unap.edu.pe",
+        "telefono": "968823210",
+        "horario": "8:00 a 14:30 horas",
+        "atencion": "Lunes a viernes de 8:00 a 14:30 h",
+        "ubicacion": "Pabellón de la Escuela Profesional de Ingeniería Mecánica Eléctrica, Tercer piso, Ciudad Universitaria",
+        "alias": "Ingeniería Mecánica Eléctrica, FIMEES, Mecánica, Eléctrica, Electrónica, Sistemas"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_ADMINISTRATIVAS_Y_HUMANAS\nCOORDINADOR: Marisol Huaman Flores\nEMAIL: fcah.ui@unap.edu.pe\nTELÉFONO: 918432768\nHORARIO: 8:30 a 14:30 horas\nUBICACIÓN: Pabellón antiguo de la E.P. de Administración, Primer piso, Oficina 102, Ciudad Universitaria\nATENCIÓN: Lunes a viernes de 8:30 a 14:30 h\nALIAS: Ciencias Administrativas, Administrativas, Humanas, FCAH\n\nINFORMACIÓN COMPLETA:\nTIPO: coordinador NOMBRE: Marisol Huaman Flores EMAIL: fcah.ui@unap.edu.pe TELEFONO: 918432768 HORARIO: 8:30 a 14:30 horas ATENCION: Lunes a viernes de 8:30 a 14:30 h UBICACION: Pabellón antiguo de la E.P. de Administración, Primer piso, Oficina 102, Ciudad Universitaria ALIAS: Ciencias Administrativas, Administrativas, Humanas, FCAH",
+      "source": "coordinadores",
+      "type": "coordinador",
+      "facultad": "FACULTAD_DE_CIENCIAS_ADMINISTRATIVAS_Y_HUMANAS",
+      "entidad": "facultad",
+      "metadata": {
+        "tipo": "coordinador",
+        "nombre": "Marisol Huaman Flores",
+        "email": "fcah.ui@unap.edu.pe",
+        "telefono": "918432768",
+        "horario": "8:30 a 14:30 horas",
+        "atencion": "Lunes a viernes de 8:30 a 14:30 h",
+        "ubicacion": "Pabellón antiguo de la E.P. de Administración, Primer piso, Oficina 102, Ciudad Universitaria",
+        "alias": "Ciencias Administrativas, Administrativas, Humanas, FCAH"
+      }
+    },
+    {
+      "text": "ETAPA_PROCESO: ETAPA_PROYECTO_TESIS\nDESCRIPCIÓN: Primera etapa del proceso donde se presenta y aprueba el proyecto de investigación",
       "source": "mapa y procesos",
       "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_PROYECTO_TESIS",
-      "metadata": {
-        "tipo": "etapa_proceso",
-        "nombre": "Proyecto de Tesis",
-        "descripcion": "Primera etapa del proceso donde se presenta y aprueba el proyecto de investigación",
-        "responsable": "Tesista y Director de Tesis",
-        "subprocesos": "Revisión del Director, Revisión del Coordinador",
-        "resultado_esperado": "Proyecto aprobado para ejecución"
-      }
+      "titulo": "ETAPA_PROYECTO_TESIS",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: SUBETAPA_REVISION_DIRECTOR\nTIPO: subetapa_proceso\nETAPA_PADRE: ETAPA_PROYECTO_TESIS\nNOMBRE: Revisión por Director de Tesis\nDESCRIPCION: El Director de Tesis revisa y aprueba el proyecto de investigación\nACCIONES_APROBADO: Firma digital en plataforma, autorización para continuar proceso\nACCIONES_RECHAZADO: Observaciones específicas, oportunidad de corrección y reenvío\nRECOMENDACION: Programar reunión con Director para aclarar dudas antes de reenviar",
+      "text": "ETAPA_PROCESO: ETAPA_BORRADOR_TESIS\nDESCRIPCIÓN: Segunda etapa donde se entrega el borrador completo de la tesis para revisión formal",
       "source": "mapa y procesos",
       "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "SUBETAPA_REVISION_DIRECTOR",
-      "metadata": {
-        "tipo": "subetapa_proceso",
-        "etapa_padre": "ETAPA_PROYECTO_TESIS",
-        "nombre": "Revisión por Director de Tesis",
-        "descripcion": "El Director de Tesis revisa y aprueba el proyecto de investigación",
-        "acciones_aprobado": "Firma digital en plataforma, autorización para continuar proceso",
-        "acciones_rechazado": "Observaciones específicas, oportunidad de corrección y reenvío",
-        "recomendacion": "Programar reunión con Director para aclarar dudas antes de reenviar"
-      }
+      "titulo": "ETAPA_BORRADOR_TESIS",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: SUBETAPA_REVISION_COORDINADOR\nTIPO: subetapa_proceso\nETAPA_PADRE: ETAPA_PROYECTO_TESIS\nNOMBRE: Revisión por Coordinador de Investigación\nDESCRIPCION: Revisión de aspectos formales del proyecto por el Coordinador de Investigación\nASPECTOS_REVISADOS: Formato según normativa universitaria, estructura del documento, márgenes y espaciado, numeración y orden de secciones, referencias bibliográficas\nACCIONES_APROBADO: Registro oficial del proyecto, autorización para iniciar investigación\nACCIONES_RECHAZADO: Lista detallada de correcciones, pausa del proceso hasta ajustes",
+      "text": "ETAPA_PROCESO: ETAPA_SUSTENTACION\nDESCRIPCIÓN: Tercera etapa donde se presenta y defiende la tesis ante el jurado evaluador",
       "source": "mapa y procesos",
       "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "SUBETAPA_REVISION_COORDINADOR",
-      "metadata": {
-        "tipo": "subetapa_proceso",
-        "etapa_padre": "ETAPA_PROYECTO_TESIS",
-        "nombre": "Revisión por Coordinador de Investigación",
-        "descripcion": "Revisión de aspectos formales del proyecto por el Coordinador de Investigación",
-        "aspectos_revisados": "Formato según normativa universitaria, estructura del documento, márgenes y espaciado, numeración y orden de secciones, referencias bibliográficas",
-        "acciones_aprobado": "Registro oficial del proyecto, autorización para iniciar investigación",
-        "acciones_rechazado": "Lista detallada de correcciones, pausa del proceso hasta ajustes"
-      }
+      "titulo": "ETAPA_SUSTENTACION",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: ETAPA_BORRADOR_TESIS\nTIPO: etapa_proceso\nNOMBRE: Borrador de Tesis\nDESCRIPCION: Segunda etapa donde se entrega el borrador completo de la tesis para revisión formal\nRESPONSABLE: Tesista y Coordinador de Investigación\nASPECTOS_VERIFICADOS: Paginación correcta, sistema de citas, tablas y figuras numeradas, índices actualizados, redacción y ortografía, formato de títulos, anexos completos\nRESULTADO_ESPERADO: Borrador aprobado para proceder a sustentación",
+      "text": "ACTOR_PROCESO: ACTORES_DEL_PROCESO\nDESCRIPCIÓN: Estudiante de 7mo a 10mo semestre, egresado de la UNA Puno",
       "source": "mapa y procesos",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_BORRADOR_TESIS",
-      "metadata": {
-        "tipo": "etapa_proceso",
-        "nombre": "Borrador de Tesis",
-        "descripcion": "Segunda etapa donde se entrega el borrador completo de la tesis para revisión formal",
-        "responsable": "Tesista y Coordinador de Investigación",
-        "aspectos_verificados": "Paginación correcta, sistema de citas, tablas y figuras numeradas, índices actualizados, redacción y ortografía, formato de títulos, anexos completos",
-        "resultado_esperado": "Borrador aprobado para proceder a sustentación"
-      }
+      "type": "actor_proceso",
+      "titulo": "ACTORES_DEL_PROCESO",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: PROCESO_BORRADOR_APROBADO\nTIPO: flujo_proceso\nETAPA: ETAPA_BORRADOR_TESIS\nCONDICION: Borrador cumple todos los requisitos\nACCIONES: Recepción de ejemplares corregidos, generación de documentación oficial, designación formal del jurado evaluador\nDOCUMENTOS_GENERADOS: Memorándum para convocar Reunión de Dictamen, Oficios de notificación a jurados",
+      "text": "ACTOR_PROCESO: ACTORES_DEL_PROCESO\nDESCRIPCIÓN: También conocido como Asesor de Tesis, es un docente ordinario de la misma escuela profesional",
       "source": "mapa y procesos",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "PROCESO_BORRADOR_APROBADO",
-      "metadata": {
-        "tipo": "flujo_proceso",
-        "etapa": "ETAPA_BORRADOR_TESIS",
-        "condicion": "Borrador cumple todos los requisitos",
-        "acciones": "Recepción de ejemplares corregidos, generación de documentación oficial, designación formal del jurado evaluador",
-        "documentos_generados": "Memorándum para convocar Reunión de Dictamen, Oficios de notificación a jurados"
-      }
+      "type": "actor_proceso",
+      "titulo": "ACTORES_DEL_PROCESO",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: PROCESO_BORRADOR_RECHAZADO\nTIPO: flujo_proceso\nETAPA: ETAPA_BORRADOR_TESIS\nCONDICION: Borrador no cumple requisitos\nACCIONES: Devolución con observaciones puntuales, tiempo para correcciones, pausa del proceso hasta subsanación\nRECOMENDACION: Solicitar revisión previa con Director antes de entrega oficial",
+      "text": "ACTOR_PROCESO: ACTORES_DEL_PROCESO\nDESCRIPCIÓN: Docentes ordinarios y contratados de la UNA Puno",
       "source": "mapa y procesos",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "PROCESO_BORRADOR_RECHAZADO",
-      "metadata": {
-        "tipo": "flujo_proceso",
-        "etapa": "ETAPA_BORRADOR_TESIS",
-        "condicion": "Borrador no cumple requisitos",
-        "acciones": "Devolución con observaciones puntuales, tiempo para correcciones, pausa del proceso hasta subsanación",
-        "recomendacion": "Solicitar revisión previa con Director antes de entrega oficial"
-      }
+      "type": "actor_proceso",
+      "titulo": "ACTORES_DEL_PROCESO",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: ETAPA_SUSTENTACION\nTIPO: etapa_proceso\nNOMBRE: Sustentación de Tesis\nDESCRIPCION: Tercera etapa donde se presenta y defiende la tesis ante el jurado evaluador\nRESPONSABLE: Tesista, Jurados, Coordinador de Investigación\nINFORMACION_REQUERIDA: Título final, resumen ejecutivo, palabras clave, datos de miembros del jurado, fecha y hora propuestas, lugar de sustentación\nRESULTADO_ESPERADO: Tesis sustentada exitosamente y calificada",
+      "text": "ACTOR_PROCESO: ACTORES_DEL_PROCESO\nDESCRIPCIÓN: Docente ordinario de la escuela profesional",
       "source": "mapa y procesos",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_SUSTENTACION",
-      "metadata": {
-        "tipo": "etapa_proceso",
-        "nombre": "Sustentación de Tesis",
-        "descripcion": "Tercera etapa donde se presenta y defiende la tesis ante el jurado evaluador",
-        "responsable": "Tesista, Jurados, Coordinador de Investigación",
-        "informacion_requerida": "Título final, resumen ejecutivo, palabras clave, datos de miembros del jurado, fecha y hora propuestas, lugar de sustentación",
-        "resultado_esperado": "Tesis sustentada exitosamente y calificada"
-      }
+      "type": "actor_proceso",
+      "titulo": "ACTORES_DEL_PROCESO",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: SUBETAPA_REGISTRO_INFORMACION\nTIPO: subetapa_proceso\nETAPA_PADRE: ETAPA_SUSTENTACION\nNOMBRE: Registro de Información Final\nDESCRIPCION: Ingreso de información definitiva de la tesis al sistema antes de la sustentación\nDATOS_REQUERIDOS: Título final, resumen ejecutivo, palabras clave, datos del jurado, fecha y hora, lugar\nVALIDACION: Coordinador verifica que toda la información esté correcta",
+      "text": "ACTOR_PROCESO: ACTORES_DEL_PROCESO\nDESCRIPCIÓN: Resuelve conflictos a nivel facultad",
       "source": "mapa y procesos",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "SUBETAPA_REGISTRO_INFORMACION",
-      "metadata": {
-        "tipo": "subetapa_proceso",
-        "etapa_padre": "ETAPA_SUSTENTACION",
-        "nombre": "Registro de Información Final",
-        "descripcion": "Ingreso de información definitiva de la tesis al sistema antes de la sustentación",
-        "datos_requeridos": "Título final, resumen ejecutivo, palabras clave, datos del jurado, fecha y hora, lugar",
-        "validacion": "Coordinador verifica que toda la información esté correcta"
-      }
+      "type": "actor_proceso",
+      "titulo": "ACTORES_DEL_PROCESO",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: SUBETAPA_VALIDACION_COORDINADOR\nTIPO: subetapa_proceso\nETAPA_PADRE: ETAPA_SUSTENTACION\nNOMBRE: Validación por Coordinador\nDESCRIPCION: Verificación final de que toda la información esté en orden antes de la sustentación\nACCIONES_APROBADO: Publicación del Comunicado Oficial de Sustentación, difusión por portal web, correos institucionales, redes sociales, vitrinas informativas\nACCIONES_RECHAZADO: Notificación de errores, requerimiento de correcciones, retraso del proceso",
+      "text": "ACTOR_PROCESO: ACTORES_DEL_PROCESO\nDESCRIPCIÓN: Instancia superior para mediación",
       "source": "mapa y procesos",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "SUBETAPA_VALIDACION_COORDINADOR",
-      "metadata": {
-        "tipo": "subetapa_proceso",
-        "etapa_padre": "ETAPA_SUSTENTACION",
-        "nombre": "Validación por Coordinador",
-        "descripcion": "Verificación final de que toda la información esté en orden antes de la sustentación",
-        "acciones_aprobado": "Publicación del Comunicado Oficial de Sustentación, difusión por portal web, correos institucionales, redes sociales, vitrinas informativas",
-        "acciones_rechazado": "Notificación de errores, requerimiento de correcciones, retraso del proceso"
-      }
+      "type": "actor_proceso",
+      "titulo": "ACTORES_DEL_PROCESO",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: EVENTO_SUSTENTACION\nTIPO: evento_proceso\nETAPA: ETAPA_SUSTENTACION\nNOMBRE: Día de la Sustentación\nDESCRIPCION: Acto académico donde se presenta y defiende la tesis\nPREPARACION: Llegar 30 minutos antes, probar presentación y equipo\nDESARROLLO: Exposición del trabajo (20-30 minutos), ronda de preguntas del jurado, deliberación del jurado, veredicto y calificación\nRESULTADO_EXITOSO: Tesis sustentada, calificación oficial recibida, inicio de trámite de titulación",
+      "text": "ACTOR_PROCESO: ACTORES_DEL_PROCESO\nDESCRIPCIÓN: Administra y desarrolla la plataforma",
       "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "evento_proceso",
-        "etapa": "ETAPA_SUSTENTACION",
-        "nombre": "Día de la Sustentación",
-        "descripcion": "Acto académico donde se presenta y defiende la tesis",
-        "preparacion": "Llegar 30 minutos antes, probar presentación y equipo",
-        "desarrollo": "Exposición del trabajo (20-30 minutos), ronda de preguntas del jurado, deliberación del jurado, veredicto y calificación",
-        "resultado_exitoso": "Tesis sustentada, calificación oficial recibida, inicio de trámite de titulación"
-      }
+      "type": "actor_proceso",
+      "titulo": "ACTORES_DEL_PROCESO",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: CONSEJOS_PROCESO\nTIPO: consejo_proceso\nCATEGORIA: comunicación\nDESCRIPCION: Mantener comunicación constante con el Director de Tesis",
+      "text": "ACTOR_PROCESO: ACTORES_DEL_PROCESO\nDESCRIPCIÓN: Guía y supervisa todo el proceso",
       "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "consejo_proceso",
-        "categoria": "comunicación",
-        "descripcion": "Mantener comunicación constante con el Director de Tesis"
-      }
+      "type": "actor_proceso",
+      "titulo": "ACTORES_DEL_PROCESO",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: CONSEJOS_PROCESO\nTIPO: consejo_proceso\nCATEGORIA: documentación\nDESCRIPCION: Guardar todas las versiones del trabajo",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "consejo_proceso",
-        "categoria": "documentación",
-        "descripcion": "Guardar todas las versiones del trabajo"
-      }
-    },
-    {
-      "text": "TITULO: CONSEJOS_PROCESO\nTIPO: consejo_proceso\nCATEGORIA: plazos\nDESCRIPCION: Cumplir los plazos establecidos por la facultad",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "consejo_proceso",
-        "categoria": "plazos",
-        "descripcion": "Cumplir los plazos establecidos por la facultad"
-      }
-    },
-    {
-      "text": "TITULO: CONSEJOS_PROCESO\nTIPO: consejo_proceso\nCATEGORIA: formato\nDESCRIPCION: No dejar para último momento las correcciones de formato",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "consejo_proceso",
-        "categoria": "formato",
-        "descripcion": "No dejar para último momento las correcciones de formato"
-      }
-    },
-    {
-      "text": "TITULO: CONSEJOS_PROCESO\nTIPO: consejo_proceso\nCATEGORIA: preparación\nDESCRIPCION: Practicar la sustentación al menos 5 veces antes del día D",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "consejo_proceso",
-        "categoria": "preparación",
-        "descripcion": "Practicar la sustentación al menos 5 veces antes del día D"
-      }
-    },
-    {
-      "text": "TITULO: CONSEJOS_PROCESO\nTIPO: consejo_proceso\nCATEGORIA: preparación\nDESCRIPCION: Anticipar preguntas difíciles y preparar respuestas",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "consejo_proceso",
-        "categoria": "preparación",
-        "descripcion": "Anticipar preguntas difíciles y preparar respuestas"
-      }
-    },
-    {
-      "text": "TITULO: CONSEJOS_PROCESO\nTIPO: consejo_proceso\nCATEGORIA: actitud\nDESCRIPCION: Mantener la calma - cientos lo han logrado antes",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "consejo_proceso",
-        "categoria": "actitud",
-        "descripcion": "Mantener la calma - cientos lo han logrado antes"
-      }
-    },
-    {
-      "text": "TITULO: TIEMPOS_PROCESO\nTIPO: tiempo_proceso\nETAPA: Aprobación del Proyecto\nTIEMPO_ESTIMADO: 2-4 semanas",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "tiempo_proceso",
-        "etapa": "Aprobación del Proyecto",
-        "tiempo_estimado": "2-4 semanas"
-      }
-    },
-    {
-      "text": "TITULO: TIEMPOS_PROCESO\nTIPO: tiempo_proceso\nETAPA: Desarrollo de la Investigación\nTIEMPO_ESTIMADO: 6-12 meses",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "tiempo_proceso",
-        "etapa": "Desarrollo de la Investigación",
-        "tiempo_estimado": "6-12 meses"
-      }
-    },
-    {
-      "text": "TITULO: TIEMPOS_PROCESO\nTIPO: tiempo_proceso\nETAPA: Revisión del Borrador\nTIEMPO_ESTIMADO: 2-3 semanas",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "tiempo_proceso",
-        "etapa": "Revisión del Borrador",
-        "tiempo_estimado": "2-3 semanas"
-      }
-    },
-    {
-      "text": "TITULO: TIEMPOS_PROCESO\nTIPO: tiempo_proceso\nETAPA: Preparación para Sustentación\nTIEMPO_ESTIMADO: 2-4 semanas",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "tiempo_proceso",
-        "etapa": "Preparación para Sustentación",
-        "tiempo_estimado": "2-4 semanas"
-      }
-    },
-    {
-      "text": "TITULO: TIEMPOS_PROCESO\nTIPO: tiempo_proceso\nETAPA: TOTAL\nTIEMPO_ESTIMADO: 8-15 meses\nNOTA: Los tiempos varían según la facultad y la complejidad de la investigación",
-      "source": "mapa y procesos",
-      "type": "procesos_tesis",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "tiempo_proceso",
-        "etapa": "TOTAL",
-        "tiempo_estimado": "8-15 meses",
-        "nota": "Los tiempos varían según la facultad y la complejidad de la investigación"
-      }
-    },
-    {
-      "text": "TITULO: GESTION_CUENTA_PLATAFORMA\nPREGUNTA: Si tengo dos carreras, ¿Necesito dos cuentas de correo?\nRESPUESTA: No. Solo necesitas 1 cuenta de correo para administrar todos los servicios de la Plataforma de Gestión de Investigación.\nTIPO: pregunta_frecuente\nCATEGORIA: gestion_cuenta",
+      "text": "PREGUNTA: Si tengo dos carreras, ¿Necesito dos cuentas de correo?\nRESPUESTA: No. Solo necesitas 1 cuenta de correo para administrar todos los servicios de la Plataforma de Gestión de Investigación.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "gestion_cuenta",
-        "pregunta": "Si tengo dos carreras, ¿Necesito dos cuentas de correo?",
-        "respuesta": "No. Solo necesitas 1 cuenta de correo para administrar todos los servicios de la Plataforma de Gestión de Investigación."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "Si tengo dos carreras, ¿Necesito dos cuentas de correo?",
+      "respuesta": "No. Solo necesitas 1 cuenta de correo para administrar todos los servicios de la Plataforma de Gestión de Investigación.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: MIGRACION_CONTRASEÑA_PLATAFORMA\nPREGUNTA: Yo tenía una cuenta en la plataforma anterior, ¿es necesario actualizar mi contraseña para ingresar a la nueva plataforma?\nRESPUESTA: SÍ. Es necesario que usted actualice su contraseña para acceder a todos los servicios de la Plataforma de Gestión de Investigación.\nTIPO: pregunta_frecuente\nCATEGORIA: gestion_cuenta",
+      "text": "PREGUNTA: Yo tenía una cuenta en la plataforma anterior, ¿es necesario actualizar mi contraseña para ingresar a la nueva plataforma?\nRESPUESTA: SÍ. Es necesario que usted actualice su contraseña para acceder a todos los servicios de la Plataforma de Gestión de Investigación.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "gestion_cuenta",
-        "pregunta": "Yo tenía una cuenta en la plataforma anterior, ¿es necesario actualizar mi contraseña para ingresar a la nueva plataforma?",
-        "respuesta": "SÍ. Es necesario que usted actualice su contraseña para acceder a todos los servicios de la Plataforma de Gestión de Investigación."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "Yo tenía una cuenta en la plataforma anterior, ¿es necesario actualizar mi contraseña para ingresar a la nueva plataforma?",
+      "respuesta": "SÍ. Es necesario que usted actualice su contraseña para acceder a todos los servicios de la Plataforma de Gestión de Investigación.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: SUBIR_TESIS_PLATAFORMA\nPREGUNTA: Quiero subir mi tesis / Cómo subir mi tesis\nRESPUESTA: El proceso se realiza a través de la Plataforma de Gestión de la Investigación (PGI) en pgi.vriunap.pe. Debes: 1️⃣ Registrarte con tu correo y contraseña. 2️⃣ Confirmar tu cuenta vía correo electrónico. 3️⃣ Subir tu proyecto de tesis en PDF, junto con el reporte de similitud (Turnitin) firmado por tu director y la declaración jurada sobre autoría y uso ético de IA (Anexo 1).\nTIPO: pregunta_frecuente\nCATEGORIA: gestion_cuenta",
+      "text": "PREGUNTA: Quiero subir mi tesis / Cómo subir mi tesis\nRESPUESTA: El proceso se realiza a través de la Plataforma de Gestión de la Investigación (PGI) en pgi.vriunap.pe. Debes: 1️⃣ Registrarte con tu correo y contraseña. 2️⃣ Confirmar tu cuenta vía correo electrónico. 3️⃣ Subir tu proyecto de tesis en PDF, junto con el reporte de similitud (Turnitin) firmado por tu director y la declaración jurada sobre autoría y uso ético de IA (Anexo 1).",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "gestion_cuenta",
-        "pregunta": "Quiero subir mi tesis / Cómo subir mi tesis",
-        "respuesta": "El proceso se realiza a través de la Plataforma de Gestión de la Investigación (PGI) en pgi.vriunap.pe. Debes: 1️⃣ Registrarte con tu correo y contraseña. 2️⃣ Confirmar tu cuenta vía correo electrónico. 3️⃣ Subir tu proyecto de tesis en PDF, junto con el reporte de similitud (Turnitin) firmado por tu director y la declaración jurada sobre autoría y uso ético de IA (Anexo 1)."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "Quiero subir mi tesis / Cómo subir mi tesis",
+      "respuesta": "El proceso se realiza a través de la Plataforma de Gestión de la Investigación (PGI) en pgi.vriunap.pe. Debes: 1️⃣ Registrarte con tu correo y contraseña. 2️⃣ Confirmar tu cuenta vía correo electrónico. 3️⃣ Subir tu proyecto de tesis en PDF, junto con el reporte de similitud (Turnitin) firmado por tu director y la declaración jurada sobre autoría y uso ético de IA (Anexo 1).",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: TRAMITE_DIGITAL\nPREGUNTA: Puedo realizar mi trámite sin ir a las oficinas?\nRESPUESTA: SÍ. Todo el proceso se realiza de forma digital a través de la Plataforma PGI, desde la carga del proyecto hasta la sustentación y emisión de constancias.\nTIPO: pregunta_frecuente\nCATEGORIA: gestion_cuenta",
+      "text": "PREGUNTA: Puedo realizar mi trámite sin ir a las oficinas?\nRESPUESTA: SÍ. Todo el proceso se realiza de forma digital a través de la Plataforma PGI, desde la carga del proyecto hasta la sustentación y emisión de constancias.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "gestion_cuenta",
-        "pregunta": "Puedo realizar mi trámite sin ir a las oficinas?",
-        "respuesta": "SÍ. Todo el proceso se realiza de forma digital a través de la Plataforma PGI, desde la carga del proyecto hasta la sustentación y emisión de constancias."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "Puedo realizar mi trámite sin ir a las oficinas?",
+      "respuesta": "SÍ. Todo el proceso se realiza de forma digital a través de la Plataforma PGI, desde la carga del proyecto hasta la sustentación y emisión de constancias.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: PROCESO_COMPLETO_TESIS\nPREGUNTA: Cuál es el proceso de desarrollo de una tesis de pregrado?\nRESPUESTA: El proceso completo incluye: 1. Carga del proyecto de tesis. 2. Revisión de formato. 3. Revisión por el director. 4. Revisión por subdirector de investigación. 5. Sorteo de jurados. 6. Revisión por jurados. 7. Dictamen del proyecto. 8. Ejecución (3 meses a 2 años). 9. Carga y revisión del borrador. 10. Dictamen del borrador. 11. Sustentación. 12. Carga del archivo final.\nTIPO: pregunta_frecuente\nCATEGORIA: gestion_cuenta",
+      "text": "PREGUNTA: Cuál es el proceso de desarrollo de una tesis de pregrado?\nRESPUESTA: El proceso completo incluye: 1. Carga del proyecto de tesis. 2. Revisión de formato. 3. Revisión por el director. 4. Revisión por subdirector de investigación. 5. Sorteo de jurados. 6. Revisión por jurados. 7. Dictamen del proyecto. 8. Ejecución (3 meses a 2 años). 9. Carga y revisión del borrador. 10. Dictamen del borrador. 11. Sustentación. 12. Carga del archivo final.",
       "source": "PREGUNTAS f",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "PROCESO_COMPLETO_TESIS",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "gestion_cuenta",
-        "pregunta": "Cuál es el proceso de desarrollo de una tesis de pregrado?",
-        "respuesta": "El proceso completo incluye: 1. Carga del proyecto de tesis. 2. Revisión de formato. 3. Revisión por el director. 4. Revisión por subdirector de investigación. 5. Sorteo de jurados. 6. Revisión por jurados. 7. Dictamen del proyecto. 8. Ejecución (3 meses a 2 años). 9. Carga y revisión del borrador. 10. Dictamen del borrador. 11. Sustentación. 12. Carga del archivo final."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "Cuál es el proceso de desarrollo de una tesis de pregrado?",
+      "respuesta": "El proceso completo incluye: 1. Carga del proyecto de tesis. 2. Revisión de formato. 3. Revisión por el director. 4. Revisión por subdirector de investigación. 5. Sorteo de jurados. 6. Revisión por jurados. 7. Dictamen del proyecto. 8. Ejecución (3 meses a 2 años). 9. Carga y revisión del borrador. 10. Dictamen del borrador. 11. Sustentación. 12. Carga del archivo final.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: REGLAMENTOS_VIGENTES\nPREGUNTA: ¿Dónde puedo obtener los reglamentos vigentes del Vicerrectorado de Investigación?\nRESPUESTA: Para acceder al reglamento accede al sitio web: web.vriunap.pe y revisa la sección reglamentos.\nTIPO: pregunta_frecuente\nCATEGORIA: reglamentos",
+      "text": "PREGUNTA: ¿Dónde puedo obtener los reglamentos vigentes del Vicerrectorado de Investigación?\nRESPUESTA: Para acceder al reglamento accede al sitio web: web.vriunap.pe y revisa la sección reglamentos.",
       "source": "PREGUNTAS f",
-      "type": "articulo_reglamento",
-      "entidad": "general",
-      "articulo": "REGLAMENTOS_VIGENTES",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "reglamentos",
-        "pregunta": "¿Dónde puedo obtener los reglamentos vigentes del Vicerrectorado de Investigación?",
-        "respuesta": "Para acceder al reglamento accede al sitio web: web.vriunap.pe y revisa la sección reglamentos."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "¿Dónde puedo obtener los reglamentos vigentes del Vicerrectorado de Investigación?",
+      "respuesta": "Para acceder al reglamento accede al sitio web: web.vriunap.pe y revisa la sección reglamentos.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: INFORMACION_COORDINADOR\nPREGUNTA: Quiero información sobre el coordinador\nRESPUESTA: En el reglamento se aclara que el coordinador de investigación es el personal administrativo de investigación de la unidad de investigación de cada facultad. Son responsables de revisar el formato inicial del proyecto y del borrador de tesis.\nTIPO: pregunta_frecuente\nCATEGORIA: reglamentos",
+      "text": "PREGUNTA: Quiero información sobre el coordinador\nRESPUESTA: En el reglamento se aclara que el coordinador de investigación es el personal administrativo de investigación de la unidad de investigación de cada facultad. Son responsables de revisar el formato inicial del proyecto y del borrador de tesis.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "reglamentos",
-        "pregunta": "Quiero información sobre el coordinador",
-        "respuesta": "En el reglamento se aclara que el coordinador de investigación es el personal administrativo de investigación de la unidad de investigación de cada facultad. Son responsables de revisar el formato inicial del proyecto y del borrador de tesis."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "Quiero información sobre el coordinador",
+      "respuesta": "En el reglamento se aclara que el coordinador de investigación es el personal administrativo de investigación de la unidad de investigación de cada facultad. Son responsables de revisar el formato inicial del proyecto y del borrador de tesis.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: CONOCER_JURADOS\nPREGUNTA: ¿Es posible conocer quiénes son los miembros del jurado?\nRESPUESTA: SÍ. Los miembros del jurado son de conocimiento público desde que el Sub Director de la Unidad de Investigación realiza el sorteo.\nTIPO: pregunta_frecuente\nCATEGORIA: proyecto_tesis",
+      "text": "PREGUNTA: ¿Es posible conocer quiénes son los miembros del jurado?\nRESPUESTA: SÍ. Los miembros del jurado son de conocimiento público desde que el Sub Director de la Unidad de Investigación realiza el sorteo.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "proyecto_tesis",
-        "pregunta": "¿Es posible conocer quiénes son los miembros del jurado?",
-        "respuesta": "SÍ. Los miembros del jurado son de conocimiento público desde que el Sub Director de la Unidad de Investigación realiza el sorteo."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "¿Es posible conocer quiénes son los miembros del jurado?",
+      "respuesta": "SÍ. Los miembros del jurado son de conocimiento público desde que el Sub Director de la Unidad de Investigación realiza el sorteo.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: CORRECCIONES_JURADOS\nPREGUNTA: En la etapa de proyecto, ¿es necesario que los 3 jurados realicen las correcciones para subir el archivo corregido?\nRESPUESTA: SÍ, si es posible siempre y cuando 2 jurados hayan finalizado el proceso de corrección y el otro jurado haya excedido el tiempo de corrección establecido.\nTIPO: pregunta_frecuente\nCATEGORIA: proyecto_tesis",
+      "text": "PREGUNTA: En la etapa de proyecto, ¿es necesario que los 3 jurados realicen las correcciones para subir el archivo corregido?\nRESPUESTA: SÍ, si es posible siempre y cuando 2 jurados hayan finalizado el proceso de corrección y el otro jurado haya excedido el tiempo de corrección establecido.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "proyecto_tesis",
-        "pregunta": "En la etapa de proyecto, ¿es necesario que los 3 jurados realicen las correcciones para subir el archivo corregido?",
-        "respuesta": "SÍ, si es posible siempre y cuando 2 jurados hayan finalizado el proceso de corrección y el otro jurado haya excedido el tiempo de corrección establecido."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "En la etapa de proyecto, ¿es necesario que los 3 jurados realicen las correcciones para subir el archivo corregido?",
+      "respuesta": "SÍ, si es posible siempre y cuando 2 jurados hayan finalizado el proceso de corrección y el otro jurado haya excedido el tiempo de corrección establecido.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: BACHILLER_BORRADOR\nPREGUNTA: ¿Es necesario contar con el bachiller para iniciar con la etapa de borrador de tesis?\nRESPUESTA: SÍ. Es un requisito indispensable contar con el grado de Bachiller para iniciar con la etapa de borrador de tesis.\nTIPO: pregunta_frecuente\nCATEGORIA: proyecto_tesis",
+      "text": "PREGUNTA: ¿Es necesario contar con el bachiller para iniciar con la etapa de borrador de tesis?\nRESPUESTA: SÍ. Es un requisito indispensable contar con el grado de Bachiller para iniciar con la etapa de borrador de tesis.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "proyecto_tesis",
-        "pregunta": "¿Es necesario contar con el bachiller para iniciar con la etapa de borrador de tesis?",
-        "respuesta": "SÍ. Es un requisito indispensable contar con el grado de Bachiller para iniciar con la etapa de borrador de tesis."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "¿Es necesario contar con el bachiller para iniciar con la etapa de borrador de tesis?",
+      "respuesta": "SÍ. Es un requisito indispensable contar con el grado de Bachiller para iniciar con la etapa de borrador de tesis.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: TIEMPO_MINIMO_EJECUCION\nPREGUNTA: ¿Puedo iniciar la etapa del borrador de tesis antes de los 90 días de ejecución del proyecto?\nRESPUESTA: NO. El tiempo mínimo de ejecución del proyecto de tesis es de 90 días.\nTIPO: pregunta_frecuente\nCATEGORIA: proyecto_tesis",
+      "text": "PREGUNTA: ¿Puedo iniciar la etapa del borrador de tesis antes de los 90 días de ejecución del proyecto?\nRESPUESTA: NO. El tiempo mínimo de ejecución del proyecto de tesis es de 90 días.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "proyecto_tesis",
-        "pregunta": "¿Puedo iniciar la etapa del borrador de tesis antes de los 90 días de ejecución del proyecto?",
-        "respuesta": "NO. El tiempo mínimo de ejecución del proyecto de tesis es de 90 días."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "¿Puedo iniciar la etapa del borrador de tesis antes de los 90 días de ejecución del proyecto?",
+      "respuesta": "NO. El tiempo mínimo de ejecución del proyecto de tesis es de 90 días.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: INICIAR_PROYECTO_TESIS\nPREGUNTA: Cómo inicio mi proyecto de tesis?\nRESPUESTA: Debes: 1️⃣ Registrar y confirmar tu cuenta en la PGI. 2️⃣ Contar con un director de tesis (docente ordinario de tu escuela y sub-línea de investigación). 3️⃣ Subir el proyecto con el formato establecido, el reporte de similitud ≤20% y la declaración jurada de autoría.\nTIPO: pregunta_frecuente\nCATEGORIA: proyecto_tesis",
+      "text": "PREGUNTA: Cómo inicio mi proyecto de tesis?\nRESPUESTA: Debes: 1️⃣ Registrar y confirmar tu cuenta en la PGI. 2️⃣ Contar con un director de tesis (docente ordinario de tu escuela y sub-línea de investigación). 3️⃣ Subir el proyecto con el formato establecido, el reporte de similitud ≤20% y la declaración jurada de autoría.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "proyecto_tesis",
-        "pregunta": "Cómo inicio mi proyecto de tesis?",
-        "respuesta": "Debes: 1️⃣ Registrar y confirmar tu cuenta en la PGI. 2️⃣ Contar con un director de tesis (docente ordinario de tu escuela y sub-línea de investigación). 3️⃣ Subir el proyecto con el formato establecido, el reporte de similitud ≤20% y la declaración jurada de autoría."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "Cómo inicio mi proyecto de tesis?",
+      "respuesta": "Debes: 1️⃣ Registrar y confirmar tu cuenta en la PGI. 2️⃣ Contar con un director de tesis (docente ordinario de tu escuela y sub-línea de investigación). 3️⃣ Subir el proyecto con el formato establecido, el reporte de similitud ≤20% y la declaración jurada de autoría.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: SORTEO_JURADOS\nPREGUNTA: Quiero saber el sorteo de mis jurados\nRESPUESTA: El sorteo de jurados se realiza automáticamente en la PGI. Se eligen 3 docentes de la UNA Puno. Al menos uno debe ser docente ordinario de tu escuela. El presidente se asigna por grado, categoría y antigüedad. Puedes ver los resultados en tu panel.\nTIPO: pregunta_frecuente\nCATEGORIA: proyecto_tesis",
+      "text": "PREGUNTA: Quiero saber el sorteo de mis jurados\nRESPUESTA: El sorteo de jurados se realiza automáticamente en la PGI. Se eligen 3 docentes de la UNA Puno. Al menos uno debe ser docente ordinario de tu escuela. El presidente se asigna por grado, categoría y antigüedad. Puedes ver los resultados en tu panel.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "proyecto_tesis",
-        "pregunta": "Quiero saber el sorteo de mis jurados",
-        "respuesta": "El sorteo de jurados se realiza automáticamente en la PGI. Se eligen 3 docentes de la UNA Puno. Al menos uno debe ser docente ordinario de tu escuela. El presidente se asigna por grado, categoría y antigüedad. Puedes ver los resultados en tu panel."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "Quiero saber el sorteo de mis jurados",
+      "respuesta": "El sorteo de jurados se realiza automáticamente en la PGI. Se eligen 3 docentes de la UNA Puno. Al menos uno debe ser docente ordinario de tu escuela. El presidente se asigna por grado, categoría y antigüedad. Puedes ver los resultados en tu panel.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: QUIENES_PUEDEN_SER_JURADOS\nPREGUNTA: Quiénes pueden ser mis jurados?\nRESPUESTA: Tres docentes de la UNA-Puno, que pertenezcan a la sublinea de investigacion de tu trabajo de tu escuela porfesional que seran sorteados aleatoriamente por el Sub Director de la Unidad de Investigacion de tu Facultad a travez de la Plataforma de Gestión de la Investigación (PGI). Al menos uno debe ser docente ordinario de tu escuela.\nTIPO: pregunta_frecuente\nCATEGORIA: proyecto_tesis",
+      "text": "PREGUNTA: Quiénes pueden ser mis jurados?\nRESPUESTA: Tres docentes de la UNA-Puno, que pertenezcan a la sublinea de investigacion de tu trabajo de tu escuela porfesional que seran sorteados aleatoriamente por el Sub Director de la Unidad de Investigacion de tu Facultad a travez de la Plataforma de Gestión de la Investigación (PGI). Al menos uno debe ser docente ordinario de tu escuela.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "proyecto_tesis",
-        "pregunta": "Quiénes pueden ser mis jurados?",
-        "respuesta": "Tres docentes de la UNA-Puno, que pertenezcan a la sublinea de investigacion de tu trabajo de tu escuela porfesional que seran sorteados aleatoriamente por el Sub Director de la Unidad de Investigacion de tu Facultad a travez de la Plataforma de Gestión de la Investigación (PGI). Al menos uno debe ser docente ordinario de tu escuela."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "Quiénes pueden ser mis jurados?",
+      "respuesta": "Tres docentes de la UNA-Puno, que pertenezcan a la sublinea de investigacion de tu trabajo de tu escuela porfesional que seran sorteados aleatoriamente por el Sub Director de la Unidad de Investigacion de tu Facultad a travez de la Plataforma de Gestión de la Investigación (PGI). Al menos uno debe ser docente ordinario de tu escuela.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: FIRMA_DIRECTOR_PROYECTO\nPREGUNTA: ¿Es necesario que el director de la tesis o el asesor de la tesis firme mi proyecto para poder cargar mi proyecto a la Plataforma de Gestión de la Investigación?\nRESPUESTA: SÍ. Es necesario que tu director o asesor revise previamente tu proyecto y firme el proyecto además del reporte de similitud para que puedas cargarlo a la plataforma e iniciar el proceso.\nTIPO: pregunta_frecuente\nCATEGORIA: asesoria",
+      "text": "PREGUNTA: ¿Es necesario que el director de la tesis o el asesor de la tesis firme mi proyecto para poder cargar mi proyecto a la Plataforma de Gestión de la Investigación?\nRESPUESTA: SÍ. Es necesario que tu director o asesor revise previamente tu proyecto y firme el proyecto además del reporte de similitud para que puedas cargarlo a la plataforma e iniciar el proceso.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "asesoria",
-        "pregunta": "¿Es necesario que el director de la tesis o el asesor de la tesis firme mi proyecto para poder cargar mi proyecto a la Plataforma de Gestión de la Investigación?",
-        "respuesta": "SÍ. Es necesario que tu director o asesor revise previamente tu proyecto y firme el proyecto además del reporte de similitud para que puedas cargarlo a la plataforma e iniciar el proceso."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "¿Es necesario que el director de la tesis o el asesor de la tesis firme mi proyecto para poder cargar mi proyecto a la Plataforma de Gestión de la Investigación?",
+      "respuesta": "SÍ. Es necesario que tu director o asesor revise previamente tu proyecto y firme el proyecto además del reporte de similitud para que puedas cargarlo a la plataforma e iniciar el proceso.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: CO_ASESOR_EXTERNO\nPREGUNTA: ¿Es posible agregar a mi proyecto un co-asesor externo?\nRESPUESTA: SÍ. El reglamento actual lo permite, siempre que cumpla con los requisitos establecidos.\nTIPO: pregunta_frecuente\nCATEGORIA: asesoria",
+      "text": "PREGUNTA: ¿Es posible agregar a mi proyecto un co-asesor externo?\nRESPUESTA: SÍ. El reglamento actual lo permite, siempre que cumpla con los requisitos establecidos.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "asesoria",
-        "pregunta": "¿Es posible agregar a mi proyecto un co-asesor externo?",
-        "respuesta": "SÍ. El reglamento actual lo permite, siempre que cumpla con los requisitos establecidos."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "¿Es posible agregar a mi proyecto un co-asesor externo?",
+      "respuesta": "SÍ. El reglamento actual lo permite, siempre que cumpla con los requisitos establecidos.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: REGISTRO_CO_ASESOR_EXTERNO\nPREGUNTA: ¿Cómo me registro para ser un co-asesor externo?\nRESPUESTA: Debes tener una cuenta en la PGI y activar el perfil de investigador. Luego podrás postular como co-asesor y la Dirección del Instituto de Investigación evaluará tu solicitud.\nTIPO: pregunta_frecuente\nCATEGORIA: asesoria",
+      "text": "PREGUNTA: ¿Cómo me registro para ser un co-asesor externo?\nRESPUESTA: Debes tener una cuenta en la PGI y activar el perfil de investigador. Luego podrás postular como co-asesor y la Dirección del Instituto de Investigación evaluará tu solicitud.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "asesoria",
-        "pregunta": "¿Cómo me registro para ser un co-asesor externo?",
-        "respuesta": "Debes tener una cuenta en la PGI y activar el perfil de investigador. Luego podrás postular como co-asesor y la Dirección del Instituto de Investigación evaluará tu solicitud."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "¿Cómo me registro para ser un co-asesor externo?",
+      "respuesta": "Debes tener una cuenta en la PGI y activar el perfil de investigador. Luego podrás postular como co-asesor y la Dirección del Instituto de Investigación evaluará tu solicitud.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: CAUSALES_RECHAZO_PROYECTO\nPREGUNTA: ¿Cuáles son las causales técnicas del rechazo de mi proyecto, luego de haberlo subido a la Plataforma?\nRESPUESTA: Si el proyecto no cumple con el formato establecido en el reglamento (disponible para descarga en la plataforma), será devuelto al tesista.\nTIPO: pregunta_frecuente\nCATEGORIA: formatos",
+      "text": "PREGUNTA: ¿Cuáles son las causales técnicas del rechazo de mi proyecto, luego de haberlo subido a la Plataforma?\nRESPUESTA: Si el proyecto no cumple con el formato establecido en el reglamento (disponible para descarga en la plataforma), será devuelto al tesista.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "formatos",
-        "pregunta": "¿Cuáles son las causales técnicas del rechazo de mi proyecto, luego de haberlo subido a la Plataforma?",
-        "respuesta": "Si el proyecto no cumple con el formato establecido en el reglamento (disponible para descarga en la plataforma), será devuelto al tesista."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "¿Cuáles son las causales técnicas del rechazo de mi proyecto, luego de haberlo subido a la Plataforma?",
+      "respuesta": "Si el proyecto no cumple con el formato establecido en el reglamento (disponible para descarga en la plataforma), será devuelto al tesista.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: FORMATO_PROYECTO_TESIS\nPREGUNTA: ¿Qué incluye el formato que debo respetar en el proyecto de tesis?\nRESPUESTA: Debe cumplir con la numeración continua, la estructura de secciones, el formato general, indentación y espaciado.\nTIPO: pregunta_frecuente\nCATEGORIA: formatos",
+      "text": "PREGUNTA: ¿Qué incluye el formato que debo respetar en el proyecto de tesis?\nRESPUESTA: Debe cumplir con la numeración continua, la estructura de secciones, el formato general, indentación y espaciado.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "formatos",
-        "pregunta": "¿Qué incluye el formato que debo respetar en el proyecto de tesis?",
-        "respuesta": "Debe cumplir con la numeración continua, la estructura de secciones, el formato general, indentación y espaciado."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "¿Qué incluye el formato que debo respetar en el proyecto de tesis?",
+      "respuesta": "Debe cumplir con la numeración continua, la estructura de secciones, el formato general, indentación y espaciado.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: NUMERACION_BORRADOR\nPREGUNTA: ¿El archivo de borrador de tesis también debe contener la numeración continua?\nRESPUESTA: SÍ. Es necesario que también contenga numeración continua.\nTIPO: pregunta_frecuente\nCATEGORIA: formatos",
+      "text": "PREGUNTA: ¿El archivo de borrador de tesis también debe contener la numeración continua?\nRESPUESTA: SÍ. Es necesario que también contenga numeración continua.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "formatos",
-        "pregunta": "¿El archivo de borrador de tesis también debe contener la numeración continua?",
-        "respuesta": "SÍ. Es necesario que también contenga numeración continua."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "¿El archivo de borrador de tesis también debe contener la numeración continua?",
+      "respuesta": "SÍ. Es necesario que también contenga numeración continua.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: DESCARGAR_FORMATOS\nPREGUNTA: ¿Dónde encuentro los formatos de proyecto de tesis, borrador de tesis, informe de correcciones, declaración jurada sobre autoría, autenticidad y uso ético de IA?\nRESPUESTA: Puedes descargarlos desde el panel del tesista → formatos y plantillas, o solicitarlos al personal administrativo de tu unidad de investigación.\nTIPO: pregunta_frecuente\nCATEGORIA: formatos",
+      "text": "PREGUNTA: ¿Dónde encuentro los formatos de proyecto de tesis, borrador de tesis, informe de correcciones, declaración jurada sobre autoría, autenticidad y uso ético de IA?\nRESPUESTA: Puedes descargarlos desde el panel del tesista → formatos y plantillas, o solicitarlos al personal administrativo de tu unidad de investigación.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "formatos",
-        "pregunta": "¿Dónde encuentro los formatos de proyecto de tesis, borrador de tesis, informe de correcciones, declaración jurada sobre autoría, autenticidad y uso ético de IA?",
-        "respuesta": "Puedes descargarlos desde el panel del tesista → formatos y plantillas, o solicitarlos al personal administrativo de tu unidad de investigación."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "¿Dónde encuentro los formatos de proyecto de tesis, borrador de tesis, informe de correcciones, declaración jurada sobre autoría, autenticidad y uso ético de IA?",
+      "respuesta": "Puedes descargarlos desde el panel del tesista → formatos y plantillas, o solicitarlos al personal administrativo de tu unidad de investigación.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: INFORME_CORRECCIONES\nPREGUNTA: ¿Qué es el informe de correcciones en el proyecto de tesis?\nRESPUESTA: Es el documento que acompaña al proyecto corregido, y que deberas cargar a la plataforma junto con tu archivo de proyecto. Contiene el número de línea, observación del jurado y la descripción de la corrección, firmado por el director.\nTIPO: pregunta_frecuente\nCATEGORIA: correcciones",
+      "text": "PREGUNTA: ¿Qué es el informe de correcciones en el proyecto de tesis?\nRESPUESTA: Es el documento que acompaña al proyecto corregido, y que deberas cargar a la plataforma junto con tu archivo de proyecto. Contiene el número de línea, observación del jurado y la descripción de la corrección, firmado por el director.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "correcciones",
-        "pregunta": "¿Qué es el informe de correcciones en el proyecto de tesis?",
-        "respuesta": "Es el documento que acompaña al proyecto corregido, y que deberas cargar a la plataforma junto con tu archivo de proyecto. Contiene el número de línea, observación del jurado y la descripción de la corrección, firmado por el director."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "¿Qué es el informe de correcciones en el proyecto de tesis?",
+      "respuesta": "Es el documento que acompaña al proyecto corregido, y que deberas cargar a la plataforma junto con tu archivo de proyecto. Contiene el número de línea, observación del jurado y la descripción de la corrección, firmado por el director.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: AYUDA_CHATBOT\nPREGUNTA: En qué puedes ayudarme?\nRESPUESTA: Puedo ayudarte a entender todas las etapas del proceso de tesis, desde la carga del proyecto hasta la sustentación, según el reglamento de la UNA Puno. También puedo explicar plazos, requisitos, roles de jurados y uso de la PGI. y brindarte las sublineas de investigación de tu escuela profesional.\nTIPO: pregunta_frecuente\nCATEGORIA: asistencia",
+      "text": "PREGUNTA: En qué puedes ayudarme?\nRESPUESTA: Puedo ayudarte a entender todas las etapas del proceso de tesis, desde la carga del proyecto hasta la sustentación, según el reglamento de la UNA Puno. También puedo explicar plazos, requisitos, roles de jurados y uso de la PGI. y brindarte las sublineas de investigación de tu escuela profesional.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "asistencia",
-        "pregunta": "En qué puedes ayudarme?",
-        "respuesta": "Puedo ayudarte a entender todas las etapas del proceso de tesis, desde la carga del proyecto hasta la sustentación, según el reglamento de la UNA Puno. También puedo explicar plazos, requisitos, roles de jurados y uso de la PGI. y brindarte las sublineas de investigación de tu escuela profesional."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "En qué puedes ayudarme?",
+      "respuesta": "Puedo ayudarte a entender todas las etapas del proceso de tesis, desde la carga del proyecto hasta la sustentación, según el reglamento de la UNA Puno. También puedo explicar plazos, requisitos, roles de jurados y uso de la PGI. y brindarte las sublineas de investigación de tu escuela profesional.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: RESPUESTAS_DOBLES\nPREGUNTA: Por qué me das dos respuestas?\nRESPUESTA: El chatbot puede ofrecer respuestas complementarias o alternativas. Si ves respuestas duplicadas o inconsistentes, se debe a la configuración del sistema.\nTIPO: pregunta_frecuente\nCATEGORIA: asistencia",
+      "text": "PREGUNTA: Por qué me das dos respuestas?\nRESPUESTA: El chatbot puede ofrecer respuestas complementarias o alternativas. Si ves respuestas duplicadas o inconsistentes, se debe a la configuración del sistema.",
       "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "pregunta_frecuente",
-        "categoria": "asistencia",
-        "pregunta": "Por qué me das dos respuestas?",
-        "respuesta": "El chatbot puede ofrecer respuestas complementarias o alternativas. Si ves respuestas duplicadas o inconsistentes, se debe a la configuración del sistema."
-      }
+      "type": "pregunta_frecuente",
+      "pregunta": "Por qué me das dos respuestas?",
+      "respuesta": "El chatbot puede ofrecer respuestas complementarias o alternativas. Si ves respuestas duplicadas o inconsistentes, se debe a la configuración del sistema.",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: MIGRACION_CUENTA_PGI\nTIPO: proceso_migracion\nCATEGORIA: migracion_pgi\nNOMBRE: Migración de Cuenta a PGI\nDESCRIPCION: Proceso para actualizar contraseña y activar cuenta en la nueva Plataforma de Gestión de la Investigación\nRESULTADO: Ahora posees cuenta activa que permite acceder a todos los servicios de la Plataforma PGI",
-      "source": "PREGUNTAS f",
-      "type": "preguntas_frecuentes",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "proceso_migracion",
-        "categoria": "migracion_pgi",
-        "nombre": "Migración de Cuenta a PGI",
-        "descripcion": "Proceso para actualizar contraseña y activar cuenta en la nueva Plataforma de Gestión de la Investigación",
-        "resultado": "Ahora posees cuenta activa que permite acceder a todos los servicios de la Plataforma PGI"
-      }
-    },
-    {
-      "text": "TITULO: # Reglamento de Tesis UNA Puno\nCONTENIDO: ",
+      "text": "ARTÍCULO: INTRODUCCION_REGLAMENTO\nCONTENIDO: El presente reglamento norma la presentación de proyectos de tesis de pregrado conducentes a la obtención del título profesional vía Plataforma de Gestión de la Investigación PGI del Vicerrectorado de Investigación VRI de la Universidad Nacional del Altiplano de Puno UNA PUNO para los estudiantes matriculados y egresados de la Universidad Nacional del Altiplano.",
       "source": "REGLAMENTO FINAL (2)",
       "type": "articulo_reglamento",
-      "entidad": "general",
-      "articulo": "# Reglamento de Tesis UNA Puno",
-      "metadata": {
-        "contenido": ""
-      }
-    },
-    {
-      "text": "TITULO: INTRODUCCION_REGLAMENTO\nCONTENIDO: El presente reglamento norma la presentación de proyectos de tesis de pregrado conducentes a la obtención del título profesional vía Plataforma de Gestión de la Investigación PGI del Vicerrectorado de Investigación VRI de la Universidad Nacional del Altiplano de Puno UNA PUNO para los estudiantes matriculados y egresados de la Universidad Nacional del Altiplano.\nARTICULO: Introducción\nTIPO: articulo_reglamento",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "articulo_reglamento",
-      "entidad": "general",
       "articulo": "INTRODUCCION_REGLAMENTO",
-      "metadata": {
-        "tipo": "articulo_reglamento",
-        "articulo": "Introducción",
-        "contenido": "El presente reglamento norma la presentación de proyectos de tesis de pregrado conducentes a la obtención del título profesional vía Plataforma de Gestión de la Investigación PGI del Vicerrectorado de Investigación VRI de la Universidad Nacional del Altiplano de Puno UNA PUNO para los estudiantes matriculados y egresados de la Universidad Nacional del Altiplano."
-      }
+      "entidad": "general"
     },
     {
-      "text": "TITULO: ETAPAS_PROYECTO_TESIS\nCONTENIDO: Las etapas del proyecto de tesis son carga de proyecto revisión de formato de proyecto revisión por el director de tesis revisión por el subdirector de investigación sorteo de jurados revisión de proyecto dictamen de proyecto de investigación generación de acta de dictamen.\nARTICULO: Etapas del Proyecto de Tesis\nTIPO: articulo_reglamento",
+      "text": "ARTÍCULO: ETAPAS_PROYECTO_TESIS\nCONTENIDO: Las etapas del proyecto de tesis son carga de proyecto revisión de formato de proyecto revisión por el director de tesis revisión por el subdirector de investigación sorteo de jurados revisión de proyecto dictamen de proyecto de investigación generación de acta de dictamen.",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "reglamento",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "articulo_reglamento",
-        "articulo": "Etapas del Proyecto de Tesis",
-        "contenido": "Las etapas del proyecto de tesis son carga de proyecto revisión de formato de proyecto revisión por el director de tesis revisión por el subdirector de investigación sorteo de jurados revisión de proyecto dictamen de proyecto de investigación generación de acta de dictamen."
-      }
+      "type": "articulo_reglamento",
+      "articulo": "ETAPAS_PROYECTO_TESIS",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: ETAPA_CARGA_PROYECTO\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 1\nNOMBRE: Carga de Proyecto\nDESCRIPCION: Proceso de registro y carga inicial del proyecto de tesis en la plataforma PGI\nREQUISITOS: Registro en pgi.vriunap.pe con DNI y correo, confirmación de cuenta, director de tesis docente ordinario, proyecto en PDF máximo 15 páginas, reporte de similitud firmado, declaración jurada de autoría\nPLAZO: Inmediato después del registro\nRESPONSABLE: Tesista\nPROYECTOS_ESPECIALES: Investigaciones con muestras biológicas requieren autorización del CIEI (hasta 40 días), ensayos clínicos requieren autorización del INS",
+      "text": "ARTÍCULO: ETAPAS_BORRADOR_TESIS\nCONTENIDO: Las etapas del borrador de tesis son habilitación de borrador de tesis carga de borrador de tesis revisión de formato de borrador revisión de borrador por jurados dictamen de borrador de tesis carga de archivos para la sustentación sustentación.",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_CARGA_PROYECTO",
-      "metadata": {
-        "tipo": "etapa_reglamento",
-        "numero_etapa": "1",
-        "nombre": "Carga de Proyecto",
-        "descripcion": "Proceso de registro y carga inicial del proyecto de tesis en la plataforma PGI",
-        "requisitos": "Registro en pgi.vriunap.pe con DNI y correo, confirmación de cuenta, director de tesis docente ordinario, proyecto en PDF máximo 15 páginas, reporte de similitud firmado, declaración jurada de autoría",
-        "plazo": "Inmediato después del registro",
-        "responsable": "Tesista",
-        "proyectos_especiales": "Investigaciones con muestras biológicas requieren autorización del CIEI (hasta 40 días), ensayos clínicos requieren autorización del INS"
-      }
+      "type": "articulo_reglamento",
+      "articulo": "ETAPAS_BORRADOR_TESIS",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: ETAPA_REVISION_FORMATO_PROYECTO\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 2\nNOMBRE: Revisión de Formato de Proyecto\nDESCRIPCION: Revisión del formato y reporte de similitud por el personal administrativo\nREVISADO_POR: Personal administrativo de la unidad de investigación\nPLAZO: 3 días hábiles\nCRITERIOS_RECHAZO: Formato no establecido, similitud superior al 20%, evasión de integridad de texto, falta de declaración jurada de autoría y uso ético de IA\nNOTA: Coordinador de investigación es personal administrativo de investigación",
+      "text": "ARTÍCULO: CONSIDERACIONES_ADICIONALES\nCONTENIDO: Trabajos desaprobados tienen 30 días hábiles para nuevo trámite. Conflictos con jurados se resuelven mediante informe. Proyectos no defendidos en 2 años + 6 meses ampliación son eliminados. Bachiller puede solicitar eliminación con visto bueno del director. Unidades de investigación deben registrar todo el proceso. Sistema PGI permite nuevos borradores hasta 30 días antes de finalización de semestre. Conflictos se resuelven ante unidad de investigación e Instituto de Investigación. Hechos no contemplados los resuelve el Instituto de Investigación. Custodia de trabajos para derechos de autor. Direcciones y personal administrativo administran la plataforma y orientan al bachiller.",
       "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_REVISION_FORMATO_PROYECTO",
-      "metadata": {
-        "tipo": "etapa_reglamento",
-        "numero_etapa": "2",
-        "nombre": "Revisión de Formato de Proyecto",
-        "descripcion": "Revisión del formato y reporte de similitud por el personal administrativo",
-        "revisado_por": "Personal administrativo de la unidad de investigación",
-        "plazo": "3 días hábiles",
-        "criterios_rechazo": "Formato no establecido, similitud superior al 20%, evasión de integridad de texto, falta de declaración jurada de autoría y uso ético de IA",
-        "nota": "Coordinador de investigación es personal administrativo de investigación"
-      }
+      "type": "articulo_reglamento",
+      "articulo": "CONSIDERACIONES_ADICIONALES",
+      "entidad": "general"
     },
     {
-      "text": "TITULO: ETAPA_REVISION_DIRECTOR_TESIS\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 3\nNOMBRE: Revisión por el Director de Tesis\nDESCRIPCION: Revisión y aprobación del proyecto por el director de tesis\nREVISADO_POR: Director de Tesis\nPLAZO: 3 días hábiles\nACCIONES_DIRECTOR: Aceptar y autorizar continuación, observar proyecto\nCONSECUENCIA_NO_RESPUESTA: Proyecto considerado no presentable y archivado\nNOTIFICACION: Memorándum y correo electrónico",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_REVISION_DIRECTOR_TESIS",
-      "metadata": {
-        "tipo": "etapa_reglamento",
-        "numero_etapa": "3",
-        "nombre": "Revisión por el Director de Tesis",
-        "descripcion": "Revisión y aprobación del proyecto por el director de tesis",
-        "revisado_por": "Director de Tesis",
-        "plazo": "3 días hábiles",
-        "acciones_director": "Aceptar y autorizar continuación, observar proyecto",
-        "consecuencia_no_respuesta": "Proyecto considerado no presentable y archivado",
-        "notificacion": "Memorándum y correo electrónico"
-      }
-    },
-    {
-      "text": "TITULO: ETAPA_REVISION_SUBDIRECTOR_INVESTIGACION\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 4\nNOMBRE: Revisión por el Subdirector de Investigación\nDESCRIPCION: Revisión en contenido y forma por el subdirector de investigación\nREVISADO_POR: Subdirector de Investigación\nCRITERIOS: Contenido y forma, documentos anexados\nOPCIONES: Aprobación o rechazo\nCORRECCIONES: Tesista puede levantar correcciones por única vez",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_REVISION_SUBDIRECTOR_INVESTIGACION",
-      "metadata": {
-        "tipo": "etapa_reglamento",
-        "numero_etapa": "4",
-        "nombre": "Revisión por el Subdirector de Investigación",
-        "descripcion": "Revisión en contenido y forma por el subdirector de investigación",
-        "revisado_por": "Subdirector de Investigación",
-        "criterios": "Contenido y forma, documentos anexados",
-        "opciones": "Aprobación o rechazo",
-        "correcciones": "Tesista puede levantar correcciones por única vez"
-      }
-    },
-    {
-      "text": "TITULO: ETAPA_SORTEO_JURADOS\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 5\nNOMBRE: Sorteo de Jurados\nDESCRIPCION: Sorteo aleatorio de los tres miembros del jurado revisor\nRESPONSABLE_SORTEO: Director o Subdirector de Investigación de la Facultad\nPLAZO_SORTEO: 3 días hábiles (máximo 5 intentos)\nSORTEO_AUTOMATICO: Si no se realiza en 4 días hábiles, la plataforma sortea automáticamente\nCOMPOSICION_JURADO: 3 docentes de la UNA Puno, al menos 1 docente ordinario del mismo programa profesional\nCRITERIOS_PRESIDENTE: Grado académico, categoría y dedicación, antigüedad en la categoría\nREQUISITOS_JURADOS: Habilitado por Colegio Profesional, registro CTI Vitae CONCYTEC, registro ORCID, registro SIGIU",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_SORTEO_JURADOS",
-      "metadata": {
-        "tipo": "etapa_reglamento",
-        "numero_etapa": "5",
-        "nombre": "Sorteo de Jurados",
-        "descripcion": "Sorteo aleatorio de los tres miembros del jurado revisor",
-        "responsable_sorteo": "Director o Subdirector de Investigación de la Facultad",
-        "plazo_sorteo": "3 días hábiles (máximo 5 intentos)",
-        "sorteo_automatico": "Si no se realiza en 4 días hábiles, la plataforma sortea automáticamente",
-        "composicion_jurado": "3 docentes de la UNA Puno, al menos 1 docente ordinario del mismo programa profesional",
-        "criterios_presidente": "Grado académico, categoría y dedicación, antigüedad en la categoría",
-        "requisitos_jurados": "Habilitado por Colegio Profesional, registro CTI Vitae CONCYTEC, registro ORCID, registro SIGIU"
-      }
-    },
-    {
-      "text": "TITULO: PROCESO_ACEPTACION_JURADOS\nTIPO: proceso_reglamento\nETAPA: ETAPA_SORTEO_JURADOS\nNOMBRE: Aceptación de Jurados\nDESCRIPCION: Proceso de aceptación o rechazo por parte de los jurados sorteados\nNOTIFICACION: Mensajes en plataforma, correo institucional, memorándum\nMOTIVOS_RECHAZO: Incompatibilidad, exceso de proyectos, falta de tiempo por responsabilidad universitaria\nCONSECUENCIA_RECHAZO: Vuelve a etapa de sorteo para sustitución\nSANCIONES: Por motivos no sustentados, según Estatuto Universitario y Ley Universitaria 30220 artículo 79",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "PROCESO_ACEPTACION_JURADOS",
-      "metadata": {
-        "tipo": "proceso_reglamento",
-        "etapa": "ETAPA_SORTEO_JURADOS",
-        "nombre": "Aceptación de Jurados",
-        "descripcion": "Proceso de aceptación o rechazo por parte de los jurados sorteados",
-        "notificacion": "Mensajes en plataforma, correo institucional, memorándum",
-        "motivos_rechazo": "Incompatibilidad, exceso de proyectos, falta de tiempo por responsabilidad universitaria",
-        "consecuencia_rechazo": "Vuelve a etapa de sorteo para sustitución",
-        "sanciones": "Por motivos no sustentados, según Estatuto Universitario y Ley Universitaria 30220 artículo 79"
-      }
-    },
-    {
-      "text": "TITULO: ETAPA_REVISION_PROYECTO\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 6\nNOMBRE: Revisión de Proyecto\nDESCRIPCION: Revisión detallada del proyecto por los jurados\nREVISADO_POR: Jurados sorteados\nPLAZO_REVISION: 7 días hábiles\nREQUISITOS_OBSERVACIONES: Objetividad, claridad, precisión científica, indicar número de línea\nREGISTRO_CORRECCIONES: Obligatorio en plataforma para continuidad del trámite\nMINIMO_JURADOS: Al menos 2 jurados deben haber revisado el proyecto\nSANCION_NO_REVISION: Falta grave, comunicado a facultad para sanción",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_REVISION_PROYECTO",
-      "metadata": {
-        "tipo": "etapa_reglamento",
-        "numero_etapa": "6",
-        "nombre": "Revisión de Proyecto",
-        "descripcion": "Revisión detallada del proyecto por los jurados",
-        "revisado_por": "Jurados sorteados",
-        "plazo_revision": "7 días hábiles",
-        "requisitos_observaciones": "Objetividad, claridad, precisión científica, indicar número de línea",
-        "registro_correcciones": "Obligatorio en plataforma para continuidad del trámite",
-        "minimo_jurados": "Al menos 2 jurados deben haber revisado el proyecto",
-        "sancion_no_revision": "Falta grave, comunicado a facultad para sanción"
-      }
-    },
-    {
-      "text": "TITULO: PROCESO_CORRECCION_TESISTA\nTIPO: proceso_reglamento\nETAPA: ETAPA_REVISION_PROYECTO\nNOMBRE: Corrección por Tesista\nDESCRIPCION: Proceso de corrección del proyecto por el tesista después de observaciones de jurados\nCONDICION_CARGA: 3 jurados culminaron correcciones O 2 jurados finalizaron y tiempo superado\nPLAZO_CARGA: 10 días calendario después de correcciones de jurados\nDOCUMENTOS_CARGA: Proyecto corregido, reporte Turnitin, informe de correcciones\nCONSECUENCIA_NO_CARGA: Retiro automático de plataforma, considerado no presentado, sanción de 1 mes sin carga de nuevo proyecto",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "PROCESO_CORRECCION_TESISTA",
-      "metadata": {
-        "tipo": "proceso_reglamento",
-        "etapa": "ETAPA_REVISION_PROYECTO",
-        "nombre": "Corrección por Tesista",
-        "descripcion": "Proceso de corrección del proyecto por el tesista después de observaciones de jurados",
-        "condicion_carga": "3 jurados culminaron correcciones O 2 jurados finalizaron y tiempo superado",
-        "plazo_carga": "10 días calendario después de correcciones de jurados",
-        "documentos_carga": "Proyecto corregido, reporte Turnitin, informe de correcciones",
-        "consecuencia_no_carga": "Retiro automático de plataforma, considerado no presentado, sanción de 1 mes sin carga de nuevo proyecto"
-      }
-    },
-    {
-      "text": "TITULO: ETAPA_DICTAMEN_PROYECTO\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 7\nNOMBRE: Dictamen de Proyecto de Investigación\nDESCRIPCION: Dictamen final del proyecto por los miembros del jurado\nPLAZO_DICTAMEN: 3 días hábiles\nPRORROGA: 3 días hábiles adicionales si no hay respuesta\nOPCIONES_DICTAMEN: Apto para ejecución sin observaciones, Apto para ejecución con observaciones menores, No apto para ejecución (criterios de fondo)",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_DICTAMEN_PROYECTO",
-      "metadata": {
-        "tipo": "etapa_reglamento",
-        "numero_etapa": "7",
-        "nombre": "Dictamen de Proyecto de Investigación",
-        "descripcion": "Dictamen final del proyecto por los miembros del jurado",
-        "plazo_dictamen": "3 días hábiles",
-        "prorroga": "3 días hábiles adicionales si no hay respuesta",
-        "opciones_dictamen": "Apto para ejecución sin observaciones, Apto para ejecución con observaciones menores, No apto para ejecución (criterios de fondo)"
-      }
-    },
-    {
-      "text": "TITULO: ETAPA_GENERACION_ACTA_DICTAMEN\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 8\nNOMBRE: Generación de Acta de Dictamen\nDESCRIPCION: Generación del acta oficial de dictamen del proyecto\nCRITERIO_APROBACION: Mayoría (2 dictámenes favorables) o unanimidad\nOBSERVACIONES_MENORES: Subsanadas durante ejecución o redacción del borrador\nDISPONIBILIDAD_ACTA: Descargable desde panel del tesista\nTIEMPO_EJECUCION: Mínimo 3 meses, máximo 2 años\nAMPLIACION: Hasta 6 meses adicionales, requiere Resolución de Decanato\nSOLICITUD_AMPLIACION: Solo en etapa de borrador de tesis",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_GENERACION_ACTA_DICTAMEN",
-      "metadata": {
-        "tipo": "etapa_reglamento",
-        "numero_etapa": "8",
-        "nombre": "Generación de Acta de Dictamen",
-        "descripcion": "Generación del acta oficial de dictamen del proyecto",
-        "criterio_aprobacion": "Mayoría (2 dictámenes favorables) o unanimidad",
-        "observaciones_menores": "Subsanadas durante ejecución o redacción del borrador",
-        "disponibilidad_acta": "Descargable desde panel del tesista",
-        "tiempo_ejecucion": "Mínimo 3 meses, máximo 2 años",
-        "ampliacion": "Hasta 6 meses adicionales, requiere Resolución de Decanato",
-        "solicitud_ampliacion": "Solo en etapa de borrador de tesis"
-      }
-    },
-    {
-      "text": "TITULO: ETAPAS_BORRADOR_TESIS\nCONTENIDO: Las etapas del borrador de tesis son habilitación de borrador de tesis carga de borrador de tesis revisión de formato de borrador revisión de borrador por jurados dictamen de borrador de tesis carga de archivos para la sustentación sustentación.\nARTICULO: Etapas del Borrador de Tesis\nTIPO: articulo_reglamento",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "reglamento",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "articulo_reglamento",
-        "articulo": "Etapas del Borrador de Tesis",
-        "contenido": "Las etapas del borrador de tesis son habilitación de borrador de tesis carga de borrador de tesis revisión de formato de borrador revisión de borrador por jurados dictamen de borrador de tesis carga de archivos para la sustentación sustentación."
-      }
-    },
-    {
-      "text": "TITULO: ETAPA_HABILITACION_BORRADOR\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 9\nNOMBRE: Habilitación de Borrador de Tesis\nDESCRIPCION: Habilitación de la etapa de borrador después de aprobación del proyecto\nREQUISITO: Constancia de inscripción del grado de bachiller (SUNEDU)\nTIEMPO_MINIMO: 3 meses desde aprobación del proyecto\nNOTA: Habilitación no implica carga inmediata del borrador",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_HABILITACION_BORRADOR",
-      "metadata": {
-        "tipo": "etapa_reglamento",
-        "numero_etapa": "9",
-        "nombre": "Habilitación de Borrador de Tesis",
-        "descripcion": "Habilitación de la etapa de borrador después de aprobación del proyecto",
-        "requisito": "Constancia de inscripción del grado de bachiller (SUNEDU)",
-        "tiempo_minimo": "3 meses desde aprobación del proyecto",
-        "nota": "Habilitación no implica carga inmediata del borrador"
-      }
-    },
-    {
-      "text": "TITULO: ETAPA_CARGA_BORRADOR\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 10\nNOMBRE: Carga de Borrador de Tesis\nDESCRIPCION: Carga del borrador completo de tesis\nREQUISITOS: Formato establecido por facultad, reporte de similitud ≤20% firmado por director, declaración jurada sobre autoría y uso ético de IA",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_CARGA_BORRADOR",
-      "metadata": {
-        "tipo": "etapa_reglamento",
-        "numero_etapa": "10",
-        "nombre": "Carga de Borrador de Tesis",
-        "descripcion": "Carga del borrador completo de tesis",
-        "requisitos": "Formato establecido por facultad, reporte de similitud ≤20% firmado por director, declaración jurada sobre autoría y uso ético de IA"
-      }
-    },
-    {
-      "text": "TITULO: ETAPA_REVISION_FORMATO_BORRADOR\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 11\nNOMBRE: Revisión de Formato de Borrador\nDESCRIPCION: Revisión del formato del borrador por personal administrativo\nREVISADO_POR: Personal administrativo de unidad de investigación\nCRITERIOS: Formato establecido por escuela profesional\nCONSECUENCIA_ERRORES: Devolución al tesista para corrección",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_REVISION_FORMATO_BORRADOR",
-      "metadata": {
-        "tipo": "etapa_reglamento",
-        "numero_etapa": "11",
-        "nombre": "Revisión de Formato de Borrador",
-        "descripcion": "Revisión del formato del borrador por personal administrativo",
-        "revisado_por": "Personal administrativo de unidad de investigación",
-        "criterios": "Formato establecido por escuela profesional",
-        "consecuencia_errores": "Devolución al tesista para corrección"
-      }
-    },
-    {
-      "text": "TITULO: ETAPA_REVISION_BORRADOR_JURADOS\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 12\nNOMBRE: Revisión de Borrador por Jurados\nDESCRIPCION: Revisión del borrador por los miembros del jurado\nPLAZO_REVISION: 10 días hábiles\nCARACTERISTICAS_OBSERVACIONES: Claridad y precisión\nPLAZO_CORRECCION_TESISTA: 5 días hábiles después de observaciones\nENTREGA_FISICA: 4 ejemplares anillados indicando modificaciones (página, párrafo, línea)\nPROCESO_SUSTITUCION_JURADO: Por negatividad, resistencia o pérdida de vínculo laboral",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_REVISION_BORRADOR_JURADOS",
-      "metadata": {
-        "tipo": "etapa_reglamento",
-        "numero_etapa": "12",
-        "nombre": "Revisión de Borrador por Jurados",
-        "descripcion": "Revisión del borrador por los miembros del jurado",
-        "plazo_revision": "10 días hábiles",
-        "caracteristicas_observaciones": "Claridad y precisión",
-        "plazo_correccion_tesista": "5 días hábiles después de observaciones",
-        "entrega_fisica": "4 ejemplares anillados indicando modificaciones (página, párrafo, línea)",
-        "proceso_sustitucion_jurado": "Por negatividad, resistencia o pérdida de vínculo laboral"
-      }
-    },
-    {
-      "text": "TITULO: ETAPA_DICTAMEN_BORRADOR\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 13\nNOMBRE: Dictamen de Borrador de Tesis\nDESCRIPCION: Reunión de dictamen del borrador por el jurado\nCONVOCATORIA: Presidente del Jurado mediante memorándum\nPLAZO_DICTAMEN: 5 días hábiles después de entrega de ejemplares\nLUGAR_REUNION: Sala de docentes de la Escuela profesional (excepcionalmente virtual)\nFECHA_DEFENSA: No menor a 72 horas, no mayor a 10 días hábiles después de dictamen",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_DICTAMEN_BORRADOR",
-      "metadata": {
-        "tipo": "etapa_reglamento",
-        "numero_etapa": "13",
-        "nombre": "Dictamen de Borrador de Tesis",
-        "descripcion": "Reunión de dictamen del borrador por el jurado",
-        "convocatoria": "Presidente del Jurado mediante memorándum",
-        "plazo_dictamen": "5 días hábiles después de entrega de ejemplares",
-        "lugar_reunion": "Sala de docentes de la Escuela profesional (excepcionalmente virtual)",
-        "fecha_defensa": "No menor a 72 horas, no mayor a 10 días hábiles después de dictamen"
-      }
-    },
-    {
-      "text": "TITULO: ETAPA_CARGA_ARCHIVOS_SUSTENTACION\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 14\nNOMBRE: Carga de Archivos para la Sustentación\nDESCRIPCION: Registro de datos y archivos para la sustentación\nDATOS_REQUERIDOS: Datos del acta de dictamen, datos del borrador, fecha, hora y lugar de defensa\nARCHIVOS_REQUERIDOS: Acta de dictamen, reporte de similitud, memorándums del proceso\nPROCESO_NO_APTO: Próxima fecha de reunión (máximo 10 días hábiles), máximo 2 repeticiones",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_CARGA_ARCHIVOS_SUSTENTACION",
-      "metadata": {
-        "tipo": "etapa_reglamento",
-        "numero_etapa": "14",
-        "nombre": "Carga de Archivos para la Sustentación",
-        "descripcion": "Registro de datos y archivos para la sustentación",
-        "datos_requeridos": "Datos del acta de dictamen, datos del borrador, fecha, hora y lugar de defensa",
-        "archivos_requeridos": "Acta de dictamen, reporte de similitud, memorándums del proceso",
-        "proceso_no_apto": "Próxima fecha de reunión (máximo 10 días hábiles), máximo 2 repeticiones"
-      }
-    },
-    {
-      "text": "TITULO: ETAPA_SUSTENTACION\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 15\nNOMBRE: Sustentación\nDESCRIPCION: Exposición y defensa pública de la tesis\nVALIDACION: Personal administrativo revisa y valida conformación\nPUBLICACION_COMUNICADO: 24 horas antes mínimo en mural de escuela profesional\nASISTENCIA_MINIMA: Presidente de jurado, director de tesis, al menos 1 miembro del jurado\nLUGAR: Instalaciones de la UNA Puno, días y horas laborables\nTIEMPO_EXPOSICION: 25 minutos máximo\nIDIOMAS_PERMITIDOS: Español, Quechua, Aimara, Inglés\nTIEMPO_PREGUNTAS: 90 minutos máximo\nCALIFICACIONES: APROBADO, DESAPROBADO, APROBADO CON DISTINCIÓN\nACTA_SUSTENTACION: Emitida por plataforma según votos del jurado",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_SUSTENTACION",
-      "metadata": {
-        "tipo": "etapa_reglamento",
-        "numero_etapa": "15",
-        "nombre": "Sustentación",
-        "descripcion": "Exposición y defensa pública de la tesis",
-        "validacion": "Personal administrativo revisa y valida conformación",
-        "publicacion_comunicado": "24 horas antes mínimo en mural de escuela profesional",
-        "asistencia_minima": "Presidente de jurado, director de tesis, al menos 1 miembro del jurado",
-        "lugar": "Instalaciones de la UNA Puno, días y horas laborables",
-        "tiempo_exposicion": "25 minutos máximo",
-        "idiomas_permitidos": "Español, Quechua, Aimara, Inglés",
-        "tiempo_preguntas": "90 minutos máximo",
-        "calificaciones": "APROBADO, DESAPROBADO, APROBADO CON DISTINCIÓN",
-        "acta_sustentacion": "Emitida por plataforma según votos del jurado"
-      }
-    },
-    {
-      "text": "TITULO: ETAPA_CARGA_ARCHIVO_FINAL\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 16\nNOMBRE: Carga de Archivo Final\nDESCRIPCION: Carga del archivo final después de sustentación aprobada\nREQUISITOS: Archivo final de trabajo, acta de correcciones firmada, reporte de similitud",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_CARGA_ARCHIVO_FINAL",
-      "metadata": {
-        "tipo": "etapa_reglamento",
-        "numero_etapa": "16",
-        "nombre": "Carga de Archivo Final",
-        "descripcion": "Carga del archivo final después de sustentación aprobada",
-        "requisitos": "Archivo final de trabajo, acta de correcciones firmada, reporte de similitud"
-      }
-    },
-    {
-      "text": "TITULO: ETAPA_TRAMITE_CONCLUIDO\nTIPO: etapa_reglamento\nNUMERO_ETAPA: 17\nNOMBRE: Trámite Concluido\nDESCRIPCION: Verificación final y emisión de constancia de culminación\nRESPONSABLE: Personal administrativo\nDOCUMENTO_FINAL: Constancia de culminación del proceso de tesis",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "etapa_proceso",
-      "entidad": "general",
-      "etapa": "ETAPA_TRAMITE_CONCLUIDO",
-      "metadata": {
-        "tipo": "etapa_reglamento",
-        "numero_etapa": "17",
-        "nombre": "Trámite Concluido",
-        "descripcion": "Verificación final y emisión de constancia de culminación",
-        "responsable": "Personal administrativo",
-        "documento_final": "Constancia de culminación del proceso de tesis"
-      }
-    },
-    {
-      "text": "TITULO: CONSIDERACIONES_ADICIONALES\nCONTENIDO: Trabajos desaprobados tienen 30 días hábiles para nuevo trámite. Conflictos con jurados se resuelven mediante informe. Proyectos no defendidos en 2 años + 6 meses ampliación son eliminados. Bachiller puede solicitar eliminación con visto bueno del director. Unidades de investigación deben registrar todo el proceso. Sistema PGI permite nuevos borradores hasta 30 días antes de finalización de semestre. Conflictos se resuelven ante unidad de investigación e Instituto de Investigación. Hechos no contemplados los resuelve el Instituto de Investigación. Custodia de trabajos para derechos de autor. Direcciones y personal administrativo administran la plataforma y orientan al bachiller.\nARTICULO: Consideraciones Adicionales\nTIPO: articulo_reglamento",
-      "source": "REGLAMENTO FINAL (2)",
-      "type": "reglamento",
-      "entidad": "general",
-      "facultad": "",
-      "escuela": "",
-      "metadata": {
-        "tipo": "articulo_reglamento",
-        "articulo": "Consideraciones Adicionales",
-        "contenido": "Trabajos desaprobados tienen 30 días hábiles para nuevo trámite. Conflictos con jurados se resuelven mediante informe. Proyectos no defendidos en 2 años + 6 meses ampliación son eliminados. Bachiller puede solicitar eliminación con visto bueno del director. Unidades de investigación deben registrar todo el proceso. Sistema PGI permite nuevos borradores hasta 30 días antes de finalización de semestre. Conflictos se resuelven ante unidad de investigación e Instituto de Investigación. Hechos no contemplados los resuelve el Instituto de Investigación. Custodia de trabajos para derechos de autor. Direcciones y personal administrativo administran la plataforma y orientan al bachiller."
-      }
-    },
-    {
-      "text": "TITULO: RESUMEN_LINEAS_INSTITUCIONALES\nTIPO: resumen_lineas\nTOTAL_LINEAS: 24\nLINEAS: Administración y Marketing; Alimentación y Nutrición Humana; Arquitectura y Urbanismo; Arte y Música; Auditoría, Costos y Finanzas; Ciencias de la Salud; Ciencia y Producción Animal; Ciencias del Deporte y Educación Física; Derecho; Economía y Desarrollo; Educación y Dinámica Educativa; Estadística e Investigación; Física y Matemática; Geología, Minas y Metalurgia; Gestión y Responsabilidad Social; Infraestructura y Construcciones; Ingeniería de Procesos; Manejo Agronómico Cultivos; Mecánica - Eléctrica; Recursos Naturales y Medio Ambiente; Salud Pública; Sistemas de Información Geográfica; Sistemas, Computación e Informática; Sociedad, Cultura y Comunicación",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_AGRARIAS\nESCUELA: ESCUELA_DE_INGENIERIA_AGRONOMICA\nLÍNEA: MANEJO AGRONÓMICO CULTIVOS\nSUBÍNEAS: Gestión sostenible, manejo agronómico y mejoramiento genético de cultivos; Gestión, manejo y conservación de recursos naturales y medio ambiente; Desarrollo de sistemas agropecuarios; Innovación tecnológica, económica y extensión agraria\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: MANEJO AGRONÓMICO CULTIVOS SUBLINEAS: Gestión sostenible, manejo agronómico y mejoramiento genético de cultivos; Gestión, manejo y conservación de recursos naturales y medio ambiente; Desarrollo de sistemas agropecuarios; Innovación tecnológica, económica y extensión agraria",
       "source": "sublíneas-investigacion-una-puno",
-      "type": "lineas_investigacion",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_AGRARIAS",
+      "escuela": "ESCUELA_DE_INGENIERIA_AGRONOMICA",
       "entidad": "facultad_escuela",
-      "facultad": "FACULTAD_DE_CIENCIAS_ADMINISTRATIVAS_Y_HUMANAS",
-      "escuela": "",
       "metadata": {
-        "tipo": "resumen_lineas",
-        "total_lineas": "24",
-        "lineas": "Administración y Marketing; Alimentación y Nutrición Humana; Arquitectura y Urbanismo; Arte y Música; Auditoría, Costos y Finanzas; Ciencias de la Salud; Ciencia y Producción Animal; Ciencias del Deporte y Educación Física; Derecho; Economía y Desarrollo; Educación y Dinámica Educativa; Estadística e Investigación; Física y Matemática; Geología, Minas y Metalurgia; Gestión y Responsabilidad Social; Infraestructura y Construcciones; Ingeniería de Procesos; Manejo Agronómico Cultivos; Mecánica - Eléctrica; Recursos Naturales y Medio Ambiente; Salud Pública; Sistemas de Información Geográfica; Sistemas, Computación e Informática; Sociedad, Cultura y Comunicación"
+        "tipo": "linea_investigacion",
+        "linea": "MANEJO AGRONÓMICO CULTIVOS",
+        "sublineas": "Gestión sostenible, manejo agronómico y mejoramiento genético de cultivos; Gestión, manejo y conservación de recursos naturales y medio ambiente; Desarrollo de sistemas agropecuarios; Innovación tecnológica, económica y extensión agraria"
       }
     },
     {
-      "text": "TITULO: INFORMACION_GENERAL\nTIPO: informacion_general\nVIGENCIA: Esta estructura está vigente desde el 05 de septiembre de 2025 según Resolución Rectoral N° 2589-2025-R-UNA\nESCUELAS_PARTICIPANTES: 28 Escuelas participaron activamente en la evaluación y actualización de sus sublíneas\nREQUISITO_INVESTIGACION: Toda investigación en la UNA-Puno debe enmarcarse en alguna de estas líneas y sublíneas institucionales",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_AGRARIAS\nESCUELA: ESCUELA_DE_INGENIERIA_AGROINDUSTRIAL\nLÍNEA: INGENIERÍA DE PROCESOS\nSUBÍNEAS: Ingeniería, tecnología y gestión agroindustrial\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: INGENIERÍA DE PROCESOS SUBLINEAS: Ingeniería, tecnología y gestión agroindustrial",
       "source": "sublíneas-investigacion-una-puno",
-      "type": "lineas_investigacion",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_AGRARIAS",
+      "escuela": "ESCUELA_DE_INGENIERIA_AGROINDUSTRIAL",
       "entidad": "facultad_escuela",
-      "facultad": "FACULTAD_DE_CIENCIAS_ADMINISTRATIVAS_Y_HUMANAS",
-      "escuela": "",
       "metadata": {
-        "tipo": "informacion_general",
-        "vigencia": "Esta estructura está vigente desde el 05 de septiembre de 2025 según Resolución Rectoral N° 2589-2025-R-UNA",
-        "escuelas_participantes": "28 Escuelas participaron activamente en la evaluación y actualización de sus sublíneas",
-        "requisito_investigacion": "Toda investigación en la UNA-Puno debe enmarcarse en alguna de estas líneas y sublíneas institucionales"
+        "tipo": "linea_investigacion",
+        "linea": "INGENIERÍA DE PROCESOS",
+        "sublineas": "Ingeniería, tecnología y gestión agroindustrial"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_AGRARIAS\nESCUELA: ESCUELA_DE_INGENIERIA_TOPOGRÁFICA_Y_AGRIMENSURA\nLÍNEA: SISTEMAS DE INFORMACIÓN GEOGRÁFICA\nSUBÍNEAS: Topografía aplicada, geodesia, cartografía y catastro; Teledetección, fotometría y sistemas de información geográfica - SIG; Gestión de riesgos y cambio climático; Planificación y ordenamiento territorial; Geotecnia y pavimentos; Diseño geométrico e infraestructura vial; Hidrología e hidráulica de vías\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: SISTEMAS DE INFORMACIÓN GEOGRÁFICA SUBLINEAS: Topografía aplicada, geodesia, cartografía y catastro; Teledetección, fotometría y sistemas de información geográfica - SIG; Gestión de riesgos y cambio climático; Planificación y ordenamiento territorial; Geotecnia y pavimentos; Diseño geométrico e infraestructura vial; Hidrología e hidráulica de vías",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_AGRARIAS",
+      "escuela": "ESCUELA_DE_INGENIERIA_TOPOGRÁFICA_Y_AGRIMENSURA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "SISTEMAS DE INFORMACIÓN GEOGRÁFICA",
+        "sublineas": "Topografía aplicada, geodesia, cartografía y catastro; Teledetección, fotometría y sistemas de información geográfica - SIG; Gestión de riesgos y cambio climático; Planificación y ordenamiento territorial; Geotecnia y pavimentos; Diseño geométrico e infraestructura vial; Hidrología e hidráulica de vías"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA\nESCUELA: ESCUELA_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA\nLÍNEA: CIENCIA Y PRODUCCIÓN ANIMAL\nSUBÍNEAS: Salud animal; Producción animal; Salud pública; Acuicultura (verificar)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: CIENCIA Y PRODUCCIÓN ANIMAL SUBLINEAS: Salud animal; Producción animal; Salud pública; Acuicultura (verificar)",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA",
+      "escuela": "ESCUELA_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "CIENCIA Y PRODUCCIÓN ANIMAL",
+        "sublineas": "Salud animal; Producción animal; Salud pública; Acuicultura (verificar)"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_ECONOMICA\nESCUELA: ESCUELA_DE_INGENIERIA_ECONOMICA\nLÍNEA: ECONOMÍA Y DESARROLLO\nSUBÍNEAS: Economía de la empresa y mercados; Economía regional y local; Políticas públicas; Gobernabilidad Ciudadanía y Desarrollo Social (Sociologia tambien); Desarrollo Turístico Regional (Turismo)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: ECONOMÍA Y DESARROLLO SUBLINEAS: Economía de la empresa y mercados; Economía regional y local; Políticas públicas; Gobernabilidad Ciudadanía y Desarrollo Social (Sociologia tambien); Desarrollo Turístico Regional (Turismo)",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_INGENIERIA_ECONOMICA",
+      "escuela": "ESCUELA_DE_INGENIERIA_ECONOMICA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "ECONOMÍA Y DESARROLLO",
+        "sublineas": "Economía de la empresa y mercados; Economía regional y local; Políticas públicas; Gobernabilidad Ciudadanía y Desarrollo Social (Sociologia tambien); Desarrollo Turístico Regional (Turismo)"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_ECONOMICA\nESCUELA: ESCUELA_DE_ADMINISTRACION\nLÍNEA: ADMINISTRACIÓN Y MARKETING\nSUBÍNEAS: Administración de finanzas; Administración de procesos organizacionales; Administración de emprendimientos; Administración general; Administración de recursos humanos; Administración de marketing y negocios internacionales; Administración pública; Administración de Empresas Turísticas (revisar)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: ADMINISTRACIÓN Y MARKETING SUBLINEAS: Administración de finanzas; Administración de procesos organizacionales; Administración de emprendimientos; Administración general; Administración de recursos humanos; Administración de marketing y negocios internacionales; Administración pública; Administración de Empresas Turísticas (revisar)",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_INGENIERIA_ECONOMICA",
+      "escuela": "ESCUELA_DE_ADMINISTRACION",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "ADMINISTRACIÓN Y MARKETING",
+        "sublineas": "Administración de finanzas; Administración de procesos organizacionales; Administración de emprendimientos; Administración general; Administración de recursos humanos; Administración de marketing y negocios internacionales; Administración pública; Administración de Empresas Turísticas (revisar)"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_CONTABLES_Y_ADMINISTRATIVAS\nESCUELA: ESCUELA_DE_CIENCIAS_CONTABLES\nLÍNEA: AUDITORÍA, COSTOS Y FINANZAS\nSUBÍNEAS: Contabilidad y auditoría; Finanzas y gestión; Tributación; Gestión pública\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: AUDITORÍA, COSTOS Y FINANZAS SUBLINEAS: Contabilidad y auditoría; Finanzas y gestión; Tributación; Gestión pública",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_CONTABLES_Y_ADMINISTRATIVAS",
+      "escuela": "ESCUELA_DE_CIENCIAS_CONTABLES",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "AUDITORÍA, COSTOS Y FINANZAS",
+        "sublineas": "Contabilidad y auditoría; Finanzas y gestión; Tributación; Gestión pública"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_ENFERMERIA\nESCUELA: ESCUELA_DE_ENFERMERIA\nLÍNEA: SALUD PÚBLICA\nSUBÍNEAS: Salud del recién nacido, niño, escolar y adolescente; Salud del adulto y salud de la mujer; Gerencia y gestión en salud, salud familiar y comunitaria\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: SALUD PÚBLICA SUBLINEAS: Salud del recién nacido, niño, escolar y adolescente; Salud del adulto y salud de la mujer; Gerencia y gestión en salud, salud familiar y comunitaria",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_ENFERMERIA",
+      "escuela": "ESCUELA_DE_ENFERMERIA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "SALUD PÚBLICA",
+        "sublineas": "Salud del recién nacido, niño, escolar y adolescente; Salud del adulto y salud de la mujer; Gerencia y gestión en salud, salud familiar y comunitaria"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_TRABAJO_SOCIAL\nESCUELA: ESCUELA_DE_TRABAJO_SOCIAL\nLÍNEA: SOCIEDAD, CULTURA Y COMUNICACIÓN\nSUBÍNEAS: Desarrollo humano y calidad de vida; Familias: realidades, cambio y dinámicas de intervención; Derechos humanos y fortalecimiento democrático\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: SOCIEDAD, CULTURA Y COMUNICACIÓN SUBLINEAS: Desarrollo humano y calidad de vida; Familias: realidades, cambio y dinámicas de intervención; Derechos humanos y fortalecimiento democrático",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_TRABAJO_SOCIAL",
+      "escuela": "ESCUELA_DE_TRABAJO_SOCIAL",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "SOCIEDAD, CULTURA Y COMUNICACIÓN",
+        "sublineas": "Desarrollo humano y calidad de vida; Familias: realidades, cambio y dinámicas de intervención; Derechos humanos y fortalecimiento democrático"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nESCUELA: ESCUELA_DE_ANTROPOLOGIA\nLÍNEA: GESTIÓN Y RESPONSABILIDAD SOCIAL\nSUBÍNEAS: Cultura andina, sociedad y medioambiente; Antropología jurídica y forense biológica-cultural (REVISAR)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: GESTIÓN Y RESPONSABILIDAD SOCIAL SUBLINEAS: Cultura andina, sociedad y medioambiente; Antropología jurídica y forense biológica-cultural (REVISAR)",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_SOCIALES",
+      "escuela": "ESCUELA_DE_ANTROPOLOGIA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "GESTIÓN Y RESPONSABILIDAD SOCIAL",
+        "sublineas": "Cultura andina, sociedad y medioambiente; Antropología jurídica y forense biológica-cultural (REVISAR)"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nESCUELA: ESCUELA_DE_ARTE\nLÍNEA: ARTE Y MÚSICA\nSUBÍNEAS: Danza: revaloración de las danzas étnicas de nuestro contexto para la generación de conocimiento, cultura Y memoria histórica; Música: Análisis e interpretación de la producción musical; Música: Innovaciones y aplicación de tecnologías en la producción musical; Artes Plásticas: Creación plástica en base a las técnicas tradicionales Y Tecnologías actuales, considerando aspectos filosóficos y teóricos; Artes Plásticas: Gestión y administración de la labor artística Enfatizando Los Nuevos Escenarios Plásticos\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: ARTE Y MÚSICA SUBLINEAS: Danza: revaloración de las danzas étnicas de nuestro contexto para la generación de conocimiento, cultura Y memoria histórica; Música: Análisis e interpretación de la producción musical; Música: Innovaciones y aplicación de tecnologías en la producción musical; Artes Plásticas: Creación plástica en base a las técnicas tradicionales Y Tecnologías actuales, considerando aspectos filosóficos y teóricos; Artes Plásticas: Gestión y administración de la labor artística Enfatizando Los Nuevos Escenarios Plásticos",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_SOCIALES",
+      "escuela": "ESCUELA_DE_ARTE",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "ARTE Y MÚSICA",
+        "sublineas": "Danza: revaloración de las danzas étnicas de nuestro contexto para la generación de conocimiento, cultura Y memoria histórica; Música: Análisis e interpretación de la producción musical; Música: Innovaciones y aplicación de tecnologías en la producción musical; Artes Plásticas: Creación plástica en base a las técnicas tradicionales Y Tecnologías actuales, considerando aspectos filosóficos y teóricos; Artes Plásticas: Gestión y administración de la labor artística Enfatizando Los Nuevos Escenarios Plásticos"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nESCUELA: ESCUELA_DE_CIENCIAS_DE_LA_COMUNICACION_SOCIAL\nLÍNEA: SOCIEDAD, CULTURA Y COMUNICACIÓN\nSUBÍNEAS: Comunicación sociocultural y desarrollo; Comunicación organizacional, marketing y publicidad; Medios de comunicación y periodismo\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: SOCIEDAD, CULTURA Y COMUNICACIÓN SUBLINEAS: Comunicación sociocultural y desarrollo; Comunicación organizacional, marketing y publicidad; Medios de comunicación y periodismo",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_SOCIALES",
+      "escuela": "ESCUELA_DE_CIENCIAS_DE_LA_COMUNICACION_SOCIAL",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "SOCIEDAD, CULTURA Y COMUNICACIÓN",
+        "sublineas": "Comunicación sociocultural y desarrollo; Comunicación organizacional, marketing y publicidad; Medios de comunicación y periodismo"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nESCUELA: ESCUELA_DE_SOCIOLOGIA\nLÍNEA: SOCIEDAD, CULTURA Y COMUNICACIÓN / GESTIÓN Y RESPONSABILIDAD SOCIAL\nSUBÍNEAS: Análisis de procesos sociales; Organizaciones, liderazgo y gestión organizacional; Gobernabilidad, ciudadanía y desarrollo social; Sociolingüística e interculturalidad; Política, gestión pública y planificación; Institucionalidad, conflictos y gestión ambiental\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: SOCIEDAD, CULTURA Y COMUNICACIÓN / GESTIÓN Y RESPONSABILIDAD SOCIAL SUBLINEAS: Análisis de procesos sociales; Organizaciones, liderazgo y gestión organizacional; Gobernabilidad, ciudadanía y desarrollo social; Sociolingüística e interculturalidad; Política, gestión pública y planificación; Institucionalidad, conflictos y gestión ambiental",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_SOCIALES",
+      "escuela": "ESCUELA_DE_SOCIOLOGIA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "SOCIEDAD, CULTURA Y COMUNICACIÓN / GESTIÓN Y RESPONSABILIDAD SOCIAL",
+        "sublineas": "Análisis de procesos sociales; Organizaciones, liderazgo y gestión organizacional; Gobernabilidad, ciudadanía y desarrollo social; Sociolingüística e interculturalidad; Política, gestión pública y planificación; Institucionalidad, conflictos y gestión ambiental"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nESCUELA: ESCUELA_DE_TURISMO\nLÍNEA: ADMINISTRACIÓN Y MARKETING / ECONOMÍA Y DESARROLLO / GESTIÓN Y RESPONSABILIDAD SOCIAL\nSUBÍNEAS: Administración de empresas turísticas; Desarrollo turístico regional; Gestión de destinos turísticos; Gestión de emprendimientos y negocios turísticos\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: ADMINISTRACIÓN Y MARKETING / ECONOMÍA Y DESARROLLO / GESTIÓN Y RESPONSABILIDAD SOCIAL SUBLINEAS: Administración de empresas turísticas; Desarrollo turístico regional; Gestión de destinos turísticos; Gestión de emprendimientos y negocios turísticos",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_SOCIALES",
+      "escuela": "ESCUELA_DE_TURISMO",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "ADMINISTRACIÓN Y MARKETING / ECONOMÍA Y DESARROLLO / GESTIÓN Y RESPONSABILIDAD SOCIAL",
+        "sublineas": "Administración de empresas turísticas; Desarrollo turístico regional; Gestión de destinos turísticos; Gestión de emprendimientos y negocios turísticos"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nESCUELA: ESCUELA_DE_PSICOLOGIA\nLÍNEA: (En proceso de definición de sublíneas específicas)\nSUBÍNEAS: (En proceso de definición de sublíneas específicas)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: (En proceso de definición de sublíneas específicas) SUBLINEAS: (En proceso de definición de sublíneas específicas)",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_SOCIALES",
+      "escuela": "ESCUELA_DE_PSICOLOGIA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "(En proceso de definición de sublíneas específicas)",
+        "sublineas": "(En proceso de definición de sublíneas específicas)"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_DE_MINAS\nESCUELA: ESCUELA_DE_INGENIERIA_DE_MINAS\nLÍNEA: GEOLOGÍA, MINAS Y METALURGIA\nSUBÍNEAS: Sistemas de extracción de recursos minerales; Geotecnia y estabilidad de minas; Minería sostenible y medio ambiente; Tecnologías de la información en minería\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: GEOLOGÍA, MINAS Y METALURGIA SUBLINEAS: Sistemas de extracción de recursos minerales; Geotecnia y estabilidad de minas; Minería sostenible y medio ambiente; Tecnologías de la información en minería",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_INGENIERIA_DE_MINAS",
+      "escuela": "ESCUELA_DE_INGENIERIA_DE_MINAS",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "GEOLOGÍA, MINAS Y METALURGIA",
+        "sublineas": "Sistemas de extracción de recursos minerales; Geotecnia y estabilidad de minas; Minería sostenible y medio ambiente; Tecnologías de la información en minería"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_JURIDICAS_Y_POLITICAS\nESCUELA: ESCUELA_DE_DERECHO\nLÍNEA: DERECHO\nSUBÍNEAS: Derecho penal; Derecho administrativo; Derecho laboral; Derecho constitucional; Derecho civil; Teoría del derecho; Derechos humanos y fortalecimiento democrático (revisar)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: DERECHO SUBLINEAS: Derecho penal; Derecho administrativo; Derecho laboral; Derecho constitucional; Derecho civil; Teoría del derecho; Derechos humanos y fortalecimiento democrático (revisar)",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_JURIDICAS_Y_POLITICAS",
+      "escuela": "ESCUELA_DE_DERECHO",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "DERECHO",
+        "sublineas": "Derecho penal; Derecho administrativo; Derecho laboral; Derecho constitucional; Derecho civil; Teoría del derecho; Derechos humanos y fortalecimiento democrático (revisar)"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_QUIMICA\nESCUELA: ESCUELA_DE_INGENIERIA_QUIMICA\nLÍNEA: INGENIERÍA DE PROCESOS / ALIMENTACIÓN Y NUTRICIÓN HUMANA / RECURSOS NATURALES Y MEDIO AMBIENTE\nSUBÍNEAS: Desarrollo de operaciones, procesos industriales y automatización; Recuperación, conservación y transformación de recursos naturales; Seguridad industrial y ambiental; Tecnologías ambientales y energías renovables; Procesamiento de alimentos\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: INGENIERÍA DE PROCESOS / ALIMENTACIÓN Y NUTRICIÓN HUMANA / RECURSOS NATURALES Y MEDIO AMBIENTE SUBLINEAS: Desarrollo de operaciones, procesos industriales y automatización; Recuperación, conservación y transformación de recursos naturales; Seguridad industrial y ambiental; Tecnologías ambientales y energías renovables; Procesamiento de alimentos",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_INGENIERIA_QUIMICA",
+      "escuela": "ESCUELA_DE_INGENIERIA_QUIMICA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "INGENIERÍA DE PROCESOS / ALIMENTACIÓN Y NUTRICIÓN HUMANA / RECURSOS NATURALES Y MEDIO AMBIENTE",
+        "sublineas": "Desarrollo de operaciones, procesos industriales y automatización; Recuperación, conservación y transformación de recursos naturales; Seguridad industrial y ambiental; Tecnologías ambientales y energías renovables; Procesamiento de alimentos"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_BIOLOGICAS\nESCUELA: ESCUELA_DE_CIENCIAS_BIOLOGICAS_ECOLOGIA\nLÍNEA: CIENCIA Y PRODUCCIÓN ANIMAL / RECURSOS NATURALES Y MEDIO AMBIENTE / CIENCIAS DE LA SALUD\nSUBÍNEAS: Acuicultura; Conservación y aprovechamiento de recursos naturales; Calidad ambiental; Diagnóstico y epidemiología; Microbiología aplicada y biotecnología en salud y medio ambiente\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: CIENCIA Y PRODUCCIÓN ANIMAL / RECURSOS NATURALES Y MEDIO AMBIENTE / CIENCIAS DE LA SALUD SUBLINEAS: Acuicultura; Conservación y aprovechamiento de recursos naturales; Calidad ambiental; Diagnóstico y epidemiología; Microbiología aplicada y biotecnología en salud y medio ambiente",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_BIOLOGICAS",
+      "escuela": "ESCUELA_DE_CIENCIAS_BIOLOGICAS_ECOLOGIA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "CIENCIA Y PRODUCCIÓN ANIMAL / RECURSOS NATURALES Y MEDIO AMBIENTE / CIENCIAS DE LA SALUD",
+        "sublineas": "Acuicultura; Conservación y aprovechamiento de recursos naturales; Calidad ambiental; Diagnóstico y epidemiología; Microbiología aplicada y biotecnología en salud y medio ambiente"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_BIOLOGICAS\nESCUELA: ESCUELA_DE_CIENCIAS_BIOLOGICAS_PESQUERIA\nLÍNEA: CIENCIA Y PRODUCCIÓN ANIMAL / RECURSOS NATURALES Y MEDIO AMBIENTE\nSUBÍNEAS: Acuicultura; Conservación y aprovechamiento de recursos naturales; Calidad ambiental\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: CIENCIA Y PRODUCCIÓN ANIMAL / RECURSOS NATURALES Y MEDIO AMBIENTE SUBLINEAS: Acuicultura; Conservación y aprovechamiento de recursos naturales; Calidad ambiental",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_BIOLOGICAS",
+      "escuela": "ESCUELA_DE_CIENCIAS_BIOLOGICAS_PESQUERIA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "CIENCIA Y PRODUCCIÓN ANIMAL / RECURSOS NATURALES Y MEDIO AMBIENTE",
+        "sublineas": "Acuicultura; Conservación y aprovechamiento de recursos naturales; Calidad ambiental"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_BIOLOGICAS\nESCUELA: ESCUELA_DE_CIENCIAS_BIOLOGICAS_MICROBIOLOGIA\nLÍNEA: CIENCIAS DE LA SALUD / RECURSOS NATURALES Y MEDIO AMBIENTE\nSUBÍNEAS: Diagnóstico y epidemiología; Microbiología aplicada y biotecnología en salud y medio ambiente; Calidad ambiental\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: CIENCIAS DE LA SALUD / RECURSOS NATURALES Y MEDIO AMBIENTE SUBLINEAS: Diagnóstico y epidemiología; Microbiología aplicada y biotecnología en salud y medio ambiente; Calidad ambiental",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_BIOLOGICAS",
+      "escuela": "ESCUELA_DE_CIENCIAS_BIOLOGICAS_MICROBIOLOGIA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "CIENCIAS DE LA SALUD / RECURSOS NATURALES Y MEDIO AMBIENTE",
+        "sublineas": "Diagnóstico y epidemiología; Microbiología aplicada y biotecnología en salud y medio ambiente; Calidad ambiental"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION\nESCUELA: ESCUELA_DE_EDUCACION_FISICA\nLÍNEA: CIENCIAS DEL DEPORTE Y EDUCACIÓN FÍSICA\nSUBÍNEAS: Psicomotricidad; Educación física; Deporte y recreación; Ciencias del deporte; Promoción de la salud\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: CIENCIAS DEL DEPORTE Y EDUCACIÓN FÍSICA SUBLINEAS: Psicomotricidad; Educación física; Deporte y recreación; Ciencias del deporte; Promoción de la salud",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION",
+      "escuela": "ESCUELA_DE_EDUCACION_FISICA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "CIENCIAS DEL DEPORTE Y EDUCACIÓN FÍSICA",
+        "sublineas": "Psicomotricidad; Educación física; Deporte y recreación; Ciencias del deporte; Promoción de la salud"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION\nESCUELA: ESCUELA_DE_EDUCACION_INICIAL\nLÍNEA: EDUCACIÓN Y DINÁMICA EDUCATIVA / GESTIÓN Y RESPONSABILIDAD SOCIAL\nSUBÍNEAS: Perspectivas teóricas de la educación en la primera infancia; Gestión curricular en la primera infancia; Responsabilidad social de la educación\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: EDUCACIÓN Y DINÁMICA EDUCATIVA / GESTIÓN Y RESPONSABILIDAD SOCIAL SUBLINEAS: Perspectivas teóricas de la educación en la primera infancia; Gestión curricular en la primera infancia; Responsabilidad social de la educación",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION",
+      "escuela": "ESCUELA_DE_EDUCACION_INICIAL",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "EDUCACIÓN Y DINÁMICA EDUCATIVA / GESTIÓN Y RESPONSABILIDAD SOCIAL",
+        "sublineas": "Perspectivas teóricas de la educación en la primera infancia; Gestión curricular en la primera infancia; Responsabilidad social de la educación"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION\nESCUELA: ESCUELA_DE_EDUCACION_PRIMARIA\nLÍNEA: EDUCACIÓN Y DINÁMICA EDUCATIVA / GESTIÓN Y RESPONSABILIDAD SOCIAL\nSUBÍNEAS: Perspectivas teóricas de la educación; Gestión curricular; Responsabilidad social de la educación\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: EDUCACIÓN Y DINÁMICA EDUCATIVA / GESTIÓN Y RESPONSABILIDAD SOCIAL SUBLINEAS: Perspectivas teóricas de la educación; Gestión curricular; Responsabilidad social de la educación",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION",
+      "escuela": "ESCUELA_DE_EDUCACION_PRIMARIA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "EDUCACIÓN Y DINÁMICA EDUCATIVA / GESTIÓN Y RESPONSABILIDAD SOCIAL",
+        "sublineas": "Perspectivas teóricas de la educación; Gestión curricular; Responsabilidad social de la educación"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_GEOLOGICA_Y_METALURGICA\nESCUELA: ESCUELA_DE_INGENIERIA_GEOLOGICA\nLÍNEA: GEOLOGÍA, MINAS Y METALURGIA\nSUBÍNEAS: Seguridad y medio ambiente; Ingeniería geotécnica; Geología regional; Geología de minas\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: GEOLOGÍA, MINAS Y METALURGIA SUBLINEAS: Seguridad y medio ambiente; Ingeniería geotécnica; Geología regional; Geología de minas",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_INGENIERIA_GEOLOGICA_Y_METALURGICA",
+      "escuela": "ESCUELA_DE_INGENIERIA_GEOLOGICA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "GEOLOGÍA, MINAS Y METALURGIA",
+        "sublineas": "Seguridad y medio ambiente; Ingeniería geotécnica; Geología regional; Geología de minas"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_GEOLOGICA_Y_METALURGICA\nESCUELA: ESCUELA_DE_INGENIERIA_METALURGICA\nLÍNEA: GEOLOGÍA, MINAS Y METALURGIA\nSUBÍNEAS: Metalurgia extractiva; Metalurgia transformativa; Medio ambiente y seguridad en procesos metalúrgicos\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: GEOLOGÍA, MINAS Y METALURGIA SUBLINEAS: Metalurgia extractiva; Metalurgia transformativa; Medio ambiente y seguridad en procesos metalúrgicos",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_INGENIERIA_GEOLOGICA_Y_METALURGICA",
+      "escuela": "ESCUELA_DE_INGENIERIA_METALURGICA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "GEOLOGÍA, MINAS Y METALURGIA",
+        "sublineas": "Metalurgia extractiva; Metalurgia transformativa; Medio ambiente y seguridad en procesos metalúrgicos"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA\nESCUELA: ESCUELA_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA\nLÍNEA: ESTADÍSTICA E INVESTIGACIÓN\nSUBÍNEAS: Ingeniería de software e inteligencia artificial; Modelos predictivos uni y multivariantes; Base de datos y sistemas de información; Análisis multivariado, big data, minería de datos e investigación de mercados\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: ESTADÍSTICA E INVESTIGACIÓN SUBLINEAS: Ingeniería de software e inteligencia artificial; Modelos predictivos uni y multivariantes; Base de datos y sistemas de información; Análisis multivariado, big data, minería de datos e investigación de mercados",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA",
+      "escuela": "ESCUELA_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "ESTADÍSTICA E INVESTIGACIÓN",
+        "sublineas": "Ingeniería de software e inteligencia artificial; Modelos predictivos uni y multivariantes; Base de datos y sistemas de información; Análisis multivariado, big data, minería de datos e investigación de mercados"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_CIVIL_Y_ARQUITECTURA\nESCUELA: ESCUELA_DE_INGENIERIA_CIVIL\nLÍNEA: INFRAESTRUCTURA Y CONSTRUCCIONES\nSUBÍNEAS: Construcción y gerencia; Geotecnia; Hidráulica y medio ambiente; Análisis y diseño estructural; Transportes y gestión vial\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: INFRAESTRUCTURA Y CONSTRUCCIONES SUBLINEAS: Construcción y gerencia; Geotecnia; Hidráulica y medio ambiente; Análisis y diseño estructural; Transportes y gestión vial",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_INGENIERIA_CIVIL_Y_ARQUITECTURA",
+      "escuela": "ESCUELA_DE_INGENIERIA_CIVIL",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "INFRAESTRUCTURA Y CONSTRUCCIONES",
+        "sublineas": "Construcción y gerencia; Geotecnia; Hidráulica y medio ambiente; Análisis y diseño estructural; Transportes y gestión vial"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_CIVIL_Y_ARQUITECTURA\nESCUELA: ESCUELA_DE_ARQUITECTURA_Y_URBANISMO\nLÍNEA: ARQUITECTURA Y URBANISMO\nSUBÍNEAS: Arquitectura, teoría y diseño arquitectónico sostenible; Planificación urbana y desarrollo territorial sostenible; Tecnología, gestión e innovación en la edificación; Patrimonio arquitectónico y arquitectura social\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: ARQUITECTURA Y URBANISMO SUBLINEAS: Arquitectura, teoría y diseño arquitectónico sostenible; Planificación urbana y desarrollo territorial sostenible; Tecnología, gestión e innovación en la edificación; Patrimonio arquitectónico y arquitectura social",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_INGENIERIA_CIVIL_Y_ARQUITECTURA",
+      "escuela": "ESCUELA_DE_ARQUITECTURA_Y_URBANISMO",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "ARQUITECTURA Y URBANISMO",
+        "sublineas": "Arquitectura, teoría y diseño arquitectónico sostenible; Planificación urbana y desarrollo territorial sostenible; Tecnología, gestión e innovación en la edificación; Patrimonio arquitectónico y arquitectura social"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_AGRICOLA\nESCUELA: ESCUELA_DE_INGENIERIA_AGRICOLA\nLÍNEA: INFRAESTRUCTURA Y CONSTRUCCIONES / RECURSOS NATURALES Y MEDIO AMBIENTE\nSUBÍNEAS: Recursos hídricos; Ingeniería de infraestructura rural; Ordenamiento territorial y medio ambiente\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: INFRAESTRUCTURA Y CONSTRUCCIONES / RECURSOS NATURALES Y MEDIO AMBIENTE SUBLINEAS: Recursos hídricos; Ingeniería de infraestructura rural; Ordenamiento territorial y medio ambiente",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_INGENIERIA_AGRICOLA",
+      "escuela": "ESCUELA_DE_INGENIERIA_AGRICOLA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "INFRAESTRUCTURA Y CONSTRUCCIONES / RECURSOS NATURALES Y MEDIO AMBIENTE",
+        "sublineas": "Recursos hídricos; Ingeniería de infraestructura rural; Ordenamiento territorial y medio ambiente"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_DE_LA_SALUD\nESCUELA: ESCUELA_DE_NUTRICION_HUMANA\nLÍNEA: ALIMENTACIÓN Y NUTRICIÓN HUMANA\nSUBÍNEAS: Atención nutricional a personas sanas y enfermas en las diferentes etapas de la vida; Promoción de salud de las personas; Formulación, evaluación y gestión de proyectos y empresas con alimentos, nutrición y salud; Innovación, análisis y control de los alimentos en el sistema alimentario\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: ALIMENTACIÓN Y NUTRICIÓN HUMANA SUBLINEAS: Atención nutricional a personas sanas y enfermas en las diferentes etapas de la vida; Promoción de salud de las personas; Formulación, evaluación y gestión de proyectos y empresas con alimentos, nutrición y salud; Innovación, análisis y control de los alimentos en el sistema alimentario",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_DE_LA_SALUD",
+      "escuela": "ESCUELA_DE_NUTRICION_HUMANA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "ALIMENTACIÓN Y NUTRICIÓN HUMANA",
+        "sublineas": "Atención nutricional a personas sanas y enfermas en las diferentes etapas de la vida; Promoción de salud de las personas; Formulación, evaluación y gestión de proyectos y empresas con alimentos, nutrición y salud; Innovación, análisis y control de los alimentos en el sistema alimentario"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_DE_LA_SALUD\nESCUELA: ESCUELA_DE_ODONTOLOGIA\nLÍNEA: CIENCIAS DE LA SALUD\nSUBÍNEAS: Salud pública y ocupacional; Biología, crecimiento y desarrollo craneofacial; Diagnóstico, tratamiento y rehabilitación del sistema estomatognático\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: CIENCIAS DE LA SALUD SUBLINEAS: Salud pública y ocupacional; Biología, crecimiento y desarrollo craneofacial; Diagnóstico, tratamiento y rehabilitación del sistema estomatognático",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_DE_LA_SALUD",
+      "escuela": "ESCUELA_DE_ODONTOLOGIA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "CIENCIAS DE LA SALUD",
+        "sublineas": "Salud pública y ocupacional; Biología, crecimiento y desarrollo craneofacial; Diagnóstico, tratamiento y rehabilitación del sistema estomatognático"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS\nESCUELA: ESCUELA_DE_INGENIERIA_ELECTRONICA\nLÍNEA: MECÁNICA - ELÉCTRICA / SISTEMAS, COMPUTACIÓN E INFORMÁTICA\nSUBÍNEAS: Automatización e instrumentación; Telecomunicaciones y redes de datos; Microelectrónica (revisar); Robótica (revisar)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: MECÁNICA - ELÉCTRICA / SISTEMAS, COMPUTACIÓN E INFORMÁTICA SUBLINEAS: Automatización e instrumentación; Telecomunicaciones y redes de datos; Microelectrónica (revisar); Robótica (revisar)",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS",
+      "escuela": "ESCUELA_DE_INGENIERIA_ELECTRONICA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "MECÁNICA - ELÉCTRICA / SISTEMAS, COMPUTACIÓN E INFORMÁTICA",
+        "sublineas": "Automatización e instrumentación; Telecomunicaciones y redes de datos; Microelectrónica (revisar); Robótica (revisar)"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS\nESCUELA: ESCUELA_DE_INGENIERIA_MECANICA_ELECTRICA\nLÍNEA: MECÁNICA - ELÉCTRICA / RECURSOS NATURALES Y MEDIO AMBIENTE\nSUBÍNEAS: Control de procesos; Energías renovables; Ingeniería eléctrica; Ingeniería mecánica; Aplicaciones energéticas (revisar)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: MECÁNICA - ELÉCTRICA / RECURSOS NATURALES Y MEDIO AMBIENTE SUBLINEAS: Control de procesos; Energías renovables; Ingeniería eléctrica; Ingeniería mecánica; Aplicaciones energéticas (revisar)",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS",
+      "escuela": "ESCUELA_DE_INGENIERIA_MECANICA_ELECTRICA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "MECÁNICA - ELÉCTRICA / RECURSOS NATURALES Y MEDIO AMBIENTE",
+        "sublineas": "Control de procesos; Energías renovables; Ingeniería eléctrica; Ingeniería mecánica; Aplicaciones energéticas (revisar)"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS\nESCUELA: ESCUELA_DE_INGENIERIA_DE_SISTEMAS\nLÍNEA: SISTEMAS, COMPUTACIÓN E INFORMÁTICA\nSUBÍNEAS: Ingeniería de software, bases de datos e inteligencia de negocios; Inteligencia artificial, sistemas computacionales y sistemas bioinspirados; Desarrollo, gestión, seguridad y auditoría de sistemas de información; Nuevas tecnologías - informática, educación y sociedad; Teoría de sistemas, administración de sistemas, sistemas distribuidos, redes y telemática\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: SISTEMAS, COMPUTACIÓN E INFORMÁTICA SUBLINEAS: Ingeniería de software, bases de datos e inteligencia de negocios; Inteligencia artificial, sistemas computacionales y sistemas bioinspirados; Desarrollo, gestión, seguridad y auditoría de sistemas de información; Nuevas tecnologías - informática, educación y sociedad; Teoría de sistemas, administración de sistemas, sistemas distribuidos, redes y telemática",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS",
+      "escuela": "ESCUELA_DE_INGENIERIA_DE_SISTEMAS",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "SISTEMAS, COMPUTACIÓN E INFORMÁTICA",
+        "sublineas": "Ingeniería de software, bases de datos e inteligencia de negocios; Inteligencia artificial, sistemas computacionales y sistemas bioinspirados; Desarrollo, gestión, seguridad y auditoría de sistemas de información; Nuevas tecnologías - informática, educación y sociedad; Teoría de sistemas, administración de sistemas, sistemas distribuidos, redes y telemática"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS\nESCUELA: ESCUELA_DE_INGENIERIA_DE_TELECOMUNICACIONES\nLÍNEA: (En proceso de definición de sublíneas específicas)\nSUBÍNEAS: (En proceso de definición de sublíneas específicas)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: (En proceso de definición de sublíneas específicas) SUBLINEAS: (En proceso de definición de sublíneas específicas)",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS",
+      "escuela": "ESCUELA_DE_INGENIERIA_DE_TELECOMUNICACIONES",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "(En proceso de definición de sublíneas específicas)",
+        "sublineas": "(En proceso de definición de sublíneas específicas)"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS\nESCUELA: ESCUELA_DE_INTELIGENCIA_ARTIFICIAL_Y_CIENCIA_DE_DATOS\nLÍNEA: (En proceso de definición de sublíneas específicas)\nSUBÍNEAS: (En proceso de definición de sublíneas específicas)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: (En proceso de definición de sublíneas específicas) SUBLINEAS: (En proceso de definición de sublíneas específicas)",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS",
+      "escuela": "ESCUELA_DE_INTELIGENCIA_ARTIFICIAL_Y_CIENCIA_DE_DATOS",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "(En proceso de definición de sublíneas específicas)",
+        "sublineas": "(En proceso de definición de sublíneas específicas)"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_MEDICINA_HUMANA\nESCUELA: ESCUELA_DE_MEDICINA_HUMANA\nLÍNEA: CIENCIAS DE LA SALUD\nSUBÍNEAS: Ciencias médicas básicas; Ciencias médicas clínicas; Medicina de altura\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: CIENCIAS DE LA SALUD SUBLINEAS: Ciencias médicas básicas; Ciencias médicas clínicas; Medicina de altura",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_MEDICINA_HUMANA",
+      "escuela": "ESCUELA_DE_MEDICINA_HUMANA",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "CIENCIAS DE LA SALUD",
+        "sublineas": "Ciencias médicas básicas; Ciencias médicas clínicas; Medicina de altura"
+      }
+    },
+    {
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_ADMINISTRATIVAS_Y_HUMANAS\nESCUELA: ESCUELA_DE_ADMINISTRACION\nLÍNEA: ADMINISTRACIÓN Y MARKETING\nSUBÍNEAS: Administración de finanzas; Administración de procesos organizacionales; Administración de emprendimientos; Administración general; Administración de recursos humanos; Administración de marketing y negocios internacionales; Administración pública\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: ADMINISTRACIÓN Y MARKETING SUBLINEAS: Administración de finanzas; Administración de procesos organizacionales; Administración de emprendimientos; Administración general; Administración de recursos humanos; Administración de marketing y negocios internacionales; Administración pública",
+      "source": "sublíneas-investigacion-una-puno",
+      "type": "linea_investigacion",
+      "facultad": "FACULTAD_DE_CIENCIAS_ADMINISTRATIVAS_Y_HUMANAS",
+      "escuela": "ESCUELA_DE_ADMINISTRACION",
+      "entidad": "facultad_escuela",
+      "metadata": {
+        "tipo": "linea_investigacion",
+        "linea": "ADMINISTRACIÓN Y MARKETING",
+        "sublineas": "Administración de finanzas; Administración de procesos organizacionales; Administración de emprendimientos; Administración general; Administración de recursos humanos; Administración de marketing y negocios internacionales; Administración pública"
       }
     }
   ],
   "model_name": "paraphrase-multilingual-MiniLM-L12-v2",
-  "total_docs": 81,
+  "total_docs": 98,
   "dimension": 384,
   "chunk_types": {
-    "procesos_tesis": 21,
-    "etapa_proceso": 29,
-    "preguntas_frecuentes": 23,
-    "articulo_reglamento": 3,
-    "reglamento": 3,
-    "lineas_investigacion": 2
+    "coordinador": 20,
+    "etapa_proceso": 3,
+    "actor_proceso": 8,
+    "pregunta_frecuente": 24,
+    "articulo_reglamento": 4,
+    "linea_investigacion": 39
   },
-  "created_at": "2025-10-31T14:43:57"
+  "faculty_counts": {
+    "FACULTAD_DE_CIENCIAS_AGRARIAS": 4,
+    "FACULTAD_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA": 2,
+    "FACULTAD_DE_INGENIERIA_ECONOMICA": 3,
+    "FACULTAD_DE_CIENCIAS_CONTABLES_Y_ADMINISTRATIVAS": 2,
+    "FACULTAD_DE_TRABAJO_SOCIAL": 2,
+    "FACULTAD_DE_ENFERMERIA": 2,
+    "FACULTAD_DE_CIENCIAS_SOCIALES": 7,
+    "FACULTAD_DE_INGENIERIA_DE_MINAS": 2,
+    "FACULTAD_DE_CIENCIAS_BIOLOGICAS": 4,
+    "FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION": 4,
+    "FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA": 2,
+    "FACULTAD_DE_CIENCIAS_JURIDICAS_Y_POLITICAS": 2,
+    "FACULTAD_DE_INGENIERIA_QUIMICA": 2,
+    "FACULTAD_DE_CIENCIAS_DE_LA_SALUD": 3,
+    "FACULTAD_DE_INGENIERIA_GEOLOGICA_Y_METALURGICA": 3,
+    "FACULTAD_DE_INGENIERIA_CIVIL_Y_ARQUITECTURA": 3,
+    "FACULTAD_DE_INGENIERIA_AGRICOLA": 2,
+    "FACULTAD_DE_MEDICINA_HUMANA": 2,
+    "FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS": 6,
+    "FACULTAD_DE_CIENCIAS_ADMINISTRATIVAS_Y_HUMANAS": 2
+  },
+  "created_at": "2025-10-31T15:16:27"
 }

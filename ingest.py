@@ -28,7 +28,7 @@ def clean_markdown(text):
     return text.strip()
 
 def parse_standard_markdown(filepath):
-    """Procesador UNIVERSAL para formato estándar UNA Puno"""
+    """Procesador CORREGIDO para formato estándar UNA Puno"""
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
             content = f.read()
@@ -36,13 +36,13 @@ def parse_standard_markdown(filepath):
         documents = []
         filename = filepath.stem
         
-        # ⭐ EXTRAER METADATOS YAML
+        # ⭐ EXTRAER METADATOS YAML - CORREGIDO
         yaml_metadata = {}
-        yaml_match = re.search(r'^---\n(.+?)\n---', content, re.DOTALL)
+        yaml_match = re.search(r'^---\s*\n(.+?)\n---\s*\n', content, re.DOTALL)
         if yaml_match:
             yaml_content = yaml_match.group(1)
             for line in yaml_content.split('\n'):
-                if ':' in line:
+                if ':' in line and line.strip():
                     key, value = line.split(':', 1)
                     yaml_metadata[key.strip()] = value.strip()
             # Remover YAML del contenido
@@ -51,148 +51,367 @@ def parse_standard_markdown(filepath):
         file_type = yaml_metadata.get('TIPO', 'general')
         entidad = yaml_metadata.get('ENTIDAD', 'general')
         
-        # ⭐ PROCESAMIENTO UNIVERSAL por secciones ##
-        sections = re.split(r'\n##\s+', content)
+        logger.info(f"🔍 Procesando {filename} - Tipo: {file_type}")
         
-        current_facultad = ""
-        current_escuela = ""
+        # ⭐ ESTRATEGIA ESPECÍFICA POR TIPO DE ARCHIVO - MEJORADO
         
-        for section in sections:
-            if not section.strip():
-                continue
-            
-            # Extraer título principal
-            title_match = re.match(r'(.+?)(?:\n|$)', section)
-            if not title_match:
-                continue
-                
-            title = title_match.group(1).strip()
-            body = section[len(title):].strip()
-            
-            # ⭐ DETECTAR TIPO DE SECCIÓN por patrones
-            if title.startswith('FACULTAD_'):
-                current_facultad = title
-                current_escuela = ""
-                continue
-            elif title.startswith('ESCUELA_') or 'INGENIERIA_' in title or 'MEDICINA_' in title:
-                current_escuela = title
-                continue
-            elif 'ETAPA_' in title or 'PROCESO_' in title:
-                # Es una etapa de proceso
-                process_doc = create_process_document(title, body, filename, file_type, entidad)
-                if process_doc:
-                    documents.append(process_doc)
-                continue
-            elif any(keyword in title.upper() for keyword in ['INTRODUCCION', 'ARTICULO', 'REGLAMENTO', 'NORMAS']):
-                # Es artículo de reglamento
-                reglamento_doc = create_reglamento_document(title, body, filename, file_type, entidad)
-                if reglamento_doc:
-                    documents.append(reglamento_doc)
-                continue
-            
-            # ⭐ PROCESAR SECCIÓN CON CAMPOS ESTANDARIZADOS
-            section_data = extract_standard_fields(body)
-            
-            if section_data:
-                # Crear documento estructurado
-                doc = {
-                    'text': create_structured_text(title, section_data, file_type),
-                    'source': filename,
-                    'type': file_type,
-                    'entidad': entidad,
-                    'facultad': current_facultad or section_data.get('facultad', ''),
-                    'escuela': current_escuela or section_data.get('escuela', ''),
-                    'metadata': section_data
-                }
-                documents.append(doc)
+        # 1. ARCHIVO DE COORDINADORES
+        if 'coordinador' in filename.lower():
+            return process_coordinadores_file(content, filename, file_type, entidad)
         
-        logger.info(f"📄 {filename}: {len(documents)} documentos creados")
-        return documents
+        # 2. ARCHIVO DE LÍNEAS DE INVESTIGACIÓN
+        elif any(word in filename.lower() for word in ['linea', 'sublinea', 'investigacion']):
+            return process_lineas_investigacion_file(content, filename, file_type, entidad)
         
+        # 3. ARCHIVO DE PREGUNTAS FRECUENTES
+        elif any(word in filename.lower() for word in ['pregunta', 'faq', 'frecuente']):
+            return process_preguntas_frecuentes_file(content, filename, file_type, entidad)
+        
+        # 4. ARCHIVO DE REGLAMENTO
+        elif 'reglamento' in filename.lower():
+            return process_reglamento_file(content, filename, file_type, entidad)
+        
+        # 5. ARCHIVO DE PROCESOS
+        elif any(word in filename.lower() for word in ['proceso', 'mapa']):
+            return process_procesos_file(content, filename, file_type, entidad)
+        
+        # ESTRATEGIA GENÉRICA MEJORADA
+        else:
+            return process_generic_file(content, filename, file_type, entidad)
+            
     except Exception as e:
-        logger.error(f"Error procesando {filepath}: {e}")
+        logger.error(f"❌ Error procesando {filepath}: {e}")
         return []
 
+def process_coordinadores_file(content, filename, file_type, entidad):
+    """Procesador ESPECÍFICO para coordinadores - CORREGIDO"""
+    documents = []
+    
+    # Buscar todas las facultades (## FACULTAD_DE_...)
+    facultades = re.findall(r'##\s+(FACULTAD_DE_[^\n]+)', content)
+    logger.info(f"   🏫 Facultades encontradas: {len(facultades)}")
+    
+    for facultad in facultades:
+        # Extraer sección de la facultad
+        section_pattern = rf'##\s+{re.escape(facultad)}(.+?)(?=##\s+FACULTAD_DE_|\Z)'
+        section_match = re.search(section_pattern, content, re.DOTALL)
+        
+        if section_match:
+            section_content = section_match.group(1)
+            
+            # Extraer campos estandarizados
+            campos = extract_standard_fields(section_content)
+            
+            if campos:
+                # Crear documento estructurado
+                doc_text = f"FACULTAD: {facultad}\n"
+                
+                # Agregar campos importantes
+                if campos.get('nombre'):
+                    doc_text += f"COORDINADOR: {campos['nombre']}\n"
+                if campos.get('email'):
+                    doc_text += f"EMAIL: {campos['email']}\n"
+                if campos.get('telefono'):
+                    doc_text += f"TELÉFONO: {campos['telefono']}\n"
+                if campos.get('horario'):
+                    doc_text += f"HORARIO: {campos['horario']}\n"
+                if campos.get('ubicacion'):
+                    doc_text += f"UBICACIÓN: {campos['ubicacion']}\n"
+                if campos.get('atencion'):
+                    doc_text += f"ATENCIÓN: {campos['atencion']}\n"
+                if campos.get('alias'):
+                    doc_text += f"ALIAS: {campos['alias']}\n"
+                
+                # Agregar contenido completo para contexto
+                doc_text += f"\nINFORMACIÓN COMPLETA:\n{clean_markdown(section_content)}"
+                
+                documents.append({
+                    'text': doc_text,
+                    'source': filename,
+                    'type': 'coordinador',
+                    'facultad': facultad,
+                    'entidad': entidad,
+                    'metadata': campos
+                })
+    
+    logger.info(f"   📞 Coordinadores procesados: {len(documents)}")
+    return documents
+
+def process_lineas_investigacion_file(content, filename, file_type, entidad):
+    """Procesador ESPECÍFICO para líneas de investigación - CORREGIDO"""
+    documents = []
+    
+    # Buscar todas las facultades (## FACULTAD_DE_...)
+    facultad_pattern = r'##\s+(FACULTAD_DE_[^\n]+)'
+    facultades = re.findall(facultad_pattern, content)
+    logger.info(f"   🔬 Facultades encontradas: {len(facultades)}")
+    
+    current_facultad = ""
+    
+    # Dividir por líneas para procesar secuencialmente
+    lines = content.split('\n')
+    i = 0
+    
+    while i < len(lines):
+        line = lines[i].strip()
+        
+        # Detectar facultad
+        facultad_match = re.match(facultad_pattern, line)
+        if facultad_match:
+            current_facultad = facultad_match.group(1)
+            i += 1
+            continue
+        
+        # Detectar escuela (### ESCUELA_DE_...)
+        escuela_match = re.match(r'###\s+(ESCUELA_DE_[^\n]+)', line)
+        if escuela_match and current_facultad:
+            escuela = escuela_match.group(1)
+            
+            # Buscar línea de investigación en las siguientes líneas
+            j = i + 1
+            while j < len(lines) and not lines[j].strip().startswith('###'):
+                line_j = lines[j].strip()
+                
+                # Buscar patrón de línea de investigación
+                if line_j.startswith('**TIPO:**') and 'linea_investigacion' in line_j:
+                    # Extraer información de esta escuela
+                    escuela_content = []
+                    k = j
+                    while k < len(lines) and lines[k].strip() and not lines[k].strip().startswith('###'):
+                        escuela_content.append(lines[k])
+                        k += 1
+                    
+                    escuela_text = '\n'.join(escuela_content)
+                    campos = extract_standard_fields(escuela_text)
+                    
+                    if campos:
+                        doc_text = f"FACULTAD: {current_facultad}\nESCUELA: {escuela}\n"
+                        
+                        if campos.get('linea'):
+                            doc_text += f"LÍNEA: {campos['linea']}\n"
+                        if campos.get('sublineas'):
+                            doc_text += f"SUBÍNEAS: {campos['sublineas']}\n"
+                        
+                        doc_text += f"\nINFORMACIÓN COMPLETA:\n{clean_markdown(escuela_text)}"
+                        
+                        documents.append({
+                            'text': doc_text,
+                            'source': filename,
+                            'type': 'linea_investigacion',
+                            'facultad': current_facultad,
+                            'escuela': escuela,
+                            'entidad': entidad,
+                            'metadata': campos
+                        })
+                    
+                    j = k
+                    break
+                j += 1
+        
+        i += 1
+    
+    # Si no se encontraron documentos con el método anterior, usar búsqueda directa
+    if len(documents) == 0:
+        logger.info("   ⚡ Usando búsqueda directa para líneas de investigación")
+        
+        # Buscar patrones directos de líneas de investigación
+        lineas_pattern = r'##\s+(FACULTAD_DE_[^\n]+).*?###\s+(ESCUELA_DE_[^\n]+).*?\*\*TIPO:\*\* linea_investigacion.*?\*\*LINEA:\*\*([^\n]+).*?\*\*SUBLINEAS:\*\*([^\n]+)'
+        matches = re.findall(lineas_pattern, content, re.DOTALL)
+        
+        for facultad, escuela, linea, sublineas in matches:
+            doc_text = f"FACULTAD: {facultad.strip()}\nESCUELA: {escuela.strip()}\n"
+            doc_text += f"LÍNEA: {linea.strip()}\nSUBÍNEAS: {sublineas.strip()}"
+            
+            documents.append({
+                'text': doc_text,
+                'source': filename,
+                'type': 'linea_investigacion',
+                'facultad': facultad.strip(),
+                'escuela': escuela.strip(),
+                'entidad': entidad,
+                'metadata': {
+                    'linea': linea.strip(),
+                    'sublineas': sublineas.strip()
+                }
+            })
+    
+    logger.info(f"   📚 Líneas investigación procesadas: {len(documents)}")
+    return documents
+
+def process_preguntas_frecuentes_file(content, filename, file_type, entidad):
+    """Procesador para preguntas frecuentes - CORREGIDO"""
+    documents = []
+    
+    # Buscar entradas de preguntas frecuentes
+    # Patrón: ## TITULO\n**TIPO:** pregunta_frecuente\n**PREGUNTA:** ...\n**RESPUESTA:** ...
+    preguntas_pattern = r'##\s+([^\n]+)\s*\*\*TIPO:\*\* pregunta_frecuente.*?\*\*PREGUNTA:\*\*([^\n]+).*?\*\*RESPUESTA:\*\*([^\n]+)'
+    matches = re.findall(preguntas_pattern, content, re.DOTALL)
+    
+    for titulo, pregunta, respuesta in matches:
+        doc_text = f"PREGUNTA: {pregunta.strip()}\nRESPUESTA: {respuesta.strip()}"
+        
+        documents.append({
+            'text': doc_text,
+            'source': filename,
+            'type': 'pregunta_frecuente',
+            'pregunta': pregunta.strip(),
+            'respuesta': respuesta.strip(),
+            'entidad': entidad
+        })
+    
+    # Si no se encontraron con el patrón anterior, buscar por líneas que contengan **TIPO:** pregunta_frecuente
+    if len(documents) == 0:
+        lines = content.split('\n')
+        i = 0
+        while i < len(lines):
+            if '**TIPO:** pregunta_frecuente' in lines[i]:
+                # Buscar pregunta y respuesta en líneas adyacentes
+                pregunta = ""
+                respuesta = ""
+                j = i
+                while j < len(lines) and lines[j].strip() and not lines[j].strip().startswith('##'):
+                    if '**PREGUNTA:**' in lines[j]:
+                        pregunta = lines[j].replace('**PREGUNTA:**', '').strip()
+                    if '**RESPUESTA:**' in lines[j]:
+                        respuesta = lines[j].replace('**RESPUESTA:**', '').strip()
+                    j += 1
+                
+                if pregunta and respuesta:
+                    doc_text = f"PREGUNTA: {pregunta}\nRESPUESTA: {respuesta}"
+                    documents.append({
+                        'text': doc_text,
+                        'source': filename,
+                        'type': 'pregunta_frecuente',
+                        'pregunta': pregunta,
+                        'respuesta': respuesta,
+                        'entidad': entidad
+                    })
+                
+                i = j
+            else:
+                i += 1
+    
+    logger.info(f"   ❓ Preguntas frecuentes procesadas: {len(documents)}")
+    return documents
+
+def process_reglamento_file(content, filename, file_type, entidad):
+    """Procesador para reglamento - CORREGIDO"""
+    documents = []
+    
+    # Buscar artículos del reglamento
+    articulos_pattern = r'##\s+([^\n]+)\s*\*\*TIPO:\*\* articulo_reglamento.*?\*\*CONTENIDO:\*\*([^\n]+)'
+    matches = re.findall(articulos_pattern, content, re.DOTALL)
+    
+    for titulo, contenido in matches:
+        doc_text = f"ARTÍCULO: {titulo.strip()}\nCONTENIDO: {contenido.strip()}"
+        
+        documents.append({
+            'text': doc_text,
+            'source': filename,
+            'type': 'articulo_reglamento',
+            'articulo': titulo.strip(),
+            'entidad': entidad
+        })
+    
+    logger.info(f"   📖 Artículos de reglamento procesados: {len(documents)}")
+    return documents
+
+def process_procesos_file(content, filename, file_type, entidad):
+    """Procesador para procesos - CORREGIDO"""
+    documents = []
+    
+    # Buscar diferentes tipos de elementos de procesos
+    patterns = [
+        (r'##\s+([^\n]+)\s*\*\*TIPO:\*\* etapa_proceso.*?\*\*DESCRIPCION:\*\*([^\n]+)', 'etapa_proceso'),
+        (r'##\s+([^\n]+)\s*\*\*TIPO:\*\* actor_proceso.*?\*\*DESCRIPCION:\*\*([^\n]+)', 'actor_proceso'),
+    ]
+    
+    for pattern, doc_type in patterns:
+        matches = re.findall(pattern, content, re.DOTALL)
+        for titulo, descripcion in matches:
+            doc_text = f"{doc_type.upper()}: {titulo.strip()}\nDESCRIPCIÓN: {descripcion.strip()}"
+            
+            documents.append({
+                'text': doc_text,
+                'source': filename,
+                'type': doc_type,
+                'titulo': titulo.strip(),
+                'entidad': entidad
+            })
+    
+    logger.info(f"   📋 Elementos de proceso procesados: {len(documents)}")
+    return documents
+
+def process_generic_file(content, filename, file_type, entidad):
+    """Procesador genérico mejorado"""
+    documents = []
+    
+    # Buscar secciones ## y extraer contenido
+    sections = re.split(r'\n##\s+', content)
+    
+    for section in sections:
+        if not section.strip():
+            continue
+        
+        # Extraer título y cuerpo
+        lines = section.split('\n', 1)
+        title = lines[0].strip() if lines else filename
+        body = lines[1] if len(lines) > 1 else ""
+        
+        # Extraer campos estandarizados si existen
+        campos = extract_standard_fields(body)
+        
+        if campos:
+            # Construir texto estructurado
+            doc_text = f"TÍTULO: {title}\n"
+            for key, value in campos.items():
+                doc_text += f"{key.upper()}: {value}\n"
+        else:
+            # Usar contenido limpio
+            doc_text = clean_markdown(f"{title}\n{body}")
+        
+        if doc_text.strip():
+            documents.append({
+                'text': doc_text,
+                'source': filename,
+                'type': file_type,
+                'entidad': entidad,
+                'section': title
+            })
+    
+    return documents
+
 def extract_standard_fields(body):
-    """Extraer campos estandarizados **CAMPO:** valor"""
+    """Extraer campos estandarizados **CAMPO:** valor - CORREGIDO"""
     fields = {}
     
-    # Patrón para campos estandarizados
-    field_pattern = r'\*\*([A-Z_]+):\*\*\s*(.+?)(?=\n\*\*|\n##|\n\n|$)'
-    matches = re.findall(field_pattern, body, re.DOTALL | re.IGNORECASE)
+    if not body:
+        return fields
+    
+    # Patrón mejorado para campos estandarizados
+    field_pattern = r'\*\*([A-Z_]+):\*\*\s*([^\n]+)'
+    matches = re.findall(field_pattern, body)
     
     for field_name, field_value in matches:
         clean_value = clean_markdown(field_value.strip())
         fields[field_name.lower()] = clean_value
     
-    # Si no hay campos estandarizados, usar el contenido completo
-    if not fields and body.strip():
-        fields['contenido'] = clean_markdown(body)
+    # Si no hay campos estandarizados, buscar contenido entre **
+    if not fields:
+        bold_pattern = r'\*\*([^\*]+)\*\*'
+        bold_matches = re.findall(bold_pattern, body)
+        if bold_matches:
+            fields['contenido'] = ' '.join(bold_matches)
     
     return fields
-
-def create_structured_text(title, fields, file_type):
-    """Crear texto estructurado para embeddings"""
-    text_parts = [f"TITULO: {title}"]
-    
-    # Campos prioritarios según tipo
-    priority_fields = {
-        'coordinadores': ['nombre', 'email', 'telefono', 'horario', 'ubicacion'],
-        'lineas_investigacion': ['linea', 'sublineas', 'descripcion'],
-        'procesos': ['descripcion', 'plazo', 'responsable', 'requisitos'],
-        'reglamento': ['contenido', 'articulo', 'norma'],
-        'preguntas_frecuentes': ['pregunta', 'respuesta']
-    }
-    
-    # Agregar campos prioritarios primero
-    for field in priority_fields.get(file_type, []):
-        if field in fields:
-            text_parts.append(f"{field.upper()}: {fields[field]}")
-    
-    # Agregar todos los demás campos
-    for field, value in fields.items():
-        if field not in priority_fields.get(file_type, []):
-            text_parts.append(f"{field.upper()}: {value}")
-    
-    return "\n".join(text_parts)
-
-def create_process_document(title, body, filename, file_type, entidad):
-    """Crear documento para etapas de proceso"""
-    fields = extract_standard_fields(body)
-    if not fields:
-        fields['descripcion'] = clean_markdown(body)
-    
-    return {
-        'text': create_structured_text(title, fields, file_type),
-        'source': filename,
-        'type': 'etapa_proceso',
-        'entidad': entidad,
-        'etapa': title,
-        'metadata': fields
-    }
-
-def create_reglamento_document(title, body, filename, file_type, entidad):
-    """Crear documento para artículos de reglamento"""
-    fields = extract_standard_fields(body)
-    if not fields:
-        fields['contenido'] = clean_markdown(body)
-    
-    return {
-        'text': create_structured_text(title, fields, file_type),
-        'source': filename,
-        'type': 'articulo_reglamento',
-        'entidad': entidad,
-        'articulo': title,
-        'metadata': fields
-    }
 
 def create_knowledge_base(docs_folder='docs', 
                          index_file='faiss_index.bin',
                          json_file='knowledge_base.json'):
-    """Crear base de conocimiento FAISS - VERSIÓN SIMPLIFICADA"""
+    """Crear base de conocimiento FAISS - CORREGIDO"""
     
     logger.info("="*60)
-    logger.info("CREANDO BASE DE CONOCIMIENTO UNA PUNO - FORMATO ESTÁNDAR")
+    logger.info("CREANDO BASE DE CONOCIMIENTO UNA PUNO - CORREGIDO")
     logger.info("="*60)
     
     # 1. Cargar modelo de embeddings
@@ -202,38 +421,50 @@ def create_knowledge_base(docs_folder='docs',
     # 2. Leer todos los archivos .md
     docs_path = Path(docs_folder)
     if not docs_path.exists():
-        logger.error(f"Carpeta {docs_folder} no existe")
+        logger.error(f"❌ Carpeta {docs_folder} no existe")
         return False
     
     md_files = list(docs_path.glob('*.md'))
     if not md_files:
-        logger.error(f"No se encontraron archivos .md en {docs_folder}")
+        logger.error(f"❌ No se encontraron archivos .md en {docs_folder}")
         return False
     
     logger.info(f"Encontrados {len(md_files)} archivos .md")
     
-    # 3. Procesar todos los archivos con el PROCESADOR UNIVERSAL
+    # 3. Procesar todos los archivos con el PROCESADOR CORREGIDO
     all_documents = []
     for md_file in md_files:
         logger.info(f"Procesando: {md_file.name}")
         docs = parse_standard_markdown(md_file)
         all_documents.extend(docs)
-        logger.info(f"  → {len(docs)} documentos estructurados")
+        logger.info(f"  → {len(docs)} documentos creados")
     
     if not all_documents:
-        logger.error("No se extrajeron documentos")
+        logger.error("❌ No se extrajeron documentos")
         return False
     
-    # Estadísticas
+    # Estadísticas detalladas
     type_counts = {}
+    faculty_counts = {}
+    
     for doc in all_documents:
         doc_type = doc.get('type', 'general')
         type_counts[doc_type] = type_counts.get(doc_type, 0) + 1
+        
+        facultad = doc.get('facultad', '')
+        if facultad:
+            faculty_counts[facultad] = faculty_counts.get(facultad, 0) + 1
     
-    logger.info(f"\n📊 ESTADÍSTICAS:")
-    for doc_type, count in type_counts.items():
-        logger.info(f"   {doc_type}: {count}")
-    logger.info(f"   TOTAL: {len(all_documents)}")
+    logger.info(f"\n📊 ESTADÍSTICAS FINALES:")
+    logger.info(f"   Documentos totales: {len(all_documents)}")
+    logger.info(f"   Por tipo:")
+    for doc_type, count in sorted(type_counts.items()):
+        logger.info(f"     {doc_type}: {count}")
+    
+    if faculty_counts:
+        logger.info(f"   Por facultad (top 5):")
+        for facultad, count in sorted(faculty_counts.items(), key=lambda x: x[1], reverse=True)[:5]:
+            logger.info(f"     {facultad}: {count}")
     
     # 4. Generar embeddings
     logger.info("Generando embeddings...")
@@ -257,6 +488,7 @@ def create_knowledge_base(docs_folder='docs',
         'total_docs': len(all_documents),
         'dimension': dimension,
         'chunk_types': type_counts,
+        'faculty_counts': faculty_counts,
         'created_at': str(np.datetime64('now'))
     }
     
@@ -265,8 +497,9 @@ def create_knowledge_base(docs_folder='docs',
     
     logger.info("="*60)
     logger.info("✅ BASE DE CONOCIMIENTO CREADA EXITOSAMENTE")
-    logger.info(f"   Archivos: {len(md_files)}")
-    logger.info(f"   Documentos: {len(all_documents)}")
+    logger.info(f"   Archivos procesados: {len(md_files)}")
+    logger.info(f"   Documentos totales: {len(all_documents)}")
+    logger.info(f"   Dimensión embeddings: {dimension}")
     logger.info("="*60)
     
     return True

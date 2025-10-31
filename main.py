@@ -81,8 +81,8 @@ TERM_EXPANSION = {
 
 # Mapeo de facultades para búsqueda optimizada
 FACULTY_EXPANSIONS = {
-    'estadística': ['estadistica', 'estadisticas', 'fie', 'estadística e informática'],
-    'estadistica': ['estadística', 'estadisticas', 'fie', 'estadística e informática'],
+    'estadística': ['estadistica', 'estadisticas', 'FINESI', 'estadística e informática'],
+    'estadistica': ['estadística', 'estadisticas', 'FINESI', 'estadística e informática'],
     'agrarias': ['ciencias agrarias', 'fca', 'agronomía', 'agronomia'],
     'enfermería': ['enfermeria', 'enfermera', 'enfermero'],
     'veterinaria': ['medicina veterinaria', 'fmvz', 'zootecnia'],
@@ -327,7 +327,42 @@ def optimized_search_knowledge_base(query, top_k=5, similarity_threshold=0.3):  
         logger.error(f"❌ Error en búsqueda optimizada: {e}")
         return []
 
-
+def direct_faculty_search(query, docs, top_k=3):
+    """Búsqueda directa por nombre de facultad - como fallback"""
+    query_lower = query.lower()
+    
+    # Mapeo de términos de búsqueda a facultades
+    faculty_keywords = {
+        'enfermería': 'enfermeria',
+        'enfermeria': 'enfermeria', 
+        'estadística': 'estadistica',
+        'estadistica': 'estadistica',
+        'agrarias': 'agrarias',
+        'veterinaria': 'veterinaria',
+        'contables': 'contables',
+        'económica': 'economica',
+        'economica': 'economica'
+    }
+    
+    results = []
+    for doc in docs:
+        doc_facultad = doc.get('facultad', '').lower()
+        doc_type = doc.get('type', '')
+        doc_text = doc.get('text', '').lower()
+        
+        # Buscar coincidencias directas
+        for keyword, faculty_type in faculty_keywords.items():
+            if (keyword in query_lower and 
+                faculty_type in doc_facultad and
+                'linea_investigacion' in doc_type):
+                results.append(doc)
+                break
+        
+        # Si ya tenemos suficientes resultados, salir
+        if len(results) >= top_k:
+            break
+    
+    return results
 # ---------------------------
 # DeepSeek async
 # ---------------------------
@@ -547,11 +582,19 @@ async def process_message_async(user_message, phone_number):
             ))
             return response
 
-        # ⭐ BÚSQUEDA OPTIMIZADA
+        # ⭐ BÚSQUEDA OPTIMIZADA CON FALLBACK
         loop = asyncio.get_event_loop()
         relevant_docs = await loop.run_in_executor(
-            None, optimized_search_knowledge_base, user_message, 5, 0.4
+        None, optimized_search_knowledge_base, user_message, 5, 0.3  # Umbral más bajo
         )
+    
+        # ⭐ FALLBACK: Si no hay resultados, buscar directamente por facultad
+        if not relevant_docs and any(word in user_message.lower() for word in 
+                                ['línea', 'linea', 'investigación', 'investigacion', 'sublinea']):
+            logger.info("   🔄 Usando búsqueda directa por facultad...")
+            relevant_docs = await loop.run_in_executor(
+                None, direct_faculty_search, user_message, documents, 3
+            )
 
         # Obtener historial de conversación
         history_task = asyncio.create_task(get_conversation_history_async(phone_number))

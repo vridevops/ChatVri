@@ -326,6 +326,8 @@ def optimized_search_knowledge_base(query, top_k=5, similarity_threshold=0.3):  
     except Exception as e:
         logger.error(f"❌ Error en búsqueda optimizada: {e}")
         return []
+
+
 # ---------------------------
 # DeepSeek async
 # ---------------------------

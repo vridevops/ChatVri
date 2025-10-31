@@ -220,8 +220,8 @@ def search_knowledge_base_cached(query, top_k=5):
     """Caché de búsquedas optimizadas"""
     return optimized_search_knowledge_base(query, top_k, similarity_threshold=0.4)
 
-def optimized_search_knowledge_base(query, top_k=5, similarity_threshold=0.4):
-    """Búsqueda optimizada con mejor matching de facultades"""
+def optimized_search_knowledge_base(query, top_k=5, similarity_threshold=0.3):  # Reducido umbral
+    """Búsqueda optimizada CON MEJOR MATCHING DE FACULTADES"""
     if not embedding_model or not faiss_index:
         return []
     
@@ -229,17 +229,35 @@ def optimized_search_knowledge_base(query, top_k=5, similarity_threshold=0.4):
         query_lower = query.lower()
         logger.info(f"🔍 Búsqueda optimizada: '{query}'")
         
-        # ⭐ EXPANSIÓN MEJORADA DE TÉRMINOS
+        # ⭐ EXPANSIÓN MEJORADA - INCLUIR NOMBRES COMPLETOS DE FACULTADES
         expanded_terms = [query_lower]
         
-        # Expansión específica por facultad
-        for term, expansions in FACULTY_EXPANSIONS.items():
+        # Mapeo directo de términos de búsqueda a nombres de facultad en la base
+        FACULTY_DIRECT_MAPPING = {
+            'enfermería': 'FACULTAD_DE_ENFERMERIA',
+            'enfermeria': 'FACULTAD_DE_ENFERMERIA',
+            'estadística': 'FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA', 
+            'estadistica': 'FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA',
+            'agrarias': 'FACULTAD_DE_CIENCIAS_AGRARIAS',
+            'veterinaria': 'FACULTAD_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA',
+            'contables': 'FACULTAD_DE_CIENCIAS_CONTABLES_Y_ADMINISTRATIVAS',
+            'económica': 'FACULTAD_DE_INGENIERIA_ECONOMICA',
+            'economica': 'FACULTAD_DE_INGENIERIA_ECONOMICA',
+            'minas': 'FACULTAD_DE_INGENIERIA_DE_MINAS',
+            'derecho': 'FACULTAD_DE_DERECHO_Y_CIENCIAS_POLITICAS',
+            'civil': 'FACULTAD_DE_INGENIERIA_CIVIL',
+            'medicina': 'FACULTAD_DE_MEDICINA_HUMANA'
+        }
+        
+        # Agregar búsqueda directa por facultad si se menciona
+        for term, facultad_nombre in FACULTY_DIRECT_MAPPING.items():
             if term in query_lower:
-                expanded_terms.extend(expansions)
+                expanded_terms.append(facultad_nombre.lower())
+                expanded_terms.append(term)
         
         # Búsqueda semántica principal
         all_results = []
-        for term in set(expanded_terms):  # Eliminar duplicados
+        for term in set(expanded_terms):
             query_vector = embedding_model.encode([term])
             query_vector = np.array(query_vector).astype('float32')
             
@@ -253,44 +271,42 @@ def optimized_search_knowledge_base(query, top_k=5, similarity_threshold=0.4):
                 doc = documents[idx].copy()
                 doc['similarity'] = float(similarity)
                 
-                # ⭐ SCORING MEJORADO
+                # ⭐ SCORING MEJORADO - BONUS POR MATCHING EXACTO
                 score = similarity
-                
-                # Bonus por matching exacto de facultad
-                doc_facultad = doc.get('facultad', '').lower()
                 doc_text = doc.get('text', '').lower()
+                doc_facultad = doc.get('facultad', '').lower()
                 
-                # Bonus si la query menciona una facultad y el documento es de esa facultad
-                for faculty_keyword in FACULTY_EXPANSIONS.keys():
-                    if faculty_keyword in query_lower and faculty_keyword in doc_facultad:
-                        score += 0.3
+                # BONUS CRÍTICO: Si la query menciona una facultad y el documento es de esa facultad
+                for search_term, facultad_target in FACULTY_DIRECT_MAPPING.items():
+                    if (search_term in query_lower and 
+                        facultad_target.lower() in doc_facultad):
+                        score += 0.5  # Bonus significativo
+                        logger.info(f"   🎯 MATCH EXACTO: '{search_term}' -> '{facultad_target}'")
                         break
                 
                 # Bonus por tipo de documento relevante
                 doc_type = doc.get('type', '')
-                if 'contacto' in query_lower and 'coordinador' in doc_type:
-                    score += 0.2
-                if any(word in query_lower for word in ['línea', 'linea', 'investigación']) and 'linea_investigacion' in doc_type:
-                    score += 0.2
+                if any(word in query_lower for word in ['línea', 'linea', 'investigación', 'investigacion', 'sublinea']):
+                    if 'linea_investigacion' in doc_type:
+                        score += 0.3
                 
-                # Bonus por matching de palabras clave en el texto
+                # Bonus por palabras clave en el texto
                 query_words = set(query_lower.split())
                 doc_words = set(doc_text.split())
                 keyword_matches = len(query_words.intersection(doc_words))
-                score += (keyword_matches * 0.05)
+                score += (keyword_matches * 0.1)
                 
                 doc['combined_score'] = score
                 
                 if score >= similarity_threshold:
                     all_results.append(doc)
         
-        # Eliminar duplicados y ordenar
+        # Eliminar duplicados
         unique_results = []
         seen_doc_ids = set()
         
         for result in all_results:
-            # Usar combinación de texto y facultad para identificar duplicados
-            doc_id = f"{result.get('text','')[:50]}_{result.get('facultad','')}"
+            doc_id = f"{result.get('text','')[:100]}_{result.get('facultad','')}"
             if doc_id not in seen_doc_ids:
                 seen_doc_ids.add(doc_id)
                 unique_results.append(result)
@@ -298,18 +314,18 @@ def optimized_search_knowledge_base(query, top_k=5, similarity_threshold=0.4):
         # Ordenar por score combinado
         unique_results.sort(key=lambda x: x['combined_score'], reverse=True)
         
-        logger.info(f"📊 Resultados para '{query}': {len(unique_results)} (umbral: {similarity_threshold})")
-        
-        # Log de top resultados para debugging
+        # Log detallado para debugging
+        logger.info(f"📊 Resultados para '{query}': {len(unique_results)} documentos")
         for i, result in enumerate(unique_results[:3]):
-            logger.info(f"   Top {i+1}: score={result['combined_score']:.3f}, tipo={result.get('type','?')}, fac={result.get('facultad','?')}")
+            logger.info(f"   Top {i+1}: score={result['combined_score']:.3f}, " +
+                       f"tipo={result.get('type','?')}, " +
+                       f"facultad={result.get('facultad','?')}")
         
         return unique_results[:top_k]
         
     except Exception as e:
         logger.error(f"❌ Error en búsqueda optimizada: {e}")
         return []
-
 # ---------------------------
 # DeepSeek async
 # ---------------------------

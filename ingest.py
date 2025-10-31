@@ -141,101 +141,102 @@ def process_lineas_investigacion_file(content, filename, file_type, entidad):
     """Procesador ESPECÍFICO para líneas de investigación - CORREGIDO"""
     documents = []
     
-    # Buscar todas las facultades (## FACULTAD_DE_...)
+    logger.info(f"   🔬 Procesando líneas de investigación desde: {filename}")
+    
+    # ⭐ PATRÓN CORREGIDO - más flexible con espacios y formato
+    lineas_pattern = r'##\s+(FACULTAD_DE_[^\n]+).*?###\s+(ESCUELA_DE_[^\n]+).*?\*\*TIPO:\*\*\s*linea_investigacion.*?\*\*LINEA:\*\*\s*([^\n]+).*?\*\*SUBLINEAS:\*\*\s*([^\n]+)'
+    
+    matches = re.findall(lineas_pattern, content, re.DOTALL | re.IGNORECASE)
+    
+    logger.info(f"   📊 Líneas encontradas con patrón principal: {len(matches)}")
+    
+    for facultad, escuela, linea, sublineas in matches:
+        # Limpiar y normalizar los textos
+        facultad = facultad.strip()
+        escuela = escuela.strip() 
+        linea = clean_markdown(linea.strip())
+        sublineas = clean_markdown(sublineas.strip())
+        
+        doc_text = f"FACULTAD: {facultad}\nESCUELA: {escuela}\n"
+        doc_text += f"LÍNEA: {linea}\nSUBÍNEAS: {sublineas}"
+        
+        documents.append({
+            'text': doc_text,
+            'source': filename,
+            'type': 'linea_investigacion',
+            'facultad': facultad,
+            'escuela': escuela,
+            'entidad': entidad,
+            'metadata': {
+                'linea': linea,
+                'sublineas': sublineas
+            }
+        })
+    
+    # ⭐ MÉTODO ALTERNATIVO SI EL PRIMERO NO FUNCIONA
+    if len(documents) == 0:
+        logger.info("   ⚡ Usando método alternativo de búsqueda...")
+        documents = process_lineas_alternativo(content, filename, entidad)
+    
+    logger.info(f"   ✅ Líneas investigación procesadas: {len(documents)}")
+    return documents
+
+def process_lineas_alternativo(content, filename, entidad):
+    """Método alternativo más robusto para líneas de investigación"""
+    documents = []
+    
+    # Buscar por facultades primero
     facultad_pattern = r'##\s+(FACULTAD_DE_[^\n]+)'
     facultades = re.findall(facultad_pattern, content)
-    logger.info(f"   🔬 Facultades encontradas: {len(facultades)}")
     
-    current_facultad = ""
-    
-    # Dividir por líneas para procesar secuencialmente
-    lines = content.split('\n')
-    i = 0
-    
-    while i < len(lines):
-        line = lines[i].strip()
+    for facultad in facultades:
+        # Extraer sección de cada facultad
+        section_pattern = rf'##\s+{re.escape(facultad)}(.+?)(?=##\s+FACULTAD_DE_|\Z)'
+        section_match = re.search(section_pattern, content, re.DOTALL)
         
-        # Detectar facultad
-        facultad_match = re.match(facultad_pattern, line)
-        if facultad_match:
-            current_facultad = facultad_match.group(1)
-            i += 1
-            continue
-        
-        # Detectar escuela (### ESCUELA_DE_...)
-        escuela_match = re.match(r'###\s+(ESCUELA_DE_[^\n]+)', line)
-        if escuela_match and current_facultad:
-            escuela = escuela_match.group(1)
+        if section_match:
+            facultad_content = section_match.group(1)
             
-            # Buscar línea de investigación en las siguientes líneas
-            j = i + 1
-            while j < len(lines) and not lines[j].strip().startswith('###'):
-                line_j = lines[j].strip()
+            # Buscar escuelas dentro de esta facultad
+            escuela_pattern = r'###\s+(ESCUELA_DE_[^\n]+)'
+            escuelas = re.findall(escuela_pattern, facultad_content)
+            
+            for escuela in escuelas:
+                # Extraer sección de cada escuela
+                escuela_section_pattern = rf'###\s+{re.escape(escuela)}(.+?)(?=###\s+ESCUELA_DE_|\Z)'
+                escuela_match = re.search(escuela_section_pattern, facultad_content, re.DOTALL)
                 
-                # Buscar patrón de línea de investigación
-                if line_j.startswith('**TIPO:**') and 'linea_investigacion' in line_j:
-                    # Extraer información de esta escuela
-                    escuela_content = []
-                    k = j
-                    while k < len(lines) and lines[k].strip() and not lines[k].strip().startswith('###'):
-                        escuela_content.append(lines[k])
-                        k += 1
+                if escuela_match:
+                    escuela_content = escuela_match.group(1)
                     
-                    escuela_text = '\n'.join(escuela_content)
-                    campos = extract_standard_fields(escuela_text)
+                    # ⭐ BUSCAR CAMPOS CON PATRONES MÁS FLEXIBLES
+                    campos = {}
                     
-                    if campos:
-                        doc_text = f"FACULTAD: {current_facultad}\nESCUELA: {escuela}\n"
-                        
-                        if campos.get('linea'):
-                            doc_text += f"LÍNEA: {campos['linea']}\n"
-                        if campos.get('sublineas'):
-                            doc_text += f"SUBÍNEAS: {campos['sublineas']}\n"
-                        
-                        doc_text += f"\nINFORMACIÓN COMPLETA:\n{clean_markdown(escuela_text)}"
+                    # Buscar línea
+                    linea_match = re.search(r'\*\*LINEA:\*\*\s*([^\n]+)', escuela_content, re.IGNORECASE)
+                    if linea_match:
+                        campos['linea'] = clean_markdown(linea_match.group(1).strip())
+                    
+                    # Buscar sublíneas  
+                    sublineas_match = re.search(r'\*\*SUBLINEAS:\*\*\s*([^\n]+)', escuela_content, re.IGNORECASE)
+                    if sublineas_match:
+                        campos['sublineas'] = clean_markdown(sublineas_match.group(1).strip())
+                    
+                    # Solo crear documento si tenemos ambos campos
+                    if campos.get('linea') and campos.get('sublineas'):
+                        doc_text = f"FACULTAD: {facultad}\nESCUELA: {escuela}\n"
+                        doc_text += f"LÍNEA: {campos['linea']}\nSUBÍNEAS: {campos['sublineas']}"
                         
                         documents.append({
                             'text': doc_text,
                             'source': filename,
                             'type': 'linea_investigacion',
-                            'facultad': current_facultad,
+                            'facultad': facultad,
                             'escuela': escuela,
                             'entidad': entidad,
                             'metadata': campos
                         })
-                    
-                    j = k
-                    break
-                j += 1
-        
-        i += 1
     
-    # Si no se encontraron documentos con el método anterior, usar búsqueda directa
-    if len(documents) == 0:
-        logger.info("   ⚡ Usando búsqueda directa para líneas de investigación")
-        
-        # Buscar patrones directos de líneas de investigación
-        lineas_pattern = r'##\s+(FACULTAD_DE_[^\n]+).*?###\s+(ESCUELA_DE_[^\n]+).*?\*\*TIPO:\*\* linea_investigacion.*?\*\*LINEA:\*\*([^\n]+).*?\*\*SUBLINEAS:\*\*([^\n]+)'
-        matches = re.findall(lineas_pattern, content, re.DOTALL)
-        
-        for facultad, escuela, linea, sublineas in matches:
-            doc_text = f"FACULTAD: {facultad.strip()}\nESCUELA: {escuela.strip()}\n"
-            doc_text += f"LÍNEA: {linea.strip()}\nSUBÍNEAS: {sublineas.strip()}"
-            
-            documents.append({
-                'text': doc_text,
-                'source': filename,
-                'type': 'linea_investigacion',
-                'facultad': facultad.strip(),
-                'escuela': escuela.strip(),
-                'entidad': entidad,
-                'metadata': {
-                    'linea': linea.strip(),
-                    'sublineas': sublineas.strip()
-                }
-            })
-    
-    logger.info(f"   📚 Líneas investigación procesadas: {len(documents)}")
     return documents
 
 def process_preguntas_frecuentes_file(content, filename, file_type, entidad):

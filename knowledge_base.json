@@ -639,508 +639,469 @@
       "entidad": "general"
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_AGRARIAS\nESCUELA: ESCUELA_DE_INGENIERIA_AGRONOMICA\nLÍNEA: MANEJO AGRONÓMICO CULTIVOS\nSUBÍNEAS: Gestión sostenible, manejo agronómico y mejoramiento genético de cultivos; Gestión, manejo y conservación de recursos naturales y medio ambiente; Desarrollo de sistemas agropecuarios; Innovación tecnológica, económica y extensión agraria\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: MANEJO AGRONÓMICO CULTIVOS SUBLINEAS: Gestión sostenible, manejo agronómico y mejoramiento genético de cultivos; Gestión, manejo y conservación de recursos naturales y medio ambiente; Desarrollo de sistemas agropecuarios; Innovación tecnológica, económica y extensión agraria",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_AGRARIAS\nESCUELA: ESCUELA_DE_INGENIERIA_AGRONOMICA\nLÍNEA: MANEJO AGRONÓMICO CULTIVOS\nSUBÍNEAS: Gestión sostenible, manejo agronómico y mejoramiento genético de cultivos; Gestión, manejo y conservación de recursos naturales y medio ambiente; Desarrollo de sistemas agropecuarios; Innovación tecnológica, económica y extensión agraria",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_AGRARIAS",
       "escuela": "ESCUELA_DE_INGENIERIA_AGRONOMICA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "MANEJO AGRONÓMICO CULTIVOS",
         "sublineas": "Gestión sostenible, manejo agronómico y mejoramiento genético de cultivos; Gestión, manejo y conservación de recursos naturales y medio ambiente; Desarrollo de sistemas agropecuarios; Innovación tecnológica, económica y extensión agraria"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_AGRARIAS\nESCUELA: ESCUELA_DE_INGENIERIA_AGROINDUSTRIAL\nLÍNEA: INGENIERÍA DE PROCESOS\nSUBÍNEAS: Ingeniería, tecnología y gestión agroindustrial\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: INGENIERÍA DE PROCESOS SUBLINEAS: Ingeniería, tecnología y gestión agroindustrial",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_AGRARIAS\nESCUELA: ESCUELA_DE_INGENIERIA_AGROINDUSTRIAL\nLÍNEA: INGENIERÍA DE PROCESOS\nSUBÍNEAS: Ingeniería, tecnología y gestión agroindustrial",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_AGRARIAS",
       "escuela": "ESCUELA_DE_INGENIERIA_AGROINDUSTRIAL",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "INGENIERÍA DE PROCESOS",
         "sublineas": "Ingeniería, tecnología y gestión agroindustrial"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_AGRARIAS\nESCUELA: ESCUELA_DE_INGENIERIA_TOPOGRÁFICA_Y_AGRIMENSURA\nLÍNEA: SISTEMAS DE INFORMACIÓN GEOGRÁFICA\nSUBÍNEAS: Topografía aplicada, geodesia, cartografía y catastro; Teledetección, fotometría y sistemas de información geográfica - SIG; Gestión de riesgos y cambio climático; Planificación y ordenamiento territorial; Geotecnia y pavimentos; Diseño geométrico e infraestructura vial; Hidrología e hidráulica de vías\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: SISTEMAS DE INFORMACIÓN GEOGRÁFICA SUBLINEAS: Topografía aplicada, geodesia, cartografía y catastro; Teledetección, fotometría y sistemas de información geográfica - SIG; Gestión de riesgos y cambio climático; Planificación y ordenamiento territorial; Geotecnia y pavimentos; Diseño geométrico e infraestructura vial; Hidrología e hidráulica de vías",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_AGRARIAS\nESCUELA: ESCUELA_DE_INGENIERIA_TOPOGRÁFICA_Y_AGRIMENSURA\nLÍNEA: SISTEMAS DE INFORMACIÓN GEOGRÁFICA\nSUBÍNEAS: Topografía aplicada, geodesia, cartografía y catastro; Teledetección, fotometría y sistemas de información geográfica - SIG; Gestión de riesgos y cambio climático; Planificación y ordenamiento territorial; Geotecnia y pavimentos; Diseño geométrico e infraestructura vial; Hidrología e hidráulica de vías",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_AGRARIAS",
       "escuela": "ESCUELA_DE_INGENIERIA_TOPOGRÁFICA_Y_AGRIMENSURA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "SISTEMAS DE INFORMACIÓN GEOGRÁFICA",
         "sublineas": "Topografía aplicada, geodesia, cartografía y catastro; Teledetección, fotometría y sistemas de información geográfica - SIG; Gestión de riesgos y cambio climático; Planificación y ordenamiento territorial; Geotecnia y pavimentos; Diseño geométrico e infraestructura vial; Hidrología e hidráulica de vías"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA\nESCUELA: ESCUELA_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA\nLÍNEA: CIENCIA Y PRODUCCIÓN ANIMAL\nSUBÍNEAS: Salud animal; Producción animal; Salud pública; Acuicultura (verificar)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: CIENCIA Y PRODUCCIÓN ANIMAL SUBLINEAS: Salud animal; Producción animal; Salud pública; Acuicultura (verificar)",
+      "text": "FACULTAD: FACULTAD_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA\nESCUELA: ESCUELA_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA\nLÍNEA: CIENCIA Y PRODUCCIÓN ANIMAL\nSUBÍNEAS: Salud animal; Producción animal; Salud pública; Acuicultura (verificar)",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA",
       "escuela": "ESCUELA_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "CIENCIA Y PRODUCCIÓN ANIMAL",
         "sublineas": "Salud animal; Producción animal; Salud pública; Acuicultura (verificar)"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_ECONOMICA\nESCUELA: ESCUELA_DE_INGENIERIA_ECONOMICA\nLÍNEA: ECONOMÍA Y DESARROLLO\nSUBÍNEAS: Economía de la empresa y mercados; Economía regional y local; Políticas públicas; Gobernabilidad Ciudadanía y Desarrollo Social (Sociologia tambien); Desarrollo Turístico Regional (Turismo)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: ECONOMÍA Y DESARROLLO SUBLINEAS: Economía de la empresa y mercados; Economía regional y local; Políticas públicas; Gobernabilidad Ciudadanía y Desarrollo Social (Sociologia tambien); Desarrollo Turístico Regional (Turismo)",
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_ECONOMICA\nESCUELA: ESCUELA_DE_INGENIERIA_ECONOMICA\nLÍNEA: ECONOMÍA Y DESARROLLO\nSUBÍNEAS: Economía de la empresa y mercados; Economía regional y local; Políticas públicas; Gobernabilidad Ciudadanía y Desarrollo Social (Sociologia tambien); Desarrollo Turístico Regional (Turismo)",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_INGENIERIA_ECONOMICA",
       "escuela": "ESCUELA_DE_INGENIERIA_ECONOMICA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "ECONOMÍA Y DESARROLLO",
         "sublineas": "Economía de la empresa y mercados; Economía regional y local; Políticas públicas; Gobernabilidad Ciudadanía y Desarrollo Social (Sociologia tambien); Desarrollo Turístico Regional (Turismo)"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_ECONOMICA\nESCUELA: ESCUELA_DE_ADMINISTRACION\nLÍNEA: ADMINISTRACIÓN Y MARKETING\nSUBÍNEAS: Administración de finanzas; Administración de procesos organizacionales; Administración de emprendimientos; Administración general; Administración de recursos humanos; Administración de marketing y negocios internacionales; Administración pública; Administración de Empresas Turísticas (revisar)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: ADMINISTRACIÓN Y MARKETING SUBLINEAS: Administración de finanzas; Administración de procesos organizacionales; Administración de emprendimientos; Administración general; Administración de recursos humanos; Administración de marketing y negocios internacionales; Administración pública; Administración de Empresas Turísticas (revisar)",
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_ECONOMICA\nESCUELA: ESCUELA_DE_ADMINISTRACION\nLÍNEA: ADMINISTRACIÓN Y MARKETING\nSUBÍNEAS: Administración de finanzas; Administración de procesos organizacionales; Administración de emprendimientos; Administración general; Administración de recursos humanos; Administración de marketing y negocios internacionales; Administración pública; Administración de Empresas Turísticas (revisar)",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_INGENIERIA_ECONOMICA",
       "escuela": "ESCUELA_DE_ADMINISTRACION",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "ADMINISTRACIÓN Y MARKETING",
         "sublineas": "Administración de finanzas; Administración de procesos organizacionales; Administración de emprendimientos; Administración general; Administración de recursos humanos; Administración de marketing y negocios internacionales; Administración pública; Administración de Empresas Turísticas (revisar)"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_CONTABLES_Y_ADMINISTRATIVAS\nESCUELA: ESCUELA_DE_CIENCIAS_CONTABLES\nLÍNEA: AUDITORÍA, COSTOS Y FINANZAS\nSUBÍNEAS: Contabilidad y auditoría; Finanzas y gestión; Tributación; Gestión pública\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: AUDITORÍA, COSTOS Y FINANZAS SUBLINEAS: Contabilidad y auditoría; Finanzas y gestión; Tributación; Gestión pública",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_CONTABLES_Y_ADMINISTRATIVAS\nESCUELA: ESCUELA_DE_CIENCIAS_CONTABLES\nLÍNEA: AUDITORÍA, COSTOS Y FINANZAS\nSUBÍNEAS: Contabilidad y auditoría; Finanzas y gestión; Tributación; Gestión pública",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_CONTABLES_Y_ADMINISTRATIVAS",
       "escuela": "ESCUELA_DE_CIENCIAS_CONTABLES",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "AUDITORÍA, COSTOS Y FINANZAS",
         "sublineas": "Contabilidad y auditoría; Finanzas y gestión; Tributación; Gestión pública"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_ENFERMERIA\nESCUELA: ESCUELA_DE_ENFERMERIA\nLÍNEA: SALUD PÚBLICA\nSUBÍNEAS: Salud del recién nacido, niño, escolar y adolescente; Salud del adulto y salud de la mujer; Gerencia y gestión en salud, salud familiar y comunitaria\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: SALUD PÚBLICA SUBLINEAS: Salud del recién nacido, niño, escolar y adolescente; Salud del adulto y salud de la mujer; Gerencia y gestión en salud, salud familiar y comunitaria",
+      "text": "FACULTAD: FACULTAD_DE_ENFERMERIA\nESCUELA: ESCUELA_DE_ENFERMERIA\nLÍNEA: SALUD PÚBLICA\nSUBÍNEAS: Salud del recién nacido, niño, escolar y adolescente; Salud del adulto y salud de la mujer; Gerencia y gestión en salud, salud familiar y comunitaria",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_ENFERMERIA",
       "escuela": "ESCUELA_DE_ENFERMERIA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "SALUD PÚBLICA",
         "sublineas": "Salud del recién nacido, niño, escolar y adolescente; Salud del adulto y salud de la mujer; Gerencia y gestión en salud, salud familiar y comunitaria"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_TRABAJO_SOCIAL\nESCUELA: ESCUELA_DE_TRABAJO_SOCIAL\nLÍNEA: SOCIEDAD, CULTURA Y COMUNICACIÓN\nSUBÍNEAS: Desarrollo humano y calidad de vida; Familias: realidades, cambio y dinámicas de intervención; Derechos humanos y fortalecimiento democrático\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: SOCIEDAD, CULTURA Y COMUNICACIÓN SUBLINEAS: Desarrollo humano y calidad de vida; Familias: realidades, cambio y dinámicas de intervención; Derechos humanos y fortalecimiento democrático",
+      "text": "FACULTAD: FACULTAD_DE_TRABAJO_SOCIAL\nESCUELA: ESCUELA_DE_TRABAJO_SOCIAL\nLÍNEA: SOCIEDAD, CULTURA Y COMUNICACIÓN\nSUBÍNEAS: Desarrollo humano y calidad de vida; Familias: realidades, cambio y dinámicas de intervención; Derechos humanos y fortalecimiento democrático",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_TRABAJO_SOCIAL",
       "escuela": "ESCUELA_DE_TRABAJO_SOCIAL",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "SOCIEDAD, CULTURA Y COMUNICACIÓN",
         "sublineas": "Desarrollo humano y calidad de vida; Familias: realidades, cambio y dinámicas de intervención; Derechos humanos y fortalecimiento democrático"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nESCUELA: ESCUELA_DE_ANTROPOLOGIA\nLÍNEA: GESTIÓN Y RESPONSABILIDAD SOCIAL\nSUBÍNEAS: Cultura andina, sociedad y medioambiente; Antropología jurídica y forense biológica-cultural (REVISAR)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: GESTIÓN Y RESPONSABILIDAD SOCIAL SUBLINEAS: Cultura andina, sociedad y medioambiente; Antropología jurídica y forense biológica-cultural (REVISAR)",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nESCUELA: ESCUELA_DE_ANTROPOLOGIA\nLÍNEA: GESTIÓN Y RESPONSABILIDAD SOCIAL\nSUBÍNEAS: Cultura andina, sociedad y medioambiente; Antropología jurídica y forense biológica-cultural (REVISAR)",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_SOCIALES",
       "escuela": "ESCUELA_DE_ANTROPOLOGIA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "GESTIÓN Y RESPONSABILIDAD SOCIAL",
         "sublineas": "Cultura andina, sociedad y medioambiente; Antropología jurídica y forense biológica-cultural (REVISAR)"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nESCUELA: ESCUELA_DE_ARTE\nLÍNEA: ARTE Y MÚSICA\nSUBÍNEAS: Danza: revaloración de las danzas étnicas de nuestro contexto para la generación de conocimiento, cultura Y memoria histórica; Música: Análisis e interpretación de la producción musical; Música: Innovaciones y aplicación de tecnologías en la producción musical; Artes Plásticas: Creación plástica en base a las técnicas tradicionales Y Tecnologías actuales, considerando aspectos filosóficos y teóricos; Artes Plásticas: Gestión y administración de la labor artística Enfatizando Los Nuevos Escenarios Plásticos\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: ARTE Y MÚSICA SUBLINEAS: Danza: revaloración de las danzas étnicas de nuestro contexto para la generación de conocimiento, cultura Y memoria histórica; Música: Análisis e interpretación de la producción musical; Música: Innovaciones y aplicación de tecnologías en la producción musical; Artes Plásticas: Creación plástica en base a las técnicas tradicionales Y Tecnologías actuales, considerando aspectos filosóficos y teóricos; Artes Plásticas: Gestión y administración de la labor artística Enfatizando Los Nuevos Escenarios Plásticos",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nESCUELA: ESCUELA_DE_ARTE\nLÍNEA: ARTE Y MÚSICA\nSUBÍNEAS: Danza: revaloración de las danzas étnicas de nuestro contexto para la generación de conocimiento, cultura Y memoria histórica; Música: Análisis e interpretación de la producción musical; Música: Innovaciones y aplicación de tecnologías en la producción musical; Artes Plásticas: Creación plástica en base a las técnicas tradicionales Y Tecnologías actuales, considerando aspectos filosóficos y teóricos; Artes Plásticas: Gestión y administración de la labor artística Enfatizando Los Nuevos Escenarios Plásticos",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_SOCIALES",
       "escuela": "ESCUELA_DE_ARTE",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "ARTE Y MÚSICA",
         "sublineas": "Danza: revaloración de las danzas étnicas de nuestro contexto para la generación de conocimiento, cultura Y memoria histórica; Música: Análisis e interpretación de la producción musical; Música: Innovaciones y aplicación de tecnologías en la producción musical; Artes Plásticas: Creación plástica en base a las técnicas tradicionales Y Tecnologías actuales, considerando aspectos filosóficos y teóricos; Artes Plásticas: Gestión y administración de la labor artística Enfatizando Los Nuevos Escenarios Plásticos"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nESCUELA: ESCUELA_DE_CIENCIAS_DE_LA_COMUNICACION_SOCIAL\nLÍNEA: SOCIEDAD, CULTURA Y COMUNICACIÓN\nSUBÍNEAS: Comunicación sociocultural y desarrollo; Comunicación organizacional, marketing y publicidad; Medios de comunicación y periodismo\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: SOCIEDAD, CULTURA Y COMUNICACIÓN SUBLINEAS: Comunicación sociocultural y desarrollo; Comunicación organizacional, marketing y publicidad; Medios de comunicación y periodismo",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nESCUELA: ESCUELA_DE_CIENCIAS_DE_LA_COMUNICACION_SOCIAL\nLÍNEA: SOCIEDAD, CULTURA Y COMUNICACIÓN\nSUBÍNEAS: Comunicación sociocultural y desarrollo; Comunicación organizacional, marketing y publicidad; Medios de comunicación y periodismo",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_SOCIALES",
       "escuela": "ESCUELA_DE_CIENCIAS_DE_LA_COMUNICACION_SOCIAL",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "SOCIEDAD, CULTURA Y COMUNICACIÓN",
         "sublineas": "Comunicación sociocultural y desarrollo; Comunicación organizacional, marketing y publicidad; Medios de comunicación y periodismo"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nESCUELA: ESCUELA_DE_SOCIOLOGIA\nLÍNEA: SOCIEDAD, CULTURA Y COMUNICACIÓN / GESTIÓN Y RESPONSABILIDAD SOCIAL\nSUBÍNEAS: Análisis de procesos sociales; Organizaciones, liderazgo y gestión organizacional; Gobernabilidad, ciudadanía y desarrollo social; Sociolingüística e interculturalidad; Política, gestión pública y planificación; Institucionalidad, conflictos y gestión ambiental\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: SOCIEDAD, CULTURA Y COMUNICACIÓN / GESTIÓN Y RESPONSABILIDAD SOCIAL SUBLINEAS: Análisis de procesos sociales; Organizaciones, liderazgo y gestión organizacional; Gobernabilidad, ciudadanía y desarrollo social; Sociolingüística e interculturalidad; Política, gestión pública y planificación; Institucionalidad, conflictos y gestión ambiental",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nESCUELA: ESCUELA_DE_SOCIOLOGIA\nLÍNEA: SOCIEDAD, CULTURA Y COMUNICACIÓN / GESTIÓN Y RESPONSABILIDAD SOCIAL\nSUBÍNEAS: Análisis de procesos sociales; Organizaciones, liderazgo y gestión organizacional; Gobernabilidad, ciudadanía y desarrollo social; Sociolingüística e interculturalidad; Política, gestión pública y planificación; Institucionalidad, conflictos y gestión ambiental",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_SOCIALES",
       "escuela": "ESCUELA_DE_SOCIOLOGIA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "SOCIEDAD, CULTURA Y COMUNICACIÓN / GESTIÓN Y RESPONSABILIDAD SOCIAL",
         "sublineas": "Análisis de procesos sociales; Organizaciones, liderazgo y gestión organizacional; Gobernabilidad, ciudadanía y desarrollo social; Sociolingüística e interculturalidad; Política, gestión pública y planificación; Institucionalidad, conflictos y gestión ambiental"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nESCUELA: ESCUELA_DE_TURISMO\nLÍNEA: ADMINISTRACIÓN Y MARKETING / ECONOMÍA Y DESARROLLO / GESTIÓN Y RESPONSABILIDAD SOCIAL\nSUBÍNEAS: Administración de empresas turísticas; Desarrollo turístico regional; Gestión de destinos turísticos; Gestión de emprendimientos y negocios turísticos\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: ADMINISTRACIÓN Y MARKETING / ECONOMÍA Y DESARROLLO / GESTIÓN Y RESPONSABILIDAD SOCIAL SUBLINEAS: Administración de empresas turísticas; Desarrollo turístico regional; Gestión de destinos turísticos; Gestión de emprendimientos y negocios turísticos",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nESCUELA: ESCUELA_DE_TURISMO\nLÍNEA: ADMINISTRACIÓN Y MARKETING / ECONOMÍA Y DESARROLLO / GESTIÓN Y RESPONSABILIDAD SOCIAL\nSUBÍNEAS: Administración de empresas turísticas; Desarrollo turístico regional; Gestión de destinos turísticos; Gestión de emprendimientos y negocios turísticos",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_SOCIALES",
       "escuela": "ESCUELA_DE_TURISMO",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "ADMINISTRACIÓN Y MARKETING / ECONOMÍA Y DESARROLLO / GESTIÓN Y RESPONSABILIDAD SOCIAL",
         "sublineas": "Administración de empresas turísticas; Desarrollo turístico regional; Gestión de destinos turísticos; Gestión de emprendimientos y negocios turísticos"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nESCUELA: ESCUELA_DE_PSICOLOGIA\nLÍNEA: (En proceso de definición de sublíneas específicas)\nSUBÍNEAS: (En proceso de definición de sublíneas específicas)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: (En proceso de definición de sublíneas específicas) SUBLINEAS: (En proceso de definición de sublíneas específicas)",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_SOCIALES\nESCUELA: ESCUELA_DE_PSICOLOGIA\nLÍNEA: (En proceso de definición de sublíneas específicas)\nSUBÍNEAS: (En proceso de definición de sublíneas específicas)",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_SOCIALES",
       "escuela": "ESCUELA_DE_PSICOLOGIA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "(En proceso de definición de sublíneas específicas)",
         "sublineas": "(En proceso de definición de sublíneas específicas)"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_DE_MINAS\nESCUELA: ESCUELA_DE_INGENIERIA_DE_MINAS\nLÍNEA: GEOLOGÍA, MINAS Y METALURGIA\nSUBÍNEAS: Sistemas de extracción de recursos minerales; Geotecnia y estabilidad de minas; Minería sostenible y medio ambiente; Tecnologías de la información en minería\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: GEOLOGÍA, MINAS Y METALURGIA SUBLINEAS: Sistemas de extracción de recursos minerales; Geotecnia y estabilidad de minas; Minería sostenible y medio ambiente; Tecnologías de la información en minería",
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_DE_MINAS\nESCUELA: ESCUELA_DE_INGENIERIA_DE_MINAS\nLÍNEA: GEOLOGÍA, MINAS Y METALURGIA\nSUBÍNEAS: Sistemas de extracción de recursos minerales; Geotecnia y estabilidad de minas; Minería sostenible y medio ambiente; Tecnologías de la información en minería",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_INGENIERIA_DE_MINAS",
       "escuela": "ESCUELA_DE_INGENIERIA_DE_MINAS",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "GEOLOGÍA, MINAS Y METALURGIA",
         "sublineas": "Sistemas de extracción de recursos minerales; Geotecnia y estabilidad de minas; Minería sostenible y medio ambiente; Tecnologías de la información en minería"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_JURIDICAS_Y_POLITICAS\nESCUELA: ESCUELA_DE_DERECHO\nLÍNEA: DERECHO\nSUBÍNEAS: Derecho penal; Derecho administrativo; Derecho laboral; Derecho constitucional; Derecho civil; Teoría del derecho; Derechos humanos y fortalecimiento democrático (revisar)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: DERECHO SUBLINEAS: Derecho penal; Derecho administrativo; Derecho laboral; Derecho constitucional; Derecho civil; Teoría del derecho; Derechos humanos y fortalecimiento democrático (revisar)",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_JURIDICAS_Y_POLITICAS\nESCUELA: ESCUELA_DE_DERECHO\nLÍNEA: DERECHO\nSUBÍNEAS: Derecho penal; Derecho administrativo; Derecho laboral; Derecho constitucional; Derecho civil; Teoría del derecho; Derechos humanos y fortalecimiento democrático (revisar)",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_JURIDICAS_Y_POLITICAS",
       "escuela": "ESCUELA_DE_DERECHO",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "DERECHO",
         "sublineas": "Derecho penal; Derecho administrativo; Derecho laboral; Derecho constitucional; Derecho civil; Teoría del derecho; Derechos humanos y fortalecimiento democrático (revisar)"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_QUIMICA\nESCUELA: ESCUELA_DE_INGENIERIA_QUIMICA\nLÍNEA: INGENIERÍA DE PROCESOS / ALIMENTACIÓN Y NUTRICIÓN HUMANA / RECURSOS NATURALES Y MEDIO AMBIENTE\nSUBÍNEAS: Desarrollo de operaciones, procesos industriales y automatización; Recuperación, conservación y transformación de recursos naturales; Seguridad industrial y ambiental; Tecnologías ambientales y energías renovables; Procesamiento de alimentos\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: INGENIERÍA DE PROCESOS / ALIMENTACIÓN Y NUTRICIÓN HUMANA / RECURSOS NATURALES Y MEDIO AMBIENTE SUBLINEAS: Desarrollo de operaciones, procesos industriales y automatización; Recuperación, conservación y transformación de recursos naturales; Seguridad industrial y ambiental; Tecnologías ambientales y energías renovables; Procesamiento de alimentos",
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_QUIMICA\nESCUELA: ESCUELA_DE_INGENIERIA_QUIMICA\nLÍNEA: INGENIERÍA DE PROCESOS / ALIMENTACIÓN Y NUTRICIÓN HUMANA / RECURSOS NATURALES Y MEDIO AMBIENTE\nSUBÍNEAS: Desarrollo de operaciones, procesos industriales y automatización; Recuperación, conservación y transformación de recursos naturales; Seguridad industrial y ambiental; Tecnologías ambientales y energías renovables; Procesamiento de alimentos",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_INGENIERIA_QUIMICA",
       "escuela": "ESCUELA_DE_INGENIERIA_QUIMICA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "INGENIERÍA DE PROCESOS / ALIMENTACIÓN Y NUTRICIÓN HUMANA / RECURSOS NATURALES Y MEDIO AMBIENTE",
         "sublineas": "Desarrollo de operaciones, procesos industriales y automatización; Recuperación, conservación y transformación de recursos naturales; Seguridad industrial y ambiental; Tecnologías ambientales y energías renovables; Procesamiento de alimentos"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_BIOLOGICAS\nESCUELA: ESCUELA_DE_CIENCIAS_BIOLOGICAS_ECOLOGIA\nLÍNEA: CIENCIA Y PRODUCCIÓN ANIMAL / RECURSOS NATURALES Y MEDIO AMBIENTE / CIENCIAS DE LA SALUD\nSUBÍNEAS: Acuicultura; Conservación y aprovechamiento de recursos naturales; Calidad ambiental; Diagnóstico y epidemiología; Microbiología aplicada y biotecnología en salud y medio ambiente\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: CIENCIA Y PRODUCCIÓN ANIMAL / RECURSOS NATURALES Y MEDIO AMBIENTE / CIENCIAS DE LA SALUD SUBLINEAS: Acuicultura; Conservación y aprovechamiento de recursos naturales; Calidad ambiental; Diagnóstico y epidemiología; Microbiología aplicada y biotecnología en salud y medio ambiente",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_BIOLOGICAS\nESCUELA: ESCUELA_DE_CIENCIAS_BIOLOGICAS_ECOLOGIA\nLÍNEA: CIENCIA Y PRODUCCIÓN ANIMAL / RECURSOS NATURALES Y MEDIO AMBIENTE / CIENCIAS DE LA SALUD\nSUBÍNEAS: Acuicultura; Conservación y aprovechamiento de recursos naturales; Calidad ambiental; Diagnóstico y epidemiología; Microbiología aplicada y biotecnología en salud y medio ambiente",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_BIOLOGICAS",
       "escuela": "ESCUELA_DE_CIENCIAS_BIOLOGICAS_ECOLOGIA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "CIENCIA Y PRODUCCIÓN ANIMAL / RECURSOS NATURALES Y MEDIO AMBIENTE / CIENCIAS DE LA SALUD",
         "sublineas": "Acuicultura; Conservación y aprovechamiento de recursos naturales; Calidad ambiental; Diagnóstico y epidemiología; Microbiología aplicada y biotecnología en salud y medio ambiente"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_BIOLOGICAS\nESCUELA: ESCUELA_DE_CIENCIAS_BIOLOGICAS_PESQUERIA\nLÍNEA: CIENCIA Y PRODUCCIÓN ANIMAL / RECURSOS NATURALES Y MEDIO AMBIENTE\nSUBÍNEAS: Acuicultura; Conservación y aprovechamiento de recursos naturales; Calidad ambiental\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: CIENCIA Y PRODUCCIÓN ANIMAL / RECURSOS NATURALES Y MEDIO AMBIENTE SUBLINEAS: Acuicultura; Conservación y aprovechamiento de recursos naturales; Calidad ambiental",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_BIOLOGICAS\nESCUELA: ESCUELA_DE_CIENCIAS_BIOLOGICAS_PESQUERIA\nLÍNEA: CIENCIA Y PRODUCCIÓN ANIMAL / RECURSOS NATURALES Y MEDIO AMBIENTE\nSUBÍNEAS: Acuicultura; Conservación y aprovechamiento de recursos naturales; Calidad ambiental",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_BIOLOGICAS",
       "escuela": "ESCUELA_DE_CIENCIAS_BIOLOGICAS_PESQUERIA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "CIENCIA Y PRODUCCIÓN ANIMAL / RECURSOS NATURALES Y MEDIO AMBIENTE",
         "sublineas": "Acuicultura; Conservación y aprovechamiento de recursos naturales; Calidad ambiental"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_BIOLOGICAS\nESCUELA: ESCUELA_DE_CIENCIAS_BIOLOGICAS_MICROBIOLOGIA\nLÍNEA: CIENCIAS DE LA SALUD / RECURSOS NATURALES Y MEDIO AMBIENTE\nSUBÍNEAS: Diagnóstico y epidemiología; Microbiología aplicada y biotecnología en salud y medio ambiente; Calidad ambiental\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: CIENCIAS DE LA SALUD / RECURSOS NATURALES Y MEDIO AMBIENTE SUBLINEAS: Diagnóstico y epidemiología; Microbiología aplicada y biotecnología en salud y medio ambiente; Calidad ambiental",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_BIOLOGICAS\nESCUELA: ESCUELA_DE_CIENCIAS_BIOLOGICAS_MICROBIOLOGIA\nLÍNEA: CIENCIAS DE LA SALUD / RECURSOS NATURALES Y MEDIO AMBIENTE\nSUBÍNEAS: Diagnóstico y epidemiología; Microbiología aplicada y biotecnología en salud y medio ambiente; Calidad ambiental",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_BIOLOGICAS",
       "escuela": "ESCUELA_DE_CIENCIAS_BIOLOGICAS_MICROBIOLOGIA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "CIENCIAS DE LA SALUD / RECURSOS NATURALES Y MEDIO AMBIENTE",
         "sublineas": "Diagnóstico y epidemiología; Microbiología aplicada y biotecnología en salud y medio ambiente; Calidad ambiental"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION\nESCUELA: ESCUELA_DE_EDUCACION_FISICA\nLÍNEA: CIENCIAS DEL DEPORTE Y EDUCACIÓN FÍSICA\nSUBÍNEAS: Psicomotricidad; Educación física; Deporte y recreación; Ciencias del deporte; Promoción de la salud\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: CIENCIAS DEL DEPORTE Y EDUCACIÓN FÍSICA SUBLINEAS: Psicomotricidad; Educación física; Deporte y recreación; Ciencias del deporte; Promoción de la salud",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION\nESCUELA: ESCUELA_DE_EDUCACION_FISICA\nLÍNEA: CIENCIAS DEL DEPORTE Y EDUCACIÓN FÍSICA\nSUBÍNEAS: Psicomotricidad; Educación física; Deporte y recreación; Ciencias del deporte; Promoción de la salud",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION",
       "escuela": "ESCUELA_DE_EDUCACION_FISICA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "CIENCIAS DEL DEPORTE Y EDUCACIÓN FÍSICA",
         "sublineas": "Psicomotricidad; Educación física; Deporte y recreación; Ciencias del deporte; Promoción de la salud"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION\nESCUELA: ESCUELA_DE_EDUCACION_INICIAL\nLÍNEA: EDUCACIÓN Y DINÁMICA EDUCATIVA / GESTIÓN Y RESPONSABILIDAD SOCIAL\nSUBÍNEAS: Perspectivas teóricas de la educación en la primera infancia; Gestión curricular en la primera infancia; Responsabilidad social de la educación\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: EDUCACIÓN Y DINÁMICA EDUCATIVA / GESTIÓN Y RESPONSABILIDAD SOCIAL SUBLINEAS: Perspectivas teóricas de la educación en la primera infancia; Gestión curricular en la primera infancia; Responsabilidad social de la educación",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION\nESCUELA: ESCUELA_DE_EDUCACION_INICIAL\nLÍNEA: EDUCACIÓN Y DINÁMICA EDUCATIVA / GESTIÓN Y RESPONSABILIDAD SOCIAL\nSUBÍNEAS: Perspectivas teóricas de la educación en la primera infancia; Gestión curricular en la primera infancia; Responsabilidad social de la educación",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION",
       "escuela": "ESCUELA_DE_EDUCACION_INICIAL",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "EDUCACIÓN Y DINÁMICA EDUCATIVA / GESTIÓN Y RESPONSABILIDAD SOCIAL",
         "sublineas": "Perspectivas teóricas de la educación en la primera infancia; Gestión curricular en la primera infancia; Responsabilidad social de la educación"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION\nESCUELA: ESCUELA_DE_EDUCACION_PRIMARIA\nLÍNEA: EDUCACIÓN Y DINÁMICA EDUCATIVA / GESTIÓN Y RESPONSABILIDAD SOCIAL\nSUBÍNEAS: Perspectivas teóricas de la educación; Gestión curricular; Responsabilidad social de la educación\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: EDUCACIÓN Y DINÁMICA EDUCATIVA / GESTIÓN Y RESPONSABILIDAD SOCIAL SUBLINEAS: Perspectivas teóricas de la educación; Gestión curricular; Responsabilidad social de la educación",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION\nESCUELA: ESCUELA_DE_EDUCACION_PRIMARIA\nLÍNEA: EDUCACIÓN Y DINÁMICA EDUCATIVA / GESTIÓN Y RESPONSABILIDAD SOCIAL\nSUBÍNEAS: Perspectivas teóricas de la educación; Gestión curricular; Responsabilidad social de la educación",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION",
       "escuela": "ESCUELA_DE_EDUCACION_PRIMARIA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "EDUCACIÓN Y DINÁMICA EDUCATIVA / GESTIÓN Y RESPONSABILIDAD SOCIAL",
         "sublineas": "Perspectivas teóricas de la educación; Gestión curricular; Responsabilidad social de la educación"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_GEOLOGICA_Y_METALURGICA\nESCUELA: ESCUELA_DE_INGENIERIA_GEOLOGICA\nLÍNEA: GEOLOGÍA, MINAS Y METALURGIA\nSUBÍNEAS: Seguridad y medio ambiente; Ingeniería geotécnica; Geología regional; Geología de minas\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: GEOLOGÍA, MINAS Y METALURGIA SUBLINEAS: Seguridad y medio ambiente; Ingeniería geotécnica; Geología regional; Geología de minas",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION\nESCUELA: ESCUELA_DE_INGENIERIA_GEOLOGICA\nLÍNEA: GEOLOGÍA, MINAS Y METALURGIA\nSUBÍNEAS: Seguridad y medio ambiente; Ingeniería geotécnica; Geología regional; Geología de minas",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
-      "facultad": "FACULTAD_DE_INGENIERIA_GEOLOGICA_Y_METALURGICA",
+      "facultad": "FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION",
       "escuela": "ESCUELA_DE_INGENIERIA_GEOLOGICA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "GEOLOGÍA, MINAS Y METALURGIA",
         "sublineas": "Seguridad y medio ambiente; Ingeniería geotécnica; Geología regional; Geología de minas"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_GEOLOGICA_Y_METALURGICA\nESCUELA: ESCUELA_DE_INGENIERIA_METALURGICA\nLÍNEA: GEOLOGÍA, MINAS Y METALURGIA\nSUBÍNEAS: Metalurgia extractiva; Metalurgia transformativa; Medio ambiente y seguridad en procesos metalúrgicos\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: GEOLOGÍA, MINAS Y METALURGIA SUBLINEAS: Metalurgia extractiva; Metalurgia transformativa; Medio ambiente y seguridad en procesos metalúrgicos",
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_GEOLOGICA_Y_METALURGICA\nESCUELA: ESCUELA_DE_INGENIERIA_METALURGICA\nLÍNEA: GEOLOGÍA, MINAS Y METALURGIA\nSUBÍNEAS: Metalurgia extractiva; Metalurgia transformativa; Medio ambiente y seguridad en procesos metalúrgicos",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_INGENIERIA_GEOLOGICA_Y_METALURGICA",
       "escuela": "ESCUELA_DE_INGENIERIA_METALURGICA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "GEOLOGÍA, MINAS Y METALURGIA",
         "sublineas": "Metalurgia extractiva; Metalurgia transformativa; Medio ambiente y seguridad en procesos metalúrgicos"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA\nESCUELA: ESCUELA_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA\nLÍNEA: ESTADÍSTICA E INVESTIGACIÓN\nSUBÍNEAS: Ingeniería de software e inteligencia artificial; Modelos predictivos uni y multivariantes; Base de datos y sistemas de información; Análisis multivariado, big data, minería de datos e investigación de mercados\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: ESTADÍSTICA E INVESTIGACIÓN SUBLINEAS: Ingeniería de software e inteligencia artificial; Modelos predictivos uni y multivariantes; Base de datos y sistemas de información; Análisis multivariado, big data, minería de datos e investigación de mercados",
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA\nESCUELA: ESCUELA_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA\nLÍNEA: ESTADÍSTICA E INVESTIGACIÓN\nSUBÍNEAS: Ingeniería de software e inteligencia artificial; Modelos predictivos uni y multivariantes; Base de datos y sistemas de información; Análisis multivariado, big data, minería de datos e investigación de mercados",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA",
       "escuela": "ESCUELA_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "ESTADÍSTICA E INVESTIGACIÓN",
         "sublineas": "Ingeniería de software e inteligencia artificial; Modelos predictivos uni y multivariantes; Base de datos y sistemas de información; Análisis multivariado, big data, minería de datos e investigación de mercados"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_CIVIL_Y_ARQUITECTURA\nESCUELA: ESCUELA_DE_INGENIERIA_CIVIL\nLÍNEA: INFRAESTRUCTURA Y CONSTRUCCIONES\nSUBÍNEAS: Construcción y gerencia; Geotecnia; Hidráulica y medio ambiente; Análisis y diseño estructural; Transportes y gestión vial\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: INFRAESTRUCTURA Y CONSTRUCCIONES SUBLINEAS: Construcción y gerencia; Geotecnia; Hidráulica y medio ambiente; Análisis y diseño estructural; Transportes y gestión vial",
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_CIVIL_Y_ARQUITECTURA\nESCUELA: ESCUELA_DE_INGENIERIA_CIVIL\nLÍNEA: INFRAESTRUCTURA Y CONSTRUCCIONES\nSUBÍNEAS: Construcción y gerencia; Geotecnia; Hidráulica y medio ambiente; Análisis y diseño estructural; Transportes y gestión vial",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_INGENIERIA_CIVIL_Y_ARQUITECTURA",
       "escuela": "ESCUELA_DE_INGENIERIA_CIVIL",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "INFRAESTRUCTURA Y CONSTRUCCIONES",
         "sublineas": "Construcción y gerencia; Geotecnia; Hidráulica y medio ambiente; Análisis y diseño estructural; Transportes y gestión vial"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_CIVIL_Y_ARQUITECTURA\nESCUELA: ESCUELA_DE_ARQUITECTURA_Y_URBANISMO\nLÍNEA: ARQUITECTURA Y URBANISMO\nSUBÍNEAS: Arquitectura, teoría y diseño arquitectónico sostenible; Planificación urbana y desarrollo territorial sostenible; Tecnología, gestión e innovación en la edificación; Patrimonio arquitectónico y arquitectura social\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: ARQUITECTURA Y URBANISMO SUBLINEAS: Arquitectura, teoría y diseño arquitectónico sostenible; Planificación urbana y desarrollo territorial sostenible; Tecnología, gestión e innovación en la edificación; Patrimonio arquitectónico y arquitectura social",
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_CIVIL_Y_ARQUITECTURA\nESCUELA: ESCUELA_DE_ARQUITECTURA_Y_URBANISMO\nLÍNEA: ARQUITECTURA Y URBANISMO\nSUBÍNEAS: Arquitectura, teoría y diseño arquitectónico sostenible; Planificación urbana y desarrollo territorial sostenible; Tecnología, gestión e innovación en la edificación; Patrimonio arquitectónico y arquitectura social",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_INGENIERIA_CIVIL_Y_ARQUITECTURA",
       "escuela": "ESCUELA_DE_ARQUITECTURA_Y_URBANISMO",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "ARQUITECTURA Y URBANISMO",
         "sublineas": "Arquitectura, teoría y diseño arquitectónico sostenible; Planificación urbana y desarrollo territorial sostenible; Tecnología, gestión e innovación en la edificación; Patrimonio arquitectónico y arquitectura social"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_AGRICOLA\nESCUELA: ESCUELA_DE_INGENIERIA_AGRICOLA\nLÍNEA: INFRAESTRUCTURA Y CONSTRUCCIONES / RECURSOS NATURALES Y MEDIO AMBIENTE\nSUBÍNEAS: Recursos hídricos; Ingeniería de infraestructura rural; Ordenamiento territorial y medio ambiente\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: INFRAESTRUCTURA Y CONSTRUCCIONES / RECURSOS NATURALES Y MEDIO AMBIENTE SUBLINEAS: Recursos hídricos; Ingeniería de infraestructura rural; Ordenamiento territorial y medio ambiente",
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_AGRICOLA\nESCUELA: ESCUELA_DE_INGENIERIA_AGRICOLA\nLÍNEA: INFRAESTRUCTURA Y CONSTRUCCIONES / RECURSOS NATURALES Y MEDIO AMBIENTE\nSUBÍNEAS: Recursos hídricos; Ingeniería de infraestructura rural; Ordenamiento territorial y medio ambiente",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_INGENIERIA_AGRICOLA",
       "escuela": "ESCUELA_DE_INGENIERIA_AGRICOLA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "INFRAESTRUCTURA Y CONSTRUCCIONES / RECURSOS NATURALES Y MEDIO AMBIENTE",
         "sublineas": "Recursos hídricos; Ingeniería de infraestructura rural; Ordenamiento territorial y medio ambiente"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_DE_LA_SALUD\nESCUELA: ESCUELA_DE_NUTRICION_HUMANA\nLÍNEA: ALIMENTACIÓN Y NUTRICIÓN HUMANA\nSUBÍNEAS: Atención nutricional a personas sanas y enfermas en las diferentes etapas de la vida; Promoción de salud de las personas; Formulación, evaluación y gestión de proyectos y empresas con alimentos, nutrición y salud; Innovación, análisis y control de los alimentos en el sistema alimentario\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: ALIMENTACIÓN Y NUTRICIÓN HUMANA SUBLINEAS: Atención nutricional a personas sanas y enfermas en las diferentes etapas de la vida; Promoción de salud de las personas; Formulación, evaluación y gestión de proyectos y empresas con alimentos, nutrición y salud; Innovación, análisis y control de los alimentos en el sistema alimentario",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_DE_LA_SALUD\nESCUELA: ESCUELA_DE_NUTRICION_HUMANA\nLÍNEA: ALIMENTACIÓN Y NUTRICIÓN HUMANA\nSUBÍNEAS: Atención nutricional a personas sanas y enfermas en las diferentes etapas de la vida; Promoción de salud de las personas; Formulación, evaluación y gestión de proyectos y empresas con alimentos, nutrición y salud; Innovación, análisis y control de los alimentos en el sistema alimentario",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_DE_LA_SALUD",
       "escuela": "ESCUELA_DE_NUTRICION_HUMANA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "ALIMENTACIÓN Y NUTRICIÓN HUMANA",
         "sublineas": "Atención nutricional a personas sanas y enfermas en las diferentes etapas de la vida; Promoción de salud de las personas; Formulación, evaluación y gestión de proyectos y empresas con alimentos, nutrición y salud; Innovación, análisis y control de los alimentos en el sistema alimentario"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_DE_LA_SALUD\nESCUELA: ESCUELA_DE_ODONTOLOGIA\nLÍNEA: CIENCIAS DE LA SALUD\nSUBÍNEAS: Salud pública y ocupacional; Biología, crecimiento y desarrollo craneofacial; Diagnóstico, tratamiento y rehabilitación del sistema estomatognático\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: CIENCIAS DE LA SALUD SUBLINEAS: Salud pública y ocupacional; Biología, crecimiento y desarrollo craneofacial; Diagnóstico, tratamiento y rehabilitación del sistema estomatognático",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_DE_LA_SALUD\nESCUELA: ESCUELA_DE_ODONTOLOGIA\nLÍNEA: CIENCIAS DE LA SALUD\nSUBÍNEAS: Salud pública y ocupacional; Biología, crecimiento y desarrollo craneofacial; Diagnóstico, tratamiento y rehabilitación del sistema estomatognático",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_DE_LA_SALUD",
       "escuela": "ESCUELA_DE_ODONTOLOGIA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "CIENCIAS DE LA SALUD",
         "sublineas": "Salud pública y ocupacional; Biología, crecimiento y desarrollo craneofacial; Diagnóstico, tratamiento y rehabilitación del sistema estomatognático"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS\nESCUELA: ESCUELA_DE_INGENIERIA_ELECTRONICA\nLÍNEA: MECÁNICA - ELÉCTRICA / SISTEMAS, COMPUTACIÓN E INFORMÁTICA\nSUBÍNEAS: Automatización e instrumentación; Telecomunicaciones y redes de datos; Microelectrónica (revisar); Robótica (revisar)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: MECÁNICA - ELÉCTRICA / SISTEMAS, COMPUTACIÓN E INFORMÁTICA SUBLINEAS: Automatización e instrumentación; Telecomunicaciones y redes de datos; Microelectrónica (revisar); Robótica (revisar)",
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS\nESCUELA: ESCUELA_DE_INGENIERIA_ELECTRONICA\nLÍNEA: MECÁNICA - ELÉCTRICA / SISTEMAS, COMPUTACIÓN E INFORMÁTICA\nSUBÍNEAS: Automatización e instrumentación; Telecomunicaciones y redes de datos; Microelectrónica (revisar); Robótica (revisar)",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS",
       "escuela": "ESCUELA_DE_INGENIERIA_ELECTRONICA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "MECÁNICA - ELÉCTRICA / SISTEMAS, COMPUTACIÓN E INFORMÁTICA",
         "sublineas": "Automatización e instrumentación; Telecomunicaciones y redes de datos; Microelectrónica (revisar); Robótica (revisar)"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS\nESCUELA: ESCUELA_DE_INGENIERIA_MECANICA_ELECTRICA\nLÍNEA: MECÁNICA - ELÉCTRICA / RECURSOS NATURALES Y MEDIO AMBIENTE\nSUBÍNEAS: Control de procesos; Energías renovables; Ingeniería eléctrica; Ingeniería mecánica; Aplicaciones energéticas (revisar)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: MECÁNICA - ELÉCTRICA / RECURSOS NATURALES Y MEDIO AMBIENTE SUBLINEAS: Control de procesos; Energías renovables; Ingeniería eléctrica; Ingeniería mecánica; Aplicaciones energéticas (revisar)",
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS\nESCUELA: ESCUELA_DE_INGENIERIA_MECANICA_ELECTRICA\nLÍNEA: MECÁNICA - ELÉCTRICA / RECURSOS NATURALES Y MEDIO AMBIENTE\nSUBÍNEAS: Control de procesos; Energías renovables; Ingeniería eléctrica; Ingeniería mecánica; Aplicaciones energéticas (revisar)",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS",
       "escuela": "ESCUELA_DE_INGENIERIA_MECANICA_ELECTRICA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "MECÁNICA - ELÉCTRICA / RECURSOS NATURALES Y MEDIO AMBIENTE",
         "sublineas": "Control de procesos; Energías renovables; Ingeniería eléctrica; Ingeniería mecánica; Aplicaciones energéticas (revisar)"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS\nESCUELA: ESCUELA_DE_INGENIERIA_DE_SISTEMAS\nLÍNEA: SISTEMAS, COMPUTACIÓN E INFORMÁTICA\nSUBÍNEAS: Ingeniería de software, bases de datos e inteligencia de negocios; Inteligencia artificial, sistemas computacionales y sistemas bioinspirados; Desarrollo, gestión, seguridad y auditoría de sistemas de información; Nuevas tecnologías - informática, educación y sociedad; Teoría de sistemas, administración de sistemas, sistemas distribuidos, redes y telemática\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: SISTEMAS, COMPUTACIÓN E INFORMÁTICA SUBLINEAS: Ingeniería de software, bases de datos e inteligencia de negocios; Inteligencia artificial, sistemas computacionales y sistemas bioinspirados; Desarrollo, gestión, seguridad y auditoría de sistemas de información; Nuevas tecnologías - informática, educación y sociedad; Teoría de sistemas, administración de sistemas, sistemas distribuidos, redes y telemática",
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS\nESCUELA: ESCUELA_DE_INGENIERIA_DE_SISTEMAS\nLÍNEA: SISTEMAS, COMPUTACIÓN E INFORMÁTICA\nSUBÍNEAS: Ingeniería de software, bases de datos e inteligencia de negocios; Inteligencia artificial, sistemas computacionales y sistemas bioinspirados; Desarrollo, gestión, seguridad y auditoría de sistemas de información; Nuevas tecnologías - informática, educación y sociedad; Teoría de sistemas, administración de sistemas, sistemas distribuidos, redes y telemática",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS",
       "escuela": "ESCUELA_DE_INGENIERIA_DE_SISTEMAS",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "SISTEMAS, COMPUTACIÓN E INFORMÁTICA",
         "sublineas": "Ingeniería de software, bases de datos e inteligencia de negocios; Inteligencia artificial, sistemas computacionales y sistemas bioinspirados; Desarrollo, gestión, seguridad y auditoría de sistemas de información; Nuevas tecnologías - informática, educación y sociedad; Teoría de sistemas, administración de sistemas, sistemas distribuidos, redes y telemática"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS\nESCUELA: ESCUELA_DE_INGENIERIA_DE_TELECOMUNICACIONES\nLÍNEA: (En proceso de definición de sublíneas específicas)\nSUBÍNEAS: (En proceso de definición de sublíneas específicas)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: (En proceso de definición de sublíneas específicas) SUBLINEAS: (En proceso de definición de sublíneas específicas)",
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS\nESCUELA: ESCUELA_DE_INGENIERIA_DE_TELECOMUNICACIONES\nLÍNEA: (En proceso de definición de sublíneas específicas)\nSUBÍNEAS: (En proceso de definición de sublíneas específicas)",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS",
       "escuela": "ESCUELA_DE_INGENIERIA_DE_TELECOMUNICACIONES",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "(En proceso de definición de sublíneas específicas)",
         "sublineas": "(En proceso de definición de sublíneas específicas)"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS\nESCUELA: ESCUELA_DE_INTELIGENCIA_ARTIFICIAL_Y_CIENCIA_DE_DATOS\nLÍNEA: (En proceso de definición de sublíneas específicas)\nSUBÍNEAS: (En proceso de definición de sublíneas específicas)\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: (En proceso de definición de sublíneas específicas) SUBLINEAS: (En proceso de definición de sublíneas específicas)",
+      "text": "FACULTAD: FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS\nESCUELA: ESCUELA_DE_INTELIGENCIA_ARTIFICIAL_Y_CIENCIA_DE_DATOS\nLÍNEA: (En proceso de definición de sublíneas específicas)\nSUBÍNEAS: (En proceso de definición de sublíneas específicas)",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS",
       "escuela": "ESCUELA_DE_INTELIGENCIA_ARTIFICIAL_Y_CIENCIA_DE_DATOS",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "(En proceso de definición de sublíneas específicas)",
         "sublineas": "(En proceso de definición de sublíneas específicas)"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_MEDICINA_HUMANA\nESCUELA: ESCUELA_DE_MEDICINA_HUMANA\nLÍNEA: CIENCIAS DE LA SALUD\nSUBÍNEAS: Ciencias médicas básicas; Ciencias médicas clínicas; Medicina de altura\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: CIENCIAS DE LA SALUD SUBLINEAS: Ciencias médicas básicas; Ciencias médicas clínicas; Medicina de altura",
+      "text": "FACULTAD: FACULTAD_DE_MEDICINA_HUMANA\nESCUELA: ESCUELA_DE_MEDICINA_HUMANA\nLÍNEA: CIENCIAS DE LA SALUD\nSUBÍNEAS: Ciencias médicas básicas; Ciencias médicas clínicas; Medicina de altura",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_MEDICINA_HUMANA",
       "escuela": "ESCUELA_DE_MEDICINA_HUMANA",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "CIENCIAS DE LA SALUD",
         "sublineas": "Ciencias médicas básicas; Ciencias médicas clínicas; Medicina de altura"
       }
     },
     {
-      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_ADMINISTRATIVAS_Y_HUMANAS\nESCUELA: ESCUELA_DE_ADMINISTRACION\nLÍNEA: ADMINISTRACIÓN Y MARKETING\nSUBÍNEAS: Administración de finanzas; Administración de procesos organizacionales; Administración de emprendimientos; Administración general; Administración de recursos humanos; Administración de marketing y negocios internacionales; Administración pública\n\nINFORMACIÓN COMPLETA:\nTIPO: linea_investigacion LINEA: ADMINISTRACIÓN Y MARKETING SUBLINEAS: Administración de finanzas; Administración de procesos organizacionales; Administración de emprendimientos; Administración general; Administración de recursos humanos; Administración de marketing y negocios internacionales; Administración pública",
+      "text": "FACULTAD: FACULTAD_DE_CIENCIAS_ADMINISTRATIVAS_Y_HUMANAS\nESCUELA: ESCUELA_DE_ADMINISTRACION\nLÍNEA: ADMINISTRACIÓN Y MARKETING\nSUBÍNEAS: Administración de finanzas; Administración de procesos organizacionales; Administración de emprendimientos; Administración general; Administración de recursos humanos; Administración de marketing y negocios internacionales; Administración pública",
       "source": "sublíneas-investigacion-una-puno",
       "type": "linea_investigacion",
       "facultad": "FACULTAD_DE_CIENCIAS_ADMINISTRATIVAS_Y_HUMANAS",
       "escuela": "ESCUELA_DE_ADMINISTRACION",
       "entidad": "facultad_escuela",
       "metadata": {
-        "tipo": "linea_investigacion",
         "linea": "ADMINISTRACIÓN Y MARKETING",
         "sublineas": "Administración de finanzas; Administración de procesos organizacionales; Administración de emprendimientos; Administración general; Administración de recursos humanos; Administración de marketing y negocios internacionales; Administración pública"
       }
@@ -1167,17 +1128,17 @@
     "FACULTAD_DE_CIENCIAS_SOCIALES": 7,
     "FACULTAD_DE_INGENIERIA_DE_MINAS": 2,
     "FACULTAD_DE_CIENCIAS_BIOLOGICAS": 4,
-    "FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION": 4,
+    "FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION": 5,
     "FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA": 2,
     "FACULTAD_DE_CIENCIAS_JURIDICAS_Y_POLITICAS": 2,
     "FACULTAD_DE_INGENIERIA_QUIMICA": 2,
     "FACULTAD_DE_CIENCIAS_DE_LA_SALUD": 3,
-    "FACULTAD_DE_INGENIERIA_GEOLOGICA_Y_METALURGICA": 3,
+    "FACULTAD_DE_INGENIERIA_GEOLOGICA_Y_METALURGICA": 2,
     "FACULTAD_DE_INGENIERIA_CIVIL_Y_ARQUITECTURA": 3,
     "FACULTAD_DE_INGENIERIA_AGRICOLA": 2,
     "FACULTAD_DE_MEDICINA_HUMANA": 2,
     "FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS": 6,
     "FACULTAD_DE_CIENCIAS_ADMINISTRATIVAS_Y_HUMANAS": 2
   },
-  "created_at": "2025-10-31T15:16:27"
+  "created_at": "2025-10-31T16:23:03"
 }

@@ -1,4 +1,3 @@
-
 import os
 import json
 import logging
@@ -13,6 +12,7 @@ from sentence_transformers import SentenceTransformer
 from functools import lru_cache
 import time
 import threading
+import re
 
 from whatsapp_client import WhatsAppAPIClient, extract_phone_number
 
@@ -35,7 +35,6 @@ semaphore = asyncio.Semaphore(MAX_CONCURRENT_MESSAGES)
 
 # Cache de conversaciones en memoria
 conversation_cache = {}
-
 
 # ---------------------------
 # Environment
@@ -76,6 +75,43 @@ TERM_EXPANSION = {
     'celular': ['teléfono', 'telefono', 'número'],
     'horario': ['hora', 'horarios', 'atención'],
     'ubicación': ['ubicacion', 'lugar', 'donde', 'dirección'],
+}
+
+# Mapeo de facultades para búsqueda estricta
+FACULTY_MAPPING = {
+    'estadística': 'FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA',
+    'estadistica': 'FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA', 
+    'enfermería': 'FACULTAD_DE_ENFERMERIA',
+    'enfermeria': 'FACULTAD_DE_ENFERMERIA',
+    'agrarias': 'FACULTAD_DE_CIENCIAS_AGRARIAS',
+    'veterinaria': 'FACULTAD_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA',
+    'medicina veterinaria': 'FACULTAD_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA',
+    'ingeniería económica': 'FACULTAD_DE_INGENIERIA_ECONOMICA',
+    'ingenieria economica': 'FACULTAD_DE_INGENIERIA_ECONOMICA',
+    'contables': 'FACULTAD_DE_CIENCIAS_CONTABLES_Y_ADMINISTRATIVAS',
+    'administrativas': 'FACULTAD_DE_CIENCIAS_CONTABLES_Y_ADMINISTRATIVAS',
+    'trabajo social': 'FACULTAD_DE_TRABAJO_SOCIAL',
+    'ciencias sociales': 'FACULTAD_DE_CIENCIAS_SOCIALES',
+    'minas': 'FACULTAD_DE_INGENIERIA_DE_MINAS',
+    'derecho': 'FACULTAD_DE_CIENCIAS_JURIDICAS_Y_POLITICAS',
+    'jurídicas': 'FACULTAD_DE_CIENCIAS_JURIDICAS_Y_POLITICAS',
+    'química': 'FACULTAD_DE_INGENIERIA_QUIMICA',
+    'quimica': 'FACULTAD_DE_INGENIERIA_QUIMICA',
+    'biológicas': 'FACULTAD_DE_CIENCIAS_BIOLOGICAS',
+    'biologicas': 'FACULTAD_DE_CIENCIAS_BIOLOGICAS',
+    'educación': 'FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION',
+    'educacion': 'FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION',
+    'geológica': 'FACULTAD_DE_INGENIERIA_GEOLOGICA_Y_METALURGICA',
+    'geologica': 'FACULTAD_DE_INGENIERIA_GEOLOGICA_Y_METALURGICA',
+    'civil': 'FACULTAD_DE_INGENIERIA_CIVIL_Y_ARQUITECTURA',
+    'arquitectura': 'FACULTAD_DE_INGENIERIA_CIVIL_Y_ARQUITECTURA',
+    'agrícola': 'FACULTAD_DE_INGENIERIA_AGRICOLA',
+    'agricola': 'FACULTAD_DE_INGENIERIA_AGRICOLA',
+    'salud': 'FACULTAD_DE_CIENCIAS_DE_LA_SALUD',
+    'mecánica': 'FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS',
+    'mecanica': 'FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS',
+    'medicina humana': 'FACULTAD_DE_MEDICINA_HUMANA',
+    'administrativas humanas': 'FACULTAD_DE_CIENCIAS_ADMINISTRATIVAS_Y_HUMANAS',
 }
 
 # ---------------------------
@@ -166,7 +202,6 @@ def load_knowledge_base(index_path='faiss_index.bin', json_path='knowledge_base.
         logger.info(f"Cargando documentos desde {json_path}...")
         with open(json_path, 'r', encoding='utf-8') as f:
             knowledge_data = json.load(f)
-            # ⭐ CAMBIO: Extraer la lista de documentos del objeto JSON
             documents = knowledge_data.get('documents', knowledge_data)
         
         logger.info(f"✓ Base cargada: {len(documents)} docs")
@@ -174,7 +209,6 @@ def load_knowledge_base(index_path='faiss_index.bin', json_path='knowledge_base.
     except Exception as e:
         logger.error(f"Error KB: {e}")
         return False
-
 
 def expand_query(query):
     """Expandir términos de búsqueda con sinónimos"""
@@ -184,191 +218,10 @@ def expand_query(query):
             expanded_terms.extend(TERM_EXPANSION[word])
     return ' '.join(expanded_terms)
 
-
 @lru_cache(maxsize=500)
 def search_knowledge_base_cached(query, top_k=5):
     """Caché de búsquedas para mejorar rendimiento"""
-    return search_knowledge_base(query, top_k)
-
-def search_knowledge_base(query, top_k=5, similarity_threshold=0.7):
-    """Búsqueda semántica mejorada con filtros más inteligentes"""
-    if not embedding_model or not faiss_index:
-        return []
-    
-    try:
-        # Preprocesamiento mejorado de la query
-        expanded_query = expand_query(query)
-        cleaned_query = re.sub(r'[^\w\sáéíóúñ]', ' ', expanded_query.lower())
-        cleaned_query = re.sub(r'\s+', ' ', cleaned_query).strip()
-        
-        # Generar embedding
-        query_vector = embedding_model.encode([cleaned_query])
-        query_vector = np.array(query_vector).astype('float32')
-        
-        # Buscar más resultados para luego filtrar mejor
-        distances, indices = faiss_index.search(query_vector, top_k * 2)
-        
-        # Convertir distancias a similitudes (más intuitivo)
-        similarities = 1 / (1 + distances[0])
-        
-        # Filtrar resultados más inteligentemente
-        results = []
-        for i, (similarity, idx) in enumerate(zip(similarities, indices[0])):
-            if idx < len(documents) and similarity >= similarity_threshold:
-                doc = documents[idx].copy()
-                doc['similarity'] = float(similarity)
-                doc['distance'] = float(distances[0][i])
-                
-                # ⭐ NUEVO: Calcular relevancia por matching de palabras clave
-                query_words = set(cleaned_query.split())
-                doc_words = set(doc['text'].lower().split())
-                keyword_overlap = len(query_words.intersection(doc_words)) / len(query_words)
-                doc['keyword_score'] = keyword_overlap
-                
-                # Score combinado (70% semántica, 30% keywords)
-                doc['combined_score'] = (similarity * 0.7) + (keyword_overlap * 0.3)
-                
-                results.append(doc)
-        
-        # Ordenar por score combinado y limitar
-        results.sort(key=lambda x: x['combined_score'], reverse=True)
-        return results[:top_k]
-        
-    except Exception as e:
-        logger.error(f"Error búsqueda mejorada: {e}")
-        return []
-
-# ---------------------------
-# DeepSeek async
-# ---------------------------
-
-async def call_deepseek_async(prompt, timeout=DEEPSEEK_TIMEOUT):
-    """Llamada async a DeepSeek"""
-    try:
-        if not DEEPSEEK_API_KEY:
-            logger.error("❌ DEEPSEEK_API_KEY faltante")
-            return None
-        
-        url = "https://api.deepseek.com/v1/chat/completions"
-        headers = {
-            "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
-            "Content-Type": "application/json"
-        }
-        payload = {
-            "model": DEEPSEEK_MODEL,
-            "messages": [{"role": "user", "content": prompt}],
-            "temperature": 0.7,
-            "max_tokens": 450,
-            "top_p": 0.85
-        }
-
-        async with http_session.post(url, json=payload, headers=headers, timeout=aiohttp.ClientTimeout(total=timeout)) as response:
-            if response.status == 200:
-                data = await response.json()
-                content = data['choices'][0]['message']['content'].strip()
-                return content
-            else:
-                logger.error(f"DeepSeek error: {response.status}")
-                return None
-    except asyncio.TimeoutError:
-        logger.error(f"Timeout DeepSeek ({timeout}s)")
-        return None
-    except Exception as e:
-        logger.error(f"Error DeepSeek: {e}")
-        return None
-
-# ---------------------------
-# Response generation
-# ---------------------------
-
-async def generate_response_async(user_message, context="", history="", is_first_message=False):
-    """Generar respuesta async"""
-    
-    if is_first_message:
-        return (
-            "¡Hola! 👋 Soy tu asistente virtual del *Vicerrectorado de Investigación* de la UNA Puno.\n\n"
-            "📌 *Puedo ayudarte :*\n"
-            "• información general sobre los procesos de proyecto y borrador de tesis de pregrado\n"
-            "• Información de contacto de las coordinaciones de Investigación de \n"
-            "• Horarios de atención\n"
-            "• Ubicaciones de oficinas\n"
-            "• Lineas de investigación\n"
-            "• Migración de cuenta a PGI\n"
-
-            "💡 *Comandos útiles:*\n"
-            "/ayuda - Ver esta información\n"
-            "/reset - Reiniciar conversación\n\n"
-            "⏱️ Tu conversación estará activa por 10 minutos.\n"
-            "🔒 Este chat es monitoreado para mejorar nuestro servicio.\n\n"
-            "¿En qué puedo ayudarte hoy?"
-        ), "welcome"
-    
-    system_prompt = r'''Eres el asistente virtual del Vicerrectorado de Investigación de la Universidad Nacional del Altiplano (UNA Puno).
-
-TU PROPÓSITO:
-Ayudar con información del Vicerrectorado de Investigación:
-📧 Contactos (emails y teléfonos)
-🕐 Horarios de atención  
-📍 Ubicaciones
-📚 Coordinación de investigación y tesis
-   informacion general sobre los procesos y borrador de tesis
-   preguntas frecuentes sobre los procesos de borrador de tesis
-    Lineas de investigación
-    Migración de cuenta a PGI
-PERSONALIDAD:
-- Profesional pero cercano
-- Usas emojis estratégicamente (2-3 por mensaje)
-- Claro, directo y útil
-- Empático y servicial
-- Información completa pero concisa
-
-REGLAS:
-- Máximo 250 palabras
-- Usa información del contexto directamente
-- NO inventes datos
-- si la respuesta es corta, da la respuesta corta, no es necesario dar informacion extra.
-- NO mezcles información de diferentes facultades
-- si te piden responder en algun lenguaje de programacion, responde que no puedes y que tu especialidad es informacion del vicerrectorado de investigacion
-- Siempre ofrece más ayuda
-- evita responder "plataforma PILAR", usa "Plataforma de gestión de la investigación"
-- Sé específico con números, ubicaciones y horarios
-- Si te hacen preguntas fuera de tu alcance (clima, matemáticas, chistes), redirige amablemente
-- Recuerda que esta conversación es monitoreada para mejorar el servicio
-🔒 **REGLAS ESTRICTAS - CRÍTICO:**
-1. SOLO usa la información del CONTEXTO proporcionado
-2. NUNCA inventes datos, contactos, horarios o líneas de investigación
-3. Si la información no está en el CONTEXTO, di exactamente: "No tengo información específica sobre eso en mi base de datos"
-4. NO combines información de diferentes facultades
-5. NO extrapoles o deduzcas información no presente
-
-🎯 **INFORMACIÓN QUE MANEJAS:**
-- Coordinadores por facultad (nombres, emails, teléfonos EXACTOS)
-- Líneas y sublíneas de investigación POR FACULTAD Y ESCUELA
-- Procesos de tesis según reglamento
-- Preguntas frecuentes
-
-❌ **PROHIBIDO ABSOLUTO:**
-- Crear emails que no existen (ej: estadistica.investigacion@unap.edu.pe)
-- Inventar teléfonos o horarios
-- Generar líneas de investigación no listadas
-- Modificar ubicaciones o contactos
-
-📋 **CUANDO NO HAY INFORMACIÓN:**
-Responde EXACTAMENTE: "No encuentro información específica sobre [facultad/escuela] en mi base de conocimiento. Te recomiendo contactar directamente al Vicerrectorado de Investigación."
-
-'''
-    history_section = f"CONVERSACIÓN PREVIA:\n{history}\n\n" if history else ""
-    
-    if context:
-        full_prompt = f"{system_prompt}\n\nINFORMACIÓN:\n{context}\n\n{history_section}PREGUNTA: {user_message}\n\nRESPUESTA:"
-    else:
-        full_prompt = f"{system_prompt}\n\n{history_section}PREGUNTA: {user_message}\n\nRESPUESTA:"
-
-    response = await call_deepseek_async(full_prompt)
-    
-    if response:
-        return response, DEEPSEEK_MODEL
-    return "Lo siento, tengo problemas técnicos. Por favor, intenta de nuevo en unos momentos. 🔧", "error"
+    return strict_search_knowledge_base(query, top_k)
 
 def strict_search_knowledge_base(query, top_k=3, similarity_threshold=0.75):
     """Búsqueda estricta que prioriza matching exacto de facultades"""
@@ -379,20 +232,9 @@ def strict_search_knowledge_base(query, top_k=3, similarity_threshold=0.75):
         # Normalizar query para matching de facultades
         query_lower = query.lower()
         
-        # Mapeo de términos de búsqueda a nombres de facultad estandarizados
-        faculty_mapping = {
-            'estadística': 'FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA',
-            'estadistica': 'FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA', 
-            'enfermería': 'FACULTAD_DE_ENFERMERIA',
-            'enfermeria': 'FACULTAD_DE_ENFERMERIA',
-            'agrarias': 'FACULTAD_DE_CIENCIAS_AGRARIAS',
-            'veterinaria': 'FACULTAD_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA',
-            # ... agregar más mapeos
-        }
-        
         # Buscar facultad específica en la query
         target_faculty = None
-        for term, faculty in faculty_mapping.items():
+        for term, faculty in FACULTY_MAPPING.items():
             if term in query_lower:
                 target_faculty = faculty
                 break
@@ -429,42 +271,158 @@ def strict_search_knowledge_base(query, top_k=3, similarity_threshold=0.75):
         
         # Ordenar por similitud y facultad match
         results.sort(key=lambda x: (x.get('faculty_match', False), x['similarity']), reverse=True)
+        
+        logger.info(f"🔍 Búsqueda: '{query}' -> {len(results)} resultados (umbral: {similarity_threshold})")
         return results[:top_k]
         
     except Exception as e:
         logger.error(f"Error búsqueda estricta: {e}")
         return []
 
-async def verify_response_quality(user_query, bot_response, context):
-    """Verificar que la respuesta sea precisa y relevante"""
-    verification_prompt = f"""
-    VERIFICACIÓN DE RESPUESTA - CRÍTICO:
-    
-    PREGUNTA ORIGINAL: {user_query}
-    CONTEXTO DISPONIBLE: {context[:800]}
-    RESPUESTA GENERADA: {bot_response}
-    
-    Evalúa si:
-    1. ✅ La respuesta se basa SOLO en el contexto proporcionado
-    2. ✅ No inventa información ni añade detalles no verificados
-    3. ✅ Responde directamente a la pregunta
-    4. ✅ Es coherente con el contexto
-    
-    Si la respuesta INCUMPLE alguno de estos puntos, genera una versión corregida.
-    Si es correcta, responde exactamente: "APPROVED"
-    
-    RESPUESTA CORREGIDA O "APPROVED":
-    """
-    
+# ---------------------------
+# DeepSeek async
+# ---------------------------
+
+async def call_deepseek_async(prompt, timeout=DEEPSEEK_TIMEOUT):
+    """Llamada async a DeepSeek"""
     try:
-        verification = await call_deepseek_async(verification_prompt, timeout=10)
-        if verification and verification.strip() != "APPROVED":
-            logger.warning(f"🔍 Respuesta corregida para: {user_query[:50]}...")
-            return verification.strip()
-        return bot_response
+        if not DEEPSEEK_API_KEY:
+            logger.error("❌ DEEPSEEK_API_KEY faltante")
+            return None
+        
+        url = "https://api.deepseek.com/v1/chat/completions"
+        headers = {
+            "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "model": DEEPSEEK_MODEL,
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0.3,  # ⭐ REDUCIDO para menos creatividad
+            "max_tokens": 400,
+            "top_p": 0.7
+        }
+
+        async with http_session.post(url, json=payload, headers=headers, timeout=aiohttp.ClientTimeout(total=timeout)) as response:
+            if response.status == 200:
+                data = await response.json()
+                content = data['choices'][0]['message']['content'].strip()
+                return content
+            else:
+                error_text = await response.text()
+                logger.error(f"DeepSeek error: {response.status} - {error_text}")
+                return None
+    except asyncio.TimeoutError:
+        logger.error(f"Timeout DeepSeek ({timeout}s)")
+        return None
     except Exception as e:
-        logger.error(f"Error en verificación: {e}")
-        return bot_response  # Fallback a respuesta original
+        logger.error(f"Error DeepSeek: {e}")
+        return None
+
+# ---------------------------
+# Response generation
+# ---------------------------
+
+STRICT_SYSTEM_PROMPT = r'''Eres asistente virtual del Vicerrectorado de Investigación UNA Puno.
+
+🔒 **REGLAS ESTRICTAS - CRÍTICO:**
+1. SOLO usa la información del CONTEXTO proporcionado
+2. NUNCA inventes datos, contactos, horarios o líneas de investigación
+3. Si la información no está en el CONTEXTO, di exactamente: "No tengo información específica sobre eso en mi base de datos"
+4. NO combines información de diferentes facultades
+5. NO extrapoles o deduzcas información no presente
+6. NO crees emails, teléfonos o ubicaciones que no existen
+7. Si no hay información suficiente, sé honesto y di que no tienes los datos
+
+🎯 **INFORMACIÓN QUE MANEJAS:**
+- Coordinadores por facultad (nombres, emails, teléfonos EXACTOS)
+- Líneas y sublíneas de investigación POR FACULTAD Y ESCUELA
+- Procesos de tesis según reglamento
+- Preguntas frecuentes
+
+📋 **CUANDO NO HAY INFORMACIÓN:**
+Responde EXACTAMENTE: "No encuentro información específica sobre eso en mi base de conocimiento. Te recomiendo contactar directamente al Vicerrectorado de Investigación."
+
+❌ **PROHIBIDO ABSOLUTO:**
+- Crear emails que no existen
+- Inventar teléfonos o horarios
+- Generar líneas de investigación no listadas
+- Modificar ubicaciones o contactos
+- Usar conocimiento externo o información no verificada
+
+PERSONALIDAD:
+- Profesional pero cercano
+- Usa emojis estratégicamente (1-2 máximo)
+- Claro, directo y útil
+- Honesto sobre limitaciones
+
+CONTEXTO DISPONIBLE:
+{context}
+
+PREGUNTA: {user_query}
+
+RESPUESTA (SOLO con información del contexto, sé honesto si no hay datos):'''
+
+async def verify_context_usage(user_query, bot_response, context_docs):
+    """Verificar que la respuesta use SOLO información del contexto"""
+    if not context_docs:
+        return "No tengo información específica sobre eso en mi base de datos. Te recomiendo contactar directamente al Vicerrectorado de Investigación."
+    
+    # Verificación simple: si no hay docs relevantes, no debería dar información específica
+    if not context_docs and any(keyword in bot_response.lower() for keyword in ['email', 'teléfono', 'horario', 'ubicación', 'línea', 'investigación']):
+        return "No tengo información específica sobre eso en mi base de datos. Te recomiendo contactar directamente al Vicerrectorado de Investigación."
+    
+    return bot_response
+
+async def generate_response_async(user_message, context_docs=[], history="", is_first_message=False):
+    """Generar respuesta con verificaciones estrictas"""
+    
+    if is_first_message:
+        return (
+            "¡Hola! 👋 Soy tu asistente virtual del *Vicerrectorado de Investigación* de la UNA Puno.\n\n"
+            "📌 *Puedo ayudarte con:*\n"
+            "• Información general sobre procesos de proyecto y borrador de tesis\n"
+            "• Contactos de coordinaciones de investigación\n"
+            "• Horarios de atención\n"
+            "• Ubicaciones de oficinas\n"
+            "• Líneas de investigación\n"
+            "• Migración de cuenta a PGI\n\n"
+            "💡 *Comandos útiles:*\n"
+            "/ayuda - Ver esta información\n"
+            "/reset - Reiniciar conversación\n\n"
+            "⏱️ Tu conversación estará activa por 10 minutos.\n"
+            "🔒 Este chat es monitoreado para mejorar nuestro servicio.\n\n"
+            "¿En qué puedo ayudarte hoy?"
+        ), "welcome"
+    
+    # Si no hay contexto relevante
+    if not context_docs:
+        return "No tengo información específica sobre ese tema en mi base de datos. Te recomiendo contactar directamente al Vicerrectorado de Investigación.", "no_context"
+    
+    # Construir contexto desde los documentos
+    context_text = ""
+    if context_docs:
+        context_parts = []
+        for doc in context_docs[:3]:  # Máximo 3 documentos
+            context_parts.append(doc.get('text', '')[:800])
+        context_text = "\n\n---\n\n".join(context_parts)
+    
+    history_section = f"CONVERSACIÓN PREVIA:\n{history}\n\n" if history else ""
+    
+    # Usar prompt estricto
+    full_prompt = STRICT_SYSTEM_PROMPT.format(
+        context=context_text,
+        user_query=user_message
+    )
+    
+    response = await call_deepseek_async(full_prompt)
+    
+    if response:
+        # Verificación estricta
+        verified_response = await verify_context_usage(user_message, response, context_docs)
+        return verified_response, DEEPSEEK_MODEL
+    
+    return "Disculpa, tengo dificultades técnicas. Por favor intenta nuevamente.", "error"
 
 # ---------------------------
 # Inactivity checker
@@ -525,40 +483,42 @@ async def process_message_async(user_message, phone_number):
         if is_new_session:
             user_closed_sessions.remove(phone_number)
 
+        # Comandos especiales
         if user_message.lower() == '/reset':
             user_closed_sessions.discard(phone_number)
             return "✓ Conversación reiniciada. ¿En qué puedo ayudarte?"
 
         if user_message.lower() in ['/ayuda', '/help', '/inicio', '/start']:
-            response, _ = await generate_response_async("", "", "", is_first_message=True)
+            response, _ = await generate_response_async("", [], "", is_first_message=True)
             return response
 
-        trivial = ['hora', 'fecha', 'clima', 'chiste', 'fútbol', 'matemática']
+        # Filtrar preguntas fuera de contexto
+        trivial = ['hora', 'fecha', 'clima', 'chiste', 'fútbol', 'matemática', 'programación']
         if any(k in user_message.lower() for k in trivial):
-            if not any(w in user_message.lower() for w in ['universidad', 'facultad', 'correo']):
-                return "Disculpa 😊, mi especialidad es información del Vicerrectorado de Investigación. ¿Puedo ayudarte con algún contacto, horario o ubicación?"
+            if not any(w in user_message.lower() for w in ['universidad', 'facultad', 'correo', 'tesis', 'investigación']):
+                return "Disculpa 😊, mi especialidad es información del Vicerrectorado de Investigación. ¿Puedo ayudarte con algún contacto, horario, ubicación o proceso de tesis?"
 
         if user_message.lower() in ['hola', 'hi', 'hello', 'buenos días', 'buenas tardes', 'buenas noches']:
-            response, model = await generate_response_async("", "", "", is_first_message=True)
+            response, model = await generate_response_async("", [], "", is_first_message=True)
             asyncio.create_task(save_conversation_async(
                 phone_number, user_message, response, model, int((time.time() - start_time) * 1000)
             ))
             return response
 
+        # ⭐ BÚSQUEDA ESTRICTA MEJORADA
         loop = asyncio.get_event_loop()
         relevant_docs = await loop.run_in_executor(
-            None, search_knowledge_base_cached, user_message[:200], 10
+            None, strict_search_knowledge_base, user_message, 3, 0.7
         )
 
-        context = ""
-        if relevant_docs:
-            context = "\n\n".join([doc['text'][:1000] for doc in relevant_docs[:3]])
-
+        # Obtener historial de conversación
         history_task = asyncio.create_task(get_conversation_history_async(phone_number))
         history = await history_task
         
-        response, model_used = await generate_response_async(user_message, context, history)
+        # Generar respuesta con documentos específicos
+        response, model_used = await generate_response_async(user_message, relevant_docs, history)
 
+        # Limitar longitud para WhatsApp
         if len(response) > 1600:
             response = response[:1597] + "..."
 
@@ -569,7 +529,7 @@ async def process_message_async(user_message, phone_number):
             phone_number, user_message, response, model_used, response_time_ms
         ))
 
-        logger.info(f"⚡ Respuesta ({model_used}, {response_time_ms}ms): {phone_number}")
+        logger.info(f"⚡ Respuesta ({model_used}, {response_time_ms}ms, docs: {len(relevant_docs)}): {phone_number}")
         return response
 
 # ---------------------------
@@ -589,6 +549,9 @@ def handle_incoming_message_sync(message):
             process_and_send(phone_number, user_message),
             event_loop
         )
+        
+        # Opcional: esperar un poco para rate limiting
+        time.sleep(RATE_LIMIT_DELAY)
         
     except Exception as e:
         logger.error(f"Error handler: {e}", exc_info=True)
@@ -615,10 +578,10 @@ async def main():
     global http_session, whatsapp_client, event_loop
     
     logger.info("=" * 60)
-    logger.info("CHATBOT ASYNC - UNA PUNO")
-    logger.info("✓ Alta concurrencia (150+ usuarios)")
-    logger.info("✓ Cierre automático (30 min inactividad)")
-    logger.info("✓ Guardado no bloqueante")
+    logger.info("CHATBOT ASYNC - UNA PUNO - VERSIÓN ESTRICTA")
+    logger.info("✅ Búsqueda estricta por facultades")
+    logger.info("✅ Verificación de contexto")
+    logger.info("✅ Sin invención de datos")
     logger.info("=" * 60)
 
     # Guardar referencia al event loop
@@ -644,8 +607,9 @@ async def main():
 
     logger.info("✅ Todo listo")
     logger.info(f"🚀 Concurrencia máxima: {MAX_CONCURRENT}")
-    logger.info(f"⏱️ Timeout inactividad: {INACTIVITY_TIMEOUT}s (10 min)")
-    logger.info(f"🤖 Modelo: {DEEPSEEK_MODEL}")
+    logger.info(f"⏱️ Timeout inactividad: {INACTIVITY_TIMEOUT}s")
+    logger.info(f"🤖 Modelo: {DEEPSEEK_MODEL} (temp: 0.3)")
+    logger.info(f"🔍 Umbral similitud: 0.7")
     logger.info("=" * 60)
 
     # Iniciar task de verificación de inactividad
@@ -668,7 +632,8 @@ async def main():
         logger.info("\n👋 Deteniendo...")
     finally:
         await http_session.close()
-        await db_pool.close()
+        if db_pool:
+            await db_pool.close()
 
 if __name__ == '__main__':
     asyncio.run(main())

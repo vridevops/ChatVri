@@ -219,6 +219,51 @@ def load_knowledge_base(index_path='faiss_index.bin', json_path='knowledge_base.
     except Exception as e:
         logger.error(f"Error KB: {e}")
         return False
+def debug_search(query, top_k=10, similarity_threshold=0.3):
+    """Función de debugging para ver qué encuentra exactamente"""
+    if not embedding_model or not faiss_index:
+        return "❌ Base de conocimiento no cargada"
+    
+    try:
+        query_vector = embedding_model.encode([query])
+        query_vector = np.array(query_vector).astype('float32')
+        
+        distances, indices = faiss_index.search(query_vector, top_k * 5)
+        similarities = 1 / (1 + distances[0])
+        
+        results = []
+        for i, (similarity, idx) in enumerate(zip(similarities, indices[0])):
+            if idx >= len(documents):
+                continue
+                
+            doc = documents[idx]
+            results.append({
+                'similarity': float(similarity),
+                'type': doc.get('type', 'unknown'),
+                'facultad': doc.get('facultad', ''),
+                'text_preview': doc.get('text', '')[:100] + '...',
+                'source': doc.get('source', '')
+            })
+        
+        # Ordenar por similitud
+        results.sort(key=lambda x: x['similarity'], reverse=True)
+        
+        debug_info = f"🔍 DEBUG BÚSQUEDA: '{query}'\n"
+        debug_info += f"📊 Total documentos en KB: {len(documents)}\n"
+        debug_info += f"🎯 Top {top_k} resultados:\n\n"
+        
+        for i, result in enumerate(results[:top_k]):
+            debug_info += f"{i+1}. Sim: {result['similarity']:.3f} | "
+            debug_info += f"Tipo: {result['type']} | "
+            debug_info += f"Fac: {result['facultad']}\n"
+            debug_info += f"   Texto: {result['text_preview']}\n"
+            debug_info += f"   Fuente: {result['source']}\n\n"
+        
+        return debug_info
+        
+    except Exception as e:
+        return f"❌ Error en debug: {e}"
+
 
 def expand_query(query):
     """Expandir términos de búsqueda con sinónimos"""
@@ -233,86 +278,59 @@ def search_knowledge_base_cached(query, top_k=5):
     """Caché de búsquedas para mejorar rendimiento"""
     return enhanced_search_knowledge_base(query, top_k)
 
-def enhanced_search_knowledge_base(query, top_k=5, similarity_threshold=0.5):
-    """Búsqueda mejorada con múltiples estrategias"""
+def urgent_search_knowledge_base(query, top_k=8, similarity_threshold=0.3):
+    """Búsqueda URGENTE - Muy permisiva para debugging"""
     if not embedding_model or not faiss_index:
+        logger.error("❌ Base de conocimiento no cargada")
         return []
     
     try:
-        # Normalizar query
-        query_lower = query.lower()
-        expanded_query = expand_query(query)
-        
-        # Estrategia 1: Búsqueda semántica normal
-        query_vector = embedding_model.encode([expanded_query])
+        # Búsqueda MUY permisiva
+        query_vector = embedding_model.encode([query])
         query_vector = np.array(query_vector).astype('float32')
         
-        distances, indices = faiss_index.search(query_vector, top_k * 3)
+        # Buscar MUCHOS más resultados
+        distances, indices = faiss_index.search(query_vector, top_k * 10)
         
-        # Convertir distancias a similitudes
-        similarities = 1 / (1 + distances[0])
-        
-        # Filtrar y rankear resultados
         results = []
-        for i, (similarity, idx) in enumerate(zip(similarities, indices[0])):
+        for i, (dist, idx) in enumerate(zip(distances[0], indices[0])):
             if idx >= len(documents):
                 continue
                 
             doc = documents[idx].copy()
-            doc['similarity'] = float(similarity)
+            similarity = 1 / (1 + dist)
             
-            # Score por matching de palabras clave
-            query_words = set(query_lower.split())
-            doc_text_lower = doc.get('text', '').lower()
-            doc_words = set(doc_text_lower.split())
-            keyword_overlap = len(query_words.intersection(doc_words)) / len(query_words) if query_words else 0
-            
-            # Score por tipo de documento
-            type_score = 0
-            doc_type = doc.get('type', '')
-            if 'linea_investigacion' in doc_type and any(word in query_lower for word in ['línea', 'linea', 'investigación']):
-                type_score = 0.3
-            elif 'coordinador' in doc_type and any(word in query_lower for word in ['contacto', 'email', 'teléfono', 'coordinador']):
-                type_score = 0.3
-            
-            # Score por facultad específica
-            faculty_score = 0
-            for term, faculty in FACULTY_MAPPING.items():
-                if term in query_lower:
-                    doc_facultad = doc.get('facultad', '').upper()
-                    if faculty in doc_facultad:
-                        faculty_score = 0.4
-                        break
-            
-            # Score combinado
-            doc['combined_score'] = (similarity * 0.5) + (keyword_overlap * 0.3) + (type_score * 0.1) + (faculty_score * 0.1)
-            
-            results.append(doc)
+            # ⭐ UMBRAL MUY BAJO - ACEPTAR CASI TODO
+            if similarity >= similarity_threshold:
+                doc['similarity'] = float(similarity)
+                
+                # Bonus por matching exacto
+                query_lower = query.lower()
+                doc_text_lower = doc.get('text', '').lower()
+                doc_facultad = doc.get('facultad', '').lower()
+                
+                if 'enfermer' in query_lower and 'enfermer' in doc_text_lower:
+                    doc['similarity'] += 0.5
+                if 'estadíst' in query_lower and 'estadíst' in doc_text_lower:
+                    doc['similarity'] += 0.5
+                if 'linea' in query_lower and 'linea' in doc_text_lower:
+                    doc['similarity'] += 0.3
+                
+                results.append(doc)
         
-        # Filtrar por score combinado
-        filtered_results = [r for r in results if r['combined_score'] >= similarity_threshold]
-        filtered_results.sort(key=lambda x: x['combined_score'], reverse=True)
+        # Ordenar y limitar
+        results.sort(key=lambda x: x['similarity'], reverse=True)
         
-        # Eliminar duplicados por contenido similar
-        unique_results = []
-        seen_texts = set()
-        for result in filtered_results:
-            # Usar una huella del contenido para detectar duplicados
-            text_fingerprint = result.get('text', '')[:100] + result.get('facultad', '') + result.get('type', '')
-            if text_fingerprint not in seen_texts:
-                seen_texts.add(text_fingerprint)
-                unique_results.append(result)
+        logger.info(f"🚨 BÚSQUEDA URGENTE: '{query}' -> {len(results)} resultados")
         
-        logger.info(f"🔍 Búsqueda: '{query}' -> {len(unique_results)} resultados (umbral: {similarity_threshold})")
+        # Log de los top 3
+        for i, result in enumerate(results[:3]):
+            logger.info(f"   Top {i+1}: sim={result['similarity']:.3f}, tipo={result.get('type','?')}, fac={result.get('facultad','?')}")
         
-        # Log detallado de los top resultados
-        for i, result in enumerate(unique_results[:3]):
-            logger.info(f"   Result {i+1}: score={result['combined_score']:.3f}, type={result.get('type', '?')}, fac={result.get('facultad', '?')}")
-        
-        return unique_results[:top_k]
+        return results[:top_k]
         
     except Exception as e:
-        logger.error(f"Error búsqueda mejorada: {e}")
+        logger.error(f"❌ Error búsqueda urgente: {e}")
         return []
 
 # ---------------------------
@@ -510,6 +528,11 @@ async def process_message_async(user_message, phone_number):
         if is_new_session:
             user_closed_sessions.remove(phone_number)
 
+        if 'debug' in user_message.lower():
+            debug_result = await asyncio.get_event_loop().run_in_executor(
+                None, debug_search, user_message.replace('debug', '').strip(), 10, 0.3
+            )
+            return f"🔍 DEBUG MODE:\n{debug_result}"
         # Comandos especiales
         if user_message.lower() == '/reset':
             user_closed_sessions.discard(phone_number)
@@ -535,7 +558,7 @@ async def process_message_async(user_message, phone_number):
         # ⭐ BÚSQUEDA MEJORADA con umbral más bajo
         loop = asyncio.get_event_loop()
         relevant_docs = await loop.run_in_executor(
-            None, enhanced_search_knowledge_base, user_message, 5, 0.4  # Umbral más bajo
+        None, urgent_search_knowledge_base, user_message, 8, 0.2  # ¡Muy permisivo!
         )
 
         # Obtener historial de conversación
@@ -664,4 +687,3 @@ async def main():
 
 if __name__ == '__main__':
     asyncio.run(main())
-    

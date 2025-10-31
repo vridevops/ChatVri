@@ -65,7 +65,7 @@ user_last_activity = {}
 user_closed_sessions = set()
 
 # ---------------------------
-# Term expansion
+# Term expansion mejorado
 # ---------------------------
 TERM_EXPANSION = {
     'email': ['correo', 'mail', 'correo electrónico'],
@@ -79,41 +79,28 @@ TERM_EXPANSION = {
     'estadística': ['estadistica', 'estadisticas'],
 }
 
-# Mapeo de facultades para búsqueda mejorada
-FACULTY_MAPPING = {
-    'estadística': 'FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA',
-    'estadistica': 'FACULTAD_DE_INGENIERIA_ESTADISTICA_E_INFORMATICA', 
-    'enfermería': 'FACULTAD_DE_ENFERMERIA',
-    'enfermeria': 'FACULTAD_DE_ENFERMERIA',
-    'agrarias': 'FACULTAD_DE_CIENCIAS_AGRARIAS',
-    'veterinaria': 'FACULTAD_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA',
-    'medicina veterinaria': 'FACULTAD_DE_MEDICINA_VETERINARIA_Y_ZOOTECNIA',
-    'ingeniería económica': 'FACULTAD_DE_INGENIERIA_ECONOMICA',
-    'ingenieria economica': 'FACULTAD_DE_INGENIERIA_ECONOMICA',
-    'contables': 'FACULTAD_DE_CIENCIAS_CONTABLES_Y_ADMINISTRATIVAS',
-    'administrativas': 'FACULTAD_DE_CIENCIAS_CONTABLES_Y_ADMINISTRATIVAS',
-    'trabajo social': 'FACULTAD_DE_TRABAJO_SOCIAL',
-    'ciencias sociales': 'FACULTAD_DE_CIENCIAS_SOCIALES',
-    'minas': 'FACULTAD_DE_INGENIERIA_DE_MINAS',
-    'derecho': 'FACULTAD_DE_CIENCIAS_JURIDICAS_Y_POLITICAS',
-    'jurídicas': 'FACULTAD_DE_CIENCIAS_JURIDICAS_Y_POLITICAS',
-    'química': 'FACULTAD_DE_INGENIERIA_QUIMICA',
-    'quimica': 'FACULTAD_DE_INGENIERIA_QUIMICA',
-    'biológicas': 'FACULTAD_DE_CIENCIAS_BIOLOGICAS',
-    'biologicas': 'FACULTAD_DE_CIENCIAS_BIOLOGICAS',
-    'educación': 'FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION',
-    'educacion': 'FACULTAD_DE_CIENCIAS_DE_LA_EDUCACION',
-    'geológica': 'FACULTAD_DE_INGENIERIA_GEOLOGICA_Y_METALURGICA',
-    'geologica': 'FACULTAD_DE_INGENIERIA_GEOLOGICA_Y_METALURGICA',
-    'civil': 'FACULTAD_DE_INGENIERIA_CIVIL_Y_ARQUITECTURA',
-    'arquitectura': 'FACULTAD_DE_INGENIERIA_CIVIL_Y_ARQUITECTURA',
-    'agrícola': 'FACULTAD_DE_INGENIERIA_AGRICOLA',
-    'agricola': 'FACULTAD_DE_INGENIERIA_AGRICOLA',
-    'salud': 'FACULTAD_DE_CIENCIAS_DE_LA_SALUD',
-    'mecánica': 'FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS',
-    'mecanica': 'FACULTAD_DE_INGENIERIA_MECANICA_ELECTRICA_ELECTRONICA_Y_SISTEMAS',
-    'medicina humana': 'FACULTAD_DE_MEDICINA_HUMANA',
-    'administrativas humanas': 'FACULTAD_DE_CIENCIAS_ADMINISTRATIVAS_Y_HUMANAS',
+# Mapeo de facultades para búsqueda optimizada
+FACULTY_EXPANSIONS = {
+    'estadística': ['estadistica', 'estadisticas', 'fie', 'estadística e informática'],
+    'estadistica': ['estadística', 'estadisticas', 'fie', 'estadística e informática'],
+    'agrarias': ['ciencias agrarias', 'fca', 'agronomía', 'agronomia'],
+    'enfermería': ['enfermeria', 'enfermera', 'enfermero'],
+    'veterinaria': ['medicina veterinaria', 'fmvz', 'zootecnia'],
+    'contables': ['ciencias contables', 'fcca', 'contabilidad'],
+    'económica': ['ingeniería económica', 'fie', 'economica'],
+    'minas': ['ingeniería de minas', 'fim'],
+    'derecho': ['ciencias jurídicas', 'fcjp'],
+    'química': ['ingeniería química', 'fiq'],
+    'biológicas': ['ciencias biológicas', 'fcb'],
+    'sociales': ['ciencias sociales', 'fcs'],
+    'educación': ['ciencias de la educación', 'fceduc'],
+    'geológica': ['ingeniería geológica', 'figmm'],
+    'civil': ['ingeniería civil', 'fica'],
+    'agrícola': ['ingeniería agrícola', 'fia'],
+    'salud': ['ciencias de la salud'],
+    'mecánica': ['ingeniería mecánica', 'fimees'],
+    'medicina': ['medicina humana', 'fmh'],
+    'administrativas': ['ciencias administrativas', 'fcah'],
 }
 
 # ---------------------------
@@ -188,7 +175,7 @@ async def get_conversation_history_async(phone):
         return ""
 
 # ---------------------------
-# Knowledge base
+# Knowledge base - BÚSQUEDA OPTIMIZADA
 # ---------------------------
 
 def load_knowledge_base(index_path='faiss_index.bin', json_path='knowledge_base.json'):
@@ -206,64 +193,19 @@ def load_knowledge_base(index_path='faiss_index.bin', json_path='knowledge_base.
             knowledge_data = json.load(f)
             documents = knowledge_data.get('documents', knowledge_data)
         
-        logger.info(f"✓ Base cargada: {len(documents)} docs")
-        
-        # Log de tipos de documentos cargados
+        # Log de estadísticas de la base de conocimiento
         type_counts = {}
         for doc in documents:
             doc_type = doc.get('type', 'unknown')
             type_counts[doc_type] = type_counts.get(doc_type, 0) + 1
         
-        logger.info(f"📊 Tipos de documentos: {type_counts}")
+        logger.info(f"✅ Base cargada: {len(documents)} documentos")
+        logger.info(f"📊 Distribución: {type_counts}")
+        
         return True
     except Exception as e:
         logger.error(f"Error KB: {e}")
         return False
-def debug_search(query, top_k=10, similarity_threshold=0.3):
-    """Función de debugging para ver qué encuentra exactamente"""
-    if not embedding_model or not faiss_index:
-        return "❌ Base de conocimiento no cargada"
-    
-    try:
-        query_vector = embedding_model.encode([query])
-        query_vector = np.array(query_vector).astype('float32')
-        
-        distances, indices = faiss_index.search(query_vector, top_k * 5)
-        similarities = 1 / (1 + distances[0])
-        
-        results = []
-        for i, (similarity, idx) in enumerate(zip(similarities, indices[0])):
-            if idx >= len(documents):
-                continue
-                
-            doc = documents[idx]
-            results.append({
-                'similarity': float(similarity),
-                'type': doc.get('type', 'unknown'),
-                'facultad': doc.get('facultad', ''),
-                'text_preview': doc.get('text', '')[:100] + '...',
-                'source': doc.get('source', '')
-            })
-        
-        # Ordenar por similitud
-        results.sort(key=lambda x: x['similarity'], reverse=True)
-        
-        debug_info = f"🔍 DEBUG BÚSQUEDA: '{query}'\n"
-        debug_info += f"📊 Total documentos en KB: {len(documents)}\n"
-        debug_info += f"🎯 Top {top_k} resultados:\n\n"
-        
-        for i, result in enumerate(results[:top_k]):
-            debug_info += f"{i+1}. Sim: {result['similarity']:.3f} | "
-            debug_info += f"Tipo: {result['type']} | "
-            debug_info += f"Fac: {result['facultad']}\n"
-            debug_info += f"   Texto: {result['text_preview']}\n"
-            debug_info += f"   Fuente: {result['source']}\n\n"
-        
-        return debug_info
-        
-    except Exception as e:
-        return f"❌ Error en debug: {e}"
-
 
 def expand_query(query):
     """Expandir términos de búsqueda con sinónimos"""
@@ -275,62 +217,97 @@ def expand_query(query):
 
 @lru_cache(maxsize=500)
 def search_knowledge_base_cached(query, top_k=5):
-    """Caché de búsquedas para mejorar rendimiento"""
-    return enhanced_search_knowledge_base(query, top_k)
+    """Caché de búsquedas optimizadas"""
+    return optimized_search_knowledge_base(query, top_k, similarity_threshold=0.4)
 
-def urgent_search_knowledge_base(query, top_k=8, similarity_threshold=0.3):
-    """Búsqueda URGENTE - Muy permisiva para debugging"""
+def optimized_search_knowledge_base(query, top_k=5, similarity_threshold=0.4):
+    """Búsqueda optimizada con mejor matching de facultades"""
     if not embedding_model or not faiss_index:
-        logger.error("❌ Base de conocimiento no cargada")
         return []
     
     try:
-        # Búsqueda MUY permisiva
-        query_vector = embedding_model.encode([query])
-        query_vector = np.array(query_vector).astype('float32')
+        query_lower = query.lower()
+        logger.info(f"🔍 Búsqueda optimizada: '{query}'")
         
-        # Buscar MUCHOS más resultados
-        distances, indices = faiss_index.search(query_vector, top_k * 10)
+        # ⭐ EXPANSIÓN MEJORADA DE TÉRMINOS
+        expanded_terms = [query_lower]
         
-        results = []
-        for i, (dist, idx) in enumerate(zip(distances[0], indices[0])):
-            if idx >= len(documents):
-                continue
-                
-            doc = documents[idx].copy()
-            similarity = 1 / (1 + dist)
+        # Expansión específica por facultad
+        for term, expansions in FACULTY_EXPANSIONS.items():
+            if term in query_lower:
+                expanded_terms.extend(expansions)
+        
+        # Búsqueda semántica principal
+        all_results = []
+        for term in set(expanded_terms):  # Eliminar duplicados
+            query_vector = embedding_model.encode([term])
+            query_vector = np.array(query_vector).astype('float32')
             
-            # ⭐ UMBRAL MUY BAJO - ACEPTAR CASI TODO
-            if similarity >= similarity_threshold:
+            distances, indices = faiss_index.search(query_vector, top_k * 3)
+            similarities = 1 / (1 + distances[0])
+            
+            for i, (similarity, idx) in enumerate(zip(similarities, indices[0])):
+                if idx >= len(documents):
+                    continue
+                    
+                doc = documents[idx].copy()
                 doc['similarity'] = float(similarity)
                 
-                # Bonus por matching exacto
-                query_lower = query.lower()
-                doc_text_lower = doc.get('text', '').lower()
+                # ⭐ SCORING MEJORADO
+                score = similarity
+                
+                # Bonus por matching exacto de facultad
                 doc_facultad = doc.get('facultad', '').lower()
+                doc_text = doc.get('text', '').lower()
                 
-                if 'enfermer' in query_lower and 'enfermer' in doc_text_lower:
-                    doc['similarity'] += 0.5
-                if 'estadíst' in query_lower and 'estadíst' in doc_text_lower:
-                    doc['similarity'] += 0.5
-                if 'linea' in query_lower and 'linea' in doc_text_lower:
-                    doc['similarity'] += 0.3
+                # Bonus si la query menciona una facultad y el documento es de esa facultad
+                for faculty_keyword in FACULTY_EXPANSIONS.keys():
+                    if faculty_keyword in query_lower and faculty_keyword in doc_facultad:
+                        score += 0.3
+                        break
                 
-                results.append(doc)
+                # Bonus por tipo de documento relevante
+                doc_type = doc.get('type', '')
+                if 'contacto' in query_lower and 'coordinador' in doc_type:
+                    score += 0.2
+                if any(word in query_lower for word in ['línea', 'linea', 'investigación']) and 'linea_investigacion' in doc_type:
+                    score += 0.2
+                
+                # Bonus por matching de palabras clave en el texto
+                query_words = set(query_lower.split())
+                doc_words = set(doc_text.split())
+                keyword_matches = len(query_words.intersection(doc_words))
+                score += (keyword_matches * 0.05)
+                
+                doc['combined_score'] = score
+                
+                if score >= similarity_threshold:
+                    all_results.append(doc)
         
-        # Ordenar y limitar
-        results.sort(key=lambda x: x['similarity'], reverse=True)
+        # Eliminar duplicados y ordenar
+        unique_results = []
+        seen_doc_ids = set()
         
-        logger.info(f"🚨 BÚSQUEDA URGENTE: '{query}' -> {len(results)} resultados")
+        for result in all_results:
+            # Usar combinación de texto y facultad para identificar duplicados
+            doc_id = f"{result.get('text','')[:50]}_{result.get('facultad','')}"
+            if doc_id not in seen_doc_ids:
+                seen_doc_ids.add(doc_id)
+                unique_results.append(result)
         
-        # Log de los top 3
-        for i, result in enumerate(results[:3]):
-            logger.info(f"   Top {i+1}: sim={result['similarity']:.3f}, tipo={result.get('type','?')}, fac={result.get('facultad','?')}")
+        # Ordenar por score combinado
+        unique_results.sort(key=lambda x: x['combined_score'], reverse=True)
         
-        return results[:top_k]
+        logger.info(f"📊 Resultados para '{query}': {len(unique_results)} (umbral: {similarity_threshold})")
+        
+        # Log de top resultados para debugging
+        for i, result in enumerate(unique_results[:3]):
+            logger.info(f"   Top {i+1}: score={result['combined_score']:.3f}, tipo={result.get('type','?')}, fac={result.get('facultad','?')}")
+        
+        return unique_results[:top_k]
         
     except Exception as e:
-        logger.error(f"❌ Error búsqueda urgente: {e}")
+        logger.error(f"❌ Error en búsqueda optimizada: {e}")
         return []
 
 # ---------------------------
@@ -352,7 +329,7 @@ async def call_deepseek_async(prompt, timeout=DEEPSEEK_TIMEOUT):
         payload = {
             "model": DEEPSEEK_MODEL,
             "messages": [{"role": "user", "content": prompt}],
-            "temperature": 0.4,  # Balance entre creatividad y precisión
+            "temperature": 0.4,
             "max_tokens": 500,
             "top_p": 0.8
         }
@@ -374,44 +351,43 @@ async def call_deepseek_async(prompt, timeout=DEEPSEEK_TIMEOUT):
         return None
 
 # ---------------------------
-# Response generation
+# Response generation - PROMPT MEJORADO
 # ---------------------------
 
-BALANCED_SYSTEM_PROMPT = r'''Eres asistente virtual del Vicerrectorado de Investigación UNA Puno.
+IMPROVED_SYSTEM_PROMPT = r'''Eres asistente virtual del Vicerrectorado de Investigación UNA Puno.
 
 🎯 **INFORMACIÓN QUE MANEJAS:**
 - Coordinadores por facultad (contactos exactos)
-- Líneas y sublíneas de investigación
+- Líneas y sublíneas de investigación  
 - Procesos de tesis y reglamentos
 - Preguntas frecuentes
 
-🔒 **REGLAS IMPORTANTES:**
-1. Usa PRINCIPALMENTE la información del CONTEXTO proporcionado
-2. Si no hay información suficiente, sé honesto pero útil
-3. NO inventes datos específicos (emails, teléfonos, líneas de investigación)
-4. Puedes explicar procesos generales si están en el contexto
-5. Si no encuentras información exacta, sugiere contactar al Vicerrectorado
+🔍 **INSTRUCCIONES ESPECÍFICAS:**
+1. Cuando el usuario pregunte por una facultad, proporciona TODA la información relevante del contexto
+2. Si hay información de contacto Y líneas de investigación, incluye ambas
+3. Sé específico con los datos: nombres exactos, emails, teléfonos, líneas de investigación
+4. Usa emojis relevantes para hacer la información más clara
+5. Si el contexto tiene la información, NO digas que no la tienes
 
-💡 **CUANDO NO HAY INFORMACIÓN EXACTA:**
-- Sé honesto sobre las limitaciones
-- Ofrece alternativas o información relacionada
-- Sugiere contactar directamente cuando sea apropiado
+📝 **FORMATO DE RESPUESTAS:**
+- Para coordinadores: 👨‍💼 Coordinador, 📧 Email, 📱 Teléfono, 🕐 Horario, 📍 Ubicación
+- Para líneas de investigación: 🔬 Línea, 📚 Sublíneas
+- Combina información cuando sea relevante
 
-📝 **ESTILO DE RESPUESTA:**
-- Profesional pero cercano
-- Usa emojis moderadamente (1-2)
-- Sé claro y directo
-- Ofrece ayuda adicional
+❌ **NO DIGAS:**
+- "No tengo información específica" (si el contexto tiene datos)
+- "Contacta al Vicerrectorado" (como primera opción)
+- Información genérica sin datos concretos
 
 CONTEXTO DISPONIBLE:
 {context}
 
 PREGUNTA: {user_query}
 
-Basándote en el contexto anterior, proporciona una respuesta útil y precisa:'''
+Proporciona una respuesta COMPLETA con toda la información relevante del contexto:'''
 
 async def generate_response_async(user_message, context_docs=[], history="", is_first_message=False):
-    """Generar respuesta balanceada"""
+    """Generar respuesta con contexto mejorado"""
     
     if is_first_message:
         return (
@@ -429,31 +405,38 @@ async def generate_response_async(user_message, context_docs=[], history="", is_
             "¿En qué puedo ayudarte?"
         ), "welcome"
     
-    # Construir contexto desde los documentos
+    # Si no hay contexto relevante
+    if not context_docs:
+        return "No encuentro información específica sobre ese tema en mi base de conocimiento actual. Te recomiendo contactar directamente con la coordinación de investigación de la facultad correspondiente.", "no_context"
+    
+    # ⭐ CONSTRUIR CONTEXTO MEJORADO
     context_text = ""
     if context_docs:
         context_parts = []
         for doc in context_docs[:4]:  # Más documentos para mejor contexto
-            doc_text = doc.get('text', '')
-            # Enriquecer con metadatos si están disponibles
-            metadata_info = []
-            if doc.get('facultad'):
-                metadata_info.append(f"Facultad: {doc['facultad']}")
-            if doc.get('type'):
-                metadata_info.append(f"Tipo: {doc['type']}")
+            # Enriquecer con información de tipo y facultad
+            doc_type = doc.get('type', '')
+            doc_facultad = doc.get('facultad', '')
             
-            if metadata_info:
-                doc_text = f"[{' | '.join(metadata_info)}]\n{doc_text}"
+            header = ""
+            if doc_facultad:
+                header += f"[Facultad: {doc_facultad}]"
+            if doc_type:
+                header += f"[Tipo: {doc_type}]"
             
-            context_parts.append(doc_text[:600])  # Limitar longitud pero menos restrictivo
+            doc_content = doc.get('text', '')
+            if header:
+                context_parts.append(f"{header}\n{doc_content}")
+            else:
+                context_parts.append(doc_content)
+        
         context_text = "\n\n---\n\n".join(context_parts)
-    else:
-        context_text = "No se encontró información específica en la base de conocimiento."
+        logger.info(f"📄 Contexto construido: {len(context_docs)} docs, {len(context_text)} chars")
     
     history_section = f"CONVERSACIÓN PREVIA:\n{history}\n\n" if history else ""
     
-    # Usar prompt balanceado
-    full_prompt = BALANCED_SYSTEM_PROMPT.format(
+    # Usar prompt mejorado
+    full_prompt = IMPROVED_SYSTEM_PROMPT.format(
         context=context_text,
         user_query=user_message
     )
@@ -461,10 +444,6 @@ async def generate_response_async(user_message, context_docs=[], history="", is_
     response = await call_deepseek_async(full_prompt)
     
     if response:
-        # Verificación básica para evitar invención grave
-        if not context_docs and any(keyword in response.lower() for keyword in ['@unap.edu.pe', '95', '96', '97', '98', '99']):
-            return "No encuentro información específica sobre ese tema en mi base de conocimiento actual. Te recomiendo contactar directamente con la coordinación de investigación de la facultad correspondiente.", "no_specific_info"
-        
         return response, DEEPSEEK_MODEL
     
     return "Disculpa, tengo dificultades técnicas en este momento. Por favor intenta nuevamente o contacta directamente al Vicerrectorado de Investigación.", "error"
@@ -513,11 +492,11 @@ async def check_inactive_users():
             logger.error(f"Error en check_inactive_users: {e}")
 
 # ---------------------------
-# Message processing async
+# Message processing async - OPTIMIZADO
 # ---------------------------
 
 async def process_message_async(user_message, phone_number):
-    """Procesar mensaje con búsqueda mejorada"""
+    """Procesar mensaje con búsqueda optimizada"""
     async with semaphore:
         start_time = time.time()
         user_message = user_message.strip()
@@ -528,11 +507,6 @@ async def process_message_async(user_message, phone_number):
         if is_new_session:
             user_closed_sessions.remove(phone_number)
 
-        if 'debug' in user_message.lower():
-            debug_result = await asyncio.get_event_loop().run_in_executor(
-                None, debug_search, user_message.replace('debug', '').strip(), 10, 0.3
-            )
-            return f"🔍 DEBUG MODE:\n{debug_result}"
         # Comandos especiales
         if user_message.lower() == '/reset':
             user_closed_sessions.discard(phone_number)
@@ -555,17 +529,17 @@ async def process_message_async(user_message, phone_number):
             ))
             return response
 
-        # ⭐ BÚSQUEDA MEJORADA con umbral más bajo
+        # ⭐ BÚSQUEDA OPTIMIZADA
         loop = asyncio.get_event_loop()
         relevant_docs = await loop.run_in_executor(
-        None, urgent_search_knowledge_base, user_message, 8, 0.2  # ¡Muy permisivo!
+            None, optimized_search_knowledge_base, user_message, 5, 0.4
         )
 
         # Obtener historial de conversación
         history_task = asyncio.create_task(get_conversation_history_async(phone_number))
         history = await history_task
         
-        # Generar respuesta
+        # Generar respuesta con documentos específicos
         response, model_used = await generate_response_async(user_message, relevant_docs, history)
 
         # Limitar longitud para WhatsApp
@@ -628,10 +602,10 @@ async def main():
     global http_session, whatsapp_client, event_loop
     
     logger.info("=" * 60)
-    logger.info("CHATBOT UNA PUNO - VERSIÓN MEJORADA")
-    logger.info("✅ Búsqueda con múltiples estrategias")
-    logger.info("✅ Umbral de similitud balanceado")
-    logger.info("✅ Respuestas más útiles")
+    logger.info("CHATBOT UNA PUNO - VERSIÓN OPTIMIZADA")
+    logger.info("✅ Búsqueda optimizada por facultades")
+    logger.info("✅ Mejor matching semántico")
+    logger.info("✅ Respuestas específicas con datos concretos")
     logger.info("=" * 60)
 
     # Guardar referencia al event loop

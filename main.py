@@ -174,6 +174,122 @@ async def get_conversation_history_async(phone):
         logger.error(f"Error historial: {e}")
         return ""
 
+# ============================================================================
+# BÚSQUEDA Y ENVÍO DE FORMATOS
+# ============================================================================
+
+async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> bool:
+    """
+    Detectar si el usuario pide un formato y enviarlo
+    Retorna True si se envió un formato, False si no
+    """
+    try:
+        mensaje_lower = mensaje.lower()
+        
+        # Palabras clave que indican búsqueda de formato
+        keywords_formato = ['formato', 'borrador', 'proyecto', 'tesis']
+        
+        # Verificar si menciona formato
+        if not any(kw in mensaje_lower for kw in keywords_formato):
+            return False
+        
+        # Detectar tipo de formato
+        tipo = None
+        if 'borrador' in mensaje_lower:
+            tipo = 'borrador'
+        elif 'proyecto' in mensaje_lower:
+            tipo = 'proyecto'
+        
+        # Extraer palabras clave de búsqueda (remover palabras comunes)
+        stop_words = {'dame', 'el', 'de', 'formato', 'tesis', 'necesito', 'quiero', 
+                     'para', 'mi', 'proyecto', 'borrador', 'un', 'una', 'favor'}
+        palabras = mensaje_lower.split()
+        query_words = [p for p in palabras if p not in stop_words and len(p) > 3]
+        
+        if not query_words:
+            return False
+        
+        query = ' '.join(query_words)
+        
+        # Buscar en base de datos
+        async with db_pool.acquire() as conn:
+            formato = await conn.fetchrow(
+                "SELECT * FROM buscar_formato($1, $2)",
+                query, tipo
+            )
+        
+        if not formato:
+            # No se encontró formato
+            await whatsapp_client.send_message(
+                phone_number,
+                f"❌ No encontré el formato que buscas.\n\n"
+                f"💡 Intenta especificar mejor, por ejemplo:\n"
+                f"• 'formato de proyecto de estadística'\n"
+                f"• 'borrador de agronomía'\n"
+                f"• 'formato de derecho'"
+            )
+            return True  # Retornar True porque SÍ era búsqueda de formato
+        
+        # Crear URL temporal en File Server
+        file_server_url = os.getenv('FILE_SERVER_URL', 'https://files.services.vridevops.space')
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post(f"{file_server_url}/api/temp-url/{formato['id']}") as resp:
+                if resp.status != 200:
+                    await whatsapp_client.send_message(
+                        phone_number,
+                        "❌ Error generando el link de descarga. Intenta de nuevo."
+                    )
+                    return True
+                
+                data = await resp.json()
+                download_url = data['url']
+        
+        # Construir mensaje
+        escuela = formato['escuela']
+        facultad = formato['facultad']
+        
+        if escuela:
+            lugar = f"{escuela}\n📚 {facultad}"
+        else:
+            lugar = facultad
+        
+        caption = (
+            f"📄 *{formato['titulo']}*\n\n"
+            f"📍 {lugar}\n"
+            f"📝 Tipo: {formato['tipo'].title()}\n"
+            f"📦 Tamaño: {formato['file_size_kb']} KB\n\n"
+            f"⚡ Link válido por 5 minutos"
+        )
+        
+        # Enviar archivo por WhatsApp
+        success = await whatsapp_client.send_media_url(
+            phone=phone_number,
+            media_url=download_url,
+            caption=caption
+        )
+        
+        if success:
+            # Registrar envío en base de datos
+            async with db_pool.acquire() as conn:
+                await conn.execute(
+                    "SELECT registrar_envio($1, $2, $3)",
+                    formato['id'], phone_number, mensaje
+                )
+            
+            logger.info(f"✅ Formato enviado: {formato['codigo']} → {phone_number}")
+        else:
+            await whatsapp_client.send_message(
+                phone_number,
+                "❌ Hubo un error al enviar el formato. Por favor intenta de nuevo."
+            )
+        
+        return True
+        
+    except Exception as e:
+        logger.error(f"Error en buscar_y_enviar_formato: {e}")
+        return False
+
 # ---------------------------
 # Knowledge base - BÚSQUEDA OPTIMIZADA
 # ---------------------------
@@ -409,6 +525,9 @@ async def call_deepseek_async(prompt, timeout=DEEPSEEK_TIMEOUT):
 
 IMPROVED_SYSTEM_PROMPT = r'''Eres asistente virtual del Vicerrectorado de Investigación UNA Puno.
 
+IMPORTANTE: Si el usuario pide un formato de tesis (borrador o proyecto), 
+NO respondas con texto. El sistema ya le enviará automáticamente el archivo PDF.
+
 🎯 **INFORMACIÓN QUE MANEJAS:**
 - Coordinadores por facultad (contactos exactos)
 - Líneas y sublíneas de investigación  
@@ -552,6 +671,12 @@ async def process_message_async(user_message, phone_number):
     """Procesar mensaje con búsqueda optimizada"""
     async with semaphore:
         start_time = time.time()
+        formatos_enabled = os.getenv('FORMATOS_ENABLED', 'false').lower() == 'true'
+        if formatos_enabled:
+            formato_enviado = await buscar_y_enviar_formato(user_message, phone_number)
+            if formato_enviado:
+                # Ya se envió el formato, retornar mensaje vacío
+                return ""
         user_message = user_message.strip()
         
         user_last_activity[phone_number] = datetime.now()
@@ -644,7 +769,15 @@ def handle_incoming_message_sync(message):
 async def process_and_send(phone_number, user_message):
     """Procesar y enviar respuesta"""
     try:
+        phone_number = message_data['from']
+        user_message = message_data['body']
+
         bot_response = await process_message_async(user_message, phone_number)
+        # ⭐ NUEVO: Si la respuesta está vacía, ya se envió un formato
+        if not bot_response or bot_response.strip() == "":
+            logger.info(f"✅ Formato enviado directamente a {phone_number}")
+            return
+        
         success = whatsapp_client.send_text(phone_number, bot_response)
         
         if success:

@@ -17,6 +17,7 @@ import re
 from whatsapp_client import WhatsAppAPIClient, extract_phone_number
 
 load_dotenv()
+
 # Configuración
 logging.basicConfig(
     level=logging.INFO,
@@ -24,26 +25,27 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# ===== CONFIGURACIÓN MEJORADA =====
+# ===== CONFIGURACIÓN =====
 MAX_CONCURRENT_MESSAGES = 50
 POLLING_INTERVAL = 3
 MAX_HISTORY_MESSAGES = 3
 INACTIVITY_TIMEOUT = 600
 RATE_LIMIT_DELAY = 0.1
-semaphore = asyncio.Semaphore(MAX_CONCURRENT_MESSAGES)
 
 # Cache de conversaciones en memoria
 conversation_cache = {}
 
-# ---------------------------
 # Environment
-# ---------------------------
 DEEPSEEK_API_KEY = os.getenv('DEEPSEEK_API_KEY')
 DEEPSEEK_MODEL = os.getenv('DEEPSEEK_MODEL', 'deepseek-chat')
 DEEPSEEK_TIMEOUT = int(os.getenv('DEEPSEEK_TIMEOUT', '20'))
 
 WHATSAPP_API_URL = os.getenv('WHATSAPP_API_URL')
 WHATSAPP_API_KEY = os.getenv('WHATSAPP_API_KEY')
+
+# ⭐ NUEVO: File Server
+FILE_SERVER_URL = os.getenv('FILE_SERVER_URL', 'https://files.services.vridevops.space')
+FORMATOS_ENABLED = os.getenv('FORMATOS_ENABLED', 'true').lower() == 'true'
 
 MAX_CONCURRENT = int(os.getenv('MAX_CONCURRENT', '100'))
 POLLING_INTERVAL = int(os.getenv('POLLING_INTERVAL', '2'))
@@ -64,9 +66,7 @@ event_loop = None
 user_last_activity = {}
 user_closed_sessions = set()
 
-# ---------------------------
-# Term expansion mejorado
-# ---------------------------
+# Term expansion
 TERM_EXPANSION = {
     'email': ['correo', 'mail', 'correo electrónico'],
     'correo': ['email', 'mail'],
@@ -79,7 +79,6 @@ TERM_EXPANSION = {
     'estadística': ['estadistica', 'estadisticas'],
 }
 
-# Mapeo de facultades para búsqueda optimizada
 FACULTY_EXPANSIONS = {
     'estadística': ['estadistica', 'estadisticas', 'FINESI', 'estadística e informática'],
     'estadistica': ['estadística', 'estadisticas', 'FINESI', 'estadística e informática'],
@@ -103,9 +102,9 @@ FACULTY_EXPANSIONS = {
     'administrativas': ['ciencias administrativas', 'fcah'],
 }
 
-# ---------------------------
-# Database async
-# ---------------------------
+# ============================================================================
+# DATABASE ASYNC
+# ============================================================================
 
 async def init_db_pool_async():
     """Inicializar pool async de PostgreSQL"""
@@ -126,6 +125,7 @@ async def init_db_pool_async():
     except Exception as e:
         logger.error(f"❌ Error PostgreSQL: {e}")
         return False
+
 
 async def save_conversation_async(phone, user_msg, bot_msg, model, response_time):
     """Guardar conversación async - NO BLOQUEANTE"""
@@ -148,6 +148,7 @@ async def save_conversation_async(phone, user_msg, bot_msg, model, response_time
             
     except Exception as e:
         logger.error(f"❌ Error guardando: {e}")
+
 
 async def get_conversation_history_async(phone):
     """Obtener historial async"""
@@ -174,8 +175,9 @@ async def get_conversation_history_async(phone):
         logger.error(f"Error historial: {e}")
         return ""
 
+
 # ============================================================================
-# BÚSQUEDA Y ENVÍO DE FORMATOS
+# BÚSQUEDA Y ENVÍO DE FORMATOS ⭐ NUEVO
 # ============================================================================
 
 async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> bool:
@@ -193,6 +195,8 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> bool:
         if not any(kw in mensaje_lower for kw in keywords_formato):
             return False
         
+        logger.info(f"🔍 Detectada solicitud de formato: '{mensaje}'")
+        
         # Detectar tipo de formato
         tipo = None
         if 'borrador' in mensaje_lower:
@@ -202,14 +206,16 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> bool:
         
         # Extraer palabras clave de búsqueda (remover palabras comunes)
         stop_words = {'dame', 'el', 'de', 'formato', 'tesis', 'necesito', 'quiero', 
-                     'para', 'mi', 'proyecto', 'borrador', 'un', 'una', 'favor'}
+                     'para', 'mi', 'proyecto', 'borrador', 'un', 'una', 'favor', 'por'}
         palabras = mensaje_lower.split()
         query_words = [p for p in palabras if p not in stop_words and len(p) > 3]
         
         if not query_words:
+            logger.warning("No se encontraron palabras clave específicas")
             return False
         
         query = ' '.join(query_words)
+        logger.info(f"   Query extraído: '{query}' (tipo: {tipo or 'cualquiera'})")
         
         # Buscar en base de datos
         async with db_pool.acquire() as conn:
@@ -220,6 +226,7 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> bool:
         
         if not formato:
             # No se encontró formato
+            logger.warning(f"   ❌ Formato no encontrado para: '{query}'")
             await whatsapp_client.send_message(
                 phone_number,
                 f"❌ No encontré el formato que buscas.\n\n"
@@ -230,12 +237,15 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> bool:
             )
             return True  # Retornar True porque SÍ era búsqueda de formato
         
-        # Crear URL temporal en File Server
-        file_server_url = os.getenv('FILE_SERVER_URL', 'https://files.services.vridevops.space')
+        logger.info(f"   ✅ Formato encontrado: {formato['codigo']}")
         
-        async with aiohttp.ClientSession() as session:
-            async with session.post(f"{file_server_url}/api/temp-url/{formato['id']}") as resp:
+        # Crear URL temporal en File Server
+        try:
+            async with http_session.post(
+                f"{FILE_SERVER_URL}/api/temp-url/{formato['id']}"
+            ) as resp:
                 if resp.status != 200:
+                    logger.error(f"   ❌ Error File Server: {resp.status}")
                     await whatsapp_client.send_message(
                         phone_number,
                         "❌ Error generando el link de descarga. Intenta de nuevo."
@@ -244,6 +254,15 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> bool:
                 
                 data = await resp.json()
                 download_url = data['url']
+                logger.info(f"   📎 URL temporal creada: {download_url[:50]}...")
+        
+        except Exception as e:
+            logger.error(f"   ❌ Error conectando File Server: {e}")
+            await whatsapp_client.send_message(
+                phone_number,
+                "❌ Error generando el link de descarga. Intenta de nuevo."
+            )
+            return True
         
         # Construir mensaje
         escuela = formato['escuela']
@@ -279,6 +298,7 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> bool:
             
             logger.info(f"✅ Formato enviado: {formato['codigo']} → {phone_number}")
         else:
+            logger.error(f"   ❌ Error enviando archivo por WhatsApp")
             await whatsapp_client.send_message(
                 phone_number,
                 "❌ Hubo un error al enviar el formato. Por favor intenta de nuevo."
@@ -287,12 +307,13 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> bool:
         return True
         
     except Exception as e:
-        logger.error(f"Error en buscar_y_enviar_formato: {e}")
+        logger.error(f"Error en buscar_y_enviar_formato: {e}", exc_info=True)
         return False
 
-# ---------------------------
-# Knowledge base - BÚSQUEDA OPTIMIZADA
-# ---------------------------
+
+# ============================================================================
+# KNOWLEDGE BASE
+# ============================================================================
 
 def load_knowledge_base(index_path='faiss_index.bin', json_path='knowledge_base.json'):
     """Cargar base de conocimiento FAISS + documentos JSON"""
@@ -309,7 +330,6 @@ def load_knowledge_base(index_path='faiss_index.bin', json_path='knowledge_base.
             knowledge_data = json.load(f)
             documents = knowledge_data.get('documents', knowledge_data)
         
-        # Log de estadísticas de la base de conocimiento
         type_counts = {}
         for doc in documents:
             doc_type = doc.get('type', 'unknown')
@@ -323,6 +343,7 @@ def load_knowledge_base(index_path='faiss_index.bin', json_path='knowledge_base.
         logger.error(f"Error KB: {e}")
         return False
 
+
 def expand_query(query):
     """Expandir términos de búsqueda con sinónimos"""
     expanded_terms = [query.lower()]
@@ -331,13 +352,15 @@ def expand_query(query):
             expanded_terms.extend(TERM_EXPANSION[word])
     return ' '.join(expanded_terms)
 
+
 @lru_cache(maxsize=500)
 def search_knowledge_base_cached(query, top_k=5):
     """Caché de búsquedas optimizadas"""
     return optimized_search_knowledge_base(query, top_k, similarity_threshold=0.4)
 
-def optimized_search_knowledge_base(query, top_k=5, similarity_threshold=0.3):  # Reducido umbral
-    """Búsqueda optimizada CON MEJOR MATCHING DE FACULTADES"""
+
+def optimized_search_knowledge_base(query, top_k=5, similarity_threshold=0.3):
+    """Búsqueda optimizada con mejor matching"""
     if not embedding_model or not faiss_index:
         return []
     
@@ -345,10 +368,8 @@ def optimized_search_knowledge_base(query, top_k=5, similarity_threshold=0.3):  
         query_lower = query.lower()
         logger.info(f"🔍 Búsqueda optimizada: '{query}'")
         
-        # ⭐ EXPANSIÓN MEJORADA - INCLUIR NOMBRES COMPLETOS DE FACULTADES
         expanded_terms = [query_lower]
         
-        # Mapeo directo de términos de búsqueda a nombres de facultad en la base
         FACULTY_DIRECT_MAPPING = {
             'enfermería': 'FACULTAD_DE_ENFERMERIA',
             'enfermeria': 'FACULTAD_DE_ENFERMERIA',
@@ -365,13 +386,11 @@ def optimized_search_knowledge_base(query, top_k=5, similarity_threshold=0.3):  
             'medicina': 'FACULTAD_DE_MEDICINA_HUMANA'
         }
         
-        # Agregar búsqueda directa por facultad si se menciona
         for term, facultad_nombre in FACULTY_DIRECT_MAPPING.items():
             if term in query_lower:
                 expanded_terms.append(facultad_nombre.lower())
                 expanded_terms.append(term)
         
-        # Búsqueda semántica principal
         all_results = []
         for term in set(expanded_terms):
             query_vector = embedding_model.encode([term])
@@ -387,26 +406,22 @@ def optimized_search_knowledge_base(query, top_k=5, similarity_threshold=0.3):  
                 doc = documents[idx].copy()
                 doc['similarity'] = float(similarity)
                 
-                # ⭐ SCORING MEJORADO - BONUS POR MATCHING EXACTO
                 score = similarity
                 doc_text = doc.get('text', '').lower()
                 doc_facultad = doc.get('facultad', '').lower()
                 
-                # BONUS CRÍTICO: Si la query menciona una facultad y el documento es de esa facultad
                 for search_term, facultad_target in FACULTY_DIRECT_MAPPING.items():
                     if (search_term in query_lower and 
                         facultad_target.lower() in doc_facultad):
-                        score += 0.5  # Bonus significativo
+                        score += 0.5
                         logger.info(f"   🎯 MATCH EXACTO: '{search_term}' -> '{facultad_target}'")
                         break
                 
-                # Bonus por tipo de documento relevante
                 doc_type = doc.get('type', '')
                 if any(word in query_lower for word in ['línea', 'linea', 'investigación', 'investigacion', 'sublinea']):
                     if 'linea_investigacion' in doc_type:
                         score += 0.3
                 
-                # Bonus por palabras clave en el texto
                 query_words = set(query_lower.split())
                 doc_words = set(doc_text.split())
                 keyword_matches = len(query_words.intersection(doc_words))
@@ -417,7 +432,6 @@ def optimized_search_knowledge_base(query, top_k=5, similarity_threshold=0.3):  
                 if score >= similarity_threshold:
                     all_results.append(doc)
         
-        # Eliminar duplicados
         unique_results = []
         seen_doc_ids = set()
         
@@ -427,10 +441,8 @@ def optimized_search_knowledge_base(query, top_k=5, similarity_threshold=0.3):  
                 seen_doc_ids.add(doc_id)
                 unique_results.append(result)
         
-        # Ordenar por score combinado
         unique_results.sort(key=lambda x: x['combined_score'], reverse=True)
         
-        # Log detallado para debugging
         logger.info(f"📊 Resultados para '{query}': {len(unique_results)} documentos")
         for i, result in enumerate(unique_results[:3]):
             logger.info(f"   Top {i+1}: score={result['combined_score']:.3f}, " +
@@ -443,11 +455,11 @@ def optimized_search_knowledge_base(query, top_k=5, similarity_threshold=0.3):  
         logger.error(f"❌ Error en búsqueda optimizada: {e}")
         return []
 
+
 def direct_faculty_search(query, docs, top_k=3):
     """Búsqueda directa por nombre de facultad - como fallback"""
     query_lower = query.lower()
     
-    # Mapeo de términos de búsqueda a facultades
     faculty_keywords = {
         'enfermería': 'enfermeria',
         'enfermeria': 'enfermeria', 
@@ -466,7 +478,6 @@ def direct_faculty_search(query, docs, top_k=3):
         doc_type = doc.get('type', '')
         doc_text = doc.get('text', '').lower()
         
-        # Buscar coincidencias directas
         for keyword, faculty_type in faculty_keywords.items():
             if (keyword in query_lower and 
                 faculty_type in doc_facultad and
@@ -474,14 +485,15 @@ def direct_faculty_search(query, docs, top_k=3):
                 results.append(doc)
                 break
         
-        # Si ya tenemos suficientes resultados, salir
         if len(results) >= top_k:
             break
     
     return results
-# ---------------------------
-# DeepSeek async
-# ---------------------------
+
+
+# ============================================================================
+# DEEPSEEK
+# ============================================================================
 
 async def call_deepseek_async(prompt, timeout=DEEPSEEK_TIMEOUT):
     """Llamada async a DeepSeek"""
@@ -519,9 +531,10 @@ async def call_deepseek_async(prompt, timeout=DEEPSEEK_TIMEOUT):
         logger.error(f"Error DeepSeek: {e}")
         return None
 
-# ---------------------------
-# Response generation - PROMPT MEJORADO
-# ---------------------------
+
+# ============================================================================
+# RESPONSE GENERATION
+# ============================================================================
 
 IMPROVED_SYSTEM_PROMPT = r'''Eres asistente virtual del Vicerrectorado de Investigación UNA Puno.
 
@@ -558,6 +571,7 @@ PREGUNTA: {user_query}
 
 Proporciona una respuesta COMPLETA con toda la información relevante del contexto:'''
 
+
 async def generate_response_async(user_message, context_docs=[], history="", is_first_message=False):
     """Generar respuesta con contexto mejorado"""
     
@@ -568,6 +582,7 @@ async def generate_response_async(user_message, context_docs=[], history="", is_
             "• Información de coordinadores por facultad\n"
             "• Líneas y sublíneas de investigación\n"
             "• Procesos de tesis y reglamentos\n"
+            "• Formatos de tesis (borrador/proyecto)\n"
             "• Preguntas frecuentes sobre PGI\n\n"
             "💡 *Comandos útiles:*\n"
             "/ayuda - Ver esta información\n"
@@ -577,16 +592,13 @@ async def generate_response_async(user_message, context_docs=[], history="", is_
             "¿En qué puedo ayudarte?"
         ), "welcome"
     
-    # Si no hay contexto relevante
     if not context_docs:
         return "No encuentro información específica sobre ese tema en mi base de conocimiento actual. Te recomiendo contactar directamente con la coordinación de investigación de la facultad correspondiente.", "no_context"
     
-    # ⭐ CONSTRUIR CONTEXTO MEJORADO
     context_text = ""
     if context_docs:
         context_parts = []
-        for doc in context_docs[:4]:  # Más documentos para mejor contexto
-            # Enriquecer con información de tipo y facultad
+        for doc in context_docs[:4]:
             doc_type = doc.get('type', '')
             doc_facultad = doc.get('facultad', '')
             
@@ -607,7 +619,6 @@ async def generate_response_async(user_message, context_docs=[], history="", is_
     
     history_section = f"CONVERSACIÓN PREVIA:\n{history}\n\n" if history else ""
     
-    # Usar prompt mejorado
     full_prompt = IMPROVED_SYSTEM_PROMPT.format(
         context=context_text,
         user_query=user_message
@@ -620,9 +631,10 @@ async def generate_response_async(user_message, context_docs=[], history="", is_
     
     return "Disculpa, tengo dificultades técnicas en este momento. Por favor intenta nuevamente o contacta directamente al Vicerrectorado de Investigación.", "error"
 
-# ---------------------------
-# Inactivity checker
-# ---------------------------
+
+# ============================================================================
+# INACTIVITY CHECKER
+# ============================================================================
 
 async def check_inactive_users():
     """Verificar usuarios inactivos"""
@@ -663,20 +675,27 @@ async def check_inactive_users():
         except Exception as e:
             logger.error(f"Error en check_inactive_users: {e}")
 
-# ---------------------------
-# Message processing async - OPTIMIZADO
-# ---------------------------
+
+# ============================================================================
+# MESSAGE PROCESSING ⭐ ACTUALIZADO CON FORMATOS
+# ============================================================================
 
 async def process_message_async(user_message, phone_number):
-    """Procesar mensaje con búsqueda optimizada"""
+    """Procesar mensaje con búsqueda optimizada y envío de formatos"""
     async with semaphore:
         start_time = time.time()
-        formatos_enabled = os.getenv('FORMATOS_ENABLED', 'false').lower() == 'true'
-        if formatos_enabled:
-            formato_enviado = await buscar_y_enviar_formato(user_message, phone_number)
-            if formato_enviado:
-                # Ya se envió el formato, retornar mensaje vacío
-                return ""
+        
+        # ⭐ NUEVO: Verificar si pide un formato PRIMERO
+        if FORMATOS_ENABLED:
+            try:
+                formato_enviado = await buscar_y_enviar_formato(user_message, phone_number)
+                if formato_enviado:
+                    logger.info(f"📄 Formato procesado para {phone_number}")
+                    return ""  # Retornar vacío para indicar que ya se manejó
+            except Exception as e:
+                logger.error(f"Error en búsqueda de formatos: {e}")
+                # Continuar con flujo normal si falla
+        
         user_message = user_message.strip()
         
         user_last_activity[phone_number] = datetime.now()
@@ -707,13 +726,13 @@ async def process_message_async(user_message, phone_number):
             ))
             return response
 
-        # ⭐ BÚSQUEDA OPTIMIZADA CON FALLBACK
+        # Búsqueda optimizada con fallback
         loop = asyncio.get_event_loop()
         relevant_docs = await loop.run_in_executor(
-        None, optimized_search_knowledge_base, user_message, 5, 0.3  # Umbral más bajo
+            None, optimized_search_knowledge_base, user_message, 5, 0.3
         )
     
-        # ⭐ FALLBACK: Si no hay resultados, buscar directamente por facultad
+        # Fallback: Si no hay resultados, buscar directamente por facultad
         if not relevant_docs and any(word in user_message.lower() for word in 
                                 ['línea', 'linea', 'investigación', 'investigacion', 'sublinea']):
             logger.info("   🔄 Usando búsqueda directa por facultad...")
@@ -742,9 +761,10 @@ async def process_message_async(user_message, phone_number):
         logger.info(f"⚡ Respuesta ({model_used}, {response_time_ms}ms, docs: {len(relevant_docs)}): {phone_number}")
         return response
 
-# ---------------------------
-# WhatsApp handler
-# ---------------------------
+
+# ============================================================================
+# WHATSAPP HANDLER
+# ============================================================================
 
 def handle_incoming_message_sync(message):
     """Handler SYNC que WhatsAppAPIClient.start_polling() llama"""
@@ -760,18 +780,24 @@ def handle_incoming_message_sync(message):
             event_loop
         )
         
-        # Opcional: esperar un poco para rate limiting
+        # Rate limiting
         time.sleep(RATE_LIMIT_DELAY)
         
     except Exception as e:
         logger.error(f"Error handler: {e}", exc_info=True)
 
-async def process_and_send(phone_number, user_message):
-    """Procesar y enviar respuesta"""
-    try:
 
+async def process_and_send(phone_number, user_message):
+    """Procesar y enviar respuesta ⭐ ACTUALIZADO"""
+    try:
         bot_response = await process_message_async(user_message, phone_number)
         
+        # ⭐ NUEVO: Si la respuesta está vacía, ya se envió un formato
+        if not bot_response or bot_response.strip() == "":
+            logger.info(f"✅ Formato enviado directamente a {phone_number}")
+            return
+        
+        # Enviar respuesta normal
         success = whatsapp_client.send_text(phone_number, bot_response)
         
         if success:
@@ -782,18 +808,23 @@ async def process_and_send(phone_number, user_message):
     except Exception as e:
         logger.error(f"Error en process_and_send: {e}", exc_info=True)
 
-# ---------------------------
-# Main async
-# ---------------------------
+
+# ============================================================================
+# MAIN
+# ============================================================================
 
 async def main():
     global http_session, whatsapp_client, event_loop
     
     logger.info("=" * 60)
-    logger.info("CHATBOT UNA PUNO - VERSIÓN OPTIMIZADA")
+    logger.info("CHATBOT UNA PUNO - VERSIÓN CON ENVÍO DE PDFs")
     logger.info("✅ Búsqueda optimizada por facultades")
-    logger.info("✅ Mejor matching semántico")
+    logger.info("✅ Envío automático de formatos de tesis")
     logger.info("✅ Respuestas específicas con datos concretos")
+    if FORMATOS_ENABLED:
+        logger.info(f"✅ File Server: {FILE_SERVER_URL}")
+    else:
+        logger.info("⚠️  Envío de formatos DESACTIVADO")
     logger.info("=" * 60)
 
     # Guardar referencia al event loop
@@ -821,7 +852,7 @@ async def main():
     logger.info(f"🚀 Concurrencia máxima: {MAX_CONCURRENT}")
     logger.info(f"⏱️ Timeout inactividad: {INACTIVITY_TIMEOUT}s")
     logger.info(f"🤖 Modelo: {DEEPSEEK_MODEL} (temp: 0.4)")
-    logger.info(f"🔍 Umbral similitud: 0.4")
+    logger.info(f"🔍 Umbral similitud: 0.3")
     logger.info("=" * 60)
 
     # Iniciar task de verificación de inactividad
@@ -846,6 +877,7 @@ async def main():
         await http_session.close()
         if db_pool:
             await db_pool.close()
+
 
 if __name__ == '__main__':
     asyncio.run(main())

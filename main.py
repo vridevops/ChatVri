@@ -771,10 +771,6 @@ async def process_and_send(phone_number, user_message):
     try:
 
         bot_response = await process_message_async(user_message, phone_number)
-        # ⭐ NUEVO: Si la respuesta está vacía, ya se envió un formato
-        if not bot_response or bot_response.strip() == "":
-            logger.info(f"✅ Formato enviado directamente a {phone_number}")
-            return
         
         success = whatsapp_client.send_text(phone_number, bot_response)
         

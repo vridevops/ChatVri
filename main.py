@@ -769,8 +769,6 @@ def handle_incoming_message_sync(message):
 async def process_and_send(phone_number, user_message):
     """Procesar y enviar respuesta"""
     try:
-        phone_number = message_data['from']
-        user_message = message_data['body']
 
         bot_response = await process_message_async(user_message, phone_number)
         # ⭐ NUEVO: Si la respuesta está vacía, ya se envió un formato

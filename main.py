@@ -808,35 +808,6 @@ def handle_incoming_message_sync(message):
         logger.error(f"❌ Error handler: {e}", exc_info=True)
 
 
-def send_text(self, to: str, message: str) -> bool:
-    """
-    Enviar mensaje de texto (síncrono) - Wrapper para compatibilidad
-    """
-    try:
-        url = f"{self.api_url}/api/whatsapp/send/text"
-        payload = {
-            'to': extract_phone_number(to),
-            'message': message
-        }
-        
-        response = requests.post(
-            url,
-            json=payload,
-            headers=self._get_headers(),
-            timeout=30
-        )
-        
-        if response.status_code == 200:
-            logger.info(f"✅ Mensaje enviado a {to}")
-            return True
-        else:
-            logger.error(f"❌ Error enviando mensaje: {response.status_code}")
-            return False
-            
-    except Exception as e:
-        logger.error(f"❌ Error enviando: {str(e)}")
-        return False
-
 async def process_and_send(phone_number, user_message):
     """Procesar y enviar respuesta ⭐ ACTUALIZADO"""
     try:

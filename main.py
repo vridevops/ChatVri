@@ -283,7 +283,7 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> bool:
         )
         
         # Enviar archivo por WhatsApp
-        success = await whatsapp_client.send_media_url(
+        success = await whatsapp_client.send_media_async(
             phone=phone_number,
             media_url=download_url,
             caption=caption

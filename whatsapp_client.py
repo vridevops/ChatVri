@@ -176,6 +176,8 @@ class WhatsAppAPIClient:
                 'caption': caption
             }
             
+            logger.info(f"📤 Enviando media a {to}: {media_url}")
+            
             async with aiohttp.ClientSession() as session:
                 async with session.post(
                     url,
@@ -193,6 +195,8 @@ class WhatsAppAPIClient:
                     
         except Exception as e:
             logger.error(f"❌ Excepción al enviar media: {str(e)}")
+            import traceback
+            logger.error(traceback.format_exc())
             return False
     
     def get_messages(self, limit: int = 50) -> List[Dict]:

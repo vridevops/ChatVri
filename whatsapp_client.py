@@ -41,72 +41,54 @@ class WhatsAppAPIClient:
     def check_connection(self) -> bool:
         """
         Verificar conexión con la API de WhatsApp
-        
-        Returns:
-            True si la conexión es exitosa
         """
         try:
-            url = f"{self.api_url}/api/whatsapp/status"
-            response = requests.get(
-                url,
-                headers=self._get_headers(),
-                timeout=10
-            )
+            # Probar diferentes endpoints posibles
+            endpoints_to_try = [
+                "/api/whatsapp/status",
+                "/api/status",
+                "/status",
+                "/health"
+            ]
             
-            if response.status_code == 200:
-                data = response.json()
-                is_connected = data.get('connected', False)
+            for endpoint in endpoints_to_try:
+                url = f"{self.api_url}{endpoint}"
+                logger.info(f"🔍 Probando: {url}")
                 
-                if is_connected:
-                    logger.info("✅ WhatsApp conectado correctamente")
-                else:
-                    logger.warning("⚠️ WhatsApp no está conectado")
+                response = requests.get(
+                    url,
+                    headers=self._get_headers(),
+                    timeout=10
+                )
                 
-                return is_connected
-            else:
-                logger.error(f"❌ Error al verificar conexión: {response.status_code}")
-                return False
+                logger.info(f"📡 Status Code: {response.status_code}")
+                logger.info(f"📄 Response: {response.text[:200]}")  # Primeros 200 caracteres
                 
+                if response.status_code == 200:
+                    data = response.json()
+                    logger.info(f"✅ JSON Response: {data}")
+                    
+                    # Probar diferentes estructuras de respuesta
+                    is_connected = (
+                        data.get('connected') or 
+                        data.get('status') == 'connected' or
+                        data.get('ready') or
+                        'connected' in str(data).lower()
+                    )
+                    
+                    if is_connected:
+                        logger.info("✅ WhatsApp conectado correctamente")
+                        return True
+            
+            logger.warning("⚠️ Ningún endpoint respondió correctamente")
+            return False
+                    
         except Exception as e:
             logger.error(f"❌ Excepción al verificar conexión: {str(e)}")
+            import traceback
+            logger.error(traceback.format_exc())
             return False
-    
-    def send_text(self, to: str, message: str) -> bool:
-        """
-        Enviar mensaje de texto (síncrono)
         
-        Args:
-            to: Número de teléfono (formato: 51987654321)
-            message: Mensaje a enviar
-            
-        Returns:
-            True si se envió correctamente
-        """
-        try:
-            url = f"{self.api_url}/api/whatsapp/send/text"
-            payload = {
-                'to': extract_phone_number(to),
-                'message': message
-            }
-            
-            response = requests.post(
-                url,
-                json=payload,
-                headers=self._get_headers(),
-                timeout=30
-            )
-            
-            if response.status_code == 200:
-                logger.info(f"✅ Mensaje enviado a {to}")
-                return True
-            else:
-                logger.error(f"❌ Error enviando mensaje: {response.status_code} - {response.text}")
-                return False
-                
-        except Exception as e:
-            logger.error(f"❌ Excepción al enviar mensaje: {str(e)}")
-            return False
-    
     async def send_text_async(self, to: str, message: str) -> bool:
         """
         Enviar mensaje de texto (asíncrono)

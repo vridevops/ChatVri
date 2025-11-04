@@ -220,7 +220,17 @@ class WhatsAppAPIClient:
                 ) as response:
                     if response.status == 200:
                         data = await response.json()
+                        messages = data.get('messages', [])
+                    
+                    # AGREGAR ESTE LOG
+                        if messages:
+                            logger.info(f"📬 Recibidos {len(messages)} mensajes")
+                            logger.info(f"📄 Primer mensaje: {messages[0]}")
+                    
+                        return messages
+
                         return data.get('messages', [])
+                        
                     else:
                         logger.error(f"❌ Error obteniendo mensajes: {response.status}")
                         return []

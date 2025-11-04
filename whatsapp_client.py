@@ -1,9 +1,10 @@
 """
 Cliente Python para API de WhatsApp
-Reemplaza Twilio en el chatbot
+Versión completa con soporte async
 """
 
 import requests
+import aiohttp
 import time
 import logging
 import re
@@ -28,6 +29,7 @@ class WhatsAppAPIClient:
         self.api_key = api_key
         self.processed_messages = set()
         self.last_check = None
+        self.session = None  # Para requests async
         
     def _get_headers(self) -> dict:
         """Headers comunes para todas las peticiones"""
@@ -36,9 +38,42 @@ class WhatsAppAPIClient:
             'X-API-Key': self.api_key
         }
     
+    def check_connection(self) -> bool:
+        """
+        Verificar conexión con la API de WhatsApp
+        
+        Returns:
+            True si la conexión es exitosa
+        """
+        try:
+            url = f"{self.api_url}/api/whatsapp/status"
+            response = requests.get(
+                url,
+                headers=self._get_headers(),
+                timeout=10
+            )
+            
+            if response.status_code == 200:
+                data = response.json()
+                is_connected = data.get('connected', False)
+                
+                if is_connected:
+                    logger.info("✅ WhatsApp conectado correctamente")
+                else:
+                    logger.warning("⚠️ WhatsApp no está conectado")
+                
+                return is_connected
+            else:
+                logger.error(f"❌ Error al verificar conexión: {response.status_code}")
+                return False
+                
+        except Exception as e:
+            logger.error(f"❌ Excepción al verificar conexión: {str(e)}")
+            return False
+    
     def send_text(self, to: str, message: str) -> bool:
         """
-        Enviar mensaje de texto
+        Enviar mensaje de texto (síncrono)
         
         Args:
             to: Número de teléfono (formato: 51987654321)
@@ -58,7 +93,7 @@ class WhatsAppAPIClient:
                 url,
                 json=payload,
                 headers=self._get_headers(),
-                timeout=10
+                timeout=30
             )
             
             if response.status_code == 200:
@@ -70,6 +105,82 @@ class WhatsAppAPIClient:
                 
         except Exception as e:
             logger.error(f"❌ Excepción al enviar mensaje: {str(e)}")
+            return False
+    
+    async def send_text_async(self, to: str, message: str) -> bool:
+        """
+        Enviar mensaje de texto (asíncrono)
+        
+        Args:
+            to: Número de teléfono
+            message: Mensaje a enviar
+            
+        Returns:
+            True si se envió correctamente
+        """
+        try:
+            url = f"{self.api_url}/api/whatsapp/send/text"
+            payload = {
+                'to': extract_phone_number(to),
+                'message': message
+            }
+            
+            async with aiohttp.ClientSession() as session:
+                async with session.post(
+                    url,
+                    json=payload,
+                    headers=self._get_headers(),
+                    timeout=aiohttp.ClientTimeout(total=30)
+                ) as response:
+                    if response.status == 200:
+                        logger.info(f"✅ Mensaje enviado a {to}")
+                        return True
+                    else:
+                        text = await response.text()
+                        logger.error(f"❌ Error enviando mensaje: {response.status} - {text}")
+                        return False
+                    
+        except Exception as e:
+            logger.error(f"❌ Excepción al enviar mensaje async: {str(e)}")
+            return False
+    
+    async def send_media_async(self, to: str, media_url: str, caption: str = "") -> bool:
+        """
+        Enviar archivo multimedia (PDF, imagen, etc.)
+        
+        Args:
+            to: Número de teléfono
+            media_url: URL del archivo a enviar
+            caption: Texto opcional
+            
+        Returns:
+            True si se envió correctamente
+        """
+        try:
+            url = f"{self.api_url}/api/whatsapp/send/media"
+            payload = {
+                'to': extract_phone_number(to),
+                'mediaUrl': media_url,
+                'caption': caption
+            }
+            
+            async with aiohttp.ClientSession() as session:
+                async with session.post(
+                    url,
+                    json=payload,
+                    headers=self._get_headers(),
+                    timeout=aiohttp.ClientTimeout(total=60)
+                ) as response:
+                    if response.status == 200:
+                        logger.info(f"✅ Media enviado a {to}")
+                        return True
+                    else:
+                        text = await response.text()
+                        logger.error(f"❌ Error enviando media: {response.status} - {text}")
+                        return False
+                    
+        except Exception as e:
+            logger.error(f"❌ Excepción al enviar media: {str(e)}")
             return False
     
     def get_messages(self, limit: int = 50) -> List[Dict]:
@@ -104,9 +215,41 @@ class WhatsAppAPIClient:
             logger.error(f"❌ Excepción al obtener mensajes: {str(e)}")
             return []
     
+    async def get_messages_async(self, limit: int = 50) -> List[Dict]:
+        """
+        Obtener mensajes recientes no leídos (asíncrono)
+        
+        Args:
+            limit: Cantidad máxima de mensajes a obtener
+            
+        Returns:
+            Lista de mensajes
+        """
+        try:
+            url = f"{self.api_url}/api/whatsapp/messages"
+            params = {'limit': limit, 'unreadOnly': 'true'}
+            
+            async with aiohttp.ClientSession() as session:
+                async with session.get(
+                    url,
+                    params=params,
+                    headers=self._get_headers(),
+                    timeout=aiohttp.ClientTimeout(total=10)
+                ) as response:
+                    if response.status == 200:
+                        data = await response.json()
+                        return data.get('messages', [])
+                    else:
+                        logger.error(f"❌ Error obteniendo mensajes: {response.status}")
+                        return []
+                    
+        except Exception as e:
+            logger.error(f"❌ Excepción al obtener mensajes async: {str(e)}")
+            return []
+    
     def start_polling(self, callback, interval: int = 3):
         """
-        Iniciar polling de mensajes
+        Iniciar polling de mensajes (síncrono)
         
         Args:
             callback: Función a llamar cuando llegue un mensaje
@@ -124,11 +267,9 @@ class WhatsAppAPIClient:
                     # Evitar procesar mensajes duplicados
                     if msg_id and msg_id not in self.processed_messages:
                         self.processed_messages.add(msg_id)
-                        
-                        # Llamar al callback con el mensaje
                         callback(msg)
                 
-                # Limpiar mensajes procesados viejos (mantener solo últimos 1000)
+                # Limpiar mensajes procesados viejos
                 if len(self.processed_messages) > 1000:
                     self.processed_messages = set(list(self.processed_messages)[-1000:])
                 
@@ -136,7 +277,6 @@ class WhatsAppAPIClient:
                 logger.error(f"❌ Error en polling: {str(e)}")
             
             time.sleep(interval)
-
 
 async def send_media_url(self, phone: str, media_url: str, caption: str = "") -> bool:
     """
@@ -180,6 +320,7 @@ async def send_media_url(self, phone: str, media_url: str, caption: str = "") ->
         logger.error(f"Error en send_media_url: {e}")
         return False
 
+
 def extract_phone_number(phone: str) -> str:
     """
     Extrae y formatea un número de teléfono al formato internacional
@@ -204,3 +345,4 @@ def extract_phone_number(phone: str) -> str:
         cleaned = '51' + cleaned
     
     return cleaned
+

@@ -187,7 +187,14 @@ class WhatsAppAPIClient:
             )
             
             if response.status_code == 200:
-                messages = response.json().get('messages', [])
+                data = response.json()
+                
+                # Tu API devuelve en formato {"success": true, "data": [...]}
+                messages = data.get('data', []) if data.get('success') else []
+                
+                if messages:
+                    logger.info(f"📬 Recibidos {len(messages)} mensajes")
+                
                 return messages
             else:
                 logger.error(f"❌ Error obteniendo mensajes: {response.status_code}")
@@ -220,25 +227,26 @@ class WhatsAppAPIClient:
                 ) as response:
                     if response.status == 200:
                         data = await response.json()
-                        messages = data.get('messages', [])
-                    
-                    # AGREGAR ESTE LOG
+                        
+                        # Tu API devuelve en formato {"success": true, "data": [...]}
+                        messages = data.get('data', []) if data.get('success') else []
+                        
                         if messages:
                             logger.info(f"📬 Recibidos {len(messages)} mensajes")
-                            logger.info(f"📄 Primer mensaje: {messages[0]}")
-                    
-                        return messages
-
-                        return data.get('messages', [])
+                            for msg in messages:
+                                logger.info(f"📄 Mensaje de {msg.get('from')}: {msg.get('body')}")
                         
+                        return messages
                     else:
                         logger.error(f"❌ Error obteniendo mensajes: {response.status}")
                         return []
                     
         except Exception as e:
             logger.error(f"❌ Excepción al obtener mensajes async: {str(e)}")
+            import traceback
+            logger.error(traceback.format_exc())
             return []
-    
+        
     def start_polling(self, callback, interval: int = 3):
         """
         Iniciar polling de mensajes (síncrono)

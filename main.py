@@ -769,8 +769,29 @@ async def process_message_async(user_message, phone_number):
 def handle_incoming_message_sync(message):
     """Handler SYNC que WhatsAppAPIClient.start_polling() llama"""
     try:
-        phone_number = extract_phone_number(message)
+        # Log del mensaje completo para debug
+        logger.info(f"📥 Mensaje recibido: {message}")
+        
+        # Validar que message sea un dict
+        if not isinstance(message, dict):
+            logger.error(f"❌ Mensaje no es un diccionario: {type(message)}")
+            return
+        
+        # Extraer campos con validación
+        from_field = message.get('from', '')
+        if not from_field:
+            logger.error(f"❌ Campo 'from' vacío en mensaje: {message}")
+            return
+        
+        phone_number = extract_phone_number(from_field)
+        if not phone_number:
+            logger.error(f"❌ No se pudo extraer número de: {from_field}")
+            return
+        
         user_message = message.get('body', '').strip()
+        if not user_message:
+            logger.warning(f"⚠️ Mensaje vacío de {phone_number}")
+            return
 
         logger.info(f"📨 {phone_number}: {user_message[:50]}")
 
@@ -784,8 +805,7 @@ def handle_incoming_message_sync(message):
         time.sleep(RATE_LIMIT_DELAY)
         
     except Exception as e:
-        logger.error(f"Error handler: {e}", exc_info=True)
-
+        logger.error(f"❌ Error handler: {e}", exc_info=True)
 
 async def process_and_send(phone_number, user_message):
     """Procesar y enviar respuesta ⭐ ACTUALIZADO"""

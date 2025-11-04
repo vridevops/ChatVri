@@ -321,12 +321,12 @@ async def send_media_url(self, phone: str, media_url: str, caption: str = "") ->
         return False
 
 
-def extract_phone_number(phone: str) -> str:
+def extract_phone_number(phone) -> str:
     """
     Extrae y formatea un número de teléfono al formato internacional
     
     Args:
-        phone: Número de teléfono en cualquier formato
+        phone: Número de teléfono en cualquier formato (string o dict)
     
     Returns:
         Número de teléfono formateado (solo dígitos)
@@ -334,15 +334,26 @@ def extract_phone_number(phone: str) -> str:
     Example:
         >>> extract_phone_number("+51 987 654 321")
         '51987654321'
-        >>> extract_phone_number("whatsapp:+51987654321")
-        '51987654321'
+        >>> extract_phone_number("51972460207@c.us")
+        '51972460207'
     """
+    # Validar entrada
+    if not phone:
+        return ''
+    
+    # Si es un dict, intentar extraer el campo 'from' o '_serialized'
+    if isinstance(phone, dict):
+        phone = phone.get('from') or phone.get('_serialized') or ''
+    
+    # Convertir a string si no lo es
+    if not isinstance(phone, str):
+        phone = str(phone)
+    
     # Eliminar todo excepto dígitos
     cleaned = re.sub(r'\D', '', phone)
     
     # Si no empieza con código de país, asumir Perú (+51)
-    if not cleaned.startswith('51') and len(cleaned) == 9:
+    if cleaned and not cleaned.startswith('51') and len(cleaned) == 9:
         cleaned = '51' + cleaned
     
     return cleaned
-

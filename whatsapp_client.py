@@ -247,13 +247,9 @@ class WhatsAppAPIClient:
             logger.error(traceback.format_exc())
             return []
         
-    def start_polling(self, callback, interval: int = 3):
+    def start_polling(self, callback, interval: int = 5):
         """
         Iniciar polling de mensajes (síncrono)
-        
-        Args:
-            callback: Función a llamar cuando llegue un mensaje
-            interval: Intervalo en segundos entre cada revisión
         """
         logger.info(f"🔄 Iniciando polling cada {interval} segundos...")
         
@@ -261,17 +257,32 @@ class WhatsAppAPIClient:
             try:
                 messages = self.get_messages()
                 
+                if messages:
+                    logger.info(f"📬 Recibidos {len(messages)} mensajes nuevos")
+                
                 for msg in messages:
                     msg_id = msg.get('id')
                     
                     # Evitar procesar mensajes duplicados
                     if msg_id and msg_id not in self.processed_messages:
                         self.processed_messages.add(msg_id)
-                        callback(msg)
+                        
+                        # Log del mensaje que se va a procesar
+                        logger.info(f"🔄 Procesando mensaje {msg_id}: {msg.get('body', '')[:30]}")
+                        
+                        # Llamar al callback
+                        try:
+                            callback(msg)
+                        except Exception as e:
+                            logger.error(f"❌ Error en callback para {msg_id}: {str(e)}")
+                    else:
+                        logger.debug(f"⏭️ Mensaje {msg_id} ya procesado, saltando...")
                 
-                # Limpiar mensajes procesados viejos
-                if len(self.processed_messages) > 1000:
-                    self.processed_messages = set(list(self.processed_messages)[-1000:])
+                # Limpiar mensajes procesados viejos (mantener solo últimos 500)
+                if len(self.processed_messages) > 500:
+                    oldest = list(self.processed_messages)[:-500]
+                    self.processed_messages -= set(oldest)
+                    logger.debug(f"🧹 Limpiados {len(oldest)} mensajes antiguos del cache")
                 
             except Exception as e:
                 logger.error(f"❌ Error en polling: {str(e)}")

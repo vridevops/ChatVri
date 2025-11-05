@@ -284,7 +284,7 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> bool:
         
         # Enviar archivo por WhatsApp
         success = await whatsapp_client.send_media_async(
-            phone=phone_number,
+            to=phone_number,
             media_url=download_url,
             caption=caption
         )
@@ -769,15 +769,12 @@ async def process_message_async(user_message, phone_number):
 def handle_incoming_message_sync(message):
     """Handler SYNC que WhatsAppAPIClient.start_polling() llama"""
     try:
-        # Log del mensaje completo para debug
         logger.info(f"📥 Mensaje recibido: {message}")
         
-        # Validar que message sea un dict
         if not isinstance(message, dict):
             logger.error(f"❌ Mensaje no es un diccionario: {type(message)}")
             return
         
-        # Extraer campos con validación
         from_field = message.get('from', '')
         if not from_field:
             logger.error(f"❌ Campo 'from' vacío en mensaje: {message}")
@@ -793,22 +790,59 @@ def handle_incoming_message_sync(message):
             logger.warning(f"⚠️ Mensaje vacío de {phone_number}")
             return
 
+        message_id = message.get('id')  # ✅ Extraer el ID
+        
         logger.info(f"📨 {phone_number}: {user_message[:50]}")
 
         # Ejecutar tarea async en el event loop
         future = asyncio.run_coroutine_threadsafe(
-            process_and_send(phone_number, user_message),
+            process_and_send(phone_number, user_message, message_id),  # ✅ Pasar el ID
             event_loop
         )
         
-        # Rate limiting
         time.sleep(RATE_LIMIT_DELAY)
         
     except Exception as e:
         logger.error(f"❌ Error handler: {e}", exc_info=True)
 
+async def send_text_async(self, to: str, message: str) -> bool:
+    """
+    Enviar mensaje de texto (asíncrono)
+    
+    Args:
+        to: Número de teléfono
+        message: Mensaje a enviar
+        
+    Returns:
+        True si se envió correctamente
+    """
+    try:
+        url = f"{self.api_url}/api/whatsapp/send/text"
+        payload = {
+            'to': extract_phone_number(to),
+            'message': message
+        }
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post(
+                url,
+                json=payload,
+                headers=self._get_headers(),
+                timeout=aiohttp.ClientTimeout(total=30)
+            ) as response:
+                if response.status == 200:
+                    logger.info(f"✅ Mensaje enviado a {to}")
+                    return True
+                else:
+                    text = await response.text()
+                    logger.error(f"❌ Error enviando mensaje: {response.status} - {text}")
+                    return False
+                
+    except Exception as e:
+        logger.error(f"❌ Excepción al enviar mensaje async: {str(e)}")
+        return False
 
-async def process_and_send(phone_number, user_message):
+async def process_and_send(phone_number, user_message, message_id=None):
     """Procesar y enviar respuesta ⭐ ACTUALIZADO"""
     try:
         bot_response = await process_message_async(user_message, phone_number)
@@ -816,10 +850,17 @@ async def process_and_send(phone_number, user_message):
         # ⭐ NUEVO: Si la respuesta está vacía, ya se envió un formato
         if not bot_response or bot_response.strip() == "":
             logger.info(f"✅ Formato enviado directamente a {phone_number}")
+            # Marcar como leído aunque no se envíe texto
+            if message_id:
+                await whatsapp_client.mark_message_as_read(message_id)
             return
         
-        # Enviar respuesta normal
-        success = whatsapp_client.send_text(phone_number, bot_response)
+        # Enviar respuesta normal (DEBE SER ASYNC)
+        success = await whatsapp_client.send_text_async(phone_number, bot_response)
+        
+        # Marcar como leído después de enviar
+        if message_id:
+            await whatsapp_client.mark_message_as_read(message_id)
         
         if success:
             logger.info(f"✅ Enviado a {phone_number}")
@@ -827,8 +868,7 @@ async def process_and_send(phone_number, user_message):
             logger.error(f"❌ Error enviando a {phone_number}")
             
     except Exception as e:
-        logger.error(f"Error en process_and_send: {e}", exc_info=True)
-
+        logger.error(f"❌ Error en process_and_send: {e}", exc_info=True)
 
 # ============================================================================
 # MAIN

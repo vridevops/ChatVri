@@ -365,7 +365,36 @@ async def send_media_url(self, phone: str, media_url: str, caption: str = "") ->
         logger.error(f"Error en send_media_url: {e}")
         return False
 
-
+async def mark_message_as_read(self, message_id: str) -> bool:
+    """
+    Marcar mensaje como leído en la API
+    
+    Args:
+        message_id: ID del mensaje
+        
+    Returns:
+        True si se marcó correctamente
+    """
+    try:
+        url = f"{self.api_url}/api/whatsapp/messages/{message_id}/read"
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post(
+                url,
+                headers=self._get_headers(),
+                timeout=aiohttp.ClientTimeout(total=10)
+            ) as response:
+                if response.status == 200:
+                    logger.debug(f"✅ Mensaje {message_id} marcado como leído")
+                    return True
+                else:
+                    logger.warning(f"⚠️ No se pudo marcar como leído: {response.status}")
+                    return False
+                
+    except Exception as e:
+        logger.error(f"❌ Error marcando como leído: {str(e)}")
+        return False
+    
 def extract_phone_number(phone) -> str:
     """
     Extrae y formatea un número de teléfono al formato internacional

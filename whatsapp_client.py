@@ -117,6 +117,42 @@ class WhatsAppAPIClient:
         except Exception as e:
             logger.error(f"❌ Error enviando: {str(e)}")
             return False
+    async def send_message(self, to: str, message: str) -> bool:
+        """
+        Alias de send_text_async para compatibilidad
+        """
+        return await self.send_text_async(to, message)
+
+
+    async def mark_message_as_read(self, message_id: str) -> bool:
+        """
+        Marcar mensaje como leído
+        NOTA: Si tu API no soporta esto, simplemente retorna True
+        """
+        try:
+            # Intentar marcar como leído en la API
+            url = f"{self.api_url}/api/whatsapp/messages/{message_id}/read"
+            
+            async with aiohttp.ClientSession() as session:
+                async with session.post(
+                    url,
+                    headers=self._get_headers(),
+                    timeout=aiohttp.ClientTimeout(total=5)
+                ) as response:
+                    if response.status == 200:
+                        logger.debug(f"✅ Mensaje {message_id} marcado como leído")
+                        return True
+                    elif response.status == 404:
+                        # Si el endpoint no existe, solo loggear y continuar
+                        logger.debug(f"⚠️ Endpoint de marcar como leído no disponible")
+                        return True
+                    else:
+                        logger.warning(f"⚠️ Error marcando como leído: {response.status}")
+                        return True  # No bloquear el flujo
+                    
+        except Exception as e:
+            logger.debug(f"⚠️ No se pudo marcar como leído (no crítico): {str(e)}")
+            return True  # No es crítico, continuar
 
 
     async def send_text_async(self, to: str, message: str) -> bool:

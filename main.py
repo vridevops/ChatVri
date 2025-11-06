@@ -181,20 +181,27 @@ async def get_conversation_history_async(phone):
 # BÚSQUEDA Y ENVÍO DE FORMATOS ⭐ NUEVO
 # ============================================================================
 
-async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> bool:
+async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool, bool]:
     """
     Detectar si el usuario pide un formato y enviarlo
-    Retorna True si se envió un formato, False si no
+    
+    Returns:
+        (es_busqueda_formato, se_envio_exitosamente)
+        
+    Ejemplos:
+        (False, False) → No era búsqueda de formato, continuar normal
+        (True, False)  → Era búsqueda pero no se encontró/envió
+        (True, True)   → Era búsqueda y se envió exitosamente
     """
     try:
         mensaje_lower = mensaje.lower()
         
         # Palabras clave que indican búsqueda de formato
-        keywords_formato = ['formato', 'borrador', 'proyecto', 'tesis']
+        keywords_formato = ['formato', 'borrador', 'proyecto']
         
         # Verificar si menciona formato
         if not any(kw in mensaje_lower for kw in keywords_formato):
-            return False
+            return (False, False)  # No es búsqueda de formato
         
         logger.info(f"🔍 Detectada solicitud de formato: '{mensaje}'")
         
@@ -205,15 +212,23 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> bool:
         elif 'proyecto' in mensaje_lower:
             tipo = 'proyecto'
         
-        # Extraer palabras clave de búsqueda (remover palabras comunes)
+        # Extraer palabras clave de búsqueda
         stop_words = {'dame', 'el', 'de', 'formato', 'tesis', 'necesito', 'quiero', 
-                     'para', 'mi', 'proyecto', 'borrador', 'un', 'una', 'favor', 'por'}
+                     'para', 'mi', 'proyecto', 'borrador', 'un', 'una', 'favor', 'por', 'la'}
         palabras = mensaje_lower.split()
         query_words = [p for p in palabras if p not in stop_words and len(p) > 3]
         
         if not query_words:
             logger.warning("No se encontraron palabras clave específicas")
-            return False
+            await whatsapp_client.send_text_async(
+                phone_number,
+                "⚠️ No entendí qué formato necesitas.\n\n"
+                "💡 Especifica la facultad o carrera:\n"
+                "• 'formato de proyecto de estadística'\n"
+                "• 'borrador de turismo'\n"
+                "• 'proyecto de derecho'"
+            )
+            return (True, False)  # Era búsqueda pero no se procesó
         
         query = ' '.join(query_words)
         logger.info(f"   Query extraído: '{query}' (tipo: {tipo or 'cualquiera'})")
@@ -228,15 +243,15 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> bool:
         if not formato:
             # No se encontró formato
             logger.warning(f"   ❌ Formato no encontrado para: '{query}'")
-            await whatsapp_client.send_message(
+            await whatsapp_client.send_text_async(
                 phone_number,
                 f"❌ No encontré el formato que buscas.\n\n"
-                f"💡 Intenta especificar mejor, por ejemplo:\n"
+                f"💡 Intenta con:\n"
                 f"• 'formato de proyecto de estadística'\n"
                 f"• 'borrador de agronomía'\n"
                 f"• 'formato de derecho'"
             )
-            return True  # Retornar True porque SÍ era búsqueda de formato
+            return (True, False)  # Era búsqueda pero no se encontró
         
         logger.info(f"   ✅ Formato encontrado: {formato['codigo']}")
         
@@ -247,11 +262,11 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> bool:
             ) as resp:
                 if resp.status != 200:
                     logger.error(f"   ❌ Error File Server: {resp.status}")
-                    await whatsapp_client.send_message(
+                    await whatsapp_client.send_text_async(
                         phone_number,
                         "❌ Error generando el link de descarga. Intenta de nuevo."
                     )
-                    return True
+                    return (True, False)
                 
                 data = await resp.json()
                 download_url = data['url']
@@ -259,11 +274,11 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> bool:
         
         except Exception as e:
             logger.error(f"   ❌ Error conectando File Server: {e}")
-            await whatsapp_client.send_message(
+            await whatsapp_client.send_text_async(
                 phone_number,
                 "❌ Error generando el link de descarga. Intenta de nuevo."
             )
-            return True
+            return (True, False)
         
         # Construir mensaje
         escuela = formato['escuela']
@@ -275,7 +290,7 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> bool:
             lugar = facultad
         
         caption = (
-            f"📄 *{formato['titulo']}*\n\n"
+            f"📄 {formato['titulo']}\n\n"
             f"📍 {lugar}\n"
             f"📝 Tipo: {formato['tipo'].title()}\n"
             f"📦 Tamaño: {formato['file_size_kb']} KB\n\n"
@@ -298,18 +313,18 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> bool:
                 )
             
             logger.info(f"✅ Formato enviado: {formato['codigo']} → {phone_number}")
+            return (True, True)  # Búsqueda exitosa y enviado
         else:
             logger.error(f"   ❌ Error enviando archivo por WhatsApp")
-            await whatsapp_client.send_message(
+            await whatsapp_client.send_text_async(
                 phone_number,
                 "❌ Hubo un error al enviar el formato. Por favor intenta de nuevo."
             )
-        
-        return True
+            return (True, False)  # Era búsqueda pero falló el envío
         
     except Exception as e:
         logger.error(f"Error en buscar_y_enviar_formato: {e}", exc_info=True)
-        return False
+        return (False, False)  # Error crítico, continuar con flujo normal
 
 # ============================================================================
 # KNOWLEDGE BASE
@@ -543,13 +558,16 @@ NO respondas con texto. El sistema ya le enviará automáticamente el archivo PD
 
 🎯 **INFORMACIÓN QUE MANEJAS:**
 - Coordinadores por facultad (contactos exactos)
+- Formatos de tesis en formato PDF (borrador/proyecto)
 - Líneas y sublíneas de investigación  
+- Manual de uso de la Plataforma para el tesista
 - Procesos de tesis y reglamentos
 - Preguntas frecuentes
 
 🔍 **INSTRUCCIONES ESPECÍFICAS:**
 1. Cuando el usuario pregunte por una facultad, proporciona TODA la información relevante del contexto
-2. Si hay información de contacto Y líneas de investigación, incluye ambas
+2. Si hay información de contacto da todo lo que tengas de esa facultad
+3. sobre las líneas de investigación, incluye todas las sublíneas disponibles
 3. Sé específico con los datos: nombres exactos, emails, teléfonos, líneas de investigación
 4. Usa emojis relevantes para hacer la información más clara
 5. Si el contexto tiene la información, NO digas que no la tienes
@@ -568,7 +586,6 @@ CONTEXTO DISPONIBLE:
 {context}
 
 PREGUNTA: {user_query}
-
 Proporciona una respuesta COMPLETA con toda la información relevante del contexto:'''
 
 
@@ -583,6 +600,7 @@ async def generate_response_async(user_message, context_docs=[], history="", is_
             "• Líneas y sublíneas de investigación\n"
             "• Procesos de tesis y reglamentos\n"
             "• Formatos de tesis (borrador/proyecto)\n"
+            "• Manual de uso de la plataforma para el tesista\n"
             "• Preguntas frecuentes sobre PGI\n\n"
             "💡 *Comandos útiles:*\n"
             "/ayuda - Ver esta información\n"
@@ -685,17 +703,29 @@ async def process_message_async(user_message, phone_number):
     async with semaphore:
         start_time = time.time()
         
-        # ⭐ NUEVO: Verificar si pide un formato PRIMERO
+        # ⭐ PRIORIDAD 1: Verificar si pide un formato
         if FORMATOS_ENABLED:
             try:
-                formato_enviado = await buscar_y_enviar_formato(user_message, phone_number)
-                if formato_enviado:
-                    logger.info(f"📄 Formato procesado para {phone_number}")
-                    return ""  # Retornar vacío para indicar que ya se manejó
+                es_formato, enviado = await buscar_y_enviar_formato(user_message, phone_number)
+                
+                if es_formato:
+                    if enviado:
+                        # ✅ Formato enviado exitosamente
+                        logger.info(f"📄 Formato enviado a {phone_number}")
+                        return ""  # No enviar respuesta adicional
+                    else:
+                        # ❌ Era búsqueda de formato pero falló
+                        # Ya se envió mensaje de error dentro de buscar_y_enviar_formato
+                        logger.info(f"⚠️ Búsqueda de formato sin éxito para {phone_number}")
+                        return ""  # No continuar con búsqueda normal
+                
+                # Si no es formato (False, False), continuar con flujo normal
+                
             except Exception as e:
                 logger.error(f"Error en búsqueda de formatos: {e}")
-                # Continuar con flujo normal si falla
+                # Si hay error, continuar con flujo normal
         
+        # PRIORIDAD 2: Procesamiento normal del mensaje
         user_message = user_message.strip()
         
         user_last_activity[phone_number] = datetime.now()

@@ -204,7 +204,7 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
         elif 'proyecto' in mensaje_lower:
             tipo = 'proyecto'
         
-        # Extraer palabras clave - MEJORADO
+        # Extraer palabras clave
         stop_words = {
             'dame', 'el', 'de', 'formato', 'tesis', 'necesito', 
             'quiero', 'para', 'mi', 'un', 'una', 'favor', 'por', 'del'
@@ -214,23 +214,69 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
         query_words = [p for p in palabras if p not in stop_words and len(p) > 2]
         
         if not query_words:
-            logger.warning("No se encontraron palabras clave específicas")
             await whatsapp_client.send_text_async(
                 phone_number,
                 "⚠️ No entendí qué formato necesitas.\n\n"
                 "💡 Especifica la facultad o carrera:\n"
-                "• 'formato de proyecto de estadística'\n"
+                "• 'proyecto de estadística'\n"
                 "• 'borrador de turismo'\n"
-                "• 'proyecto de educación inicial'"
+                "• 'formato de derecho'"
             )
             return (True, False)
         
-        logger.info(f"   Palabras clave extraídas: {query_words}")
-        logger.info(f"   Tipo: {tipo or 'cualquiera'}")
+        query_text = ' '.join(query_words)
+        logger.info(f"   Query: '{query_text}' | Tipo: {tipo or 'cualquiera'}")
         
-        # BÚSQUEDA MEJORADA - Primera pasada SIN filtro de tipo
+        # ===== PASO 1: BÚSQUEDA EXACTA EN ESCUELAS =====
         async with db_pool.acquire() as conn:
-            # Construir condiciones dinámicas
+            # Primero intentar match exacto en escuela_profesional
+            sql_exacta = """
+                SELECT *, 100 as relevancia
+                FROM formatos_tesis
+                WHERE activo = true
+                AND escuela_profesional IS NOT NULL
+                AND ($2::text IS NULL OR tipo = $2)
+                AND (
+                    similarity(LOWER(escuela_profesional), LOWER($1)) > 0.5
+                    OR LOWER(escuela_profesional) LIKE '%' || LOWER($1) || '%'
+                )
+                ORDER BY 
+                    similarity(LOWER(escuela_profesional), LOWER($1)) DESC,
+                    tipo DESC
+                LIMIT 2
+            """
+            
+            formatos_exactos = await conn.fetch(sql_exacta, query_text, tipo)
+            
+            if formatos_exactos:
+                logger.info(f"   ✅ Match exacto en escuela: {len(formatos_exactos)} resultados")
+                
+                # Si encontró exactamente 1, enviarlo directamente
+                if len(formatos_exactos) == 1:
+                    formato = formatos_exactos[0]
+                    logger.info(f"   🎯 Enviando directamente: {formato['codigo']}")
+                    # Ir directo a enviar (saltar verificación de múltiples)
+                    return await enviar_formato_directo(formato, phone_number, mensaje, conn)
+                
+                # Si son 2 y son borrador/proyecto de la misma escuela
+                if len(formatos_exactos) == 2:
+                    if formatos_exactos[0]['escuela_profesional'] == formatos_exactos[1]['escuela_profesional']:
+                        # Misma escuela, diferentes tipos - preguntar cuál quiere
+                        escuela = formatos_exactos[0]['escuela_profesional']
+                        tipos_disponibles = [f['tipo'] for f in formatos_exactos]
+                        
+                        mensaje = f"📚 *{escuela.title()}* tiene ambos formatos disponibles.\n\n"
+                        mensaje += "¿Cuál necesitas?\n\n"
+                        for t in tipos_disponibles:
+                            mensaje += f"• {t.title()}\n"
+                        mensaje += f"\n💡 Ejemplo: '{tipos_disponibles[0]} de {escuela.lower()}'"
+                        
+                        await whatsapp_client.send_text_async(phone_number, mensaje)
+                        return (True, False)
+        
+        # ===== PASO 2: BÚSQUEDA AMPLIA (si no hubo match exacto) =====
+        async with db_pool.acquire() as conn:
+            # Búsqueda por palabras individuales
             sql_parts = []
             for word in query_words:
                 sql_parts.append(f"""(
@@ -244,25 +290,22 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
             
             condicion_busqueda = " OR ".join(sql_parts)
             
-            # Primera búsqueda: Ver cuántos resultados hay SIN filtrar por tipo
+            # Contar resultados únicos por facultad
             query_sql_count = f"""
-                SELECT COUNT(DISTINCT COALESCE(escuela_profesional, facultad)) as total
+                SELECT COUNT(DISTINCT facultad) as total_facultades,
+                       COUNT(DISTINCT escuela_profesional) as total_escuelas
                 FROM formatos_tesis
                 WHERE activo = true
                 AND ({condicion_busqueda})
             """
             
-            count_result = await conn.fetchval(query_sql_count)
-            logger.info(f"   Total de escuelas/facultades que coinciden: {count_result}")
+            count_result = await conn.fetchrow(query_sql_count)
+            logger.info(f"   Facultades: {count_result['total_facultades']}, Escuelas: {count_result['total_escuelas']}")
             
-            # Si hay múltiples, NO filtrar por tipo aún (para mostrar todas las opciones)
+            # Aplicar filtro de tipo solo si es única la opción
             filtro_tipo = ""
-            if count_result <= 1 and tipo:
-                # Solo hay una opción, sí filtrar por tipo
+            if count_result['total_escuelas'] <= 1 and tipo:
                 filtro_tipo = f"AND tipo = '{tipo}'"
-                logger.info(f"   Aplicando filtro de tipo: {tipo}")
-            elif count_result > 1:
-                logger.info(f"   Múltiples opciones detectadas, mostrando todas")
             
             query_sql = f"""
                 SELECT *, 
@@ -278,125 +321,77 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
                 ORDER BY 
                     relevancia DESC,
                     CASE WHEN escuela_profesional IS NOT NULL THEN 1 ELSE 2 END,
-                    tipo DESC  -- Priorizar 'proyecto' sobre 'borrador'
+                    tipo DESC
                 LIMIT 20
             """
             
-            logger.info(f"   Ejecutando búsqueda...")
             formatos = await conn.fetch(query_sql)
-            logger.info(f"   Encontrados: {len(formatos)} resultados")
+            logger.info(f"   Búsqueda amplia: {len(formatos)} resultados")
         
         if not formatos:
-            # No se encontró ningún formato
-            logger.warning(f"   ❌ Formato no encontrado para palabras: {query_words}")
-            
-            # Buscar formatos similares para sugerencias
-            async with db_pool.acquire() as conn:
-                sugerencias = await conn.fetch(
-                    """
-                    SELECT DISTINCT
-                        COALESCE(escuela_profesional, facultad) as nombre,
-                        tipo
-                    FROM formatos_tesis
-                    WHERE activo = true
-                    ORDER BY RANDOM()
-                    LIMIT 5
-                    """
-                )
-            
-            mensaje_sugerencias = "❌ No encontré el formato que buscas.\n\n💡 Intenta con:\n"
-            for sug in sugerencias[:3]:
-                mensaje_sugerencias += f"• '{sug['tipo']} de {sug['nombre'].lower()}'\n"
-            
-            await whatsapp_client.send_text_async(phone_number, mensaje_sugerencias)
+            # No encontró nada
+            await whatsapp_client.send_text_async(
+                phone_number,
+                "❌ No encontré el formato que buscas.\n\n"
+                "💡 Intenta ser más específico:\n"
+                "• 'proyecto de estadística'\n"
+                "• 'borrador de derecho'\n"
+                "• 'formato de turismo'"
+            )
             return (True, False)
         
-        # Log de resultados para debug
-        for i, f in enumerate(formatos[:3]):
-            logger.info(f"   Match {i+1}: {f['codigo']} (relevancia: {f.get('relevancia', 0)})")
-        
-        # Si hay múltiples resultados de la MISMA facultad pero diferentes escuelas
+        # Si hay múltiples de la MISMA facultad, mostrar opciones
         if len(formatos) > 1:
             facultad_principal = formatos[0]['facultad']
             formatos_misma_facultad = [f for f in formatos if f['facultad'] == facultad_principal]
             
             if len(formatos_misma_facultad) > 1:
-                escuelas_con_formato = [f['escuela_profesional'] for f in formatos_misma_facultad if f['escuela_profesional']]
-                
-                if len(escuelas_con_formato) > 1:
-                    # Hay múltiples escuelas, pedir aclaración
-                    logger.info(f"   ⚠️ Múltiples escuelas en {facultad_principal}")
-                    
-                    # NUEVO: Buscar TODAS las escuelas de esta facultad (no solo las que coinciden con el tipo)
-                    async with db_pool.acquire() as conn:
-                        todas_escuelas = await conn.fetch(
-                            """
-                            SELECT DISTINCT escuela_profesional, tipo
-                            FROM formatos_tesis
-                            WHERE activo = true
-                            AND facultad = $1
-                            AND escuela_profesional IS NOT NULL
-                            ORDER BY escuela_profesional, tipo
-                            """,
-                            facultad_principal
-                        )
-                    
-                    # Agrupar por escuela
-                    escuelas_dict = {}
-                    for row in todas_escuelas:
-                        escuela = row['escuela_profesional']
-                        tipo_formato = row['tipo']
-                        
+                escuelas_dict = {}
+                for f in formatos_misma_facultad:
+                    if f['escuela_profesional']:
+                        escuela = f['escuela_profesional']
                         if escuela not in escuelas_dict:
                             escuelas_dict[escuela] = []
-                        escuelas_dict[escuela].append(tipo_formato)
-                    
-                    # Construir mensaje
-                    tipo_solicitado = tipo or "formato"
+                        if f['tipo'] not in escuelas_dict[escuela]:
+                            escuelas_dict[escuela].append(f['tipo'])
+                
+                if len(escuelas_dict) > 1:
+                    # Múltiples escuelas, pedir aclaración
                     mensaje = f"📚 La facultad de *{facultad_principal.title()}* tiene varias escuelas.\n\n"
                     mensaje += "¿Cuál necesitas?\n\n"
                     
                     for escuela in sorted(escuelas_dict.keys()):
-                        tipos_disponibles = escuelas_dict[escuela]
-                        # Si solicitó un tipo específico y esta escuela no lo tiene, agregar nota
-                        if tipo and tipo not in tipos_disponibles:
-                            mensaje += f"• {escuela.title()} ⚠️ (solo {', '.join(tipos_disponibles)})\n"
-                        else:
-                            mensaje += f"• {escuela.title()}\n"
+                        mensaje += f"• {escuela.title()}\n"
                     
-                    mensaje += f"\n💡 Ejemplo: '{tipo_solicitado} de {sorted(escuelas_dict.keys())[0].lower()}'"
+                    mensaje += f"\n💡 Especifica: 'formato de {sorted(escuelas_dict.keys())[0].lower()}'"
                     
                     await whatsapp_client.send_text_async(phone_number, mensaje)
                     return (True, False)
         
-        # Tomar el primer formato (más relevante)
+        # Enviar el primer resultado
         formato = formatos[0]
-        logger.info(f"   ✅ Seleccionado: {formato['codigo']}")
+        return await enviar_formato_directo(formato, phone_number, mensaje, conn)
+        
+    except Exception as e:
+        logger.error(f"Error: {e}", exc_info=True)
+        return (False, False)
+
+
+async def enviar_formato_directo(formato: dict, phone_number: str, mensaje: str, conn) -> tuple[bool, bool]:
+    """Función auxiliar para enviar un formato directamente"""
+    try:
+        logger.info(f"   📤 Enviando: {formato['codigo']}")
         
         # Crear URL temporal
-        try:
-            async with http_session.post(
-                f"{FILE_SERVER_URL}/api/temp-url/{formato['id']}"
-            ) as resp:
-                if resp.status != 200:
-                    logger.error(f"   ❌ Error File Server: {resp.status}")
-                    await whatsapp_client.send_text_async(
-                        phone_number,
-                        "❌ Error generando el link. Intenta de nuevo."
-                    )
-                    return (True, False)
-                
-                data = await resp.json()
-                download_url = data['url']
-                logger.info(f"   📎 URL creada")
-        
-        except Exception as e:
-            logger.error(f"   ❌ Error File Server: {e}")
-            await whatsapp_client.send_text_async(
-                phone_number,
-                "❌ Error generando el link. Intenta de nuevo."
-            )
-            return (True, False)
+        async with http_session.post(
+            f"{FILE_SERVER_URL}/api/temp-url/{formato['id']}"
+        ) as resp:
+            if resp.status != 200:
+                await whatsapp_client.send_text_async(phone_number, "❌ Error generando link.")
+                return (True, False)
+            
+            data = await resp.json()
+            download_url = data['url']
         
         # Construir caption
         escuela = formato['escuela_profesional']
@@ -415,7 +410,7 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
             f"⚡ Link válido por 5 minutos"
         )
         
-        # Enviar archivo
+        # Enviar
         success = await whatsapp_client.send_media_async(
             to=phone_number,
             media_url=download_url,
@@ -423,28 +418,18 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
         )
         
         if success:
-            # Registrar envío
-            async with db_pool.acquire() as conn:
-                await conn.execute(
-                    "SELECT registrar_envio($1, $2, $3)",
-                    formato['id'], phone_number, mensaje
-                )
-            
-            logger.info(f"✅ Enviado: {formato['codigo']} → {phone_number}")
-            return (True, True)
-        else:
-            logger.error(f"   ❌ Error enviando por WhatsApp")
-            await whatsapp_client.send_text_async(
-                phone_number,
-                "❌ Error al enviar el formato. Intenta de nuevo."
+            await conn.execute(
+                "SELECT registrar_envio($1, $2, $3)",
+                formato['id'], phone_number, mensaje
             )
-            return (True, False)
+            logger.info(f"✅ Enviado a {phone_number}")
+            return (True, True)
+        
+        return (True, False)
         
     except Exception as e:
-        logger.error(f"Error en buscar_y_enviar_formato: {e}", exc_info=True)
-        import traceback
-        logger.error(traceback.format_exc())
-        return (False, False)
+        logger.error(f"Error enviando: {e}")
+        return (True, False)
     
 # ============================================================================
 # KNOWLEDGE BASE

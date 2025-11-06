@@ -185,9 +185,6 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
     """
     Detectar si el usuario pide un formato y enviarlo
     Maneja ambigüedad cuando hay múltiples escuelas
-    
-    Returns:
-        (es_busqueda_formato, se_envio_exitosamente)
     """
     try:
         mensaje_lower = mensaje.lower()
@@ -195,7 +192,6 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
         # Palabras clave que indican búsqueda de formato
         keywords_formato = ['formato', 'borrador', 'proyecto', 'plantilla', 'esquema']
         
-        # Verificar si menciona formato
         if not any(kw in mensaje_lower for kw in keywords_formato):
             return (False, False)
         
@@ -208,15 +204,14 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
         elif 'proyecto' in mensaje_lower:
             tipo = 'proyecto'
         
-        # Extraer palabras clave - MEJORADO para mantener palabras importantes
+        # Extraer palabras clave - MEJORADO
         stop_words = {
             'dame', 'el', 'de', 'formato', 'tesis', 'necesito', 
-            'quiero', 'para', 'mi', 'un', 'una', 'favor', 'por'
+            'quiero', 'para', 'mi', 'un', 'una', 'favor', 'por', 'del'
         }
-        # NO eliminar: la, los, las (importantes para facultades)
         
         palabras = mensaje_lower.split()
-        query_words = [p for p in palabras if p not in stop_words]
+        query_words = [p for p in palabras if p not in stop_words and len(p) > 2]
         
         if not query_words:
             logger.warning("No se encontraron palabras clave específicas")
@@ -230,42 +225,50 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
             )
             return (True, False)
         
-        query = ' '.join(query_words)
-        logger.info(f"   Query extraído: '{query}' (tipo: {tipo or 'cualquiera'})")
+        logger.info(f"   Palabras clave extraídas: {query_words}")
+        logger.info(f"   Tipo: {tipo or 'cualquiera'}")
         
-        # BÚSQUEDA MEJORADA: Primero buscar todos los matches
+        # BÚSQUEDA MEJORADA - Busca palabra por palabra
         async with db_pool.acquire() as conn:
-            # Buscar todos los formatos que coincidan
-            formatos = await conn.fetch(
-                """
-                SELECT * FROM formatos_tesis
-                WHERE activo = true
-                AND ($2::text IS NULL OR tipo = $2)
-                AND (
-                    LOWER(facultad) LIKE '%' || LOWER($1) || '%'
-                    OR LOWER(escuela_profesional) LIKE '%' || LOWER($1) || '%'
+            # Construir condiciones dinámicas para cada palabra
+            sql_parts = []
+            for word in query_words:
+                sql_parts.append(f"""(
+                    LOWER(facultad) LIKE '%{word}%'
+                    OR LOWER(COALESCE(escuela_profesional, '')) LIKE '%{word}%'
                     OR EXISTS (
                         SELECT 1 FROM unnest(keywords) kw 
-                        WHERE LOWER(kw) LIKE '%' || LOWER($1) || '%'
+                        WHERE LOWER(kw) LIKE '%{word}%'
                     )
-                )
+                )""")
+            
+            condicion_busqueda = " OR ".join(sql_parts)
+            
+            query_sql = f"""
+                SELECT *, 
+                    -- Puntaje de relevancia
+                    (
+                        CASE WHEN LOWER(escuela_profesional) LIKE '%{query_words[0]}%' THEN 100 ELSE 0 END +
+                        CASE WHEN LOWER(facultad) LIKE '%{query_words[0]}%' THEN 50 ELSE 0 END +
+                        (SELECT COUNT(*) FROM unnest(keywords) kw WHERE LOWER(kw) LIKE '%{query_words[0]}%') * 25
+                    ) as relevancia
+                FROM formatos_tesis
+                WHERE activo = true
+                AND ($1::text IS NULL OR tipo = $1)
+                AND ({condicion_busqueda})
                 ORDER BY 
-                    CASE 
-                        WHEN escuela_profesional IS NOT NULL THEN 1
-                        ELSE 2
-                    END,
-                    CASE
-                        WHEN LOWER(escuela_profesional) LIKE '%' || LOWER($1) || '%' THEN 1
-                        WHEN LOWER(facultad) LIKE '%' || LOWER($1) || '%' THEN 2
-                        ELSE 3
-                    END
-                """,
-                query, tipo
-            )
+                    relevancia DESC,
+                    CASE WHEN escuela_profesional IS NOT NULL THEN 1 ELSE 2 END
+                LIMIT 10
+            """
+            
+            logger.info(f"   Ejecutando búsqueda SQL...")
+            formatos = await conn.fetch(query_sql, tipo)
+            logger.info(f"   Encontrados: {len(formatos)} resultados")
         
         if not formatos:
             # No se encontró ningún formato
-            logger.warning(f"   ❌ Formato no encontrado para: '{query}'")
+            logger.warning(f"   ❌ Formato no encontrado para palabras: {query_words}")
             
             # Buscar formatos similares para sugerencias
             async with db_pool.acquire() as conn:
@@ -276,47 +279,51 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
                         tipo
                     FROM formatos_tesis
                     WHERE activo = true
+                    ORDER BY RANDOM()
                     LIMIT 5
                     """
                 )
             
-            mensaje_sugerencias = "❌ No encontré el formato que buscas.\n\n💡 Formatos disponibles:\n"
+            mensaje_sugerencias = "❌ No encontré el formato que buscas.\n\n💡 Intenta con:\n"
             for sug in sugerencias[:3]:
                 mensaje_sugerencias += f"• '{sug['tipo']} de {sug['nombre'].lower()}'\n"
             
             await whatsapp_client.send_text_async(phone_number, mensaje_sugerencias)
             return (True, False)
         
+        # Log de resultados para debug
+        for i, f in enumerate(formatos[:3]):
+            logger.info(f"   Match {i+1}: {f['codigo']} (relevancia: {f.get('relevancia', 0)})")
+        
         # Si hay múltiples resultados de la MISMA facultad pero diferentes escuelas
         if len(formatos) > 1:
             facultad_principal = formatos[0]['facultad']
-            todas_misma_facultad = all(f['facultad'] == facultad_principal for f in formatos)
+            formatos_misma_facultad = [f for f in formatos if f['facultad'] == facultad_principal]
             
-            if todas_misma_facultad and any(f['escuela_profesional'] for f in formatos):
-                # Hay múltiples escuelas profesionales, pedir aclaración
-                logger.info(f"   ⚠️ Múltiples escuelas encontradas en {facultad_principal}")
+            if len(formatos_misma_facultad) > 1:
+                escuelas = [f['escuela_profesional'] for f in formatos_misma_facultad if f['escuela_profesional']]
                 
-                mensaje = f"📚 La facultad de *{facultad_principal}* tiene varias escuelas profesionales.\n\n"
-                mensaje += "¿A cuál te refieres?\n\n"
-                
-                escuelas_unicas = set()
-                for f in formatos:
-                    if f['escuela_profesional']:
-                        escuelas_unicas.add(f['escuela_profesional'])
-                
-                for escuela in sorted(escuelas_unicas):
-                    mensaje += f"• {escuela}\n"
-                
-                mensaje += f"\n💡 Ejemplo: 'formato de proyecto de educación inicial'"
-                
-                await whatsapp_client.send_text_async(phone_number, mensaje)
-                return (True, False)
+                if len(escuelas) > 1:
+                    # Hay múltiples escuelas, pedir aclaración
+                    logger.info(f"   ⚠️ Múltiples escuelas en {facultad_principal}")
+                    
+                    mensaje = f"📚 La facultad de *{facultad_principal}* tiene varias escuelas.\n\n"
+                    mensaje += "¿Cuál necesitas?\n\n"
+                    
+                    escuelas_unicas = sorted(set(escuelas))
+                    for escuela in escuelas_unicas:
+                        mensaje += f"• {escuela.title()}\n"
+                    
+                    mensaje += f"\n💡 Ejemplo: '{tipo or 'formato'} de {escuelas_unicas[0].lower()}'"
+                    
+                    await whatsapp_client.send_text_async(phone_number, mensaje)
+                    return (True, False)
         
-        # Tomar el primer formato (más específico según ORDER BY)
+        # Tomar el primer formato (más relevante)
         formato = formatos[0]
-        logger.info(f"   ✅ Formato encontrado: {formato['codigo']}")
+        logger.info(f"   ✅ Seleccionado: {formato['codigo']}")
         
-        # Crear URL temporal en File Server
+        # Crear URL temporal
         try:
             async with http_session.post(
                 f"{FILE_SERVER_URL}/api/temp-url/{formato['id']}"
@@ -325,30 +332,30 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
                     logger.error(f"   ❌ Error File Server: {resp.status}")
                     await whatsapp_client.send_text_async(
                         phone_number,
-                        "❌ Error generando el link de descarga. Intenta de nuevo."
+                        "❌ Error generando el link. Intenta de nuevo."
                     )
                     return (True, False)
                 
                 data = await resp.json()
                 download_url = data['url']
-                logger.info(f"   📎 URL temporal creada: {download_url[:50]}...")
+                logger.info(f"   📎 URL creada")
         
         except Exception as e:
-            logger.error(f"   ❌ Error conectando File Server: {e}")
+            logger.error(f"   ❌ Error File Server: {e}")
             await whatsapp_client.send_text_async(
                 phone_number,
-                "❌ Error generando el link de descarga. Intenta de nuevo."
+                "❌ Error generando el link. Intenta de nuevo."
             )
             return (True, False)
         
-        # Construir mensaje
+        # Construir caption
         escuela = formato['escuela_profesional']
         facultad = formato['facultad']
         
         if escuela:
-            lugar = f"{escuela}\n📚 {facultad}"
+            lugar = f"{escuela.title()}\n📚 {facultad.title()}"
         else:
-            lugar = facultad
+            lugar = facultad.title()
         
         caption = (
             f"📄 {formato['titulo']}\n\n"
@@ -358,7 +365,7 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
             f"⚡ Link válido por 5 minutos"
         )
         
-        # Enviar archivo por WhatsApp
+        # Enviar archivo
         success = await whatsapp_client.send_media_async(
             to=phone_number,
             media_url=download_url,
@@ -366,25 +373,27 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
         )
         
         if success:
-            # Registrar envío en base de datos
+            # Registrar envío
             async with db_pool.acquire() as conn:
                 await conn.execute(
                     "SELECT registrar_envio($1, $2, $3)",
                     formato['id'], phone_number, mensaje
                 )
             
-            logger.info(f"✅ Formato enviado: {formato['codigo']} → {phone_number}")
+            logger.info(f"✅ Enviado: {formato['codigo']} → {phone_number}")
             return (True, True)
         else:
-            logger.error(f"   ❌ Error enviando archivo por WhatsApp")
+            logger.error(f"   ❌ Error enviando por WhatsApp")
             await whatsapp_client.send_text_async(
                 phone_number,
-                "❌ Hubo un error al enviar el formato. Por favor intenta de nuevo."
+                "❌ Error al enviar el formato. Intenta de nuevo."
             )
             return (True, False)
         
     except Exception as e:
         logger.error(f"Error en buscar_y_enviar_formato: {e}", exc_info=True)
+        import traceback
+        logger.error(traceback.format_exc())
         return (False, False)
     
 # ============================================================================

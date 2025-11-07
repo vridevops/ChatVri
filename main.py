@@ -183,31 +183,69 @@ async def get_conversation_history_async(phone):
 
 async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool, bool]:
     """
-    Detectar si el usuario pide un formato y enviarlo
-    Maneja ambigüedad cuando hay múltiples escuelas
+    Detectar si el usuario pide un FORMATO DE ARCHIVO y enviarlo
+    Solo detecta cuando pide explícitamente el archivo/documento
+    Evita confusión con preguntas sobre procesos
+    
+    Returns:
+        (es_busqueda_formato, se_envio_exitosamente)
     """
     try:
         mensaje_lower = mensaje.lower()
         
-        # Palabras clave que indican búsqueda de formato
-        keywords_formato = ['formato', 'borrador', 'proyecto', 'plantilla', 'esquema']
+        # ===== PASO 0: DETECTAR SI ES PREGUNTA (NO FORMATO) =====
+        keywords_pregunta = [
+            'cuales son', 'cuáles son', 'que son', 'qué son',
+            'como es', 'cómo es', 'cual es', 'cuál es',
+            'pasos', 'proceso', 'etapas', 'requisitos',
+            'cuando', 'cuándo', 'donde', 'dónde',
+            'explicame', 'explícame', 'cuentame', 'cuéntame',
+            'como se', 'cómo se', 'que debo', 'qué debo',
+            'tengo que', 'necesito saber'
+        ]
         
-        if not any(kw in mensaje_lower for kw in keywords_formato):
+        # Si es una PREGUNTA, NO es solicitud de formato
+        es_pregunta = any(kw in mensaje_lower for kw in keywords_pregunta)
+        if es_pregunta:
+            logger.info(f"❌ Es pregunta, no solicitud de formato: '{mensaje}'")
             return (False, False)
         
-        logger.info(f"🔍 Detectada solicitud de formato: '{mensaje}'")
+        # ===== PASO 1: VERIFICAR SI PIDE FORMATO =====
+        # Keywords que indican descarga de ARCHIVO
+        keywords_formato = ['formato', 'plantilla', 'esquema', 'documento']
         
-        # Detectar tipo de formato
+        # Verbos de solicitud + tipo de documento
+        verbos_solicitud = ['dame', 'necesito', 'quiero', 'envía', 'envia', 'manda', 'pasa', 'descarga']
+        tipos_documento = ['borrador', 'proyecto']
+        
+        # Verificar si menciona formato explícitamente
+        menciona_formato = any(kw in mensaje_lower for kw in keywords_formato)
+        
+        # O si solicita un tipo de documento específico
+        solicita_documento = (
+            any(verbo in mensaje_lower for verbo in verbos_solicitud)
+            and any(tipo in mensaje_lower for tipo in tipos_documento)
+        )
+        
+        if not (menciona_formato or solicita_documento):
+            logger.info(f"❌ No es solicitud de formato: '{mensaje}'")
+            return (False, False)
+        
+        logger.info(f"🔍 Detectada solicitud de FORMATO: '{mensaje}'")
+        
+        # ===== PASO 2: DETECTAR TIPO DE FORMATO =====
         tipo = None
         if 'borrador' in mensaje_lower:
             tipo = 'borrador'
         elif 'proyecto' in mensaje_lower:
             tipo = 'proyecto'
         
-        # Extraer palabras clave
+        # ===== PASO 3: EXTRAER PALABRAS CLAVE =====
         stop_words = {
             'dame', 'el', 'de', 'formato', 'tesis', 'necesito', 
-            'quiero', 'para', 'mi', 'un', 'una', 'favor', 'por', 'del'
+            'quiero', 'para', 'mi', 'un', 'una', 'favor', 'por', 'del',
+            'la', 'los', 'las', 'plantilla', 'documento', 'esquema',
+            'envía', 'envia', 'manda', 'pasa', 'descarga'
         }
         
         palabras = mensaje_lower.split()
@@ -218,18 +256,18 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
                 phone_number,
                 "⚠️ No entendí qué formato necesitas.\n\n"
                 "💡 Especifica la facultad o carrera:\n"
-                "• 'proyecto de estadística'\n"
+                "• 'formato de proyecto de estadística'\n"
                 "• 'borrador de turismo'\n"
-                "• 'formato de derecho'"
+                "• 'proyecto de derecho'"
             )
             return (True, False)
         
         query_text = ' '.join(query_words)
         logger.info(f"   Query: '{query_text}' | Tipo: {tipo or 'cualquiera'}")
         
-        # ===== PASO 1: BÚSQUEDA EXACTA EN ESCUELAS =====
+        # ===== PASO 4: BÚSQUEDA EXACTA EN ESCUELAS =====
         async with db_pool.acquire() as conn:
-            # Primero intentar match exacto en escuela_profesional
+            # Intentar match exacto en escuela_profesional
             sql_exacta = """
                 SELECT *, 100 as relevancia
                 FROM formatos_tesis
@@ -237,11 +275,10 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
                 AND escuela_profesional IS NOT NULL
                 AND ($2::text IS NULL OR tipo = $2)
                 AND (
-                    similarity(LOWER(escuela_profesional), LOWER($1)) > 0.5
-                    OR LOWER(escuela_profesional) LIKE '%' || LOWER($1) || '%'
+                    LOWER(escuela_profesional) LIKE '%' || LOWER($1) || '%'
                 )
                 ORDER BY 
-                    similarity(LOWER(escuela_profesional), LOWER($1)) DESC,
+                    LENGTH(escuela_profesional) ASC,
                     tipo DESC
                 LIMIT 2
             """
@@ -255,26 +292,24 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
                 if len(formatos_exactos) == 1:
                     formato = formatos_exactos[0]
                     logger.info(f"   🎯 Enviando directamente: {formato['codigo']}")
-                    # Ir directo a enviar (saltar verificación de múltiples)
                     return await enviar_formato_directo(formato, phone_number, mensaje, conn)
                 
-                # Si son 2 y son borrador/proyecto de la misma escuela
+                # Si son 2 de la misma escuela (borrador + proyecto)
                 if len(formatos_exactos) == 2:
                     if formatos_exactos[0]['escuela_profesional'] == formatos_exactos[1]['escuela_profesional']:
-                        # Misma escuela, diferentes tipos - preguntar cuál quiere
                         escuela = formatos_exactos[0]['escuela_profesional']
                         tipos_disponibles = [f['tipo'] for f in formatos_exactos]
                         
-                        mensaje = f"📚 *{escuela.title()}* tiene ambos formatos disponibles.\n\n"
-                        mensaje += "¿Cuál necesitas?\n\n"
+                        mensaje_resp = f"📚 *{escuela.title()}* tiene ambos formatos.\n\n"
+                        mensaje_resp += "¿Cuál necesitas?\n\n"
                         for t in tipos_disponibles:
-                            mensaje += f"• {t.title()}\n"
-                        mensaje += f"\n💡 Ejemplo: '{tipos_disponibles[0]} de {escuela.lower()}'"
+                            mensaje_resp += f"• {t.title()}\n"
+                        mensaje_resp += f"\n💡 Ejemplo: '{tipos_disponibles[0]} de {escuela.lower()}'"
                         
-                        await whatsapp_client.send_text_async(phone_number, mensaje)
+                        await whatsapp_client.send_text_async(phone_number, mensaje_resp)
                         return (True, False)
         
-        # ===== PASO 2: BÚSQUEDA AMPLIA (si no hubo match exacto) =====
+        # ===== PASO 5: BÚSQUEDA AMPLIA =====
         async with db_pool.acquire() as conn:
             # Búsqueda por palabras individuales
             sql_parts = []
@@ -290,7 +325,7 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
             
             condicion_busqueda = " OR ".join(sql_parts)
             
-            # Contar resultados únicos por facultad
+            # Contar resultados
             query_sql_count = f"""
                 SELECT COUNT(DISTINCT facultad) as total_facultades,
                        COUNT(DISTINCT escuela_profesional) as total_escuelas
@@ -328,8 +363,8 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
             formatos = await conn.fetch(query_sql)
             logger.info(f"   Búsqueda amplia: {len(formatos)} resultados")
         
+        # ===== PASO 6: MANEJAR RESULTADOS =====
         if not formatos:
-            # No encontró nada
             await whatsapp_client.send_text_async(
                 phone_number,
                 "❌ No encontré el formato que buscas.\n\n"
@@ -340,7 +375,7 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
             )
             return (True, False)
         
-        # Si hay múltiples de la MISMA facultad, mostrar opciones
+        # Si hay múltiples de la MISMA facultad
         if len(formatos) > 1:
             facultad_principal = formatos[0]['facultad']
             formatos_misma_facultad = [f for f in formatos if f['facultad'] == facultad_principal]
@@ -357,15 +392,15 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
                 
                 if len(escuelas_dict) > 1:
                     # Múltiples escuelas, pedir aclaración
-                    mensaje = f"📚 La facultad de *{facultad_principal.title()}* tiene varias escuelas.\n\n"
-                    mensaje += "¿Cuál necesitas?\n\n"
+                    mensaje_resp = f"📚 La facultad de *{facultad_principal.title()}* tiene varias escuelas.\n\n"
+                    mensaje_resp += "¿Cuál necesitas?\n\n"
                     
                     for escuela in sorted(escuelas_dict.keys()):
-                        mensaje += f"• {escuela.title()}\n"
+                        mensaje_resp += f"• {escuela.title()}\n"
                     
-                    mensaje += f"\n💡 Especifica: 'formato de {sorted(escuelas_dict.keys())[0].lower()}'"
+                    mensaje_resp += f"\n💡 Especifica: 'formato de {sorted(escuelas_dict.keys())[0].lower()}'"
                     
-                    await whatsapp_client.send_text_async(phone_number, mensaje)
+                    await whatsapp_client.send_text_async(phone_number, mensaje_resp)
                     return (True, False)
         
         # Enviar el primer resultado
@@ -373,72 +408,9 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
         return await enviar_formato_directo(formato, phone_number, mensaje, conn)
         
     except Exception as e:
-        logger.error(f"Error: {e}", exc_info=True)
+        logger.error(f"❌ Error en buscar_y_enviar_formato: {e}", exc_info=True)
         return (False, False)
 
-async def detectar_manual_plataforma(mensaje: str, phone_number: str) -> bool:
-    """
-    Detectar si el usuario pide el manual o ayuda de la plataforma
-    
-    Returns:
-        True si se manejó la solicitud de manual
-        False si no es solicitud de manual
-    """
-    try:
-        mensaje_lower = mensaje.lower()
-        
-        # Keywords que indican solicitud de manual/ayuda
-        keywords_manual = [
-            'manual', 'guia', 'guía', 'tutorial', 'ayuda', 
-            'como usar', 'cómo usar', 'instrucciones', 'soporte',
-            'como funciona', 'cómo funciona', 'uso de la plataforma',
-            'plataforma', 'sistema', 'portal'
-        ]
-        
-        # Keywords específicas de tesista
-        keywords_tesista = [
-            'tesista', 'estudiante', 'bachiller', 'egresado',
-            'subir', 'cargar', 'proyecto', 'borrador', 'tesis'
-        ]
-        
-        # Verificar si menciona manual/ayuda
-        menciona_manual = any(kw in mensaje_lower for kw in keywords_manual)
-        menciona_tesista = any(kw in mensaje_lower for kw in keywords_tesista)
-        
-        # Si menciona manual o ayuda relacionada con la plataforma
-        if menciona_manual or (menciona_tesista and 'ayuda' in mensaje_lower):
-            logger.info(f"🔍 Detectada solicitud de manual/soporte: '{mensaje}'")
-            
-            respuesta = (
-                "📚 *MANUAL Y SOPORTE PARA TESISTAS*\n\n"
-                "Aquí encontrarás toda la información para usar la plataforma:\n\n"
-                "🔗 *Manual completo:*\n"
-                "https://pgi.vriunap.pe/soporte-tesista-pregrado\n\n"
-                "📋 *Incluye:*\n"
-                "• Cómo registrarte en la plataforma\n"
-                "• Subir tu proyecto de tesis\n"
-                "• Cargar tu borrador\n"
-                "• Seguimiento de revisiones\n"
-                "• Preguntas frecuentes\n"
-                "• Videotutoriales paso a paso\n\n"
-                "💡 *¿Necesitas algo específico?*\n"
-                "También puedo ayudarte con:\n"
-                "• Formatos de tesis\n"
-                "• Contactos de coordinadores\n"
-                "• Líneas de investigación"
-            )
-            
-            await whatsapp_client.send_text_async(phone_number, respuesta)
-            
-            logger.info(f"✅ Manual enviado a {phone_number}")
-            return True  # ← IMPORTANTE: Retornar True SIEMPRE después de enviar
-        
-        return False
-        
-    except Exception as e:
-        logger.error(f"❌ Error en detectar_manual_plataforma: {e}")
-        # ⚠️ IMPORTANTE: Si hay error, retornar False para que continúe normal
-        return False
 
 async def enviar_formato_directo(formato: dict, phone_number: str, mensaje: str, conn) -> tuple[bool, bool]:
     """Función auxiliar para enviar un formato directamente"""
@@ -487,12 +459,70 @@ async def enviar_formato_directo(formato: dict, phone_number: str, mensaje: str,
             )
             logger.info(f"✅ Enviado a {phone_number}")
             return (True, True)
-        
-        return (True, False)
+        else:
+            await whatsapp_client.send_text_async(phone_number, "❌ Error enviando formato.")
+            return (True, False)
         
     except Exception as e:
-        logger.error(f"Error enviando: {e}")
+        logger.error(f"❌ Error enviando formato: {e}")
         return (True, False)
+
+async def detectar_manual_plataforma(mensaje: str, phone_number: str) -> bool:
+    """
+    Detectar si el usuario pide el manual o ayuda de la plataforma
+    
+    Returns:
+        True si se manejó la solicitud de manual
+        False si no es solicitud de manual
+    """
+    mensaje_lower = mensaje.lower()
+    
+    # Keywords ESPECÍFICAS de manual (más restrictivo)
+    keywords_manual = [
+        'manual', 'guia', 'guía', 'tutorial', 
+        'como usar la plataforma', 'cómo usar la plataforma',
+        'instrucciones de la plataforma', 'soporte tesista',
+        'ayuda con la plataforma', 'usar el sistema',
+        'usar la plataforma', 'como funciona la plataforma'
+    ]
+    
+    # Debe mencionar explícitamente el manual o la plataforma
+    menciona_manual = any(kw in mensaje_lower for kw in keywords_manual)
+    
+    if not menciona_manual:
+        return False
+    
+    # Si llegó aquí, SÍ quiere el manual
+    logger.info(f"📚 Solicitud de manual detectada: '{mensaje}'")
+    
+    respuesta = (
+        "📚 *MANUAL Y SOPORTE PARA TESISTAS*\n\n"
+        "Aquí encontrarás toda la información para usar la plataforma:\n\n"
+        "🔗 *Manual completo:*\n"
+        "https://pgi.vriunap.pe/soporte-tesista-pregrado\n\n"
+        "📋 *Incluye:*\n"
+        "• Cómo registrarte en la plataforma\n"
+        "• Subir tu proyecto de tesis\n"
+        "• Cargar tu borrador\n"
+        "• Seguimiento de revisiones\n"
+        "• Preguntas frecuentes\n"
+        "• Videotutoriales paso a paso\n\n"
+        "💡 *¿Necesitas algo específico?*\n"
+        "También puedo ayudarte con:\n"
+        "• Formatos de tesis\n"
+        "• Contactos de coordinadores\n"
+        "• Líneas de investigación"
+    )
+    
+    try:
+        await whatsapp_client.send_text_async(phone_number, respuesta)
+        logger.info(f"✅ Manual enviado a {phone_number}")
+        return True
+    except Exception as e:
+        logger.error(f"❌ Error enviando manual: {e}")
+        return False  # Si falla el envío, continuar normal
+
+
     
 # ============================================================================
 # KNOWLEDGE BASE
@@ -871,36 +901,36 @@ async def process_message_async(user_message, phone_number):
     async with semaphore:
         start_time = time.time()
         
-        logger.info(f"🔄 Iniciando procesamiento: '{user_message[:50]}'")
-        
-        # ⭐ PRIORIDAD 0: Manual de la plataforma
+        # ========================================
+        # PRIORIDAD 0: Manual de la plataforma
+        # ========================================
         try:
             es_manual = await detectar_manual_plataforma(user_message, phone_number)
             if es_manual:
                 logger.info(f"📚 Manual enviado - DETENIENDO procesamiento")
-                return ""  # ← Detener aquí
-            logger.info(f"❌ No es manual - continuando")
+                return ""  # Detener aquí - ya se envió el manual
         except Exception as e:
-            logger.error(f"❌ Error crítico detectando manual: {e}")
-            # Si hay error crítico, continuar con el flujo normal
+            logger.error(f"❌ Error en manual: {e}")
+            # Si hay error, continuar con el flujo normal
         
-        # ⭐ PRIORIDAD 1: Formatos
+        # ========================================
+        # PRIORIDAD 1: Formatos de tesis
+        # ========================================
         if FORMATOS_ENABLED:
             try:
-                logger.info(f"🔍 Verificando formatos...")
                 es_formato, enviado = await buscar_y_enviar_formato(user_message, phone_number)
                 
                 if es_formato:
+                    # Era solicitud de formato (enviado o no)
                     logger.info(f"📄 Formato procesado (enviado={enviado}) - DETENIENDO")
-                    return ""  # ← Detener aquí
-                logger.info(f"❌ No es formato - continuando")
-                
+                    return ""  # Detener aquí - ya se manejó
+                    
             except Exception as e:
                 logger.error(f"❌ Error en formatos: {e}")
         
-        # ⭐ PRIORIDAD 2: Procesamiento normal
-        logger.info(f"🤖 Procesando con FAISS + DeepSeek...")
-        
+        # ========================================
+        # PRIORIDAD 2: Procesamiento normal
+        # ========================================
         user_message = user_message.strip()
         
         user_last_activity[phone_number] = datetime.now()
@@ -937,7 +967,6 @@ async def process_message_async(user_message, phone_number):
             None, optimized_search_knowledge_base, user_message, 5, 0.3
         )
     
-        # Fallback: Si no hay resultados, buscar directamente por facultad
         if not relevant_docs and any(word in user_message.lower() for word in 
                                 ['línea', 'linea', 'investigación', 'investigacion', 'sublinea']):
             logger.info("   🔄 Usando búsqueda directa por facultad...")
@@ -945,14 +974,14 @@ async def process_message_async(user_message, phone_number):
                 None, direct_faculty_search, user_message, documents, 3
             )
 
-        # Obtener historial de conversación
+        # Obtener historial
         history_task = asyncio.create_task(get_conversation_history_async(phone_number))
         history = await history_task
         
-        # Generar respuesta con documentos específicos
+        # Generar respuesta
         response, model_used = await generate_response_async(user_message, relevant_docs, history)
 
-        # Limitar longitud para WhatsApp
+        # Limitar longitud
         if len(response) > 1600:
             response = response[:1597] + "..."
 
@@ -965,7 +994,6 @@ async def process_message_async(user_message, phone_number):
 
         logger.info(f"⚡ Respuesta ({model_used}, {response_time_ms}ms, docs: {len(relevant_docs)}): {phone_number}")
         return response
-
 
 # ============================================================================
 # WHATSAPP HANDLER

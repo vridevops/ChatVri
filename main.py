@@ -376,6 +376,79 @@ async def buscar_y_enviar_formato(mensaje: str, phone_number: str) -> tuple[bool
         logger.error(f"Error: {e}", exc_info=True)
         return (False, False)
 
+async def detectar_manual_plataforma(mensaje: str, phone_number: str) -> bool:
+    """
+    Detectar si el usuario pide el manual o ayuda de la plataforma
+    
+    Returns:
+        True si se manejó la solicitud de manual
+        False si no es solicitud de manual
+    """
+    try:
+        mensaje_lower = mensaje.lower()
+        
+        # Keywords que indican solicitud de manual/ayuda
+        keywords_manual = [
+            'manual', 'guia', 'guía', 'tutorial', 'ayuda', 
+            'como usar', 'cómo usar', 'instrucciones', 'soporte',
+            'como funciona', 'cómo funciona', 'uso de la plataforma',
+            'plataforma', 'sistema', 'portal'
+        ]
+        
+        # Keywords específicas de tesista
+        keywords_tesista = [
+            'tesista', 'estudiante', 'bachiller', 'egresado',
+            'subir', 'cargar', 'proyecto', 'borrador', 'tesis'
+        ]
+        
+        # Verificar si menciona manual/ayuda
+        menciona_manual = any(kw in mensaje_lower for kw in keywords_manual)
+        menciona_tesista = any(kw in mensaje_lower for kw in keywords_tesista)
+        
+        # Si menciona manual o ayuda relacionada con la plataforma
+        if menciona_manual or (menciona_tesista and 'ayuda' in mensaje_lower):
+            logger.info(f"🔍 Detectada solicitud de manual/soporte: '{mensaje}'")
+            
+            respuesta = (
+                "📚 *MANUAL Y SOPORTE PARA TESISTAS*\n\n"
+                "Aquí encontrarás toda la información para usar la plataforma:\n\n"
+                "🔗 *Manual completo:*\n"
+                "https://pgi.vriunap.pe/soporte-tesista-pregrado\n\n"
+                "📋 *Incluye:*\n"
+                "• Cómo registrarte en la plataforma\n"
+                "• Subir tu proyecto de tesis\n"
+                "• Cargar tu borrador\n"
+                "• Seguimiento de revisiones\n"
+                "• Preguntas frecuentes\n"
+                "• Videotutoriales paso a paso\n\n"
+                "💡 *¿Necesitas algo específico?*\n"
+                "También puedo ayudarte con:\n"
+                "• Formatos de tesis\n"
+                "• Contactos de coordinadores\n"
+                "• Líneas de investigación"
+            )
+            
+            await whatsapp_client.send_text_async(phone_number, respuesta)
+            
+            # Registrar interacción
+            async with db_pool.acquire() as conn:
+                await conn.execute(
+                    """
+                    INSERT INTO conversaciones 
+                    (phone_number, mensaje_usuario, respuesta_bot, timestamp)
+                    VALUES ($1, $2, $3, NOW())
+                    """,
+                    phone_number, mensaje, respuesta
+                )
+            
+            logger.info(f"✅ Manual enviado a {phone_number}")
+            return True
+        
+        return False
+        
+    except Exception as e:
+        logger.error(f"Error en detectar_manual_plataforma: {e}")
+        return False
 
 async def enviar_formato_directo(formato: dict, phone_number: str, mensaje: str, conn) -> tuple[bool, bool]:
     """Función auxiliar para enviar un formato directamente"""
@@ -807,6 +880,14 @@ async def process_message_async(user_message, phone_number):
     """Procesar mensaje con búsqueda optimizada y envío de formatos"""
     async with semaphore:
         start_time = time.time()
+        # ⭐ PRIORIDAD 0: Manual de la plataforma
+        try:
+            es_manual = await detectar_manual_plataforma(user_message, phone_number)
+            if es_manual:
+                logger.info(f"📚 Manual enviado a {phone_number}")
+                return ""  # Ya se manejó
+        except Exception as e:
+            logger.error(f"Error detectando manual: {e}")
         
         # ⭐ PRIORIDAD 1: Verificar si pide un formato
         if FORMATOS_ENABLED:

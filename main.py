@@ -430,24 +430,14 @@ async def detectar_manual_plataforma(mensaje: str, phone_number: str) -> bool:
             
             await whatsapp_client.send_text_async(phone_number, respuesta)
             
-            # Registrar interacción
-            async with db_pool.acquire() as conn:
-                await conn.execute(
-                    """
-                    INSERT INTO conversaciones 
-                    (phone_number, mensaje_usuario, respuesta_bot, timestamp)
-                    VALUES ($1, $2, $3, NOW())
-                    """,
-                    phone_number, mensaje, respuesta
-                )
-            
             logger.info(f"✅ Manual enviado a {phone_number}")
-            return True
+            return True  # ← IMPORTANTE: Retornar True SIEMPRE después de enviar
         
         return False
         
     except Exception as e:
-        logger.error(f"Error en detectar_manual_plataforma: {e}")
+        logger.error(f"❌ Error en detectar_manual_plataforma: {e}")
+        # ⚠️ IMPORTANTE: Si hay error, retornar False para que continúe normal
         return False
 
 async def enviar_formato_directo(formato: dict, phone_number: str, mensaje: str, conn) -> tuple[bool, bool]:
@@ -880,38 +870,37 @@ async def process_message_async(user_message, phone_number):
     """Procesar mensaje con búsqueda optimizada y envío de formatos"""
     async with semaphore:
         start_time = time.time()
+        
+        logger.info(f"🔄 Iniciando procesamiento: '{user_message[:50]}'")
+        
         # ⭐ PRIORIDAD 0: Manual de la plataforma
         try:
             es_manual = await detectar_manual_plataforma(user_message, phone_number)
             if es_manual:
-                logger.info(f"📚 Manual enviado a {phone_number}")
-                return ""  # Ya se manejó
+                logger.info(f"📚 Manual enviado - DETENIENDO procesamiento")
+                return ""  # ← Detener aquí
+            logger.info(f"❌ No es manual - continuando")
         except Exception as e:
-            logger.error(f"Error detectando manual: {e}")
+            logger.error(f"❌ Error crítico detectando manual: {e}")
+            # Si hay error crítico, continuar con el flujo normal
         
-        # ⭐ PRIORIDAD 1: Verificar si pide un formato
+        # ⭐ PRIORIDAD 1: Formatos
         if FORMATOS_ENABLED:
             try:
+                logger.info(f"🔍 Verificando formatos...")
                 es_formato, enviado = await buscar_y_enviar_formato(user_message, phone_number)
                 
                 if es_formato:
-                    if enviado:
-                        # ✅ Formato enviado exitosamente
-                        logger.info(f"📄 Formato enviado a {phone_number}")
-                        return ""  # No enviar respuesta adicional
-                    else:
-                        # ❌ Era búsqueda de formato pero falló
-                        # Ya se envió mensaje de error dentro de buscar_y_enviar_formato
-                        logger.info(f"⚠️ Búsqueda de formato sin éxito para {phone_number}")
-                        return ""  # No continuar con búsqueda normal
-                
-                # Si no es formato (False, False), continuar con flujo normal
+                    logger.info(f"📄 Formato procesado (enviado={enviado}) - DETENIENDO")
+                    return ""  # ← Detener aquí
+                logger.info(f"❌ No es formato - continuando")
                 
             except Exception as e:
-                logger.error(f"Error en búsqueda de formatos: {e}")
-                # Si hay error, continuar con flujo normal
+                logger.error(f"❌ Error en formatos: {e}")
+        
+        # ⭐ PRIORIDAD 2: Procesamiento normal
         logger.info(f"🤖 Procesando con FAISS + DeepSeek...")
-        # PRIORIDAD 2: Procesamiento normal del mensaje
+        
         user_message = user_message.strip()
         
         user_last_activity[phone_number] = datetime.now()
@@ -1059,22 +1048,20 @@ async def send_text_async(self, to: str, message: str) -> bool:
         return False
 
 async def process_and_send(phone_number, user_message, message_id=None):
-    """Procesar y enviar respuesta ⭐ ACTUALIZADO"""
+    """Procesar y enviar respuesta"""
     try:
         bot_response = await process_message_async(user_message, phone_number)
         
-        # ⭐ CRÍTICO: Si retorna vacío, NO enviar nada más
+        # Si retorna vacío, ya se manejó el mensaje
         if not bot_response or bot_response.strip() == "":
-            logger.info(f"✅ Mensaje procesado sin respuesta adicional para {phone_number}")
-            # Marcar como leído
+            logger.info(f"✅ Mensaje ya manejado, no enviar respuesta adicional")
             if message_id:
                 await whatsapp_client.mark_message_as_read(message_id)
-            return  # ← IMPORTANTE: Salir aquí
+            return  # ← SALIR aquí
         
-        # Enviar respuesta normal (solo si hay contenido)
+        # Solo llegar aquí si hay respuesta para enviar
         success = await whatsapp_client.send_text_async(phone_number, bot_response)
         
-        # Marcar como leído
         if message_id:
             await whatsapp_client.mark_message_as_read(message_id)
         
@@ -1085,6 +1072,7 @@ async def process_and_send(phone_number, user_message, message_id=None):
             
     except Exception as e:
         logger.error(f"❌ Error en process_and_send: {e}", exc_info=True)
+
 # ============================================================================
 # MAIN
 # ============================================================================

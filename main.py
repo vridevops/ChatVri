@@ -1063,18 +1063,18 @@ async def process_and_send(phone_number, user_message, message_id=None):
     try:
         bot_response = await process_message_async(user_message, phone_number)
         
-        # ⭐ NUEVO: Si la respuesta está vacía, ya se envió un formato
+        # ⭐ CRÍTICO: Si retorna vacío, NO enviar nada más
         if not bot_response or bot_response.strip() == "":
-            logger.info(f"✅ Formato enviado directamente a {phone_number}")
-            # Marcar como leído aunque no se envíe texto
+            logger.info(f"✅ Mensaje procesado sin respuesta adicional para {phone_number}")
+            # Marcar como leído
             if message_id:
                 await whatsapp_client.mark_message_as_read(message_id)
-            return
+            return  # ← IMPORTANTE: Salir aquí
         
-        # Enviar respuesta normal (DEBE SER ASYNC)
+        # Enviar respuesta normal (solo si hay contenido)
         success = await whatsapp_client.send_text_async(phone_number, bot_response)
         
-        # Marcar como leído después de enviar
+        # Marcar como leído
         if message_id:
             await whatsapp_client.mark_message_as_read(message_id)
         
@@ -1085,7 +1085,6 @@ async def process_and_send(phone_number, user_message, message_id=None):
             
     except Exception as e:
         logger.error(f"❌ Error en process_and_send: {e}", exc_info=True)
-
 # ============================================================================
 # MAIN
 # ============================================================================

@@ -910,7 +910,7 @@ async def process_message_async(user_message, phone_number):
             except Exception as e:
                 logger.error(f"Error en búsqueda de formatos: {e}")
                 # Si hay error, continuar con flujo normal
-        
+        logger.info(f"🤖 Procesando con FAISS + DeepSeek...")
         # PRIORIDAD 2: Procesamiento normal del mensaje
         user_message = user_message.strip()
         
